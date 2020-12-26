@@ -9,7 +9,7 @@ import {
 const items = [
   {
     src:
-      'https://images.pexels.com/photos/1115128/pexels-photo-1115128.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      'https://images.pexels.com/photos/1327689/pexels-photo-1327689.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
     altText: 'Slide 1',
     caption: 'Slide 1',
   },
@@ -58,7 +58,7 @@ const CarouselElement = () => {
         <img
           src={item.src}
           alt={item.altText}
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: 'cover', height: 300, borderRadius: 12 }}
         />
         <CarouselCaption
           captionText={item.caption}

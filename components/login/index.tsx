@@ -10,7 +10,7 @@ import {
 
 const Login = () => {
   return (
-    <div className="container-sign-in">
+    <div className="container-sign-in font-arvo">
       <div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-lg-4 border-round p-2 bg-white">
@@ -81,7 +81,7 @@ const Login = () => {
             </Form>
             <br />
 
-            <h5 className="text-center" style={{ color: '#999' }}>
+            <h5 className="text-center font-arvo" style={{ color: '#999' }}>
               Acceso ràpido con
             </h5>
             <div className="row justify-content-center">

@@ -5,8 +5,10 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { configureStore } from '../store/configureStore'
+import Layout from '../components/layout'
 import '../global.css'
 import '../styles/signIn.css'
+import '../styles/navBar.css'
 import '../bootstrap.min.css'
 
 type Props = { store: Store } & AppInitialProps & AppProps
@@ -20,10 +22,17 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
   return (
     <>
       <Head>
-        <title>SSR with Next</title>
+        <title>Cici beauty place</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
     </>
   )

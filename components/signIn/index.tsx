@@ -5,7 +5,7 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 const SignIn = () => {
   return (
-    <div className="container-sign-in">
+    <div className="container-sign-in font-arvo">
       <div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-lg-4 border-round p-2 bg-white">
@@ -14,7 +14,7 @@ const SignIn = () => {
                 <Link href="/login">
                   <a
                     href="/login"
-                    className="p-3 float-right font-weight-bold cursor-pointer"
+                    className="p-3 float-right font-weight-bold cursor-pointer font-arvo"
                     style={{ color: '#fac5d0' }}
                   >
                     Iniciar Sesiòn
@@ -28,7 +28,7 @@ const SignIn = () => {
               </figure>
             </div>
 
-            <h3 className="font-weight-bold text-center">Registro</h3>
+            <h3 className="font-weight-bold text-center font-arvo">Registro</h3>
             <br />
 
             <Form>
