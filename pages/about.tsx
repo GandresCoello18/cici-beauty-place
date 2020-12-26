@@ -1,6 +1,5 @@
 import React from 'react'
-import { Header } from '../components/molecules/Header'
 
-const About = () => <Header title="Aboutee" />
+const About = () => <p>dedfe</p>
 
 export default About

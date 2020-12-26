@@ -1,0 +1,45 @@
+body {
+  background-color: rgb(234, 230, 227);
+}
+
+.border-round {
+  border-radius: 12px;
+}
+
+.border-left {
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.border-right {
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-cici {
+  color: '#f1d7dd';
+}
+
+.bg-cici {
+  background-color: '#f1d7dd';
+}
+
+.bg-white {
+  background-color: '#fff';
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/*
+    colores
+    #f3c3d3 #fbf4f6 #fcc3d2 #f1d7dd #efccd3 #e4c7ce# f6cbdc #dccacf
+
+*/
