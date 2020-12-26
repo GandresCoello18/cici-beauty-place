@@ -5,7 +5,6 @@ import {
   AiFillInstagram,
   AiOutlineWhatsApp,
 } from 'react-icons/ai'
-import { List } from 'reactstrap'
 import NavBar from '../nav/navBar'
 
 interface Props {
@@ -24,18 +23,18 @@ const Layout = ({ children }: Props) => {
         <div className="row justify-content-around">
           <div className="col-12 col-md-3 p-1 p-md-2">
             <h5 className="font-weight-bold text-center">Conòcenos</h5>
-            <List type="unstyled" className="text-center">
+            <ul className="text-center ul list-unstyled">
               <li className="p-1">Sobre Nosotros</li>
               <li className="p-1">Contactos</li>
               <li className="p-1">Blog</li>
               <li className="p-1">Ayuda</li>
               <li className="p-1">Preguntas Frecuentes</li>
-            </List>
+            </ul>
           </div>
 
           <div className="col-12 col-md-3 p-1 p-md-2">
             <h5 className="font-weight-bold text-center">Nuestras Redes</h5>
-            <List type="unstyled" className="text-center">
+            <ul className="text-center ul list-unstyled">
               <li>
                 <a
                   href="https://www.facebook.com/cicibeautyplace"
@@ -62,7 +61,7 @@ const Layout = ({ children }: Props) => {
                 </a>
                 &nbsp; &nbsp;
               </li>
-            </List>
+            </ul>
           </div>
 
           <div className="col-12 col-md-3 p-1 p-md-2">
