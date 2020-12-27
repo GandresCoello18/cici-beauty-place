@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo'
 import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
 import Home from '../components/home'
+import Layout from '../components/layout'
 
 const Index = () => {
   return (
@@ -13,7 +14,9 @@ const Index = () => {
         description="Encuentra todo sobre cosmeticos y belleza."
       />
 
-      <Home />
+      <Layout>
+        <Home />
+      </Layout>
     </>
   )
 }

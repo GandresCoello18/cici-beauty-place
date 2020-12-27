@@ -6,6 +6,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   Nav,
   NavItem,
   NavLink,
@@ -15,12 +19,18 @@ import {
   NavbarToggler,
   UncontrolledDropdown,
 } from 'reactstrap'
-import { AiOutlineShopping } from 'react-icons/ai'
+import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const toggle = () => setIsOpen(!isOpen)
+
+  const styles = {
+    colorLink: {
+      color: '#999',
+    },
+  }
 
   return (
     <div>
@@ -36,7 +46,7 @@ const NavBarElement = () => {
             <NavItem>
               <NavLink>
                 <Link href="/">
-                  <a href="/" style={{ color: '#999' }}>
+                  <a href="/" style={styles.colorLink}>
                     Inicio
                   </a>
                 </Link>
@@ -45,7 +55,7 @@ const NavBarElement = () => {
             <NavItem>
               <NavLink>
                 <Link href="/ofertas">
-                  <a href="/ofertas" style={{ color: '#999' }}>
+                  <a href="/ofertas" style={styles.colorLink}>
                     Ofertas
                   </a>
                 </Link>
@@ -54,42 +64,52 @@ const NavBarElement = () => {
             <NavItem>
               <NavLink>
                 <Link href="/mas-vendidos">
-                  <a href="/mas-vendidos" style={{ color: '#999' }}>
+                  <a href="/mas-vendidos" style={styles.colorLink}>
                     Mas vendidos
                   </a>
                 </Link>
               </NavLink>
             </NavItem>
+            <NavItem>
+              <InputGroup>
+                <Input
+                  placeholder="Buscar..."
+                  style={{ borderColor: '#f1d7dd' }}
+                />
+                <InputGroupAddon addonType="append">
+                  <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
+                    <AiOutlineSearch />
+                  </InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
+            </NavItem>
           </Nav>
 
-          <div className="row">
+          <div className="row mt-3 mt-md-0">
             <div className="col-2 col-md-3">
               <figure className="avatar ml-2">
                 <img src="img/profile.jpeg" alt="perfil" />
               </figure>
             </div>
             <div className="col-9">
-              <UncontrolledDropdown
-                setActiveFromChild
-                style={{ color: '#999' }}
-              >
+              <UncontrolledDropdown setActiveFromChild style={styles.colorLink}>
                 <DropdownToggle tag="a" className="nav-link" caret>
                   Mi perfil
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem tag="a" href="/blah" style={{ color: '#999' }}>
+                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Mis pedidos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={{ color: '#999' }}>
+                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Mis Favoritos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={{ color: '#999' }}>
+                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Mis Datos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={{ color: '#999' }}>
+                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Configuracion
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={{ color: '#999' }}>
+                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Cerrar Sesiòn
                   </DropdownItem>
                 </DropdownMenu>

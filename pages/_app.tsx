@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { configureStore } from '../store/configureStore'
-import Layout from '../components/layout'
 import '../global.css'
 import '../styles/signIn.css'
 import '../styles/navBar.css'
@@ -30,9 +29,7 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
         />
       </Head>
       <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Component {...pageProps} />
       </Provider>
     </>
   )

@@ -17,11 +17,11 @@ const Layout = ({ children }: Props) => {
       <NavBar />
       {children}
       <footer
-        className="coontainer-fluid p-1 p-md-3 mt-4"
+        className="coontainer p-1 p-md-3 mt-4"
         style={{ backgroundColor: '#232F3E', color: '#fff' }}
       >
         <div className="row justify-content-around">
-          <div className="col-12 col-md-3 p-1 p-md-2">
+          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
             <h5 className="font-weight-bold text-center">Conòcenos</h5>
             <ul className="text-center ul list-unstyled">
               <li className="p-1">Sobre Nosotros</li>
@@ -32,7 +32,7 @@ const Layout = ({ children }: Props) => {
             </ul>
           </div>
 
-          <div className="col-12 col-md-3 p-1 p-md-2">
+          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
             <h5 className="font-weight-bold text-center">Nuestras Redes</h5>
             <ul className="text-center ul list-unstyled">
               <li>
@@ -64,7 +64,7 @@ const Layout = ({ children }: Props) => {
             </ul>
           </div>
 
-          <div className="col-12 col-md-3 p-1 p-md-2">
+          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
             <h5 className="font-weight-bold text-center">Ubicaciòn</h5>
             &nbsp;{' '}
             <iframe
