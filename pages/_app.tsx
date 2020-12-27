@@ -2,12 +2,13 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
-import { Global, css } from '@emotion/core'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { configureStore } from '../store/configureStore'
-import { Menu } from '../components/molecules/Menu'
-import { normalize } from '../constants/normalize'
+import '../global.css'
+import '../styles/signIn.css'
+import '../styles/navBar.css'
+import '../bootstrap.min.css'
 
 type Props = { store: Store } & AppInitialProps & AppProps
 
@@ -20,15 +21,14 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
   return (
     <>
       <Head>
-        <title>SSR with Next</title>
+        <title>Cici beauty place</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Provider store={store}>
-        <Global
-          styles={css`
-            ${normalize}
-          `}
-        />
-        <Menu />
         <Component {...pageProps} />
       </Provider>
     </>

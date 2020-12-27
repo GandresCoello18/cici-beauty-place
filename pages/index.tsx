@@ -1,10 +1,25 @@
 import { Store } from 'redux'
 import React from 'react'
-import { App } from '../containers/App'
+import { NextSeo } from 'next-seo'
 import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
+import Home from '../components/home'
+import Layout from '../components/layout'
 
-const Index = () => <App />
+const Index = () => {
+  return (
+    <>
+      <NextSeo
+        title="Inicio - Cici beauty place"
+        description="Encuentra todo sobre cosmeticos y belleza."
+      />
+
+      <Layout>
+        <Home />
+      </Layout>
+    </>
+  )
+}
 
 Index.getInitialProps = async ({
   store,

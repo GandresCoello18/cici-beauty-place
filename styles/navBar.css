@@ -1,0 +1,15 @@
+.navBar a {
+  color: '#999';
+}
+
+.navBar .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.navBar .logo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
