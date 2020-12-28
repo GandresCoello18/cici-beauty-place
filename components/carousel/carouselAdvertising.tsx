@@ -1,33 +1,25 @@
 import React, { useState } from 'react'
-import {
-  Carousel,
-  CarouselCaption,
-  CarouselIndicators,
-  CarouselItem,
-} from 'reactstrap'
+import { Carousel, CarouselIndicators, CarouselItem } from 'reactstrap'
 
 const items = [
   {
     src:
-      'https://images.pexels.com/photos/1327689/pexels-photo-1327689.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    altText: 'Slide 1',
-    caption: 'Slide 1',
+      'https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/130194730_402063837899056_2527391793078731891_o.jpg?_nc_cat=110&ccb=2&_nc_sid=a26aad&_nc_ohc=fPKrhrhizeMAX9KdnZR&_nc_ht=scontent.fgye18-1.fna&oh=7553158ad619e024e2293ea4afd0c49b&oe=6010A6F3',
+    altText: '@Cici Beauty Place',
   },
   {
     src:
-      'https://images.pexels.com/photos/208052/pexels-photo-208052.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    altText: 'Slide 2',
-    caption: 'Slide 2',
+      'https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/131090421_402063834565723_1857403565382043570_o.jpg?_nc_cat=110&ccb=2&_nc_sid=a26aad&_nc_ohc=bX4CGvoPT3wAX-Pl4Gi&_nc_ht=scontent.fgye18-1.fna&oh=9a9af30638f7fe8f9e98b37ad3ae0ba0&oe=600E2115',
+    altText: '@Cici Beauty Place',
   },
   {
     src:
-      'https://images.pexels.com/photos/6148/brush-makeup-make-up-brushes.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    altText: 'Slide 3',
-    caption: 'Slide 3',
+      'https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-0/p526x296/131014011_401401101298663_4830962396011846323_o.jpg?_nc_cat=106&ccb=2&_nc_sid=a26aad&_nc_ohc=eruIJVRVmSgAX--8siP&_nc_ht=scontent.fgye18-1.fna&tp=6&oh=2634ef18d457b7aba3b881f425269f1c&oe=600E0B56',
+    altText: '@Cici Beauty Place',
   },
 ]
 
-const CarouselElement = () => {
+const CarouselAdvertising = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [animating, setAnimating] = useState(false)
 
@@ -58,11 +50,7 @@ const CarouselElement = () => {
         <img
           src={item.src}
           alt={item.altText}
-          style={{ width: 'cover', height: 300, borderRadius: 12 }}
-        />
-        <CarouselCaption
-          captionText={item.caption}
-          captionHeader={item.caption}
+          style={{ width: '100%', height: 300, borderRadius: 12 }}
         />
       </CarouselItem>
     )
@@ -80,4 +68,4 @@ const CarouselElement = () => {
   )
 }
 
-export default CarouselElement
+export default CarouselAdvertising

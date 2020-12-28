@@ -16,6 +16,7 @@ export default class MyDocument extends Document<Props> {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
             key="viewport"
           />
+          <link rel="icon" sizes="192x192" href="img/logo.jpg" />
         </Head>
         <body>
           <Main />
