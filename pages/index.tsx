@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <>
       <NextSeo
-        title="Inicio - Cici beauty place"
+        title="Cici beauty place"
         description="Encuentra todo sobre cosmeticos y belleza."
       />
 

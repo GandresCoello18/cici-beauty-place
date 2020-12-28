@@ -6,12 +6,12 @@ body {
   border-radius: 12px;
 }
 
-.border-left {
+.border-round-left {
   border-bottom-left-radius: 12px;
   border-top-left-radius: 12px;
 }
 
-.border-right {
+.border-round-right {
   border-bottom-right-radius: 12px;
   border-top-right-radius: 12px;
 }

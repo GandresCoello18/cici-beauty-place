@@ -70,19 +70,6 @@ const NavBarElement = () => {
                 </Link>
               </NavLink>
             </NavItem>
-            <NavItem>
-              <InputGroup>
-                <Input
-                  placeholder="Buscar..."
-                  style={{ borderColor: '#f1d7dd' }}
-                />
-                <InputGroupAddon addonType="append">
-                  <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
-                    <AiOutlineSearch />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </NavItem>
           </Nav>
 
           <div className="row mt-3 mt-md-0">
@@ -132,6 +119,15 @@ const NavBarElement = () => {
               </a>
             </Link>
           </NavbarText>
+
+          <InputGroup style={{ width: 300 }} className="ml-md-4">
+            <Input placeholder="Buscar..." style={{ borderColor: '#f1d7dd' }} />
+            <InputGroupAddon addonType="append">
+              <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
+                <AiOutlineSearch />
+              </InputGroupText>
+            </InputGroupAddon>
+          </InputGroup>
         </Collapse>
       </Navbar>
     </div>
