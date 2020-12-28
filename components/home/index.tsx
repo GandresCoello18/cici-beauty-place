@@ -100,7 +100,7 @@ const Home = () => {
             <strong>Seguro que te gusta</strong>
           </div>
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((item) => (
-            <div className="col-6 col-md-4 col-xl-3 mb-3" key={item}>
+            <div className="col-6 col-md-4 col-xl-3 mb-3 font-arvo" key={item}>
               <CardProduct
                 sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
                 title="Lapiz labial"
