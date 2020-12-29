@@ -54,6 +54,18 @@ body {
   border-radius: 50%;
 }
 
+.tag-discount {
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: #fff1f1;
+  color: #ff4747;
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
 /*
     colores
     #f3c3d3 #fbf4f6 #fcc3d2 #f1d7dd #efccd3 #e4c7ce# f6cbdc #dccacf
