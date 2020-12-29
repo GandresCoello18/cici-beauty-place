@@ -50,9 +50,9 @@ const CardProduct = ({
 
   return (
     <>
-      <Link href={`/producto/${0}`}>
+      <Link href={`/productos/${0}`}>
         <a
-          href={`/producto/${0}`}
+          href={`/productos/${0}`}
           style={{ textDecoration: 'none', color: '#4b4a4a' }}
         >
           <Card className="border-round">

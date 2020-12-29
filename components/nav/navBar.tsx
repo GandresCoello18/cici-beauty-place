@@ -57,8 +57,8 @@ const NavBarElement = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/ofertas">
-                  <a href="/ofertas" style={styles.colorLink}>
+                <Link href="/producto?type=ofertas">
+                  <a href="/producto?type=ofertas" style={styles.colorLink}>
                     Ofertas
                   </a>
                 </Link>
@@ -66,8 +66,11 @@ const NavBarElement = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/mas-vendidos">
-                  <a href="/mas-vendidos" style={styles.colorLink}>
+                <Link href="/producto?type=mas-vendidos">
+                  <a
+                    href="/producto?type=mas-vendidos"
+                    style={styles.colorLink}
+                  >
                     Mas vendidos
                   </a>
                 </Link>
@@ -78,7 +81,10 @@ const NavBarElement = () => {
           <div className="row mt-3 mt-md-0">
             <div className="col-2 col-md-3">
               <figure className="avatar ml-2">
-                <img src="img/profile.jpeg" alt="perfil" />
+                <img
+                  src="https://andres-coello-goyes.herokuapp.com/img/profile-test.jpg"
+                  alt="avatar perfil"
+                />
               </figure>
             </div>
             <div className="col-9">
@@ -124,7 +130,10 @@ const NavBarElement = () => {
           </NavbarText>
 
           <InputGroup style={{ width: 300 }} className="ml-md-4">
-            <Input placeholder="Buscar..." style={{ borderColor: '#f1d7dd' }} />
+            <Input
+              placeholder="Buscar..."
+              style={{ borderColor: '#f1d7dd', borderWidth: 2 }}
+            />
             <InputGroupAddon addonType="append">
               <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
                 <AiOutlineSearch />

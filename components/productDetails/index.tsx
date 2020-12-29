@@ -2,6 +2,7 @@ import React from 'react'
 import Magnifier from 'react-magnifier'
 import { GoPlus } from 'react-icons/go'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
+import { AiTwotoneHeart } from 'react-icons/ai'
 import { MdShoppingBasket } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
 import { Badge, Button } from 'reactstrap'
@@ -9,6 +10,8 @@ import { RiSubtractLine } from 'react-icons/ri'
 import Share from '../element/share'
 import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
+import MoreDetails from './moreDetails'
+import CaroselCard from '../carousel/CaroselCard'
 
 const ProductDetails = () => {
   const Styles = {
@@ -23,7 +26,13 @@ const ProductDetails = () => {
     <section className="container">
       <div className="row" style={{ backgroundColor: '#e9ecef' }}>
         <div className="col-12">
-          <MigasPan />
+          <MigasPan
+            migas={[
+              { text: 'Home', href: '/' },
+              { text: 'productos', href: '/productos' },
+              { text: 'Este producto', active: true },
+            ]}
+          />
         </div>
       </div>
       <div className="row justify-content-center bg-white p-3">
@@ -91,6 +100,9 @@ const ProductDetails = () => {
             <Badge color="dark" className="p-1" pill style={{ fontSize: 17 }}>
               <GoPlus />
             </Badge>
+            <span style={{ color: '#999', marginLeft: 10 }}>
+              45 disponibles
+            </span>
           </div>
           <div className="p-3">
             <div className="row justify-content-start">
@@ -116,6 +128,24 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div className="row bg-white">
+        <div className="col-12 p-2 font-arvo">
+          <MoreDetails />
+        </div>
+      </div>
+
+      <div className="row mt-3 mb-3 bg-white p-3">
+        <div className="col-12 p-2">
+          <AiTwotoneHeart color="pink" /> &nbsp;{' '}
+          <strong>Productos recomendados</strong>
+        </div>
+        <div className="col-12 font-arvo">
+          <CaroselCard />
         </div>
       </div>
     </section>
