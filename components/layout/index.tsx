@@ -12,112 +12,127 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const Styles = {
-    border: {
-      border: 1,
-      borderStyle: 'solid',
-    },
-  }
   return (
     <>
       <NavBar />
       {children}
-      <footer
-        className="coontainer p-1 p-md-3 mt-4 font-arvo"
-        style={{ backgroundColor: '#232F3E', color: '#fff' }}
-      >
-        <div className="row justify-content-around">
-          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
-            <h5 className="font-weight-bold text-center">
-              <span
-                className="border-white p-2 border-round"
-                style={Styles.border}
-              >
-                Guìa de compras
-              </span>
-            </h5>
-            <ul className="text-center ul list-unstyled">
-              <li className="p-1">Crerar cuenta (opcional)</li>
-              <li className="p-1">Pago</li>
-              <li className="p-1">Envio</li>
-              <li className="p-1">Guia para rastreo</li>
-            </ul>
-          </div>
-
-          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
-            <h5 className="font-weight-bold text-center">
-              <span
-                className="border-white p-2 border-round"
-                style={Styles.border}
-              >
-                Conòcenos
-              </span>
-            </h5>
-            <ul className="text-center ul list-unstyled">
-              <li className="p-1">Preguntas Frecuentes</li>
-              <li className="p-1">Sobre Nosotros</li>
-              <li className="p-1">Contactos</li>
-              <li className="p-1">Blog</li>
-              <li className="p-1">Ayuda</li>
-            </ul>
-          </div>
-
-          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
-            <h5 className="font-weight-bold text-center">
-              <span
-                className="border-white p-2 border-round"
-                style={Styles.border}
-              >
-                Nuestras Redes
-              </span>
-            </h5>
-            <ul className="text-center ul list-unstyled">
-              <li>
-                <a
-                  href="https://www.facebook.com/cicibeautyplace"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillFacebook color="#fff" size={30} />
-                </a>
-                &nbsp; &nbsp;
-                <a
-                  href="https://wa.me/593992239138"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiOutlineWhatsApp color="#fff" size={30} />
-                </a>
-                &nbsp; &nbsp;
-                <a
-                  href="https://www.instagram.com/cicibeautyplace"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillInstagram color="#fff" size={30} />
-                </a>
-                &nbsp; &nbsp;
-              </li>
-            </ul>
-          </div>
-
-          <div className="col-12 col-md-3 col-lg-2 p-3 p-md-2">
-            <h5 className="font-weight-bold text-center">
-              <span
-                className="border-white p-2 border-round"
-                style={Styles.border}
-              >
-                Ubicaciòn
-              </span>
-            </h5>
-            &nbsp; <br />
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1993.925205869311!2d-79.5342224706784!3d-1.799622377453734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902cd7df1a3c6bd7%3A0x881f91e8148cd6dc!2s10%20de%20Agosto%2C%20Babahoyo!5e0!3m2!1ses-419!2sec!4v1609016640308!5m2!1ses-419!2sec"
-              style={{ width: '95%', height: '90%' }}
-            />
+      <footer className="footer-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3">
+              <div className="footer-left">
+                <div className="footer-logo">
+                  <a href="/">
+                    <img
+                      src="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
+                      alt="logotipo"
+                      width="50"
+                      height="50"
+                    />
+                  </a>
+                </div>
+                <ul>
+                  <li>Direccion: Babahoyo 10 de agosto</li>
+                  <li>Telelfono: +65 11.188.888</li>
+                  <li>Correo: cici@gmail.com</li>
+                </ul>
+                <div className="footer-social">
+                  <ul className="text-center ul list-unstyled">
+                    <li>
+                      <a
+                        href="https://www.facebook.com/cicibeautyplace"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <AiFillFacebook color="#fff" size={30} />
+                      </a>
+                      &nbsp; &nbsp;
+                      <a
+                        href="https://wa.me/593992239138"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <AiOutlineWhatsApp color="#fff" size={30} />
+                      </a>
+                      &nbsp; &nbsp;
+                      <a
+                        href="https://www.instagram.com/cicibeautyplace"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <AiFillInstagram color="#fff" size={30} />
+                      </a>
+                      &nbsp; &nbsp;
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-2 offset-lg-1">
+              <div className="footer-widget">
+                <h5>Comprar</h5>
+                <ul>
+                  <li>
+                    <a href="/">Crerar cuenta (opcional)</a>
+                  </li>
+                  <li>
+                    <a href="/">Pago</a>
+                  </li>
+                  <li>
+                    <a href="/">Envio</a>
+                  </li>
+                  <li>
+                    <a href="/">Guia para rastreo</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-2">
+              <div className="footer-widget">
+                <h5>Conòcenos</h5>
+                <ul>
+                  <li>
+                    <a href="/">Preguntas Frecuentes</a>
+                  </li>
+                  <li>
+                    <a href="/">Sobre Nosotros</a>
+                  </li>
+                  <li>
+                    <a href="/">Contactos</a>
+                  </li>
+                  <li>
+                    <a href="/">Ayuda</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="newslatter-item">
+                <h5>Mentente informado</h5>
+                <p>Registra tu email para no perderte las proximas ofertas.</p>
+                <form action="#" className="subscribe-form">
+                  <input type="text" placeholder="Direccion de correo" />
+                  <button type="button">Suscribete</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-        <br />
+        <div className="copyright-reserved p-4">
+          <div className="container">
+            <div className="row justify-content-end">
+              <div className="col-12 col-md-5">
+                <div className="copyright-text" />
+                <div className="payment-pic">
+                  <img
+                    src="https://preview.colorlib.com/theme/fashi/img/payment-method.png"
+                    alt="paymet method"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </footer>
     </>
   )

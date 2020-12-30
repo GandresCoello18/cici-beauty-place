@@ -46,6 +46,11 @@ const CardProduct = ({
       width: '100%',
       height: 'auto',
     },
+    tachado: {
+      padding: 4,
+      color: '#999',
+      textDecoration: 'line-through',
+    },
   }
 
   return (
@@ -69,6 +74,10 @@ const CardProduct = ({
                 </CardTitle>
                 <CardText>
                   <Tag /> &nbsp; <strong>US ${price}</strong>
+                  <div>
+                    <span style={Styles.tachado}>US ${10.9}</span> &nbsp;{' '}
+                    <span className="tag-discount">-5%</span>
+                  </div>
                 </CardText>
                 <CardSubtitle
                   tag="h6"
