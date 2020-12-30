@@ -6,6 +6,7 @@ import CardProduct from '../card/card-product'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
 import CaroselCard from '../carousel/CaroselCard'
+import Survey from '../element/survey'
 
 const Productos = () => {
   return (
@@ -115,7 +116,13 @@ const Productos = () => {
         </div>
       </div>
 
-      <div className="row mt-3 mb-3 bg-white p-3">
+      <div className="row mt-3 mb-3 bg-white p-3 font-arvo border-round">
+        <div className="col-12">
+          <Survey />
+        </div>
+      </div>
+
+      <div className="row mt-3 mb-3 bg-white p-3 border-round">
         <div className="col-12 p-2">
           <AiTwotoneHeart color="pink" /> &nbsp;{' '}
           <strong>Productos recomendados</strong>

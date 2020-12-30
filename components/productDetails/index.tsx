@@ -80,7 +80,7 @@ const ProductDetails = () => {
               <div className="col-5 col-lg-3">
                 <strong style={{ fontSize: 20 }}>US $20.9</strong>
               </div>
-              <div className="col-5 col-lg-3">
+              <div className="col-5 col-md-3">
                 <span style={Styles.tachado}>US $25.4</span>
               </div>
               <div className="col-1">
