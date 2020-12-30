@@ -152,6 +152,25 @@ body {
   padding: 13px 20px 12px;
   cursor: pointer;
 }
+
+.spiner-cici {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #f0adbc;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /*
     colores
     #f3c3d3 #fbf4f6 #fcc3d2 #f1d7dd #efccd3 #e4c7ce# f6cbdc #dccacf

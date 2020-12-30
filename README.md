@@ -56,6 +56,8 @@ _Para el desarrollo de esta api rest se utilizo las siguientes herramientas._
 - [Vercel](https://vercel.com/) - Plataforma para deploy y test A - B.
 - [Axios](https://github.com/axios/axios) - Fetch de datos.
 - [TypeScript](https://www.typescriptlang.org/) - Tipado fuerte para javascript.
+- [React-hook-form](https://react-hook-form.com) - Manejo de formularios html plano o UI de frameworok.
+- [Firebase](https://firebase.google.com/?hl=es) - Auth para facebbok y google.
 
 ## Autores ✒️
 
