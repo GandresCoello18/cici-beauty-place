@@ -57,8 +57,8 @@ const NavBarElement = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/producto?type=ofertas">
-                  <a href="/producto?type=ofertas" style={styles.colorLink}>
+                <Link href="/productos?type=ofertas">
+                  <a href="/productos?type=ofertas" style={styles.colorLink}>
                     Ofertas
                   </a>
                 </Link>
@@ -66,9 +66,9 @@ const NavBarElement = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/producto?type=mas-vendidos">
+                <Link href="/productos?type=mas-vendidos">
                   <a
-                    href="/producto?type=mas-vendidos"
+                    href="/productos?type=mas-vendidos"
                     style={styles.colorLink}
                   >
                     Mas vendidos
