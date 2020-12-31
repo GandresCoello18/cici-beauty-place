@@ -1,11 +1,13 @@
 import React from 'react'
 import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
+import { BsFillLightningFill } from 'react-icons/bs'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
 import CarouselAdvertising from '../carousel/carouselAdvertising'
 import CategoriNav from '../nav/categori'
+import Time from '../element/time'
 
 const Home = () => {
   return (
@@ -89,6 +91,17 @@ const Home = () => {
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
             <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
+          </div>
+          <div className="col-12 font-arvo">
+            <CaroselCard />
+          </div>
+        </div>
+
+        <div className="row mt-3 mb-3 bg-white p-3">
+          <div className="col-12 p-2">
+            <BsFillLightningFill color="pink" /> &nbsp;{' '}
+            <strong>Flash Ofertas</strong> &nbsp; &nbsp;
+            <Time />
           </div>
           <div className="col-12 font-arvo">
             <CaroselCard />
