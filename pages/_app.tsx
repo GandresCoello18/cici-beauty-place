@@ -2,6 +2,7 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
+import { ThemeProvider } from 'next-themes'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { configureStore } from '../store/configureStore'
@@ -30,7 +31,9 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
         />
       </Head>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Provider>
     </>
   )

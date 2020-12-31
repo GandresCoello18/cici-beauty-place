@@ -1,5 +1,17 @@
+html,
 body {
-  background-color: rgb(234, 230, 227) !important;
+  background-color: rgb(234, 230, 227);
+}
+
+[data-theme='light'],
+[data-theme='light'] body {
+  background-color: rgb(234, 230, 227);
+}
+
+[data-theme='dark'],
+[data-theme='dark'] body {
+  /*background: rgb(113, 110, 110);*/
+  background-color: #343a40;
 }
 
 .border-round {
