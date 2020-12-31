@@ -1,4 +1,6 @@
+/* eslint-disable no-unneeded-ternary */
 import React, { useState } from 'react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import {
   Badge,
@@ -23,6 +25,7 @@ import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { theme, setTheme } = useTheme()
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -34,7 +37,13 @@ const NavBarElement = () => {
 
   return (
     <div>
-      <Navbar color="light" light expand="md" className="navBar font-arvo">
+      <Navbar
+        color={theme ? theme : 'light'}
+        dark={theme === 'dark' ? true : false}
+        light={theme !== 'dark' ? true : false}
+        expand="md"
+        className="navBar font-arvo"
+      >
         <NavbarBrand href="/">
           <figure className="logo">
             <img
@@ -104,6 +113,15 @@ const NavBarElement = () => {
                   </DropdownItem>
                   <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Configuracion
+                  </DropdownItem>
+                  <DropdownItem
+                    style={styles.colorLink}
+                    onClick={() =>
+                      theme === 'dark' ? setTheme('light') : setTheme('dark')
+                    }
+                  >
+                    Cambiar a:{' '}
+                    <strong>{theme === 'dark' ? 'Claro' : 'Oscuro'}</strong>
                   </DropdownItem>
                   <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
                     Cerrar Sesiòn

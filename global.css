@@ -1,5 +1,17 @@
+html,
 body {
-  background-color: rgb(234, 230, 227) !important;
+  background-color: rgb(234, 230, 227);
+}
+
+[data-theme='light'],
+[data-theme='light'] body {
+  background-color: rgb(234, 230, 227);
+}
+
+[data-theme='dark'],
+[data-theme='dark'] body {
+  /*background: rgb(113, 110, 110);*/
+  background-color: #343a40;
 }
 
 .border-round {
@@ -160,6 +172,24 @@ body {
   border-radius: 50%;
   border-left-color: #f0adbc;
   animation: spin 1s linear infinite;
+}
+
+.time {
+  display: inline-block;
+}
+
+.time .dice {
+  color: #343a40;
+  font-size: 13px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #f1d7dd;
+}
+
+.time .split {
+  color: #343a40;
+  font-weight: 700;
+  padding: 3px;
 }
 
 @keyframes spin {
