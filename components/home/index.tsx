@@ -90,15 +90,6 @@ const Home = () => {
 
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
-            <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
-          </div>
-          <div className="col-12 font-arvo">
-            <CaroselCard />
-          </div>
-        </div>
-
-        <div className="row mt-3 mb-3 bg-white p-3">
-          <div className="col-12 p-2">
             <BsFillLightningFill color="pink" /> &nbsp;{' '}
             <strong>Flash Ofertas</strong> &nbsp; &nbsp;
             <Time />
@@ -127,6 +118,15 @@ const Home = () => {
               />
             </div>
           ))}
+        </div>
+
+        <div className="row mt-3 mb-3 bg-white p-3">
+          <div className="col-12 p-2">
+            <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
+          </div>
+          <div className="col-12 font-arvo">
+            <CaroselCard />
+          </div>
         </div>
       </section>
     </>
