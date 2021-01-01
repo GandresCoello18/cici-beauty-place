@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unneeded-ternary */
 import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import Switch from 'react-switch'
 import {
   Badge,
   Collapse,
@@ -22,9 +24,12 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap'
 import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai'
+import ModalElement from '../element/modal'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [modal, setModal] = useState<boolean>(false)
+  const [istheme, setIsTheme] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
 
   const toggle = () => setIsOpen(!isOpen)
@@ -33,10 +38,13 @@ const NavBarElement = () => {
     colorLink: {
       color: '#999',
     },
+    colorClose: {
+      color: 'red',
+    },
   }
 
   return (
-    <div>
+    <>
       <Navbar
         color={theme ? theme : 'light'}
         dark={theme === 'dark' ? true : false}
@@ -98,32 +106,29 @@ const NavBarElement = () => {
             </div>
             <div className="col-9">
               <UncontrolledDropdown setActiveFromChild style={styles.colorLink}>
-                <DropdownToggle tag="a" className="nav-link" caret>
+                <DropdownToggle className="nav-link" caret>
                   Mi perfil
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
+                  <DropdownItem style={styles.colorLink}>
                     Mis pedidos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
+                  <DropdownItem style={styles.colorLink}>
                     Mis Favoritos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
+                  <DropdownItem style={styles.colorLink}>
                     Mis Datos
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
-                    Configuracion
+                  <DropdownItem style={styles.colorLink}>
+                    Historial
                   </DropdownItem>
                   <DropdownItem
+                    onClick={() => setModal(true)}
                     style={styles.colorLink}
-                    onClick={() =>
-                      theme === 'dark' ? setTheme('light') : setTheme('dark')
-                    }
                   >
-                    Cambiar a:{' '}
-                    <strong>{theme === 'dark' ? 'Claro' : 'Oscuro'}</strong>
+                    Configuracion
                   </DropdownItem>
-                  <DropdownItem tag="a" href="/blah" style={styles.colorLink}>
+                  <DropdownItem style={styles.colorClose}>
                     Cerrar Sesiòn
                   </DropdownItem>
                 </DropdownMenu>
@@ -160,7 +165,30 @@ const NavBarElement = () => {
           </InputGroup>
         </Collapse>
       </Navbar>
-    </div>
+
+      <ModalElement title="Configuracion" visible={modal} setVisible={setModal}>
+        <ul className="list-group">
+          <li className="list-group-item">
+            Tema: {theme === 'dark' ? 'Oscuro' : 'Claro'} &nbsp; &nbsp;
+            <Switch
+              onChange={(checked: boolean) => {
+                setIsTheme(checked)
+                theme === 'dark' ? setTheme('light') : setTheme('dark')
+              }}
+              checked={istheme}
+            />
+          </li>
+          <li className="list-group-item cursor-pointer">
+            Cambio de contraseña
+          </li>
+          <li className="list-group-item cursor-pointer">
+            Recibir notificaciones
+          </li>
+          <li className="list-group-item cursor-pointer">Invitar amigos</li>
+          <li className="list-group-item cursor-pointer">Centro de mensajes</li>
+        </ul>
+      </ModalElement>
+    </>
   )
 }
 

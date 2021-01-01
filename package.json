@@ -38,6 +38,7 @@
     "react-redux": "^7.0.0",
     "react-share": "^4.3.1",
     "react-star-rating-component": "^1.4.1",
+    "react-switch": "^5.0.1",
     "reactstrap": "^8.8.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7"
