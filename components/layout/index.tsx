@@ -96,7 +96,9 @@ const Layout = ({ children }: Props) => {
                 <h5>Conòcenos</h5>
                 <ul>
                   <li>
-                    <a href="/">Preguntas Frecuentes</a>
+                    <Link href="/faq">
+                      <a href="/faq">Preguntas Frecuentes</a>
+                    </Link>
                   </li>
                   <li>
                     <a href="/">Sobre Nosotros</a>

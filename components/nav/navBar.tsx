@@ -46,7 +46,7 @@ const NavBarElement = () => {
   const styles = {
     colorLink: {
       color: '#999',
-      marginBottom: 8,
+      marginBottom: 10,
     },
     colorClose: {
       color: 'red',
