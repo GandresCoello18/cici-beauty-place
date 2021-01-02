@@ -23,7 +23,16 @@ import {
   NavbarToggler,
   UncontrolledDropdown,
 } from 'reactstrap'
-import { AiOutlineSearch, AiOutlineShopping } from 'react-icons/ai'
+import {
+  AiFillCloseCircle,
+  AiOutlineSearch,
+  AiOutlineShopping,
+} from 'react-icons/ai'
+import { BiPurchaseTagAlt } from 'react-icons/bi'
+import { GrConfigure } from 'react-icons/gr'
+import { CgFileDocument } from 'react-icons/cg'
+import { FaHistory } from 'react-icons/fa'
+import { MdFavorite } from 'react-icons/md'
 import ModalElement from '../element/modal'
 
 const NavBarElement = () => {
@@ -37,6 +46,7 @@ const NavBarElement = () => {
   const styles = {
     colorLink: {
       color: '#999',
+      marginBottom: 8,
     },
     colorClose: {
       color: 'red',
@@ -111,25 +121,25 @@ const NavBarElement = () => {
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem style={styles.colorLink}>
-                    Mis pedidos
+                    <BiPurchaseTagAlt /> Mis pedidos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    Mis Favoritos
+                    <MdFavorite /> Mis Favoritos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    Mis Datos
+                    <CgFileDocument /> Mis Datos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    Historial
+                    <FaHistory /> Historial
                   </DropdownItem>
                   <DropdownItem
                     onClick={() => setModal(true)}
                     style={styles.colorLink}
                   >
-                    Configuracion
+                    <GrConfigure /> Configuracion
                   </DropdownItem>
                   <DropdownItem style={styles.colorClose}>
-                    Cerrar Sesiòn
+                    <AiFillCloseCircle /> Cerrar Sesiòn
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
