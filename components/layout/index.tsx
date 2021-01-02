@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
     <>
       <NavBar />
       {children}
-      <footer className="footer-section">
+      <footer className="footer-section font-arvo">
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
