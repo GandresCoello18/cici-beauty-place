@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, { ReactNode } from 'react'
+import Link from 'next/link'
 import {
   AiFillFacebook,
   AiFillInstagram,
@@ -32,8 +33,11 @@ const Layout = ({ children }: Props) => {
                   </a>
                 </div>
                 <ul>
-                  <li>Direccion: Babahoyo 10 de agosto</li>
-                  <li>Telelfono: +65 11.188.888</li>
+                  <li>
+                    Direccion: Calle 10 de agosto entre Martín Icaza y
+                    Rocafuerte (frente al hotel Capitol) Babahoyo, Ecuador
+                  </li>
+                  <li>Telelfono: +593 980 378 869</li>
                   <li>Correo: cici@gmail.com</li>
                 </ul>
                 <div className="footer-social">
@@ -48,7 +52,7 @@ const Layout = ({ children }: Props) => {
                       </a>
                       &nbsp; &nbsp;
                       <a
-                        href="https://wa.me/593992239138"
+                        href="https://wa.me/593980378869"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -98,7 +102,9 @@ const Layout = ({ children }: Props) => {
                     <a href="/">Sobre Nosotros</a>
                   </li>
                   <li>
-                    <a href="/">Contactos</a>
+                    <Link href="/contacto">
+                      <a href="/contacto">Contactos</a>
+                    </Link>
                   </li>
                   <li>
                     <a href="/">Ayuda</a>
