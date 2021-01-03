@@ -1,6 +1,9 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
+import * as EmailValidator from 'email-validator'
+import { useForm } from 'react-hook-form'
 import {
   AiFillFacebook,
   AiFillInstagram,
@@ -12,12 +15,27 @@ interface Props {
   children: ReactNode
 }
 
+interface Subs {
+  email: string
+}
+
 const Layout = ({ children }: Props) => {
+  const { register, handleSubmit, errors, reset } = useForm<Subs>()
+
+  const sendSuscribe = (data: Subs) => {
+    if (EmailValidator.validate(data.email)) {
+      console.log('se guardo')
+      reset()
+    } else {
+      alert('Introduce un email valido.')
+    }
+  }
+
   return (
     <>
       <NavBar />
       {children}
-      <footer className="footer-section">
+      <footer className="footer-section font-arvo">
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
@@ -101,26 +119,36 @@ const Layout = ({ children }: Props) => {
                     </Link>
                   </li>
                   <li>
-                    <a href="/">Sobre Nosotros</a>
+                    <Link href="/about">
+                      <a href="/about">Sobre Nosotros</a>
+                    </Link>
                   </li>
                   <li>
                     <Link href="/contacto">
                       <a href="/contacto">Contactos</a>
                     </Link>
                   </li>
-                  <li>
-                    <a href="/">Ayuda</a>
-                  </li>
                 </ul>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="newslatter-item">
-                <h5>Mentente informado</h5>
+                <h5>Mantente informado</h5>
                 <p>Registra tu email para no perderte las proximas ofertas.</p>
-                <form action="#" className="subscribe-form">
-                  <input type="text" placeholder="Direccion de correo" />
-                  <button type="button">Suscribete</button>
+                <form
+                  className="subscribe-form"
+                  onSubmit={handleSubmit(sendSuscribe)}
+                >
+                  <input
+                    type="email"
+                    name="email"
+                    ref={register({ required: true })}
+                    placeholder="Direccion de correo"
+                  />
+                  {errors.email && (
+                    <p className="text-danger">Este campo es requerido</p>
+                  )}
+                  <button type="submit">Suscribete</button>
                 </form>
               </div>
             </div>

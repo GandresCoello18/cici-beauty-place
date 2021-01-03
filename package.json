@@ -21,6 +21,7 @@
     "@types/reactstrap": "^8.7.2",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
+    "email-validator": "^2.0.4",
     "firebase": "^8.2.1",
     "i": "^0.3.6",
     "isomorphic-unfetch": "^3.0.0",

@@ -78,6 +78,23 @@ body {
   vertical-align: middle;
 }
 
+.capa-profile {
+  background-color: rgba(35, 47, 62, 0.7);
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+.img-profile:hover .capa-profile {
+  display: block;
+}
+
+.capa-profile strong {
+  color: #f0adbc;
+}
+
 /* FOOTER */
 
 .footer-section {
@@ -117,6 +134,10 @@ body {
   line-height: 36px;
   font-size: 16px;
   color: #b2b2b2;
+}
+
+.footer-widget ul li a:hover {
+  color: #eda5b6;
 }
 
 .footer-widget h5 {
