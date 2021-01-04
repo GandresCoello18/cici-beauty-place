@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "next-redux-typescript-starter",
+  "alias": "next-redux-typescript-cici",
   "builds": [
     {
       "src": "next.config.js",

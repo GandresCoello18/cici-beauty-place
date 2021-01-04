@@ -95,16 +95,24 @@ const Layout = ({ children }: Props) => {
                 <h5>Comprar</h5>
                 <ul>
                   <li>
-                    <a href="/">Crerar cuenta (opcional)</a>
+                    <Link href="/guia-de-compra">
+                      <a href="/guia-de-compra">Crerar cuenta (opcional)</a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/">Pago</a>
+                    <Link href="/guia-de-compra/pago">
+                      <a href="/guia-de-compra/pago">Pago</a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/">Envio</a>
+                    <Link href="/guia-de-compra/envios">
+                      <a href="/guia-de-compra/envios">Envio</a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/">Guia para rastreo</a>
+                    <Link href="/guia-de-compra/rastreo">
+                      <a href="/guia-de-compra/rastreo">Guia para rastreo</a>
+                    </Link>
                   </li>
                 </ul>
               </div>
