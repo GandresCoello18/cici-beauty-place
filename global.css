@@ -35,16 +35,16 @@ body {
 }
 
 .text-cici {
-  color: '#f1d7dd';
+  color: #f097ac;
 }
 
 .bg-cici {
-  background-color: '#f1d7dd';
+  background-color: #f1d7dd;
 }
 
-.bg-white {
-  background-color: '#fff';
-}
+/*.bg-white {
+  background-color: #fff;
+}*/
 
 .cursor-pointer {
   cursor: pointer;

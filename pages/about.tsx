@@ -17,7 +17,7 @@ const About = () => {
       />
 
       <Layout>
-        <section className="container mt-5 mb-5 p-2">
+        <section className="container mt-5 mb-5 p-2 font-arvo">
           <div className="row">
             <div className="col-12 col-8 text-center">
               <h3 className="font-weight-bold">Sobre Nosotros</h3>
