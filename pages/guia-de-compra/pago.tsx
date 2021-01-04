@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo'
 import { AllAction, RootState } from '../../reducers'
 import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
+import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const PaymentGuide = () => {
   return (
@@ -41,6 +42,9 @@ const PaymentGuide = () => {
                 o tambien puedes hacer un deposito o trasferencia bancaria,
                 luego envia tu recibo al nuestra linea telefonica o whatsapp
               </p>
+            </div>
+            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
+              <FeedbackInformation />
             </div>
           </div>
         </section>

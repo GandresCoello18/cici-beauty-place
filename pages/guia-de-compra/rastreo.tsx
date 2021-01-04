@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo'
 import { AllAction, RootState } from '../../reducers'
 import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
+import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const TrackingGuide = () => {
   return (
@@ -38,6 +39,9 @@ const TrackingGuide = () => {
                 src="https://www.servientrega.com.ec/assets/frontend/images/tracking/icono.gif"
                 alt="icon panel de rastreo - servi entrega"
               />
+            </div>
+            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
+              <FeedbackInformation />
             </div>
           </div>
         </section>

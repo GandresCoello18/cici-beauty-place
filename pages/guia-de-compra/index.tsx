@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { AllAction, RootState } from '../../reducers'
 import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
+import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const CreateAccount = () => {
   return (
@@ -55,6 +56,9 @@ const CreateAccount = () => {
                 Ten encuenta que no es necesario crearte una cuenta para comprar
                 en <b className="text-cici">Cici beauty place</b>.
               </p>
+            </div>
+            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
+              <FeedbackInformation />
             </div>
           </div>
         </section>
