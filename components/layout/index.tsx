@@ -110,7 +110,9 @@ const Layout = ({ children }: Props) => {
                     </Link>
                   </li>
                   <li>
-                    <a href="/">Guia para rastreo</a>
+                    <Link href="/guia-de-compra/rastreo">
+                      <a href="/guia-de-compra/rastreo">Guia para rastreo</a>
+                    </Link>
                   </li>
                 </ul>
               </div>

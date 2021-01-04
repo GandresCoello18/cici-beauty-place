@@ -34,6 +34,11 @@ const ShippingGuide = () => {
                 que la logistica y metodologia de entrega no esta de nuestra
                 parte si no del mismo servicio de <b>Servi entrega</b>.
               </p>
+              <p>
+                Se envian todo los productos de las ordenes antes de las{' '}
+                <b>15:00 PM</b>, toda orden despues de esa hora sera enviado al
+                dia siguiente.
+              </p>
             </div>
           </div>
         </section>
