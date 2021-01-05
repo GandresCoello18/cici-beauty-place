@@ -30,11 +30,13 @@ import {
   AiOutlineSearch,
   AiOutlineShopping,
 } from 'react-icons/ai'
+import { IoIosNotifications } from 'react-icons/io'
 import { BiPurchaseTagAlt } from 'react-icons/bi'
 import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
 import { FaHistory } from 'react-icons/fa'
 import { MdFavorite } from 'react-icons/md'
+import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
 
 const NavBarElement = () => {
@@ -147,9 +149,6 @@ const NavBarElement = () => {
                     <MdFavorite /> Mis Favoritos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <CgFileDocument /> Mis Datos
-                  </DropdownItem>
-                  <DropdownItem style={styles.colorLink}>
                     <FaHistory /> Historial
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
@@ -227,7 +226,7 @@ const NavBarElement = () => {
                 href="/configuracion/cambiar-clave"
                 style={{ textDecoration: 'none', color: '#999' }}
               >
-                Cambio de contraseña
+                <RiLockPasswordLine /> Cambio de contraseña
               </a>
             </Link>
           </li>
@@ -243,13 +242,26 @@ const NavBarElement = () => {
               }
               aria-hidden="true"
             >
-              Recibir notificaciones{' '}
+              <IoIosNotifications /> Recibir notificaciones{' '}
               <Badge color={ColorPermisoNotificacon(isPermiso)}>
                 {isPermiso === 'denied' && 'Denegado'}
                 {isPermiso === 'granted' && 'Permitido'}
                 {isPermiso === 'default' && 'Sin respuesta'}
               </Badge>
             </div>
+          </li>
+          <li
+            className="list-group-item cursor-pointer"
+            style={styles.colorLink}
+          >
+            <Link href="/configuracion/mis-datos">
+              <a
+                href="/configuracion/cambiar-clave"
+                style={{ textDecoration: 'none', color: '#999' }}
+              >
+                <CgFileDocument /> Mis Datos
+              </a>
+            </Link>
           </li>
         </ul>
       </ModalElement>
