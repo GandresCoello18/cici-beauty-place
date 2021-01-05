@@ -3,7 +3,7 @@ import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { BiSad } from 'react-icons/bi'
-// import { FiSend } from 'react-icons/fi'
+import { FiSend } from 'react-icons/fi'
 import { AiFillCopy } from 'react-icons/ai'
 import { Alert, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
@@ -119,7 +119,9 @@ const SendInvitation = () => {
                   </div>
                 </div>
 
-                {/* <button type='submit' className="btn bg-cici"><FiSend /> Enviar invitacion</button> */}
+                <button type="submit" className="btn bg-cici">
+                  <FiSend /> Enviar invitacion
+                </button>
               </Form>
             </div>
           </div>
