@@ -1,9 +1,27 @@
+/* eslint-disable no-console */
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import Link from 'next/link'
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Controller, useForm } from 'react-hook-form'
+import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+
+interface FormSignIn {
+  username: string
+  email: string
+  password: string
+  confirPassword: string
+}
 
 const SignIn = () => {
+  const methods = useForm<FormSignIn>()
+  const { handleSubmit, control, reset, errors } = methods
+
+  const send = (data: FormSignIn) => {
+    console.log(data)
+    reset()
+  }
+
   return (
     <div className="container-sign-in font-arvo">
       <div className="container-fluid">
@@ -31,56 +49,109 @@ const SignIn = () => {
             <h3 className="font-weight-bold text-center font-arvo">Registro</h3>
             <br />
 
-            <Form>
+            <Form onSubmit={handleSubmit(send)}>
               <FormGroup>
                 <Label for="exampleEmail">User name:</Label>
-                <Input
+                <Controller
+                  as={
+                    <Input
+                      invalid={errors.username && true}
+                      type="text"
+                      name="username"
+                      placeholder="Nombre de usuario"
+                      style={{
+                        borderColor: 'transparent',
+                        borderBottomColor: '#cdcdcd',
+                      }}
+                    />
+                  }
                   type="text"
                   name="username"
-                  placeholder="Nombre de usuario"
-                  style={{
-                    borderColor: 'transparent',
-                    borderBottomColor: '#cdcdcd',
-                  }}
+                  control={control}
+                  rules={{ required: true }}
                 />
+                <FormFeedback invalid={errors.username && true}>
+                  {errors.username && 'Escribe el nombre de usuario'}
+                </FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Email:</Label>
-                <Input
+                <Controller
+                  as={
+                    <Input
+                      invalid={errors.email && true}
+                      type="email"
+                      name="email"
+                      placeholder="Direccion de correo electronico"
+                      style={{
+                        borderColor: 'transparent',
+                        borderBottomColor: '#cdcdcd',
+                      }}
+                    />
+                  }
                   type="email"
                   name="email"
-                  placeholder="Direccion de correo electronico"
-                  style={{
-                    borderColor: 'transparent',
-                    borderBottomColor: '#cdcdcd',
-                  }}
+                  control={control}
+                  rules={{ required: true }}
                 />
+                <FormFeedback invalid={errors.email && true}>
+                  {errors.email && 'Escribe la direccion de correo'}
+                </FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Password:</Label>
-                <Input
+                <Controller
+                  as={
+                    <Input
+                      invalid={errors.password && true}
+                      type="password"
+                      name="password"
+                      placeholder="Clave secreta"
+                      style={{
+                        borderColor: 'transparent',
+                        borderBottomColor: '#cdcdcd',
+                      }}
+                    />
+                  }
                   type="password"
                   name="password"
-                  placeholder="Clave secreta"
-                  style={{
-                    borderColor: 'transparent',
-                    borderBottomColor: '#cdcdcd',
-                  }}
+                  control={control}
+                  rules={{ required: true }}
                 />
+                <FormFeedback invalid={errors.password && true}>
+                  {errors.password && 'Escribe la clave secreta'}
+                </FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Confirmar Password:</Label>
-                <Input
+                <Controller
+                  as={
+                    <Input
+                      invalid={errors.confirPassword && true}
+                      type="password"
+                      name="confirPassword"
+                      placeholder="Vuelva ha escribir la clave secreta"
+                      style={{
+                        borderColor: 'transparent',
+                        borderBottomColor: '#cdcdcd',
+                      }}
+                    />
+                  }
                   type="password"
-                  name="confir-password"
-                  placeholder="Vuelva ha escribir la clave secreta"
-                  style={{
-                    borderColor: 'transparent',
-                    borderBottomColor: '#cdcdcd',
-                  }}
+                  name="confirPassword"
+                  control={control}
+                  rules={{ required: true }}
                 />
+                <FormFeedback invalid={errors.confirPassword && true}>
+                  {errors.confirPassword &&
+                    'Vuelve ah escribir la clave secreta'}
+                </FormFeedback>
               </FormGroup>
-              <Button style={{ backgroundColor: '#efccd3' }} block>
+              <Button
+                type="submit"
+                style={{ backgroundColor: '#efccd3' }}
+                block
+              >
                 Registrarme
               </Button>
             </Form>

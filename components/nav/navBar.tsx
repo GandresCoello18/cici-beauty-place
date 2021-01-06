@@ -1,8 +1,10 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unneeded-ternary */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import { FiSend } from 'react-icons/fi'
 import Switch from 'react-switch'
 import {
   Badge,
@@ -28,17 +30,20 @@ import {
   AiOutlineSearch,
   AiOutlineShopping,
 } from 'react-icons/ai'
+import { IoIosNotifications } from 'react-icons/io'
 import { BiPurchaseTagAlt } from 'react-icons/bi'
 import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
 import { FaHistory } from 'react-icons/fa'
 import { MdFavorite } from 'react-icons/md'
+import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [modal, setModal] = useState<boolean>(false)
   const [istheme, setIsTheme] = useState<boolean>(false)
+  const [isPermiso, setIsPermiso] = useState<string>('')
   const { theme, setTheme } = useTheme()
 
   const toggle = () => setIsOpen(!isOpen)
@@ -51,6 +56,23 @@ const NavBarElement = () => {
     colorClose: {
       color: 'red',
     },
+  }
+
+  useEffect(() => {
+    setIsPermiso(Notification.permission)
+  }, [])
+
+  const ColorPermisoNotificacon = (permiso: string) => {
+    switch (permiso) {
+      case 'denied':
+        return 'danger'
+      case 'granted':
+        return 'success'
+      case 'default':
+        return 'info'
+      default:
+        return 'link'
+    }
   }
 
   return (
@@ -127,10 +149,17 @@ const NavBarElement = () => {
                     <MdFavorite /> Mis Favoritos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <CgFileDocument /> Mis Datos
+                    <FaHistory /> Historial
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <FaHistory /> Historial
+                    <Link href="/configuracion/invitar">
+                      <a
+                        href="/configuracion/invitar"
+                        style={{ textDecoration: 'none', color: '#999' }}
+                      >
+                        <FiSend /> Invitar amigos
+                      </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem
                     onClick={() => setModal(true)}
@@ -178,7 +207,7 @@ const NavBarElement = () => {
 
       <ModalElement title="Configuracion" visible={modal} setVisible={setModal}>
         <ul className="list-group">
-          <li className="list-group-item">
+          <li className="list-group-item" style={styles.colorLink}>
             Tema: {theme === 'dark' ? 'Oscuro' : 'Claro'} &nbsp; &nbsp;
             <Switch
               onChange={(checked: boolean) => {
@@ -188,14 +217,52 @@ const NavBarElement = () => {
               checked={istheme}
             />
           </li>
-          <li className="list-group-item cursor-pointer">
-            Cambio de contraseña
+          <li
+            className="list-group-item cursor-pointer"
+            style={styles.colorLink}
+          >
+            <Link href="/configuracion/cambiar-clave">
+              <a
+                href="/configuracion/cambiar-clave"
+                style={{ textDecoration: 'none', color: '#999' }}
+              >
+                <RiLockPasswordLine /> Cambio de contraseña
+              </a>
+            </Link>
           </li>
-          <li className="list-group-item cursor-pointer">
-            Recibir notificaciones
+          <li
+            className="list-group-item cursor-pointer"
+            style={styles.colorLink}
+          >
+            <div
+              onClick={() =>
+                Notification.requestPermission().then((result) =>
+                  setIsPermiso(result)
+                )
+              }
+              aria-hidden="true"
+            >
+              <IoIosNotifications /> Recibir notificaciones{' '}
+              <Badge color={ColorPermisoNotificacon(isPermiso)}>
+                {isPermiso === 'denied' && 'Denegado'}
+                {isPermiso === 'granted' && 'Permitido'}
+                {isPermiso === 'default' && 'Sin respuesta'}
+              </Badge>
+            </div>
           </li>
-          <li className="list-group-item cursor-pointer">Invitar amigos</li>
-          <li className="list-group-item cursor-pointer">Centro de mensajes</li>
+          <li
+            className="list-group-item cursor-pointer"
+            style={styles.colorLink}
+          >
+            <Link href="/configuracion/mis-datos">
+              <a
+                href="/configuracion/cambiar-clave"
+                style={{ textDecoration: 'none', color: '#999' }}
+              >
+                <CgFileDocument /> Mis Datos
+              </a>
+            </Link>
+          </li>
         </ul>
       </ModalElement>
     </>
