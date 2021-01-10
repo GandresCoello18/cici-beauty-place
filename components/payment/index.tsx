@@ -49,6 +49,12 @@ const Payment = () => {
           <UncontrolledCollapse toggler="#content-deUna">
             <div className="text-center">
               <strong className="p-2">Acanea el siguiente codigo QR</strong>
+              <p className="text-left">
+                <b>Tener encuenta:</b> luego de hacer la transacion se necesita
+                que alguien del equipo de{' '}
+                <b className="text-cici">Cici Beauty place</b> confirme el pago,
+                mientras eso puedes seguir con el siguiente paso.
+              </p>
               <br />
               <img
                 className="border p-2"
