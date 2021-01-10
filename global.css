@@ -209,6 +209,20 @@ body {
   padding: 3px;
 }
 
+.primaryBtnStep {
+  background-color: #f1d7dd;
+  border-color: #232f3e;
+}
+
+.primaryBtnStep:hover {
+  background-color: #f1d7dd;
+}
+
+.secondaryBtnStep {
+  background-color: #fff;
+  color: #232f3e;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
