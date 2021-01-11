@@ -2,6 +2,7 @@
 import React from 'react'
 import StepProgressBar from 'react-step-progress'
 import Payment from '../payment'
+import AdressPayment from '../payment/addres-payment'
 
 interface Props {
   startingStep: number
@@ -21,6 +22,9 @@ const StepsShopping = ({ startingStep }: Props) => {
       startingStep={startingStep}
       previousBtnName="Anterior"
       nextBtnName="Siguiente"
+      submitBtnName="Terminar"
+      progressClass="wrapperStep"
+      buttonWrapperClass="buttonWrapperStep"
       primaryBtnClass="primaryBtnStep"
       secondaryBtnClass="secondaryBtnStep"
       onSubmit={onFormSubmit}
@@ -46,7 +50,11 @@ const StepsShopping = ({ startingStep }: Props) => {
           label: 'Envio',
           subtitle: '100%',
           name: 'Envio',
-          content: <div className="p-2">Envio</div>,
+          content: (
+            <div className="mt-5">
+              <AdressPayment />
+            </div>
+          ),
           validator: validarEnvio,
         },
       ]}

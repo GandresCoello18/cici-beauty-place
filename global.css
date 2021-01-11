@@ -13,6 +13,9 @@ body {
   /*background: rgb(113, 110, 110);*/
   background-color: #343a40;
 }
+._53Ji7 {
+  padding: 0px !important;
+}
 
 .border-round {
   border-radius: 12px;
@@ -221,6 +224,14 @@ body {
 .secondaryBtnStep {
   background-color: #fff;
   color: #232f3e;
+}
+
+.wrapperStep {
+  padding: 20px;
+}
+
+.buttonWrapperStep {
+  padding: 10px;
 }
 
 @keyframes spin {
