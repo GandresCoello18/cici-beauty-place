@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import React from 'react'
-import { Card, CardBody, UncontrolledCollapse } from 'reactstrap'
+import { PayPalButton } from 'react-paypal-button'
+import { UncontrolledCollapse } from 'reactstrap'
 
 const Payment = () => {
   return (
@@ -19,14 +21,23 @@ const Payment = () => {
         </div>
         <div className="col-12 mt-2 p-2">
           <UncontrolledCollapse toggler="#content-paypal">
-            <Card>
-              <CardBody>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nesciunt magni, voluptas debitis similique porro a molestias
-                consequuntur earum odio officiis natus, amet hic, iste sed
-                dignissimos esse fuga! Minus, alias.
-              </CardBody>
-            </Card>
+            <PayPalButton
+              paypalOptions={{
+                clientId:
+                  'AZZhW-vY_amLDLO0H8tZuaPpoF0--0b8b2N4qJaqNESaFBJNZTsn4uZbAprsy-y_GcDCz05XCwukctKq',
+                intent: 'capture',
+                currency: 'USD',
+              }}
+              buttonStyles={{
+                layout: 'vertical',
+                shape: 'rect',
+              }}
+              amount={100}
+              onPaymentStart={() => console.log('payment')}
+              onPaymentSuccess={(data) => console.log(data)}
+              onPaymentError={(error) => console.log(error)}
+              onPaymentCancel={(data) => console.log(data)}
+            />
           </UncontrolledCollapse>
         </div>
       </div>
