@@ -139,7 +139,7 @@ const NavBarElement = () => {
             <div className="col-9">
               <UncontrolledDropdown setActiveFromChild style={styles.colorLink}>
                 <DropdownToggle className="nav-link" caret>
-                  Mi perfil
+                  Opciones
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem style={styles.colorLink}>

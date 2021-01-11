@@ -45,6 +45,18 @@ body {
   background-color: #f097ac;
 }
 
+.border-cici {
+  border: 2px solid #f097ac;
+}
+
+.set-border-cici:hover {
+  border: 2px solid #4db193;
+}
+
+.select-addres {
+  background-color: rgba(240, 151, 172, 0.3) !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

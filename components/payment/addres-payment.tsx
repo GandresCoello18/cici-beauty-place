@@ -19,7 +19,9 @@ const AdressPayment = () => {
           <div className="row justify-content-center">
             {[0, 1].map((item) => (
               <div className="col-12 col-md-6 col-xl-4 mb-2" key={item}>
-                <CardAddres />
+                <div className="cursor-pointer">
+                  <CardAddres item={item} />
+                </div>
               </div>
             ))}
           </div>
