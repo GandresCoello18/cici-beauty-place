@@ -13,6 +13,9 @@ body {
   /*background: rgb(113, 110, 110);*/
   background-color: #343a40;
 }
+._53Ji7 {
+  padding: 0px !important;
+}
 
 .border-round {
   border-radius: 12px;
@@ -40,6 +43,18 @@ body {
 
 .bg-cici {
   background-color: #f097ac;
+}
+
+.border-cici {
+  border: 2px solid #f097ac;
+}
+
+.set-border-cici:hover {
+  border: 2px solid #4db193;
+}
+
+.select-addres {
+  background-color: rgba(240, 151, 172, 0.3) !important;
 }
 
 .cursor-pointer {
@@ -207,6 +222,28 @@ body {
   color: #343a40;
   font-weight: 700;
   padding: 3px;
+}
+
+.primaryBtnStep {
+  background-color: #f1d7dd;
+  border-color: #232f3e;
+}
+
+.primaryBtnStep:hover {
+  background-color: #f1d7dd;
+}
+
+.secondaryBtnStep {
+  background-color: #fff;
+  color: #232f3e;
+}
+
+.wrapperStep {
+  padding: 20px;
+}
+
+.buttonWrapperStep {
+  padding: 10px;
 }
 
 @keyframes spin {

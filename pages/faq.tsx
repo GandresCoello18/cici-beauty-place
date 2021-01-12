@@ -15,58 +15,12 @@ const Faq = () => {
 
       <Layout>
         <section className="container font-arvo mt-3 p-2 p-md-5 faq">
-          <div className="row justify-between">
+          <div className="row justify-content-center bg-white border-round">
             <div className="col-12 p-4">
-              <h4 className="text-center">
+              <h2 className="text-center">
                 <u className="p-1">Preguntas frecuentes</u>
-              </h4>
+              </h2>
             </div>
-            <div className="col-12 col-md-6">
-              <ul>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-              </ul>
-            </div>
-            <div className="col-12 col-md-6">
-              <ul>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-                <li>
-                  <span>Pregunta freceuente aqui, puede ser corta o larga</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="row justify-content-center mt-4">
             {[0, 1, 2, 3, 4].map((item) => (
               <div
                 className="col-12 col-md-8 mb-4 border-bottom"

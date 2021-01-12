@@ -148,7 +148,7 @@ const Login = () => {
               <Button
                 type="submit"
                 disabled={loading}
-                style={{ backgroundColor: '#efccd3' }}
+                style={{ backgroundColor: '#efccd3', color: '#000' }}
                 block
               >
                 Entrar

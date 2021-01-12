@@ -13116,6 +13116,11 @@ react-multi-carousel@^2.6.1:
   resolved "https://registry.yarnpkg.com/react-multi-carousel/-/react-multi-carousel-2.6.1.tgz#43871c8c50aab96f64769d59e2e3b88a77e0ea8b"
   integrity sha512-N0YfKqEYc9ElyGMrvukyVDMkYae76GDY4+1pXXPLvRj9uLFuaa4rCj31RWbNP8VEE2A2Sp3TSLV2yXVoLUUD8w==
 
+react-paypal-button@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-paypal-button/-/react-paypal-button-4.1.1.tgz#9ccee6f3c4f6ee1185a4b58760a89d4a3987fbed"
+  integrity sha512-7ZI9nXgdQHZLhsjNpSNGIgWdR7wuH3GXcRjBQzPvznQtC89MBDsQ+yFGuNDGG9WVmAQiGwMSI5pV+ilKM6M0Yg==
+
 react-popper-tooltip@^2.8.3:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-2.10.0.tgz#4d8383644d1002a50bd2bf74b2d1214d84ffc77c"
@@ -13190,6 +13195,11 @@ react-star-rating-component@^1.4.1:
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.1"
+
+react-step-progress@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-step-progress/-/react-step-progress-1.0.3.tgz#8c93a7e4f5fd020888873944534cd97ab7641535"
+  integrity sha512-AsebjdBZsoZzZuN50p24TMwKt8JVdyhsAPL/xvpY4c3dpQ9XBiRcZlADD0BoKP3iIxpEm+7ufwITmwY66FEfjQ==
 
 react-switch@^5.0.1:
   version "5.0.1"
