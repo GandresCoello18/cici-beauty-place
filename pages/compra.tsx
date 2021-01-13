@@ -17,7 +17,6 @@ import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
-import FinishShopping from '../components/svg/finish-shopping'
 
 const Compra = () => {
   const [itemStep] = useState<number>(0)
@@ -151,7 +150,11 @@ const Compra = () => {
             </a>
           </Link>
 
-          <FinishShopping />
+          <img
+            src="img/finish-shopping.svg"
+            alt="finish-shopping"
+            width="100%"
+          />
         </ModalBody>
       </Modal>
     </>
