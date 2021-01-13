@@ -49,6 +49,10 @@ body {
   border: 2px solid #f097ac;
 }
 
+.box-shadow-cici {
+  box-shadow: 5px 5px 5px #f1d7dd;
+}
+
 .set-border-cici:hover {
   border: 2px solid #4db193;
 }
