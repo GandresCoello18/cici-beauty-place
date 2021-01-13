@@ -34,7 +34,7 @@ import { IoIosNotifications } from 'react-icons/io'
 import { BiPurchaseTagAlt } from 'react-icons/bi'
 import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
-import { FaHistory } from 'react-icons/fa'
+import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
@@ -85,12 +85,16 @@ const NavBarElement = () => {
         className="navBar font-arvo"
       >
         <NavbarBrand href="/">
-          <figure className="logo">
-            <img
-              src="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
-              alt="logotipo"
-            />
-          </figure>
+          <Link href="/">
+            <a href="/" style={styles.colorLink}>
+              <figure className="logo">
+                <img
+                  src="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
+                  alt="logotipo"
+                />
+              </figure>
+            </a>
+          </Link>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -149,7 +153,7 @@ const NavBarElement = () => {
                     <MdFavorite /> Mis Favoritos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <FaHistory /> Historial
+                    <HiOutlineClipboardList /> Mis Pedidos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
@@ -176,8 +180,8 @@ const NavBarElement = () => {
           </div>
 
           <NavbarText>
-            <Link href="/cart">
-              <a href="/cart">
+            <Link href="/compra">
+              <a href="/compra">
                 <AiOutlineShopping size={25} />
                 <Badge
                   color="dark"
