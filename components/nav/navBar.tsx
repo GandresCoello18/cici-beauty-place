@@ -150,7 +150,11 @@ const NavBarElement = () => {
                     <BiPurchaseTagAlt /> Mis pedidos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <MdFavorite /> Mis Favoritos
+                    <Link href="/favoritos">
+                      <a href="/favoritos">
+                        <MdFavorite /> Mis Favoritos
+                      </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <HiOutlineClipboardList /> Mis Pedidos
