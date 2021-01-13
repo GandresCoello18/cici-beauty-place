@@ -56,6 +56,9 @@ const NavBarElement = () => {
     colorClose: {
       color: 'red',
     },
+    spaceMenu: {
+      marginBottom: 10,
+    },
   }
 
   useEffect(() => {
@@ -146,11 +149,19 @@ const NavBarElement = () => {
                   Opciones
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem style={styles.colorLink}>
-                    <BiPurchaseTagAlt /> Mis pedidos
+                  <DropdownItem style={styles.spaceMenu}>
+                    <Link href="/mis-compras">
+                      <a href="/mis-compras" style={styles.colorLink}>
+                        <BiPurchaseTagAlt /> Mis Compras
+                      </a>
+                    </Link>
                   </DropdownItem>
-                  <DropdownItem style={styles.colorLink}>
-                    <MdFavorite /> Mis Favoritos
+                  <DropdownItem style={styles.spaceMenu}>
+                    <Link href="/mis-favoritos">
+                      <a href="/mis-favoritos" style={styles.colorLink}>
+                        <MdFavorite /> Mis Favoritos
+                      </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <HiOutlineClipboardList /> Mis Pedidos

@@ -2,6 +2,7 @@ import React from 'react'
 import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { BsFillLightningFill } from 'react-icons/bs'
+import Link from 'next/link'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
@@ -62,9 +63,15 @@ const Home = () => {
                 />
               </div>
               <div className="col-12 p-2 text-center">
-                <span className="cursor-pointer" style={{ color: '#999' }}>
-                  Ver Màs
-                </span>
+                <Link href="/mi-historial">
+                  <a
+                    href="/mi-historial"
+                    className="cursor-pointer"
+                    style={{ color: '#999' }}
+                  >
+                    Ver Màs
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
