@@ -3,8 +3,8 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import { Badge } from 'reactstrap'
 import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../../reducers/app'
-import Layout from '../../components/layout'
+import { setTitle } from '../reducers/app'
+import Layout from '../components/layout'
 
 const Favorite = () => {
   return (
