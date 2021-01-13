@@ -42,7 +42,7 @@ body {
 }
 
 .bg-cici {
-  background-color: #f097ac;
+  background-color: #f1d7dd !important;
 }
 
 .border-cici {
@@ -111,6 +111,10 @@ body {
 }
 
 /* FOOTER */
+
+footer ul {
+  padding-inline-start: 0px;
+}
 
 .footer-section {
   background: #232f3e;

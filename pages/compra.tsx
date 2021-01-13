@@ -4,7 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
-import { FcFaq, FcLike, FcOk, FcPaid, FcShipped } from 'react-icons/fc'
+import {
+  FcFaq,
+  FcKindle,
+  FcLike,
+  FcOk,
+  FcPaid,
+  FcShipped,
+} from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
 import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
@@ -62,6 +69,15 @@ const Compra = () => {
                       Gracias por tu compra.!!{' '}
                       <BiHappyBeaming size={30} color="#f097ac" />
                     </h3>
+                  </div>
+                  <div className="col-12 col-md-5 mb-4">
+                    <Link href="/">
+                      <a href="/" style={Styles.text}>
+                        <div className="p-3 border-cici border-round box-shadow-cici">
+                          <FcKindle size={20} /> Mis Pedidos (2)
+                        </div>
+                      </a>
+                    </Link>
                   </div>
                   <div className="col-12 col-md-5 mb-4">
                     <Link href="/">

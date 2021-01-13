@@ -2,6 +2,7 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { Dispatch, SetStateAction } from 'react'
 import StepProgressBar from 'react-step-progress'
+import Cart from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
 
@@ -37,7 +38,11 @@ const StepsShopping = ({ startingStep, setFinishShopping }: Props) => {
             label: 'Carrito',
             subtitle: '10%',
             name: 'Carrito',
-            content: <div className="p-2">Carrito</div>,
+            content: (
+              <div className="mt-5">
+                <Cart />
+              </div>
+            ),
           },
           {
             label: 'Pagos',

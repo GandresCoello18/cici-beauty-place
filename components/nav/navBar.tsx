@@ -34,7 +34,7 @@ import { IoIosNotifications } from 'react-icons/io'
 import { BiPurchaseTagAlt } from 'react-icons/bi'
 import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
-import { FaHistory } from 'react-icons/fa'
+import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
@@ -153,7 +153,7 @@ const NavBarElement = () => {
                     <MdFavorite /> Mis Favoritos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <FaHistory /> Historial
+                    <HiOutlineClipboardList /> Mis Pedidos
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
@@ -180,8 +180,8 @@ const NavBarElement = () => {
           </div>
 
           <NavbarText>
-            <Link href="/cart">
-              <a href="/cart">
+            <Link href="/compra">
+              <a href="/compra">
                 <AiOutlineShopping size={25} />
                 <Badge
                   color="dark"
