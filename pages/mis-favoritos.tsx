@@ -3,14 +3,14 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import { Badge } from 'reactstrap'
 import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
-import Layout from '../components/layout'
+import { setTitle } from '../../reducers/app'
+import Layout from '../../components/layout'
 
 const Favorite = () => {
   return (
     <>
       <NextSeo
-        title="Favoritos | Cici beauty place"
+        title="Mis Favoritos | Cici beauty place"
         description="Mis productos favoritos."
       />
 
@@ -31,32 +31,34 @@ const Favorite = () => {
                 key={item}
               >
                 <div className="card mb-3 border-0" style={{ width: '100%' }}>
-                  <div className="row g-0">
-                    <div className="col-md-4">
+                  <div className="row g-0 justify-content-start">
+                    <div className="col-3 col-md-1">
                       <img
                         src="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                        width="100%"
+                        width="100"
+                        height="100"
                         alt="..."
                       />
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-6 ml-md-4">
                       <div className="card-body">
                         <h5 className="card-title">Card title</h5>
-                        <strong style={{ fontSize: 25 }}>$ 31</strong>
-
-                        <Badge
-                          color="danger"
-                          className="float-right cursor-pointer p-2"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="bottom"
-                          title="Eliminar de favoritos"
-                        >
-                          X
-                        </Badge>
-                        <Badge color="success float-right mr-3">
-                          Disponible
-                        </Badge>
+                        <strong style={{ fontSize: 22 }}>$ 31</strong>
                       </div>
+                    </div>
+                    <div className="col-6 p-2">
+                      <Badge color="success mr-3">Disponible</Badge>
+                    </div>
+                    <div className="col-6">
+                      <Badge
+                        color="danger"
+                        className="float-right cursor-pointer p-2"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="Eliminar de favoritos"
+                      >
+                        X
+                      </Badge>
                     </div>
                   </div>
                 </div>
