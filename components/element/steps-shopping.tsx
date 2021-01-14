@@ -8,11 +8,19 @@ import AdressPayment from '../payment/addres-payment'
 
 interface Props {
   startingStep: number
+  setItemStep: Dispatch<SetStateAction<number>>
   setFinishShopping: Dispatch<SetStateAction<boolean>>
 }
 
-const StepsShopping = ({ startingStep, setFinishShopping }: Props) => {
-  const validarPagos = () => true
+const StepsShopping = ({
+  startingStep,
+  setItemStep,
+  setFinishShopping,
+}: Props) => {
+  const validarPagos = () => {
+    setItemStep(2)
+    return true
+  }
   const validarEnvio = () => true
   const onFormSubmit = () => {
     setFinishShopping(true)

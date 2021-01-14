@@ -164,7 +164,11 @@ const NavBarElement = () => {
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <HiOutlineClipboardList /> Mis Pedidos
+                    <Link href="/mis-pedidos">
+                      <a href="/mis-pedidos" style={styles.colorLink}>
+                        <HiOutlineClipboardList /> Mis Pedidos
+                      </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
