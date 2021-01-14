@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-param-reassign */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unneeded-ternary */
@@ -37,7 +39,13 @@ import { CgFileDocument } from 'react-icons/cg'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
 import { RiLockPasswordLine } from 'react-icons/ri'
+import Autocomplete from 'autocompleter'
 import ModalElement from '../element/modal'
+
+interface SearchAutoComplete {
+  label: string
+  value: string
+}
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -45,6 +53,10 @@ const NavBarElement = () => {
   const [istheme, setIsTheme] = useState<boolean>(false)
   const [isPermiso, setIsPermiso] = useState<string>('')
   const { theme, setTheme } = useTheme()
+  const [countries] = useState<SearchAutoComplete[]>([
+    { label: 'United Kingdom', value: 'UK' },
+    { label: 'United States', value: 'US' },
+  ])
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -64,6 +76,24 @@ const NavBarElement = () => {
   useEffect(() => {
     setIsPermiso(Notification.permission)
   }, [])
+
+  useEffect(() => {
+    const inputSearch: Document | any = document.querySelector('#input-search')
+
+    Autocomplete<any>({
+      input: inputSearch,
+      fetch(text: string, update: (items: SearchAutoComplete[]) => void) {
+        text = text.toLowerCase()
+        const suggestions = countries.filter((n) =>
+          n.label.toLowerCase().startsWith(text)
+        )
+        update(suggestions)
+      },
+      onSelect(item) {
+        inputSearch.value = item.label
+      },
+    })
+  }, [countries])
 
   const ColorPermisoNotificacon = (permiso: string) => {
     switch (permiso) {
@@ -164,7 +194,11 @@ const NavBarElement = () => {
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
-                    <HiOutlineClipboardList /> Mis Pedidos
+                    <Link href="/mis-pedidos">
+                      <a href="/mis-pedidos" style={styles.colorLink}>
+                        <HiOutlineClipboardList /> Mis Pedidos
+                      </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
@@ -208,6 +242,7 @@ const NavBarElement = () => {
 
           <InputGroup style={{ width: 300 }} className="ml-md-4">
             <Input
+              id="input-search"
               placeholder="Buscar..."
               style={{ borderColor: '#f1d7dd', borderWidth: 2 }}
             />

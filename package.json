@@ -19,6 +19,7 @@
     "@types/classnames": "^2.2.11",
     "@types/react-star-rating-component": "^1.4.0",
     "@types/reactstrap": "^8.7.2",
+    "autocompleter": "^6.1.0",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
     "email-validator": "^2.0.4",

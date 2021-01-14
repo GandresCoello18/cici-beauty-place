@@ -110,6 +110,21 @@ body {
   color: #f0adbc;
 }
 
+.autocomplete {
+  background-color: white;
+  padding: 5px;
+}
+
+.autocomplete div {
+  cursor: pointer;
+  padding: 5px;
+  margin-top: 3px;
+}
+
+.autocomplete div:hover {
+  background-color: #f0adbc;
+}
+
 /* FOOTER */
 
 footer ul {
