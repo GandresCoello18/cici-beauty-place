@@ -3912,6 +3912,11 @@ autocannon@4.6.0:
     retimer "^2.0.0"
     timestring "^6.0.0"
 
+autocompleter@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-6.1.0.tgz#39f21d1ff53ba5b012ad1b1da0182b234268eff2"
+  integrity sha512-w+gPtAuwL+0BY33rwtFaliZ2TW/iJlbQ0AaFFi7sy7kh1MdOM5VpAMJ2s/6yygIkWkLQP8WF+ajlG39Ft8459Q==
+
 autoprefixer@^9.7.2:
   version "9.7.3"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.7.3.tgz#fd42ed03f53de9beb4ca0d61fb4f7268a9bb50b4"
