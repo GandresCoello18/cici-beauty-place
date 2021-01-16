@@ -14,7 +14,7 @@ import {
 } from 'reactstrap'
 import { FcGoogle } from 'react-icons/fc'
 import { Controller, useForm } from 'react-hook-form'
-import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai'
+import { AiFillFacebook } from 'react-icons/ai'
 import { loginWithFacebook, loginWithGoogle } from '../../firebase/firebase'
 
 interface FormLogin {
@@ -199,7 +199,7 @@ const Login = () => {
             <h5 className="text-center font-arvo" style={{ color: '#999' }}>
               Acceso ràpido con
             </h5>
-            <div className="row justify-content-center">
+            <div className="row justify-content-center text-center">
               <div className="col-2">
                 <AiFillFacebook
                   size={40}
@@ -213,13 +213,6 @@ const Login = () => {
                   size={40}
                   className="cursor-pointer"
                   onClick={loginGoogle}
-                />
-              </div>
-              <div className="col-2">
-                <AiOutlineTwitter
-                  size={40}
-                  color="#00acee"
-                  className="cursor-pointer"
                 />
               </div>
             </div>

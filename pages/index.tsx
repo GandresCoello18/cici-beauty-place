@@ -1,10 +1,14 @@
 import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
+import Link from 'next/link'
+import { MdPayment } from 'react-icons/md'
+import { BiSupport } from 'react-icons/bi'
+import { CgProfile } from 'react-icons/cg'
 import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
-import Home from '../components/home'
-import Layout from '../components/layout'
+import Footer from '../components/layout/footer'
+import CardLanding from '../components/landing-page/card-landing'
 
 const Index = () => {
   return (
@@ -13,10 +17,204 @@ const Index = () => {
         title="Cici beauty place"
         description="Encuentra todo sobre cosmeticos y belleza."
       />
+      <div className="banner-img text-white">
+        <section className="container font-arvo">
+          <div className="row justify-content-between mt-3 mt-lg-5">
+            <div className="col-12 col-lg-5">
+              <div className="row">
+                <div className="col-1">
+                  <figure className="logo float-left bg-white">
+                    <img src="img/logo.jpg" alt="logotipo" />
+                  </figure>
+                </div>
+                <div className="col">
+                  <h1 className="text-center">Cici Beauty Place</h1>
+                </div>
+              </div>
+              <br />
+              <p className="mt-2">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Doloremque neque libero eum deleniti fugiat consequuntur quos
+                harum magnam fugit id veniam quod, facere facilis sunt vitae
+                corrupti assumenda.
+                <Link href="/home">
+                  <a
+                    href="/home"
+                    className="btn bg-white text-cici ml-3 ml-md-0 mt-3 mt-md-0 m-0 m-md-3"
+                    type="button"
+                  >
+                    Ir a tienda
+                  </a>
+                </Link>
+              </p>
+            </div>
+            <div className="col-12 col-lg-5 mt-2 mt-md-0">
+              <div className="text-center">
+                <img
+                  src="img/web-app.svg"
+                  alt="web app cici"
+                  className="img-web-app bg-white p-3 border-round"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
-      <Layout>
-        <Home />
-      </Layout>
+      <section
+        className="container font-arvo"
+        style={{ position: 'relative', top: 660 }}
+      >
+        <div className="row">
+          <div className="col-12 p-2 mb-3">
+            <h3 className="text-center">Nuestros productos</h3>
+          </div>
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
+            <div className="col-12 col-md-4 col-lg-3" key={item}>
+              <CardLanding />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="banner-img-2">
+        <section className="container font-arvo">
+          <div
+            className="row justify-content-between"
+            style={{ position: 'relative', top: 200 }}
+          >
+            <div className="col-12 col-lg-6 col-lg-5 text-center text-banner-2 text-white">
+              <h3>Envios al todo el pais</h3>
+              <p className="p-1">
+                Hacemos los envios de tus compras a todo el pais con los
+                servicios de entrega mas conocidos del pais, llegaran a la
+                puerta de tu hogar o trabajo entre 2 y 4 dias laborables.
+              </p>
+            </div>
+            <div className="col-12 col-lg-5 text-center">
+              <img
+                src="img/envios.svg"
+                alt="illustration envios"
+                className="img-web-app bg-white p-3 border-round"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section
+        className="container-fluid bg-white font-arvo"
+        style={{ position: 'relative', top: 600, marginBottom: 600 }}
+      >
+        <div className="row justify-content-center no-gutters ftco-services">
+          <div className="col-lg-3 text-center d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div className="media block-6 services p-4 py-md-5">
+              <div className="media-body">
+                <CgProfile size={50} />
+                <h3 className="heading">Administra tu cuenta</h3>
+                <p>
+                  Crea una cuenta completando el{' '}
+                  <Link href="/signin">
+                    <a href="/signin">formulario</a>
+                  </Link>{' '}
+                  de registro o con la ayuda de{' '}
+                  <Link href="/login">
+                    <a href="/login"> otras app</a>
+                  </Link>
+                  , podras ver tus pedidos, los productos comprados, favoritos y
+                  mas.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-3 text-center d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div className="media block-6 services p-4 py-md-5">
+              <div className="media-body">
+                <BiSupport size={50} />
+                <h3 className="heading">Soporte al cliente</h3>
+                <p>
+                  Si tienes dudas, preguntas o necesitas mas informacion, puedes
+                  escribirnos en nuestras cuentas oficiales o dejar un mensaje
+                  <Link href="/contacto">
+                    <a href="/contacto"> aqui</a>
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-3 text-center d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div className="media block-6 services p-4 py-md-5">
+              <div className="media-body">
+                <MdPayment size={50} />
+                <h3 className="heading">Pagos seguros</h3>
+                <p>
+                  Paga de forma segura con las app de pago mas conocidas como
+                  <u> Paypal</u> o paga desde tu celular con tu{' '}
+                  <u>banco de confianza</u>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+
+      <style jsx>
+        {`
+          .banner-img {
+            width: 100%;
+            height: 800px;
+            background-image: url('img/banner.png');
+            background-size: cover;
+            position: absolute;
+            background-repeat: no-repeat;
+            background-position: 0 -50px;
+          }
+
+          .img-web-app {
+            width: 240px;
+          }
+
+          @media screen and (min-width: 992px) {
+            .banner-img {
+              height: 850px;
+              background-position: 0 -200px;
+            }
+            .text-banner-2 {
+              position: relative;
+              top: 200px;
+            }
+          }
+
+          @media screen and (min-width: 1250px) {
+            .banner-img {
+              height: 900px;
+              background-position: 0 -300px;
+            }
+
+            .img-web-app {
+              width: 300px;
+            }
+          }
+
+          @media screen and (min-width: 1400px) {
+            .banner-img {
+              height: 1000px;
+              background-position: 0 -400px;
+            }
+          }
+
+          .banner-img-2 {
+            height: 800px;
+            position: relative;
+            top: 600px;
+            background-size: cover;
+            background: url('img/banner-2.png') no-repeat center;
+          }
+        `}
+      </style>
     </>
   )
 }
