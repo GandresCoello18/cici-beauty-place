@@ -40,7 +40,7 @@ const ProductDetails = () => {
           <div className="row">
             <div className="col-12">
               <Magnifier
-                src="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
+                src="https://preview.colorlib.com/theme/minishop/images/product-1.png"
                 width="100%"
               />
             </div>
