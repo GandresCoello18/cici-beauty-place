@@ -26,7 +26,12 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
     <>
       <Head>
         <title>Cici beauty place</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="true"
+        />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap"
           rel="stylesheet"
