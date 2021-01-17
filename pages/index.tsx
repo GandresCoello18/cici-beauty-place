@@ -5,12 +5,17 @@ import Link from 'next/link'
 import { MdPayment } from 'react-icons/md'
 import { BiSupport } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
+import { InView, useInView } from 'react-intersection-observer'
 import { AllAction, RootState } from '../reducers'
 import { setTitle } from '../reducers/app'
 import Footer from '../components/layout/footer'
 import CardLanding from '../components/landing-page/card-landing'
 
 const Index = () => {
+  const [ref] = useInView({
+    threshold: 0,
+  })
+
   return (
     <>
       <NextSeo
@@ -65,16 +70,16 @@ const Index = () => {
         className="container font-arvo"
         style={{ position: 'relative', top: 660 }}
       >
-        <div className="row">
+        <InView className="row">
           <div className="col-12 p-2 mb-3">
             <h3 className="text-center">Nuestros productos</h3>
           </div>
           {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-            <div className="col-12 col-md-4 col-lg-3" key={item}>
+            <div className="col-12 col-md-4 col-lg-3" key={item} ref={ref}>
               <CardLanding />
             </div>
           ))}
-        </div>
+        </InView>
       </section>
 
       <div className="banner-img-2">

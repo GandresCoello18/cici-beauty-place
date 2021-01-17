@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
@@ -22,11 +22,33 @@ type AppPage<P = {}> = {
 }
 
 const App: AppPage<Props> = ({ store, pageProps, Component }) => {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').then(
+          function (registration) {
+            console.log(
+              'Service Worker registration successful with scope:',
+              registration.scope
+            )
+          },
+          function (err) {
+            console.log('Service Worker registration failed:', err)
+          }
+        )
+      })
+    }
+  }, [])
   return (
     <>
       <Head>
         <title>Cici beauty place</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="true"
+        />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap"
           rel="stylesheet"
