@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const config = {
   target: process.env.NODE_ENV === 'production' ? 'serverless' : 'server',
 }
 
-module.exports = config
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = {
+  withBundleAnalyzer: withBundleAnalyzer({}),
+  config,
+}
