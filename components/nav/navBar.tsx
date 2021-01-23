@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 /* eslint-disable unicorn/consistent-function-scoping */
@@ -135,30 +136,21 @@ const NavBarElement = () => {
             <NavItem>
               <NavLink>
                 <Link href="/home">
-                  <a href="/home" style={styles.colorLink}>
-                    Inicio
-                  </a>
+                  <a style={styles.colorLink}>Inicio</a>
                 </Link>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink>
                 <Link href="/productos?type=ofertas">
-                  <a href="/productos?type=ofertas" style={styles.colorLink}>
-                    Ofertas
-                  </a>
+                  <a style={styles.colorLink}>Ofertas</a>
                 </Link>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink>
                 <Link href="/productos?type=mas-vendidos">
-                  <a
-                    href="/productos?type=mas-vendidos"
-                    style={styles.colorLink}
-                  >
-                    Mas vendidos
-                  </a>
+                  <a style={styles.colorLink}>Mas vendidos</a>
                 </Link>
               </NavLink>
             </NavItem>

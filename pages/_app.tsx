@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable func-names */
 import React, { useEffect } from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
@@ -39,6 +41,7 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
       })
     }
   }, [])
+
   return (
     <>
       <Head>
@@ -53,6 +56,13 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
           href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="icon"
+          sizes="192x192"
+          href="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
+        />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta name="robots" content="index" />
       </Head>
       <Provider store={store}>
         <ThemeProvider>
