@@ -74,10 +74,9 @@ const CardProduct = ({
                 </CardTitle>
                 <CardText>
                   <Tag /> &nbsp; <strong>US ${price}</strong>
-                  <div>
-                    <span style={Styles.tachado}>US ${10.9}</span> &nbsp;{' '}
-                    <span className="tag-discount">-5%</span>
-                  </div>
+                  <br />
+                  <span style={Styles.tachado}>US ${10.9}</span> &nbsp;{' '}
+                  <span className="tag-discount">-5%</span>
                 </CardText>
                 <CardSubtitle
                   tag="h6"

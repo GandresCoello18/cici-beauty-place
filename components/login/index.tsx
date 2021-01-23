@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   Alert,
@@ -12,10 +12,14 @@ import {
   Input,
   Label,
 } from 'reactstrap'
+import Cookies from 'js-cookie'
 import { FcGoogle } from 'react-icons/fc'
 import { Controller, useForm } from 'react-hook-form'
 import { AiFillFacebook } from 'react-icons/ai'
+import Redirect from '../../lib/redirect'
 import { loginWithFacebook, loginWithGoogle } from '../../firebase/firebase'
+import SpinnerLoader from '../element/spinner-cici'
+import { LoginUser } from '../../api/users'
 
 interface FormLogin {
   email: string
@@ -26,14 +30,51 @@ interface FormLogin {
 const Login = () => {
   const [loading, setLoading] = useState<boolean>()
   const [remember, setRemember] = useState<boolean>(false)
-  const [error, setError] = useState<string>('')
+  const [feedback, setFeedback] = useState<{ content: string; type: string }>({
+    content: '',
+    type: '',
+  })
   const methods = useForm<FormLogin>()
   const { handleSubmit, control, reset, errors } = methods
 
-  const send = (data: FormLogin) => {
+  useEffect(() => {
+    if (Cookies.get('access-token')) {
+      Redirect('/home')
+    }
+  }, [])
+
+  const send = async (data: FormLogin) => {
+    setLoading(true)
     data.check = remember
-    console.log(data)
-    reset()
+    const { email, password } = data
+
+    try {
+      const response = await LoginUser({
+        token: undefined,
+        user: {
+          email,
+          password,
+          provider: 'cici',
+          userName: undefined,
+          avatar: undefined,
+        },
+      })
+      console.log(response.data.me.user)
+      Cookies.set('access-token', response.data.me.token)
+      reset()
+      Redirect('/home')
+      setFeedback({
+        content: 'Ingreso exitoso, seras redirigido al sitio principal',
+        type: 'success',
+      })
+    } catch (error) {
+      setFeedback({
+        content: error.message,
+        type: 'danger',
+      })
+    }
+
+    setLoading(false)
   }
 
   const loginGoogle = () => {
@@ -41,12 +82,33 @@ const Login = () => {
 
     try {
       loginWithGoogle()
-        .then(async (user: any) => console.log(user))
-        .catch((error_: any) => {
-          setError(error_.message)
+        .then(async (user: any) => {
+          const response = await LoginUser({
+            token: undefined,
+            user: {
+              email: user.email,
+              password: undefined,
+              avatar: user.photoURL,
+              userName: user.displayName,
+              provider: 'google',
+            },
+          })
+          console.log(response.data.me.user)
+          Cookies.set('access-token', response.data.me.token)
+          reset()
+          Redirect('/home')
         })
-    } catch (error_) {
-      setError(error_.message)
+        .catch((error) => {
+          setFeedback({
+            content: error.message,
+            type: 'danger',
+          })
+        })
+    } catch (error) {
+      setFeedback({
+        content: error.message,
+        type: 'danger',
+      })
     }
     setLoading(false)
   }
@@ -57,11 +119,17 @@ const Login = () => {
     try {
       loginWithFacebook()
         .then(async (user: any) => console.log(user))
-        .catch((error_: any) => {
-          setError(error_.message)
+        .catch((error) => {
+          setFeedback({
+            content: error.message,
+            type: 'danger',
+          })
         })
-    } catch (error_) {
-      setError(error_.message)
+    } catch (error) {
+      setFeedback({
+        content: error.message,
+        type: 'danger',
+      })
     }
     setLoading(false)
   }
@@ -110,12 +178,11 @@ const Login = () => {
                       }}
                     />
                   }
-                  type="text"
-                  name="nombres"
-                  min={0}
+                  type="email"
+                  name="email"
                   control={control}
                   rules={{ required: true }}
-                  placeholder="Ingresa tus nombres"
+                  placeholder="Ingresa tu email"
                 />
                 <FormFeedback invalid={errors.email && true}>
                   {errors.email && 'Escribe tu direccion de correo electronico'}
@@ -154,22 +221,11 @@ const Login = () => {
                 Entrar
               </Button>
 
-              {loading && (
-                <div
-                  className="p-2"
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                  }}
-                >
-                  <div className="spiner-cici" />
-                </div>
-              )}
+              {loading && <SpinnerLoader />}
 
-              {error && (
+              {feedback.content && (
                 <div className="p-2">
-                  <Alert color="danger">{error}</Alert>
+                  <Alert color={feedback.type}>{feedback.content}</Alert>
                 </div>
               )}
 

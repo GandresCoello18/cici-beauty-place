@@ -12,20 +12,20 @@ const BannerClearFix = () => {
   return (
     <>
       <div className="row justify-content-around p-3 bg-white text-center font-arvo border-round">
-        <div className="col-12 col-md-4 border-right p-2 p-md-0">
-          <h6 className="font-weight-bold">
+        <div className="col-12 col-md-4 border-right p-4">
+          <h6 className="font-weight-bold text-cici">
             <ImPriceTags /> &nbsp; Grandes precios
           </h6>
           <p style={styles.colorText}>Siempre hay algo en ofertas</p>
         </div>
-        <div className="col-12 col-md-4 border-right p-2 p-md-0">
-          <h6 className="font-weight-bold">
+        <div className="col-12 col-md-4 border-right p-4">
+          <h6 className="font-weight-bold text-cici">
             <FaMoneyBillWave /> &nbsp; Compras seguras
           </h6>
           <p style={styles.colorText}>Paga con los mètodos màs avanzados</p>
         </div>
-        <div className="col-12 col-md-4 p-2 p-md-0">
-          <h6 className="font-weight-bold">
+        <div className="col-12 col-md-4 p-4">
+          <h6 className="font-weight-bold text-cici">
             <FaShippingFast /> &nbsp; Envio a todo el pais
           </h6>
           <p style={styles.colorText}>

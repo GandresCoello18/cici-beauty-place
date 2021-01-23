@@ -1,10 +1,26 @@
+/* eslint-disable react/display-name */
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import ValidateEmail from 'email-validator'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import {
+  Alert,
+  Button,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from 'reactstrap'
+import Redirect from '../../lib/redirect'
+import { RegisterUser } from '../../api/users'
+import { UserRegister } from '../../interfaces/users'
+import SpinnerLoader from '../element/spinner-cici'
 
 interface FormSignIn {
   username: string
@@ -14,12 +30,78 @@ interface FormSignIn {
 }
 
 const SignIn = () => {
+  const [loading, setLoading] = useState<boolean>(false)
   const methods = useForm<FormSignIn>()
+  const [feedback, setFeedback] = useState<{
+    content: string
+    type: string
+  }>({
+    content: '',
+    type: '',
+  })
   const { handleSubmit, control, reset, errors } = methods
 
-  const send = (data: FormSignIn) => {
-    console.log(data)
-    reset()
+  useEffect(() => {
+    if (Cookies.get('access-token')) {
+      Redirect('/home')
+    }
+  }, [])
+
+  const send = async (data: FormSignIn): Promise<void> => {
+    setFeedback({
+      content: '',
+      type: '',
+    })
+
+    try {
+      setLoading(true)
+      const { username, email, password, confirPassword } = data
+
+      if (!ValidateEmail.validate(email)) {
+        setFeedback({
+          content: 'Asegurate de escribir un correo electronico valido.',
+          type: 'danger',
+        })
+        return
+      }
+
+      if (confirPassword === password) {
+        const userRegister: UserRegister = {
+          userName: username,
+          email,
+          password,
+          avatar: undefined,
+          provider: 'cici',
+        }
+
+        if (confirPassword.length >= 7 && password.length >= 7) {
+          await RegisterUser({ token: undefined, user: userRegister })
+          reset()
+
+          setFeedback({
+            content: 'Cuenta creada con exito, ya puedes iniciar sesiòn',
+            type: 'success',
+          })
+        } else {
+          setFeedback({
+            content: 'Las claves deben de tener 7 o mas caracteres.',
+            type: 'danger',
+          })
+        }
+      } else {
+        setFeedback({
+          content: 'Las claves no son identicas, revise e intentelo de nuevo.',
+          type: 'danger',
+        })
+      }
+      setLoading(false)
+    } catch (error) {
+      console.log(error.code)
+      setFeedback({
+        content: error.message,
+        type: 'danger',
+      })
+    }
   }
 
   return (
@@ -32,8 +114,7 @@ const SignIn = () => {
                 <Link href="/login">
                   <a
                     href="/login"
-                    className="p-3 float-right font-weight-bold cursor-pointer font-arvo"
-                    style={{ color: '#fac5d0' }}
+                    className="p-3 float-right font-weight-bold font-arvo text-cici"
                   >
                     Iniciar Sesiòn
                   </a>
@@ -57,7 +138,6 @@ const SignIn = () => {
                     <Input
                       invalid={errors.username && true}
                       type="text"
-                      name="username"
                       placeholder="Nombre de usuario"
                       style={{
                         borderColor: 'transparent',
@@ -65,7 +145,6 @@ const SignIn = () => {
                       }}
                     />
                   }
-                  type="text"
                   name="username"
                   control={control}
                   rules={{ required: true }}
@@ -156,6 +235,24 @@ const SignIn = () => {
               </Button>
             </Form>
             <br />
+
+            {loading && <SpinnerLoader />}
+
+            {feedback.content && (
+              <div className="p-2">
+                <Alert color={feedback.type}>{feedback.content}</Alert>
+              </div>
+            )}
+            {feedback.type === 'success' && (
+              <Link href="/login">
+                <a
+                  href="/login"
+                  className="p-1 font-weight-bold font-arvo text-cici"
+                >
+                  Inicia sesiòn aqui..!
+                </a>
+              </Link>
+            )}
           </div>
         </div>
       </div>

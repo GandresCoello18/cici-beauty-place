@@ -11,7 +11,7 @@ import Survey from '../element/survey'
 const Productos = () => {
   return (
     <section className="container">
-      <div className="row p-3 mt-md-3 bg-white">
+      <div className="row p-3 mt-md-3 bg-white font-arvo">
         <div className="col-7 col-md-3 border-right">
           <span>Precio: </span>
           <div className="row justify-content-start">
@@ -124,7 +124,7 @@ const Productos = () => {
 
       <div className="row mt-3 mb-3 bg-white p-3 border-round">
         <div className="col-12 p-2">
-          <AiTwotoneHeart color="pink" /> &nbsp;{' '}
+          <AiTwotoneHeart color="pink" size={20} /> &nbsp;{' '}
           <strong>Productos recomendados</strong>
         </div>
         <div className="col-12 font-arvo">
