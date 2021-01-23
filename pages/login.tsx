@@ -1,6 +1,7 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Login from '../components/login'
+import Layout from '../components/layout'
 
 const LoginPage = () => {
   return (
@@ -10,7 +11,9 @@ const LoginPage = () => {
         description="Entra y selecciona los productos de tu agrado para lucir bella y atractiva."
       />
 
-      <Login />
+      <Layout>
+        <Login />
+      </Layout>
     </>
   )
 }

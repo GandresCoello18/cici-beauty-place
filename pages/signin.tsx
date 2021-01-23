@@ -1,6 +1,7 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import SignIn from '../components/signIn'
+import Layout from '../components/layout'
 
 const SignInPage = () => {
   return (
@@ -9,7 +10,9 @@ const SignInPage = () => {
         title="Registrate - cici beauty place"
         description="Registrate con tus datos y disfrutas de nuestros productos."
       />
-      <SignIn />
+      <Layout>
+        <SignIn />
+      </Layout>
     </>
   )
 }
