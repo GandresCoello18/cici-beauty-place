@@ -27,16 +27,7 @@ const Index = () => {
           <section className="container font-arvo">
             <div className="row justify-content-between mt-3 mt-lg-5">
               <div className="col-12 col-lg-5">
-                <div className="row">
-                  <div className="col-1">
-                    <figure className="logo float-left bg-white">
-                      <img src="img/logo.jpg" alt="logotipo" />
-                    </figure>
-                  </div>
-                  <div className="col">
-                    <h1 className="text-center">Cici Beauty Place</h1>
-                  </div>
-                </div>
+                <h1 className="text-start">Cici Beauty Place</h1>
                 <br />
                 <p className="mt-2">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
