@@ -3,6 +3,7 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, { ReactNode } from 'react'
+import Cookies from 'js-cookie'
 import NavBar from '../nav/navBar'
 import Footer from './footer'
 
@@ -13,7 +14,7 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <>
-      <NavBar />
+      {Cookies.get('access-token') && <NavBar />}
       {children}
       <Footer />
     </>
