@@ -29,7 +29,7 @@ const MoreDetails = () => {
   return (
     <div>
       <Nav tabs>
-        <NavItem>
+        <NavItem className="cursor-pointer">
           <NavLink
             className={classnames({ active: activeTab === '1' })}
             onClick={() => {
@@ -39,7 +39,7 @@ const MoreDetails = () => {
             <FaRegCommentDots /> &nbsp; Opiniones
           </NavLink>
         </NavItem>
-        <NavItem>
+        <NavItem className="cursor-pointer">
           <NavLink
             className={classnames({ active: activeTab === '2' })}
             onClick={() => {

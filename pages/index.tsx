@@ -1,4 +1,3 @@
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -6,8 +5,6 @@ import { MdPayment } from 'react-icons/md'
 import { BiSupport } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import { InView, useInView } from 'react-intersection-observer'
-import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 import CardLanding from '../components/landing-page/card-landing'
 
@@ -214,15 +211,6 @@ const Index = () => {
       </style>
     </>
   )
-}
-
-Index.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering'))
 }
 
 export default Index

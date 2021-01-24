@@ -1,4 +1,3 @@
-import { Store } from 'redux'
 import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import {
@@ -10,8 +9,6 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 import Link from 'next/link'
-import { AllAction, RootState } from '../../reducers'
-import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
 
 const Compras = () => {
@@ -95,15 +92,6 @@ const Compras = () => {
       </Layout>
     </>
   )
-}
-
-Compras.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering Compras'))
 }
 
 export default Compras

@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-expressions */
-import { Store } from 'redux'
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
 import { FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
-import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
 
@@ -135,15 +132,6 @@ const Compra = () => {
       </Modal>
     </>
   )
-}
-
-Compra.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering Compra'))
 }
 
 export default Compra

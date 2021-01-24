@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import {
   Card,
@@ -11,6 +12,7 @@ import Link from 'next/link'
 import Tag from '../element/tag'
 
 interface Props {
+  idProduct: string
   sourceImage: string
   title?: string
   sold?: number
@@ -21,6 +23,7 @@ interface Props {
 }
 
 const CardProduct = ({
+  idProduct,
   sourceImage,
   title,
   sold,
@@ -45,6 +48,7 @@ const CardProduct = ({
     image: {
       width: '100%',
       height: 'auto',
+      padding: 2,
     },
     tachado: {
       padding: 4,
@@ -55,11 +59,8 @@ const CardProduct = ({
 
   return (
     <>
-      <Link href={`/productos/${0}`}>
-        <a
-          href={`/productos/${0}`}
-          style={{ textDecoration: 'none', color: '#4b4a4a' }}
-        >
+      <Link href={`/productos/${idProduct}`}>
+        <a style={{ textDecoration: 'none', color: '#4b4a4a' }}>
           <Card className="border-round">
             <CardImg top src={sourceImage} alt={title} style={Styles.image} />
             {!imageOnly && (

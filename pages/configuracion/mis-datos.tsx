@@ -1,12 +1,9 @@
 /* eslint-disable no-console */
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { GrUpdate } from 'react-icons/gr'
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
-import { AllAction, RootState } from '../../reducers'
-import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
 
 interface FromMiData {
@@ -111,15 +108,6 @@ const MyData = () => {
       </Layout>
     </>
   )
-}
-
-MyData.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering MyData'))
 }
 
 export default MyData

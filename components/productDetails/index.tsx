@@ -1,4 +1,7 @@
-import React from 'react'
+/* eslint-disable no-shadow */
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
+import React, { useEffect, useState } from 'react'
 import Magnifier from 'react-magnifier'
 import { GoPlus } from 'react-icons/go'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
@@ -12,8 +15,17 @@ import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
 import MoreDetails from './moreDetails'
 import CaroselCard from '../carousel/CaroselCard'
+import { GetProduct } from '../../api/products'
+import { Product } from '../../interfaces/products'
+import { BASE_API } from '../../api'
 
-const ProductDetails = () => {
+interface Props {
+  productId: string
+}
+
+const ProductDetails = ({ productId }: Props) => {
+  const [product, setProduct] = useState<Product>()
+
   const Styles = {
     tachado: {
       padding: 4,
@@ -21,6 +33,20 @@ const ProductDetails = () => {
       textDecoration: 'line-through',
     },
   }
+
+  useEffect(() => {
+    try {
+      const fetchProduct = async () => {
+        const { product } = await (await GetProduct({ idProduct: productId }))
+          .data
+        setProduct(product)
+      }
+
+      fetchProduct()
+    } catch (error) {
+      alert(error.message)
+    }
+  }, [productId])
 
   return (
     <section className="container">
@@ -30,7 +56,7 @@ const ProductDetails = () => {
             migas={[
               { text: 'Home', href: '/' },
               { text: 'productos', href: '/productos' },
-              { text: 'Este producto', active: true },
+              { text: product?.title, active: true },
             ]}
           />
         </div>
@@ -40,7 +66,7 @@ const ProductDetails = () => {
           <div className="row">
             <div className="col-12">
               <Magnifier
-                src="https://preview.colorlib.com/theme/minishop/images/product-1.png"
+                src={`${BASE_API}/static/${product?.source}`}
                 width="100%"
               />
             </div>
@@ -51,18 +77,13 @@ const ProductDetails = () => {
         </div>
         <div className="col-12 col-md-7">
           <div className="p-3 border-bottom">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium, maxime sint cumque libero nostrum, eaque assumenda
-              tempore vero labore fugiat quisquam doloribus, saepe tempora
-              tenetur animi excepturi perspiciatis accusamus iste.
-            </p>
+            <p>{product?.description}</p>
             <div className="row">
               <div className="col-5 col-lg-2">
                 <StarRatingComponent
                   name="rate1"
                   starCount={5}
-                  value={1}
+                  value={Number(product?.stars)}
                   onStarClick={(
                     nextValue: number,
                     prevValue: number,
@@ -71,14 +92,14 @@ const ProductDetails = () => {
                 />
               </div>
               <div className="col-5 col-lg-3" style={{ color: '#999' }}>
-                13 vendidos
+                {product?.sold} vendidos
               </div>
             </div>
           </div>
           <div className="p-3 border-bottom">
             <div className="row">
               <div className="col-5 col-lg-3">
-                <strong style={{ fontSize: 20 }}>US $20.9</strong>
+                <strong style={{ fontSize: 20 }}>US ${product?.price}</strong>
               </div>
               <div className="col-5 col-md-3">
                 <span style={Styles.tachado}>US $25.4</span>
@@ -96,12 +117,14 @@ const ProductDetails = () => {
             <Badge color="dark" className="p-1" pill style={{ fontSize: 17 }}>
               <RiSubtractLine color="#fff" />
             </Badge>
-            <strong className="p-2">1</strong>
+            <strong className="p-2" style={{ fontSize: 20 }}>
+              1
+            </strong>
             <Badge color="dark" className="p-1" pill style={{ fontSize: 17 }}>
               <GoPlus />
             </Badge>
             <span style={{ color: '#999', marginLeft: 10 }}>
-              45 disponibles
+              {product?.available} disponibles
             </span>
           </div>
           <div className="p-3">
@@ -122,7 +145,7 @@ const ProductDetails = () => {
                     <div className="col-2">
                       <MdShoppingBasket size={20} />
                     </div>
-                    <div className="col-6">Añadir a cesta</div>
+                    <div className="col-6">Añadir</div>
                   </div>
                 </Button>
               </div>

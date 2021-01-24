@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 interface DataMigas {
-  text: string
+  text: string | undefined
   href?: string
   active?: boolean
 }

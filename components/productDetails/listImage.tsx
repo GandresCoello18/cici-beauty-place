@@ -28,6 +28,7 @@ const ListImage = () => {
       {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
         <div className="p-2" key={item}>
           <CardProduct
+            idProduct="1"
             sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
             imageOnly
           />

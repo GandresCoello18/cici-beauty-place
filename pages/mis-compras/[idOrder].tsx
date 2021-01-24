@@ -1,10 +1,7 @@
-import { Store } from 'redux'
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
 import { Badge } from 'reactstrap'
-import { AllAction, RootState } from '../../reducers'
-import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
 import CartResumne from '../../components/cart/cart-resumen'
 
@@ -84,15 +81,6 @@ const DetailsCompra = () => {
       </Layout>
     </>
   )
-}
-
-DetailsCompra.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering DetailsCompra'))
 }
 
 export default DetailsCompra
