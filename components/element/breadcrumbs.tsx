@@ -16,7 +16,7 @@ const MigasPan = ({ migas }: Props) => {
     <Breadcrumb tag="nav" listTag="div">
       {migas.map((miga) =>
         miga.active ? (
-          <BreadcrumbItem active tag="span">
+          <BreadcrumbItem active tag="span" key={miga.text}>
             {miga.text}
           </BreadcrumbItem>
         ) : (

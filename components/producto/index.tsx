@@ -2,7 +2,7 @@ import React from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { Input, Label } from 'reactstrap'
-import CardProduct from '../card/card-product'
+// import CardProduct from '../card/card-product'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
 import CaroselCard from '../carousel/CaroselCard'
@@ -82,23 +82,16 @@ const Productos = () => {
       <div className="row justify-content-around p-3 mt-3">
         <div className="col-12 col-md-9 col-lg-10">
           <div className="row justify-content-center">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
+            {/* [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
               (item) => (
                 <div
                   className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
                   key={item}
                 >
-                  <CardProduct
-                    sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                    title="Lapiz labial"
-                    price={10.2}
-                    sold={30}
-                    size="small"
-                    imageOnly={false}
-                  />
+                  <CardProduct product={product} size="small" />
                 </div>
               )
-            )}
+              ) */}
           </div>
 
           <div className="row mt-2 mb-3 justify-content-center">

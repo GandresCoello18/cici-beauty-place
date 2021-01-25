@@ -12,7 +12,7 @@ import CategoriNav from '../nav/categori'
 import Time from '../element/time'
 import { RootState } from '../../reducers'
 import { Product } from '../../interfaces/products'
-import { BASE_API } from '../../api'
+import CardImageOnly from '../card/card-image-only'
 
 const Home = () => {
   const Products = useSelector(
@@ -44,34 +44,30 @@ const Home = () => {
                 </h6>
               </div>
               <div className="col-6 col-md-12 col-lg-6 p-2">
-                <CardProduct
-                  idProduct="1"
+                <CardImageOnly
+                  title="1"
                   sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                  imageOnly
                 />
               </div>
 
               <div className="col-6 col-lg-4 d-md-none p-2">
-                <CardProduct
-                  idProduct="2"
+                <CardImageOnly
+                  title="2"
                   sourceImage="https://ae01.alicdn.com/kf/He81f9ea4b1984219aea384a9678e214eB/O-TWO-O-Makeup-Base-Face-Primer-Gel-Invisible-Pore-Light-Oil-Free-Makeup-Finish-No.jpg_220x220xz.jpg_.webp"
-                  imageOnly
                 />
               </div>
 
               <div className="col-6 d-md-none d-lg-block col-lg-6 p-2">
-                <CardProduct
-                  idProduct="3"
+                <CardImageOnly
+                  title="3"
                   sourceImage="https://ae01.alicdn.com/kf/H7283a45abbad4f37be30a95ddccfab561/60ml-Makeup-Setting-Spray-Face-Primer-Foundation-Base-Fixer-Hydrate-Long-Lasting-Lasting-Make-Up-Fix.jpg_220x220xz.jpg_.webp"
-                  imageOnly
                 />
               </div>
 
               <div className="col-6 d-md-none col-lg-6 p-2">
-                <CardProduct
-                  idProduct="4"
+                <CardImageOnly
+                  title="4"
                   sourceImage="https://ae01.alicdn.com/kf/H5e3eec11237d45098fb7128507dba2a98/FLD-Professional-Makeup-Brush-Diamond-Face-Fan-Powder-Brush-High-Quality-Makeup-Tool-Blush-Kit.jpg_220x220xz.jpg_.webp"
-                  imageOnly
                 />
               </div>
               <div className="col-12 p-2 text-center">
@@ -127,15 +123,7 @@ const Home = () => {
               className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
               key={product.idProducts}
             >
-              <CardProduct
-                idProduct={product.idProducts}
-                sourceImage={`${BASE_API}/static/${product.source}`}
-                title={product.title}
-                price={product.price}
-                sold={product.sold}
-                size="normal"
-                imageOnly={false}
-              />
+              <CardProduct product={product} size="normal" />
             </div>
           ))}
         </div>

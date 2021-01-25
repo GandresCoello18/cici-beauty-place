@@ -1,8 +1,17 @@
-import React from 'react'
+/* eslint-disable no-console */
+import React, { useEffect } from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 import { Media } from 'reactstrap'
 
-const Comentario = () => {
+interface Props {
+  idProduct: string
+}
+
+const Comentario = ({ idProduct }: Props) => {
+  useEffect(() => {
+    console.log(`${idProduct} comentarios`)
+  }, [idProduct])
+
   return (
     <Media>
       <Media left href="#">

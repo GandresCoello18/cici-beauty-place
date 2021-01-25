@@ -57,6 +57,10 @@ body {
   border: 2px solid #4db193;
 }
 
+.border-list-image-preview:hover {
+  border: 2px solid #f097ac;
+}
+
 .select-addres {
   background-color: rgba(240, 151, 172, 0.3) !important;
 }

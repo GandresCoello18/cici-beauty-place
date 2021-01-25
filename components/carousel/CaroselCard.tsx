@@ -1,6 +1,6 @@
 import React from 'react'
 import Carousel from 'react-multi-carousel'
-import CardProduct from '../card/card-product'
+// import CardProduct from '../card/card-product'
 
 const CaroselCard = () => {
   const responsive = {
@@ -25,18 +25,13 @@ const CaroselCard = () => {
 
   return (
     <Carousel responsive={responsive} autoPlay infinite autoPlaySpeed={2500}>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
+      {/* [0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
         <div className="p-2" key={item}>
-          <CardProduct
-            sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-            title="Lapiz labial"
-            price={10.2}
-            sold={30}
-            size="normal"
-            imageOnly={false}
-          />
+          <CardProduct product={product} size="normal" />
         </div>
-      ))}
+      )) */}
+
+      <div className="p-2">djies</div>
     </Carousel>
   )
 }

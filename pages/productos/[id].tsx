@@ -1,31 +1,50 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
 import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
+import { GetProduct } from '../../api/products'
+import { Product } from '../../interfaces/products'
 
 const ProductId = () => {
-  const [productId, setProductId] = useState<string>('')
+  const [product, setProduct] = useState<Product>()
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!Router.query.id) {
-      Router.push('/')
+    setLoading(true)
+
+    try {
+      if (!Router.query.id) {
+        Router.push('/')
+      }
+
+      const fetchProduct = async () => {
+        const productId = Router.query.id as string
+        const { product } = await (await GetProduct({ idProduct: productId }))
+          .data
+        setProduct(product)
+      }
+
+      fetchProduct()
+    } catch (error) {
+      alert(error.message)
     }
 
-    setProductId(Router.query.id as string)
-    console.log('desde efect de product ID')
+    setLoading(false)
   }, [])
 
   return (
     <>
       <NextSeo
-        title={`${productId} - Cici beauty place`}
+        title={`${product?.title ? product?.title : ''} - Cici beauty place`}
         description="Encuentra todo sobre cosmeticos y belleza."
       />
 
       <Layout>
-        <ProductDetails productId={productId} />
+        {product && <ProductDetails product={product} loading={loading} />}
       </Layout>
     </>
   )
