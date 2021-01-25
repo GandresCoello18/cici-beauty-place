@@ -5,7 +5,7 @@ import { Input, Label } from 'reactstrap'
 // import CardProduct from '../card/card-product'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
-import CaroselCard from '../carousel/CaroselCard'
+// import CaroselCard from '../carousel/CaroselCard'
 import Survey from '../element/survey'
 
 const Productos = () => {
@@ -120,9 +120,7 @@ const Productos = () => {
           <AiTwotoneHeart color="pink" size={20} /> &nbsp;{' '}
           <strong>Productos recomendados</strong>
         </div>
-        <div className="col-12 font-arvo">
-          <CaroselCard />
-        </div>
+        <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
       </div>
     </section>
   )

@@ -10,6 +10,7 @@ import {
 } from 'reactstrap'
 import Link from 'next/link'
 import StarRatingComponent from 'react-star-rating-component'
+import { MdPeople } from 'react-icons/md'
 import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
 
@@ -75,12 +76,14 @@ const CardProduct = ({ product, size }: Props) => {
               </CardTitle>
               <CardText>
                 <strong className="mr-4">US ${calculatePrice()}</strong>
-                {product.discount && (
+                {product.discount ? (
                   <>
                     <span style={Styles.tachado}>US ${product.price}</span>{' '}
                     &nbsp;{' '}
                     <span className="tag-discount">-${product.discount}%</span>
                   </>
+                ) : (
+                  ''
                 )}
               </CardText>
               <CardSubtitle
@@ -111,7 +114,8 @@ const CardProduct = ({ product, size }: Props) => {
                       className="position-absolute top-0 ml-3"
                       style={{ color: 'rgb(255, 180, 0)' }}
                     >
-                      1.000
+                      {product.starsPeople}{' '}
+                      <MdPeople color="rgb(255, 180, 0)" />
                     </span>
                   </div>
                 </div>

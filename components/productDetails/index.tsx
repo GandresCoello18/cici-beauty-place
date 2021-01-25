@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
@@ -7,10 +9,11 @@ import Magnifier from 'react-magnifier'
 import { GoPlus } from 'react-icons/go'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
 import { AiTwotoneHeart } from 'react-icons/ai'
-import { MdShoppingBasket } from 'react-icons/md'
+import { MdPeople, MdShoppingBasket } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
 import { Badge, Button } from 'reactstrap'
 import { RiSubtractLine } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
 import Share from '../element/share'
 import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
@@ -18,6 +21,7 @@ import MoreDetails from './moreDetails'
 import CaroselCard from '../carousel/CaroselCard'
 import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
+import { RootState } from '../../reducers'
 
 interface Props {
   product: Product
@@ -27,6 +31,16 @@ interface Props {
 const ProductDetails = ({ product, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
+  const [preview, setPreview] = useState<{ src: string; type: string }>({
+    src: '',
+    type: '',
+  })
+
+  const ProductsReducer = useSelector(
+    (state: RootState) => state.ProductReducer
+  )
+
+  const { ProductsBestRated } = ProductsReducer
 
   const Styles = {
     tachado: {
@@ -38,7 +52,11 @@ const ProductDetails = ({ product, loading }: Props) => {
 
   useEffect(() => {
     setUrlShare(window.location.href)
-  }, [])
+    setPreview({
+      src: `${BASE_API}/static/${product?.source}`,
+      type: 'IMAGEN',
+    })
+  }, [product])
 
   const calculatePrice = () => {
     if (product.discount) {
@@ -67,13 +85,24 @@ const ProductDetails = ({ product, loading }: Props) => {
           <div className="col-12 col-md-4">
             <div className="row">
               <div className="col-12">
-                <Magnifier
-                  src={`${BASE_API}/static/${product?.source}`}
-                  width="100%"
-                />
+                {preview.type === 'IMAGEN' ? (
+                  <Magnifier src={preview.src} width="100%" />
+                ) : (
+                  <video width="100%" controls>
+                    <source src={preview.src} type="video/mp4" />
+                    <source src={preview.src} type="video/ogg" />
+                  </video>
+                )}
               </div>
               <div className="col-12">
-                <ListImage />
+                {product.related_sources.length ? (
+                  <ListImage
+                    sources={product.related_sources}
+                    setPreview={setPreview}
+                  />
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
@@ -81,7 +110,7 @@ const ProductDetails = ({ product, loading }: Props) => {
             <div className="p-3 border-bottom">
               <p>{product?.description}</p>
               <div className="row">
-                <div className="col-5 col-lg-2">
+                <div className="col-6 col-lg-3">
                   <StarRatingComponent
                     name="rate1"
                     starCount={5}
@@ -92,8 +121,17 @@ const ProductDetails = ({ product, loading }: Props) => {
                       name: string
                     ) => console.log(`${nextValue} - ${prevValue} - ${name}`)}
                   />
+                  <span
+                    className="position-absolute left-0 ml-2"
+                    style={{ color: 'rgb(255, 180, 0)' }}
+                  >
+                    {product.starsPeople} <MdPeople color="rgb(255, 180, 0)" />
+                  </span>
                 </div>
-                <div className="col-5 col-lg-3" style={{ color: '#999' }}>
+                <div
+                  className="col-5 col-lg-3 text-right"
+                  style={{ color: '#999' }}
+                >
                   {product?.sold} vendidos
                 </div>
               </div>
@@ -203,7 +241,7 @@ const ProductDetails = ({ product, loading }: Props) => {
             <strong>Productos recomendados</strong>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard />
+            <CaroselCard products={ProductsBestRated} />
           </div>
         </div>
       </section>

@@ -1,8 +1,13 @@
 import React from 'react'
 import Carousel from 'react-multi-carousel'
-// import CardProduct from '../card/card-product'
+import { Product } from '../../interfaces/products'
+import CardProduct from '../card/card-product'
 
-const CaroselCard = () => {
+interface Props {
+  products: Product[]
+}
+
+const CaroselCard = ({ products }: Props) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -25,13 +30,12 @@ const CaroselCard = () => {
 
   return (
     <Carousel responsive={responsive} autoPlay infinite autoPlaySpeed={2500}>
-      {/* [0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-        <div className="p-2" key={item}>
-          <CardProduct product={product} size="normal" />
-        </div>
-      )) */}
-
-      <div className="p-2">djies</div>
+      {products.length &&
+        products.map((product) => (
+          <div className="p-2" key={product.idProducts}>
+            <CardProduct product={product} size="normal" />
+          </div>
+        ))}
     </Carousel>
   )
 }

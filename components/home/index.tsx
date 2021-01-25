@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
@@ -15,9 +16,13 @@ import { Product } from '../../interfaces/products'
 import CardImageOnly from '../card/card-image-only'
 
 const Home = () => {
-  const Products = useSelector(
-    (state: RootState) => state.ProductReducer.Products
+  const ProductsReducer = useSelector(
+    (state: RootState) => state.ProductReducer
   )
+
+  const { Products } = ProductsReducer
+  const { ProductsOffers } = ProductsReducer
+  const { ProductsBestRated } = ProductsReducer
 
   return (
     <>
@@ -97,9 +102,12 @@ const Home = () => {
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
             <FaPercentage color="pink" /> &nbsp; <strong>Ofertas</strong>
+            <Link href="/products/ofertas">
+              <a className="float-right">Ver màs</a>
+            </Link>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard />
+            <CaroselCard products={ProductsOffers} />
           </div>
         </div>
 
@@ -109,9 +117,7 @@ const Home = () => {
             <strong>Flash Ofertas</strong> &nbsp; &nbsp;
             <Time />
           </div>
-          <div className="col-12 font-arvo">
-            <CaroselCard />
-          </div>
+          <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
         </div>
 
         <div className="row justify-content-center">
@@ -131,9 +137,12 @@ const Home = () => {
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
             <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
+            <Link href="/products/mejor-valorados">
+              <a className="float-right">Ver màs</a>
+            </Link>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard />
+            <CaroselCard products={ProductsBestRated} />
           </div>
         </div>
       </section>

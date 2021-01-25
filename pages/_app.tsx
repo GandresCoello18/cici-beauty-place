@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
-import React, { useEffect } from 'react'
+import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
@@ -24,7 +24,7 @@ type AppPage<P = {}> = {
 }
 
 const App: AppPage<Props> = ({ store, pageProps, Component }) => {
-  useEffect(() => {
+  /* useEffect(() => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(
@@ -40,7 +40,7 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
         )
       })
     }
-  }, [])
+  }, []) */
 
   return (
     <>
