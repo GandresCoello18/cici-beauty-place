@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/class-name-casing */
-import { Product } from '../../interfaces/products'
+import { Product } from '../interfaces/products'
 
 const SET_PRODUCTS = 'SET_PRODUCTS'
 const SET_PRODUCTS_OFFERS = 'SET_PRODUCTS_OFFERS'

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/media-has-caption */
@@ -11,7 +12,7 @@ import Magnifier from 'react-magnifier'
 import { GoPlus } from 'react-icons/go'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
 import { AiTwotoneHeart } from 'react-icons/ai'
-import { MdPeople, MdShoppingBasket } from 'react-icons/md'
+import { MdPeople } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
 import { Badge, Button } from 'reactstrap'
 import { RiSubtractLine } from 'react-icons/ri'
@@ -25,6 +26,7 @@ import CaroselCard from '../carousel/CaroselCard'
 import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
 import { RootState } from '../../reducers'
+import CartAddProduct from '../cart/cart-add-product'
 
 interface Props {
   product: Product
@@ -291,14 +293,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                   {loading ? (
                     <Skeleton height={40} />
                   ) : (
-                    <Button color="warning" className="text-white">
-                      <div className="row">
-                        <div className="col-2">
-                          <MdShoppingBasket size={20} />
-                        </div>
-                        <div className="col-6">Añadir</div>
-                      </div>
-                    </Button>
+                    <CartAddProduct product={product} />
                   )}
                 </div>
               </div>

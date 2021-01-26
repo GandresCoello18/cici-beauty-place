@@ -24,7 +24,7 @@ import {
   NavbarToggler,
   UncontrolledDropdown,
 } from 'reactstrap'
-import { AiFillCloseCircle, AiOutlineShopping } from 'react-icons/ai'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { IoIosNotifications } from 'react-icons/io'
 import { BiPurchaseTagAlt } from 'react-icons/bi'
 import { GrConfigure } from 'react-icons/gr'
@@ -34,6 +34,7 @@ import { MdFavorite } from 'react-icons/md'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
+import CartIcon from '../cart/cart-icon'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -182,19 +183,7 @@ const NavBarElement = () => {
           </div>
 
           <NavbarText>
-            <Link href="/compra">
-              <a href="/compra">
-                <AiOutlineShopping size={25} />
-                <Badge
-                  color="dark"
-                  pill
-                  className="position-relative"
-                  style={{ top: -10 }}
-                >
-                  0
-                </Badge>
-              </a>
-            </Link>
+            <CartIcon />
           </NavbarText>
 
           <SearchInput />

@@ -126,7 +126,7 @@ const Home = () => {
           <div className="col-12 p-3">
             <strong>Seguro que te gusta</strong>
           </div>
-          {!Products.length
+          {Products.length
             ? Products.map((product: Product) => (
                 <div
                   className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
