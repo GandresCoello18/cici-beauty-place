@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable no-unused-expressions */
@@ -14,6 +16,7 @@ import StarRatingComponent from 'react-star-rating-component'
 import { Badge, Button } from 'reactstrap'
 import { RiSubtractLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
+import Skeleton from 'react-loading-skeleton'
 import Share from '../element/share'
 import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
@@ -72,34 +75,51 @@ const ProductDetails = ({ product, loading }: Props) => {
       <section className="container">
         <div className="row mt-3" style={{ backgroundColor: '#e9ecef' }}>
           <div className="col-12">
-            <MigasPan
-              migas={[
-                { text: 'Home', href: '/' },
-                { text: 'productos', href: '/productos' },
-                { text: product?.title, active: true },
-              ]}
-            />
+            {loading ? (
+              <Skeleton height={40} />
+            ) : (
+              <MigasPan
+                migas={[
+                  { text: 'Home', href: '/' },
+                  { text: 'productos', href: '/productos' },
+                  { text: product?.title, active: true },
+                ]}
+              />
+            )}
           </div>
         </div>
         <div className="row justify-content-center bg-white p-3">
           <div className="col-12 col-md-4">
             <div className="row">
               <div className="col-12">
-                {preview.type === 'IMAGEN' ? (
-                  <Magnifier src={preview.src} width="100%" />
-                ) : (
-                  <video width="100%" controls>
-                    <source src={preview.src} type="video/mp4" />
-                    <source src={preview.src} type="video/ogg" />
-                  </video>
-                )}
+                {loading && <Skeleton height={240} />}
+
+                {!loading &&
+                  (preview.type === 'IMAGEN' ? (
+                    <Magnifier src={preview.src} width="100%" />
+                  ) : (
+                    <video width="100%" controls>
+                      <source src={preview.src} type="video/mp4" />
+                      <source src={preview.src} type="video/ogg" />
+                    </video>
+                  ))}
               </div>
               <div className="col-12">
                 {product.related_sources.length ? (
-                  <ListImage
-                    sources={product.related_sources}
-                    setPreview={setPreview}
-                  />
+                  loading ? (
+                    <div className="row">
+                      {[0, 1, 2].map((item) => (
+                        <div className="col-3 ml-2" key={item}>
+                          <Skeleton width={80} height={80} />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <ListImage
+                      sources={product.related_sources}
+                      setPreview={setPreview}
+                    />
+                  )
                 ) : (
                   ''
                 )}
@@ -108,31 +128,48 @@ const ProductDetails = ({ product, loading }: Props) => {
           </div>
           <div className="col-12 col-md-7">
             <div className="p-3 border-bottom">
-              <p>{product?.description}</p>
+              {loading ? (
+                <Skeleton height={16} />
+              ) : (
+                <p>{product?.description}</p>
+              )}
               <div className="row">
                 <div className="col-6 col-lg-3">
-                  <StarRatingComponent
-                    name="rate1"
-                    starCount={5}
-                    value={Number(product?.stars)}
-                    onStarClick={(
-                      nextValue: number,
-                      prevValue: number,
-                      name: string
-                    ) => console.log(`${nextValue} - ${prevValue} - ${name}`)}
-                  />
-                  <span
-                    className="position-absolute left-0 ml-2"
-                    style={{ color: 'rgb(255, 180, 0)' }}
-                  >
-                    {product.starsPeople} <MdPeople color="rgb(255, 180, 0)" />
-                  </span>
+                  {loading ? (
+                    <Skeleton height={16} />
+                  ) : (
+                    <>
+                      <StarRatingComponent
+                        name="rate1"
+                        starCount={5}
+                        value={Number(product?.stars)}
+                        onStarClick={(
+                          nextValue: number,
+                          prevValue: number,
+                          name: string
+                        ) =>
+                          console.log(`${nextValue} - ${prevValue} - ${name}`)
+                        }
+                      />
+                      <span
+                        className="position-absolute left-0 ml-2"
+                        style={{ color: 'rgb(255, 180, 0)' }}
+                      >
+                        {product.starsPeople}{' '}
+                        <MdPeople color="rgb(255, 180, 0)" />
+                      </span>
+                    </>
+                  )}
                 </div>
                 <div
                   className="col-5 col-lg-3 text-right"
                   style={{ color: '#999' }}
                 >
-                  {product?.sold} vendidos
+                  {loading ? (
+                    <Skeleton height={16} />
+                  ) : (
+                    <>{product?.sold} vendidos</>
+                  )}
                 </div>
               </div>
             </div>
@@ -140,16 +177,30 @@ const ProductDetails = ({ product, loading }: Props) => {
               <div className="row">
                 <div className="col-5 col-lg-3">
                   <strong style={{ fontSize: 20 }}>
-                    US ${calculatePrice()}
+                    {loading ? (
+                      <Skeleton height={16} />
+                    ) : (
+                      <>US ${calculatePrice()}</>
+                    )}
                   </strong>
                 </div>
                 {product?.discount ? (
                   <>
                     <div className="col-5 col-md-3">
-                      <span style={Styles.tachado}>US ${product.price}</span>
+                      {loading ? (
+                        <Skeleton height={15} />
+                      ) : (
+                        <span style={Styles.tachado}>US ${product.price}</span>
+                      )}
                     </div>
                     <div className="col-1">
-                      <span className="tag-discount">-{product.discount}%</span>
+                      {loading ? (
+                        <Skeleton height={15} />
+                      ) : (
+                        <span className="tag-discount">
+                          -{product.discount}%
+                        </span>
+                      )}
                     </div>
                   </>
                 ) : (
@@ -158,62 +209,97 @@ const ProductDetails = ({ product, loading }: Props) => {
               </div>
             </div>
             <div className="p-3 border-bottom">
-              <Share ShareUrl={urlShare} />
+              {loading ? (
+                <Skeleton height={20} />
+              ) : (
+                <Share ShareUrl={urlShare} />
+              )}
             </div>
             <div className="p-3">
-              <span>Cantidad: </span>
-              <Badge
-                color="dark"
-                className="p-1 cursor-pointer"
-                pill
-                style={{ fontSize: 17 }}
-                onClick={() => {
-                  quantity > 1 && setQuantity(quantity - 1)
-                }}
-              >
-                <RiSubtractLine color="#fff" />
-              </Badge>
+              {loading ? (
+                <Skeleton height={20} width={60} />
+              ) : (
+                <span>Cantidad: </span>
+              )}
+              {loading ? (
+                <Skeleton height={30} width={30} circle />
+              ) : (
+                <Badge
+                  color="dark"
+                  className="p-1 cursor-pointer"
+                  pill
+                  style={{ fontSize: 17 }}
+                  onClick={() => {
+                    quantity > 1 && setQuantity(quantity - 1)
+                  }}
+                >
+                  <RiSubtractLine color="#fff" />
+                </Badge>
+              )}
               <strong className="p-2" style={{ fontSize: 20 }}>
-                {quantity}
+                {loading ? (
+                  <Skeleton height={35} width={35} circle />
+                ) : (
+                  quantity
+                )}
               </strong>
-              <Badge
-                color="dark"
-                className="p-1 cursor-pointer"
-                pill
-                style={{ fontSize: 17 }}
-                onClick={() => {
-                  if (quantity >= 1 && quantity < Number(product?.available)) {
-                    setQuantity(quantity + 1)
-                  }
-                }}
-              >
-                <GoPlus />
-              </Badge>
-              <span style={{ color: '#999', marginLeft: 10 }}>
-                {product?.available} disponibles
+              {loading ? (
+                <Skeleton height={30} width={30} circle />
+              ) : (
+                <Badge
+                  color="dark"
+                  className="p-1 cursor-pointer"
+                  pill
+                  style={{ fontSize: 17 }}
+                  onClick={() => {
+                    if (
+                      quantity >= 1 &&
+                      quantity < Number(product?.available)
+                    ) {
+                      setQuantity(quantity + 1)
+                    }
+                  }}
+                >
+                  <GoPlus />
+                </Badge>
+              )}
+              <span style={{ color: '#999', marginLeft: 13 }}>
+                {loading ? (
+                  <Skeleton height={15} />
+                ) : (
+                  <>{product?.available} disponibles</>
+                )}
               </span>
             </div>
             <div className="p-3">
               <div className="row justify-content-start">
                 <div className="col-6 col-lg-3">
-                  <Button color="danger">
-                    <div className="row">
-                      <div className="col-2">
-                        <FaMoneyCheckAlt size={20} />
+                  {loading ? (
+                    <Skeleton height={40} />
+                  ) : (
+                    <Button color="danger">
+                      <div className="row">
+                        <div className="col-2">
+                          <FaMoneyCheckAlt size={20} />
+                        </div>
+                        <div className="col-6">Comprar</div>
                       </div>
-                      <div className="col-6">Comprar</div>
-                    </div>
-                  </Button>
+                    </Button>
+                  )}
                 </div>
                 <div className="col-6 col-lg-4">
-                  <Button color="warning" className="text-white">
-                    <div className="row">
-                      <div className="col-2">
-                        <MdShoppingBasket size={20} />
+                  {loading ? (
+                    <Skeleton height={40} />
+                  ) : (
+                    <Button color="warning" className="text-white">
+                      <div className="row">
+                        <div className="col-2">
+                          <MdShoppingBasket size={20} />
+                        </div>
+                        <div className="col-6">Añadir</div>
                       </div>
-                      <div className="col-6">Añadir</div>
-                    </div>
-                  </Button>
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -226,6 +312,7 @@ const ProductDetails = ({ product, loading }: Props) => {
           <div className="col-12 p-2 font-arvo">
             {product && (
               <MoreDetails
+                loading={loading}
                 idProduct={product?.idProducts}
                 brand={product?.brand}
                 size={product?.size}
@@ -248,7 +335,7 @@ const ProductDetails = ({ product, loading }: Props) => {
     )
   }
 
-  return <>{loading ? 'Cargando...' : renderPreViewProduct()}</>
+  return <>{renderPreViewProduct()}</>
 }
 
 export default ProductDetails

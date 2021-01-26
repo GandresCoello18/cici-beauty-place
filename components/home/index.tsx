@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -5,6 +6,7 @@ import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { BsFillLightningFill } from 'react-icons/bs'
 import Link from 'next/link'
+import Skeleton from 'react-loading-skeleton'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
@@ -124,14 +126,23 @@ const Home = () => {
           <div className="col-12 p-3">
             <strong>Seguro que te gusta</strong>
           </div>
-          {Products.map((product: Product) => (
-            <div
-              className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
-              key={product.idProducts}
-            >
-              <CardProduct product={product} size="normal" />
-            </div>
-          ))}
+          {!Products.length
+            ? Products.map((product: Product) => (
+                <div
+                  className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
+                  key={product.idProducts}
+                >
+                  <CardProduct product={product} size="normal" />
+                </div>
+              ))
+            : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item) => (
+                <div
+                  className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
+                  key={item}
+                >
+                  <Skeleton width={240} height={300} />
+                </div>
+              ))}
         </div>
 
         <div className="row mt-3 mb-3 bg-white p-3">

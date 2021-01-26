@@ -11,16 +11,18 @@ import {
 import { BiDetail } from 'react-icons/bi'
 import { FaRegCommentDots } from 'react-icons/fa'
 import classnames from 'classnames'
+import Skeleton from 'react-loading-skeleton'
 import Comentario from '../element/comentario'
 
 interface Props {
+  loading: boolean
   idProduct: string
   brand: string
   size: string
   model: string
 }
 
-const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
+const MoreDetails = ({ loading, idProduct, brand, size, model }: Props) => {
   const Styles = {
     color: {
       color: '#999',
@@ -64,7 +66,7 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
             <Col sm="12" md="6">
               {[0, 1, 2, 3].map((item) => (
                 <div className="p-2 mb-2" key={item}>
-                  <Comentario idProduct={idProduct} />
+                  <Comentario idProduct={idProduct} loading={loading} />
                 </div>
               ))}
             </Col>
@@ -76,7 +78,11 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
               <span style={Styles.color} className="p-1 ml-2">
                 Marca:{' '}
               </span>
-              <span>{brand}</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{brand}</span>
+              )}
             </Col>
             <Col sm="12" md="6">
               <span style={Styles.color} className="p-1 ml-2">
@@ -88,13 +94,21 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
               <span style={Styles.color} className="p-1 ml-2">
                 Tamaño:{' '}
               </span>
-              <span>{size}</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{size}</span>
+              )}
             </Col>
             <Col sm="12" md="6">
               <span style={Styles.color} className="p-1 ml-2">
                 Modelo:{' '}
               </span>
-              <span>{model}</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{model}</span>
+              )}
             </Col>
           </Row>
         </TabPane>
