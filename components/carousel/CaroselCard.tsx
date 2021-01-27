@@ -1,8 +1,15 @@
+/* eslint-disable unicorn/explicit-length-check */
 import React from 'react'
 import Carousel from 'react-multi-carousel'
+import Skeleton from 'react-loading-skeleton'
+import { Product } from '../../interfaces/products'
 import CardProduct from '../card/card-product'
 
-const CaroselCard = () => {
+interface Props {
+  products: Product[]
+}
+
+const CaroselCard = ({ products }: Props) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -25,18 +32,17 @@ const CaroselCard = () => {
 
   return (
     <Carousel responsive={responsive} autoPlay infinite autoPlaySpeed={2500}>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-        <div className="p-2" key={item}>
-          <CardProduct
-            sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-            title="Lapiz labial"
-            price={10.2}
-            sold={30}
-            size="normal"
-            imageOnly={false}
-          />
-        </div>
-      ))}
+      {products.length
+        ? products.map((product) => (
+            <div className="p-2" key={product.idProducts}>
+              <CardProduct product={product} size="normal" />
+            </div>
+          ))
+        : [0, 1, 2, 3, 4].map((item) => (
+            <div key={item} className="text-center">
+              <Skeleton width={240} height={300} />
+            </div>
+          ))}
     </Carousel>
   )
 }

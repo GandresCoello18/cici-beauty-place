@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { BiSad } from 'react-icons/bi'
@@ -7,9 +6,7 @@ import { FiSend } from 'react-icons/fi'
 import { AiFillCopy } from 'react-icons/ai'
 import { Alert, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
-import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
-import { AllAction, RootState } from '../../reducers'
 
 interface FromInvite {
   name: string
@@ -129,15 +126,6 @@ const SendInvitation = () => {
       </Layout>
     </>
   )
-}
-
-SendInvitation.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering SendInvitation'))
 }
 
 export default SendInvitation

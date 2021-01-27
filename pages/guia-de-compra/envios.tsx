@@ -1,8 +1,5 @@
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
-import { AllAction, RootState } from '../../reducers'
-import { setTitle } from '../../reducers/app'
 import Layout from '../../components/layout'
 import FeedbackInformation from '../../components/element/feedbackInformation'
 
@@ -49,15 +46,6 @@ const ShippingGuide = () => {
       </Layout>
     </>
   )
-}
-
-ShippingGuide.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering - ShippingGuide'))
 }
 
 export default ShippingGuide

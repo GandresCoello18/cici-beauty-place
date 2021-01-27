@@ -11,9 +11,18 @@ import {
 import { BiDetail } from 'react-icons/bi'
 import { FaRegCommentDots } from 'react-icons/fa'
 import classnames from 'classnames'
+import Skeleton from 'react-loading-skeleton'
 import Comentario from '../element/comentario'
 
-const MoreDetails = () => {
+interface Props {
+  loading: boolean
+  idProduct: string
+  brand: string
+  size: string
+  model: string
+}
+
+const MoreDetails = ({ loading, idProduct, brand, size, model }: Props) => {
   const Styles = {
     color: {
       color: '#999',
@@ -29,7 +38,7 @@ const MoreDetails = () => {
   return (
     <div>
       <Nav tabs>
-        <NavItem>
+        <NavItem className="cursor-pointer">
           <NavLink
             className={classnames({ active: activeTab === '1' })}
             onClick={() => {
@@ -39,7 +48,7 @@ const MoreDetails = () => {
             <FaRegCommentDots /> &nbsp; Opiniones
           </NavLink>
         </NavItem>
-        <NavItem>
+        <NavItem className="cursor-pointer">
           <NavLink
             className={classnames({ active: activeTab === '2' })}
             onClick={() => {
@@ -57,7 +66,7 @@ const MoreDetails = () => {
             <Col sm="12" md="6">
               {[0, 1, 2, 3].map((item) => (
                 <div className="p-2 mb-2" key={item}>
-                  <Comentario />
+                  <Comentario idProduct={idProduct} loading={loading} />
                 </div>
               ))}
             </Col>
@@ -69,7 +78,11 @@ const MoreDetails = () => {
               <span style={Styles.color} className="p-1 ml-2">
                 Marca:{' '}
               </span>
-              <span>MB Tatoo</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{brand}</span>
+              )}
             </Col>
             <Col sm="12" md="6">
               <span style={Styles.color} className="p-1 ml-2">
@@ -81,13 +94,21 @@ const MoreDetails = () => {
               <span style={Styles.color} className="p-1 ml-2">
                 Tamaño:{' '}
               </span>
-              <span>12 CM</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{size}</span>
+              )}
             </Col>
             <Col sm="12" md="6">
               <span style={Styles.color} className="p-1 ml-2">
                 Modelo:{' '}
               </span>
-              <span>Normal</span>
+              {loading ? (
+                <Skeleton width={70} height={10} />
+              ) : (
+                <span>{model}</span>
+              )}
             </Col>
           </Row>
         </TabPane>

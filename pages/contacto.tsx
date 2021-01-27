@@ -1,4 +1,3 @@
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -7,8 +6,6 @@ import { IoLogoWhatsapp } from 'react-icons/io'
 import { Button, Form, FormGroup, Input } from 'reactstrap'
 import { AiFillInstagram } from 'react-icons/ai'
 import { MdEmail } from 'react-icons/md'
-import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 
 const Index = () => {
@@ -129,15 +126,6 @@ const Index = () => {
       </Layout>
     </>
   )
-}
-
-Index.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering contacto'))
 }
 
 export default Index

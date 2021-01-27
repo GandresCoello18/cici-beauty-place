@@ -1,8 +1,11 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import StepProgressBar from 'react-step-progress'
-import Cart from '../cart'
+import { RootState } from '../../reducers'
+import CartContainer from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
 
@@ -17,11 +20,15 @@ const StepsShopping = ({
   setItemStep,
   setFinishShopping,
 }: Props) => {
+  const { Cart } = useSelector((state: RootState) => state.CartReducer)
+
   const validarPagos = () => {
     setItemStep(2)
     return true
   }
-  const validarEnvio = () => true
+  const validarEnvio = () => {
+    return true
+  }
   const onFormSubmit = () => {
     setFinishShopping(true)
     // handle the submit logic here
@@ -29,13 +36,20 @@ const StepsShopping = ({
     // when the submit button (next button in the previous steps) is pressed
   }
 
+  useEffect(() => {
+    if (Cart.length === 0) {
+      const btnNext: any = document.querySelector('.primaryBtnStep')
+      console.log((btnNext.style.display = 'none'))
+    }
+  }, [Cart])
+
   return (
     <>
       <StepProgressBar
         startingStep={startingStep}
         previousBtnName="Anterior"
         nextBtnName="Siguiente"
-        submitBtnName="Terminar"
+        submitBtnName="Finalizar"
         progressClass="wrapperStep"
         buttonWrapperClass="buttonWrapperStep"
         primaryBtnClass="primaryBtnStep"
@@ -48,7 +62,7 @@ const StepsShopping = ({
             name: 'Carrito',
             content: (
               <div className="mt-5">
-                <Cart />
+                <CartContainer ProductsCart={Cart} />
               </div>
             ),
           },

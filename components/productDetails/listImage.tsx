@@ -1,8 +1,21 @@
-import React from 'react'
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
+/* eslint-disable jsx-a11y/media-has-caption */
+import React, { Dispatch, SetStateAction } from 'react'
 import Carousel from 'react-multi-carousel'
-import CardProduct from '../card/card-product'
+import { BASE_API } from '../../api'
+import { SourcesProduct } from '../../interfaces/products'
+import CardImageOnly from '../card/card-image-only'
 
-const ListImage = () => {
+interface Props {
+  sources: SourcesProduct[]
+  setPreview: Dispatch<SetStateAction<{ src: string; type: string }>>
+}
+
+const ListImage = ({ sources, setPreview }: Props) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -23,14 +36,62 @@ const ListImage = () => {
     },
   }
 
+  const borderSelect = (event: any) => {
+    const list: any = document.querySelectorAll('.border-cici')
+    for (const element of list) {
+      element.classList.remove('border-cici')
+    }
+    // event.target.parentElement.classList.add('border-cici')
+    event.target.classList.add('border-cici')
+  }
+
   return (
     <Carousel responsive={responsive}>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-        <div className="p-2" key={item}>
-          <CardProduct
-            sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-            imageOnly
-          />
+      {sources.map((item: SourcesProduct, index: number) => (
+        <div className="p-1 mt-2" key={item.idSourceProduct}>
+          {item.kind === 'IMAGEN' ? (
+            <div
+              className={`${index + 1 === sources.length && 'border-cici'}`}
+              onMouseEnter={(event: any) => {
+                borderSelect(event)
+                setPreview({
+                  src:
+                    item.idSourceProduct === 'generado'
+                      ? `${BASE_API}/static/${item.source}`
+                      : `${BASE_API}/static/more-source/${item.source}`,
+                  type: 'IMAGEN',
+                })
+              }}
+            >
+              <CardImageOnly
+                title=""
+                sourceImage={
+                  item.idSourceProduct === 'generado'
+                    ? `${BASE_API}/static/${item.source}`
+                    : `${BASE_API}/static/more-source/${item.source}`
+                }
+              />
+            </div>
+          ) : (
+            <video
+              width="100%"
+              onMouseEnter={() => {
+                setPreview({
+                  src: `${BASE_API}/static/more-source/${item.source}`,
+                  type: 'VIDEO',
+                })
+              }}
+            >
+              <source
+                src={`${BASE_API}/static/more-source/${item.source}`}
+                type="video/mp4"
+              />
+              <source
+                src={`${BASE_API}/static/more-source/${item.source}`}
+                type="video/ogg"
+              />
+            </video>
+          )}
         </div>
       ))}
     </Carousel>

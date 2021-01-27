@@ -1,19 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-param-reassign */
-/* eslint-disable unicorn/consistent-function-scoping */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unneeded-ternary */
-import { Store } from 'redux'
 import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
-import { setTitle } from '../reducers/app'
-import { AllAction, RootState } from '../reducers'
 import Layout from '../components/layout'
 
 interface FromPasswordReset {
@@ -109,15 +101,6 @@ const PassWordReset = () => {
       </Layout>
     </>
   )
-}
-
-PassWordReset.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering PassWordReset'))
 }
 
 export default PassWordReset

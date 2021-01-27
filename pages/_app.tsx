@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
-import React, { useEffect } from 'react'
+import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
+import { TokenContextProvider } from '../context/contextToken'
 import { configureStore } from '../store/configureStore'
 import 'react-multi-carousel/lib/styles.css'
 import 'react-step-progress/dist/index.css'
@@ -24,7 +25,7 @@ type AppPage<P = {}> = {
 }
 
 const App: AppPage<Props> = ({ store, pageProps, Component }) => {
-  useEffect(() => {
+  /* useEffect(() => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(
@@ -40,7 +41,7 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
         )
       })
     }
-  }, [])
+  }, []) */
 
   return (
     <>
@@ -66,7 +67,9 @@ const App: AppPage<Props> = ({ store, pageProps, Component }) => {
       </Head>
       <Provider store={store}>
         <ThemeProvider>
-          <Component {...pageProps} />
+          <TokenContextProvider>
+            <Component {...pageProps} />
+          </TokenContextProvider>
         </ThemeProvider>
       </Provider>
     </>

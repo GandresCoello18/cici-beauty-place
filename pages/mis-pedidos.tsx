@@ -1,4 +1,3 @@
-import { Store } from 'redux'
 import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import {
@@ -9,8 +8,6 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from 'reactstrap'
-import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 
 const Favorite = () => {
@@ -73,15 +70,6 @@ const Favorite = () => {
       </Layout>
     </>
   )
-}
-
-Favorite.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering Favorite'))
 }
 
 export default Favorite

@@ -1,10 +1,7 @@
-import { Store } from 'redux'
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { AiOutlineFacebook, AiOutlineTwitter } from 'react-icons/ai'
 import { FiInstagram } from 'react-icons/fi'
-import { AllAction, RootState } from '../reducers'
-import { setTitle } from '../reducers/app'
 import Layout from '../components/layout'
 import CardProfile from '../components/card/card-profile'
 
@@ -106,15 +103,6 @@ const About = () => {
       </Layout>
     </>
   )
-}
-
-About.getInitialProps = async ({
-  store,
-}: {
-  store: Store<RootState, AllAction>
-}) => {
-  // redux
-  store.dispatch(setTitle('Server Side Rendering About'))
 }
 
 export default About

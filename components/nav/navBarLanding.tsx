@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { AiOutlineShopping } from 'react-icons/ai'
 import {
-  Badge,
   Collapse,
   Nav,
   Navbar,
@@ -10,6 +8,7 @@ import {
   NavbarText,
   NavbarToggler,
 } from 'reactstrap'
+import CartIcon from '../cart/cart-icon'
 import SearchInput from '../element/searchInput'
 
 const NavBarLanding = () => {
@@ -45,19 +44,7 @@ const NavBarLanding = () => {
         </Nav>
 
         <NavbarText>
-          <Link href="/compra">
-            <a href="/compra">
-              <AiOutlineShopping size={25} />
-              <Badge
-                color="dark"
-                pill
-                className="position-relative"
-                style={{ top: -10 }}
-              >
-                0
-              </Badge>
-            </a>
-          </Link>
+          <CartIcon />
         </NavbarText>
 
         <SearchInput />
