@@ -26,7 +26,9 @@ const StepsShopping = ({
     setItemStep(2)
     return true
   }
-  const validarEnvio = () => true
+  const validarEnvio = () => {
+    return true
+  }
   const onFormSubmit = () => {
     setFinishShopping(true)
     // handle the submit logic here
@@ -47,7 +49,7 @@ const StepsShopping = ({
         startingStep={startingStep}
         previousBtnName="Anterior"
         nextBtnName="Siguiente"
-        submitBtnName="Terminar"
+        submitBtnName="Finalizar"
         progressClass="wrapperStep"
         buttonWrapperClass="buttonWrapperStep"
         primaryBtnClass="primaryBtnStep"

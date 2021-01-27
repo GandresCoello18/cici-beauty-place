@@ -9,11 +9,9 @@
 /* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react'
 import Magnifier from 'react-magnifier'
-import { GoPlus } from 'react-icons/go'
 import { MdPeople } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
-import { Alert, Badge } from 'reactstrap'
-import { RiSubtractLine } from 'react-icons/ri'
+import { Alert } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { AiTwotoneHeart } from 'react-icons/ai'
@@ -26,6 +24,7 @@ import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
 import { RootState } from '../../reducers'
 import ActionsProductDetails from './actions-product-details'
+import ProductPicker from './product-number-picker'
 
 interface Props {
   product: Product
@@ -67,7 +66,6 @@ const ProductDetails = ({ product, loading }: Props) => {
   }, [product])
 
   useEffect(() => {
-    console.log('render')
     feedback.content &&
       setTimeout(() => setFeedback({ type: '', content: '' }), 3000)
   }, [feedback])
@@ -220,60 +218,12 @@ const ProductDetails = ({ product, loading }: Props) => {
               )}
             </div>
             <div className="p-3">
-              {loading ? (
-                <Skeleton height={20} width={60} />
-              ) : (
-                <span>Cantidad: </span>
-              )}
-              {loading ? (
-                <Skeleton height={30} width={30} circle />
-              ) : (
-                <Badge
-                  color="dark"
-                  className="p-1 cursor-pointer"
-                  pill
-                  style={{ fontSize: 17 }}
-                  onClick={() => {
-                    quantity > 1 && setQuantity(quantity - 1)
-                  }}
-                >
-                  <RiSubtractLine color="#fff" />
-                </Badge>
-              )}
-              <strong className="p-2" style={{ fontSize: 20 }}>
-                {loading ? (
-                  <Skeleton height={35} width={35} circle />
-                ) : (
-                  quantity
-                )}
-              </strong>
-              {loading ? (
-                <Skeleton height={30} width={30} circle />
-              ) : (
-                <Badge
-                  color="dark"
-                  className="p-1 cursor-pointer"
-                  pill
-                  style={{ fontSize: 17 }}
-                  onClick={() => {
-                    if (
-                      quantity >= 1 &&
-                      quantity < Number(product?.available)
-                    ) {
-                      setQuantity(quantity + 1)
-                    }
-                  }}
-                >
-                  <GoPlus />
-                </Badge>
-              )}
-              <span style={{ color: '#999', marginLeft: 13 }}>
-                {loading ? (
-                  <Skeleton height={15} />
-                ) : (
-                  <>{product?.available} disponibles</>
-                )}
-              </span>
+              <ProductPicker
+                loading={loading}
+                quantity={quantity}
+                available={product.available}
+                setQuantity={setQuantity}
+              />
             </div>
             <div className="p-3">
               <ActionsProductDetails

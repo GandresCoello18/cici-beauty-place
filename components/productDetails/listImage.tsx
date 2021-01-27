@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
@@ -34,16 +36,24 @@ const ListImage = ({ sources, setPreview }: Props) => {
     },
   }
 
+  const borderSelect = (event: any) => {
+    const list: any = document.querySelectorAll('.border-cici')
+    for (const element of list) {
+      element.classList.remove('border-cici')
+    }
+    // event.target.parentElement.classList.add('border-cici')
+    event.target.classList.add('border-cici')
+  }
+
   return (
     <Carousel responsive={responsive}>
-      {sources.map((item: SourcesProduct) => (
-        <div
-          className="p-1 border-list-image-preview mt-2"
-          key={item.idSourceProduct}
-        >
+      {sources.map((item: SourcesProduct, index: number) => (
+        <div className="p-1 mt-2" key={item.idSourceProduct}>
           {item.kind === 'IMAGEN' ? (
             <div
-              onMouseEnter={() => {
+              className={`${index + 1 === sources.length && 'border-cici'}`}
+              onMouseEnter={(event: any) => {
+                borderSelect(event)
                 setPreview({
                   src:
                     item.idSourceProduct === 'generado'

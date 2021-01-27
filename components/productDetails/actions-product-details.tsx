@@ -10,6 +10,7 @@ import { Cart, Product } from '../../interfaces/products'
 import redirect from '../../lib/redirect'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
+import ActionFavoritePrduct from './action-favorite-product'
 
 interface Props {
   loading: boolean
@@ -109,7 +110,7 @@ const ActionsProductDetails = ({
           </Button>
         )}
       </div>
-      <div className="col-6 col-lg-4">
+      <div className="col-6 col-lg-3">
         {loading ? (
           <Skeleton height={40} />
         ) : (
@@ -122,6 +123,9 @@ const ActionsProductDetails = ({
             </div>
           </Button>
         )}
+      </div>
+      <div className="col-12 col-lg-3 mt-3 mt-md-0">
+        <ActionFavoritePrduct />
       </div>
     </div>
   )

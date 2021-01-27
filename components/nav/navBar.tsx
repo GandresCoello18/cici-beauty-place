@@ -84,9 +84,9 @@ const NavBarElement = () => {
         expand="md"
         className="navBar font-arvo"
       >
-        <NavbarBrand href="/home">
+        <NavbarBrand>
           <Link href="/home">
-            <a href="/home" style={styles.colorLink}>
+            <a style={styles.colorLink}>
               <figure className="logo">
                 <img
                   src="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
@@ -139,31 +139,28 @@ const NavBarElement = () => {
                 <DropdownMenu>
                   <DropdownItem style={styles.spaceMenu}>
                     <Link href="/mis-compras">
-                      <a href="/mis-compras" style={styles.colorLink}>
+                      <a style={styles.colorLink}>
                         <BiPurchaseTagAlt /> Mis Compras
                       </a>
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.spaceMenu}>
                     <Link href="/mis-favoritos">
-                      <a href="/mis-favoritos" style={styles.colorLink}>
+                      <a style={styles.colorLink}>
                         <MdFavorite /> Mis Favoritos
                       </a>
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/mis-pedidos">
-                      <a href="/mis-pedidos" style={styles.colorLink}>
+                      <a style={styles.colorLink}>
                         <HiOutlineClipboardList /> Mis Pedidos
                       </a>
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
-                      <a
-                        href="/configuracion/invitar"
-                        style={{ textDecoration: 'none', color: '#999' }}
-                      >
+                      <a style={{ textDecoration: 'none', color: '#999' }}>
                         <FiSend /> Invitar amigos
                       </a>
                     </Link>
@@ -207,10 +204,7 @@ const NavBarElement = () => {
             style={styles.colorLink}
           >
             <Link href="/configuracion/cambiar-clave">
-              <a
-                href="/configuracion/cambiar-clave"
-                style={{ textDecoration: 'none', color: '#999' }}
-              >
+              <a style={{ textDecoration: 'none', color: '#999' }}>
                 <RiLockPasswordLine /> Cambio de contraseña
               </a>
             </Link>
@@ -240,10 +234,7 @@ const NavBarElement = () => {
             style={styles.colorLink}
           >
             <Link href="/configuracion/mis-datos">
-              <a
-                href="/configuracion/cambiar-clave"
-                style={{ textDecoration: 'none', color: '#999' }}
-              >
+              <a style={{ textDecoration: 'none', color: '#999' }}>
                 <CgFileDocument /> Mis Datos
               </a>
             </Link>
