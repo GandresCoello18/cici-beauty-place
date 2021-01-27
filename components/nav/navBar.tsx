@@ -35,6 +35,7 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
+import { BASE_API } from '../../api'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -88,10 +89,7 @@ const NavBarElement = () => {
           <Link href="/home">
             <a style={styles.colorLink}>
               <figure className="logo">
-                <img
-                  src="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/101095190_255714909200617_8749237192456404992_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=LNAFOmAIaAEAX94QBnj&_nc_ht=scontent.fgye18-1.fna&oh=b98723790cdb5d9db1274f200e58c29b&oe=6010FC9C"
-                  alt="logotipo"
-                />
+                <img src={`${BASE_API}/static/logo.jpg`} alt="logotipo" />
               </figure>
             </a>
           </Link>

@@ -1,9 +1,12 @@
 import { api } from '.'
+import { ParamsFilter } from '../interfaces/products'
 
-export const GetProducts = async () => {
+export const GetProducts = async (filter?: { params: ParamsFilter }) => {
   const response = await api({
     method: 'GET',
-    url: '/products',
+    url: !filter
+      ? '/products'
+      : `/products?priceMin=${filter.params.min}&priceMax=${filter.params.max}&isPromo=${filter.params.isPromo}&order=${filter.params.order}&orderPrice=${filter.params.orderPrice}&orderStar=${filter.params.orderStar}`,
   })
   return response
 }

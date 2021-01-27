@@ -35,3 +35,13 @@ export interface Cart {
   discount: number
   quantity: number
 }
+
+export interface ParamsFilter {
+  min?: number
+  max?: number
+  isPromo?: boolean
+  starNumber?: boolean
+  order?: 'Asc' | 'Desc' | undefined
+  orderPrice?: boolean
+  orderStar?: boolean
+}

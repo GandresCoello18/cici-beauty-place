@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -5,13 +6,21 @@ import { MdPayment } from 'react-icons/md'
 import { BiSupport } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import { InView, useInView } from 'react-intersection-observer'
+import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import CardLanding from '../components/landing-page/card-landing'
+import { RootState } from '../reducers'
 
 const Index = () => {
   const [ref] = useInView({
     threshold: 0,
   })
+
+  const ProductsReducer = useSelector(
+    (state: RootState) => state.ProductReducer
+  )
+
+  const { ProductsBestRated } = ProductsReducer
 
   return (
     <>
@@ -27,20 +36,17 @@ const Index = () => {
                 <h1 className="text-start">Cici Beauty Place</h1>
                 <br />
                 <p className="mt-2">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Doloremque neque libero eum deleniti fugiat consequuntur quos
-                  harum magnam fugit id veniam quod, facere facilis sunt vitae
-                  corrupti assumenda.
+                  Encuentra varios tipos de maquillaje, accesorios para
+                  celulares, productos para el cabello, uñas y mucho más. Invita
+                  amigos para ganar premios y promociones.
+                </p>
+                <div className="text-center text-md-left">
                   <Link href="/home">
-                    <a
-                      href="/home"
-                      className="btn bg-white text-cici ml-3 ml-md-0 mt-3 mt-md-0 m-0 m-md-3"
-                      type="button"
-                    >
+                    <a className="btn bg-white text-cici" type="button">
                       Ir a tienda
                     </a>
                   </Link>
-                </p>
+                </div>
               </div>
               <div className="col-12 col-lg-5 mt-2 mt-md-0">
                 <div className="text-center">
@@ -63,9 +69,13 @@ const Index = () => {
             <div className="col-12 p-2 mb-3">
               <h3 className="text-center">Nuestros productos</h3>
             </div>
-            {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
-              <div className="col-12 col-md-4 col-lg-3" key={item} ref={ref}>
-                <CardLanding />
+            {ProductsBestRated.map((item) => (
+              <div
+                className="col-12 col-md-4 col-lg-3"
+                key={item.idProducts}
+                ref={ref}
+              >
+                <CardLanding product={item} />
               </div>
             ))}
           </InView>
