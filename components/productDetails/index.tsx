@@ -10,14 +10,13 @@
 import React, { useEffect, useState } from 'react'
 import Magnifier from 'react-magnifier'
 import { GoPlus } from 'react-icons/go'
-import { FaMoneyCheckAlt } from 'react-icons/fa'
-import { AiTwotoneHeart } from 'react-icons/ai'
 import { MdPeople } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
-import { Badge, Button } from 'reactstrap'
+import { Alert, Badge } from 'reactstrap'
 import { RiSubtractLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
+import { AiTwotoneHeart } from 'react-icons/ai'
 import Share from '../element/share'
 import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
@@ -26,7 +25,7 @@ import CaroselCard from '../carousel/CaroselCard'
 import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
 import { RootState } from '../../reducers'
-import CartAddProduct from '../cart/cart-add-product'
+import ActionsProductDetails from './actions-product-details'
 
 interface Props {
   product: Product
@@ -36,6 +35,10 @@ interface Props {
 const ProductDetails = ({ product, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
+  const [feedback, setFeedback] = useState<{ content: string; type: string }>({
+    content: '',
+    type: '',
+  })
   const [preview, setPreview] = useState<{ src: string; type: string }>({
     src: '',
     type: '',
@@ -62,6 +65,12 @@ const ProductDetails = ({ product, loading }: Props) => {
       type: 'IMAGEN',
     })
   }, [product])
+
+  useEffect(() => {
+    console.log('render')
+    feedback.content &&
+      setTimeout(() => setFeedback({ type: '', content: '' }), 3000)
+  }, [feedback])
 
   const calculatePrice = () => {
     if (product.discount) {
@@ -145,13 +154,6 @@ const ProductDetails = ({ product, loading }: Props) => {
                         name="rate1"
                         starCount={5}
                         value={Number(product?.stars)}
-                        onStarClick={(
-                          nextValue: number,
-                          prevValue: number,
-                          name: string
-                        ) =>
-                          console.log(`${nextValue} - ${prevValue} - ${name}`)
-                        }
                       />
                       <span
                         className="position-absolute left-0 ml-2"
@@ -274,28 +276,17 @@ const ProductDetails = ({ product, loading }: Props) => {
               </span>
             </div>
             <div className="p-3">
-              <div className="row justify-content-start">
-                <div className="col-6 col-lg-3">
-                  {loading ? (
-                    <Skeleton height={40} />
-                  ) : (
-                    <Button color="danger">
-                      <div className="row">
-                        <div className="col-2">
-                          <FaMoneyCheckAlt size={20} />
-                        </div>
-                        <div className="col-6">Comprar</div>
-                      </div>
-                    </Button>
-                  )}
-                </div>
-                <div className="col-6 col-lg-4">
-                  {loading ? (
-                    <Skeleton height={40} />
-                  ) : (
-                    <CartAddProduct product={product} />
-                  )}
-                </div>
+              <ActionsProductDetails
+                loading={loading}
+                available={product.available}
+                quantity={quantity}
+                product={product}
+                setFeedback={setFeedback}
+              />
+              <div className="p-2">
+                {feedback.content && (
+                  <Alert color={feedback.type}>{feedback.content}</Alert>
+                )}
               </div>
             </div>
           </div>

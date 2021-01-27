@@ -23,3 +23,15 @@ export interface SourcesProduct {
   kind: 'IMAGEN' | 'VIDEO'
   idProduct: string
 }
+
+export interface Cart {
+  idProducts: string
+  title: string
+  source: string
+  price: number
+  status: string
+  available: number
+  created_at: Date | string
+  discount: number
+  quantity: number
+}

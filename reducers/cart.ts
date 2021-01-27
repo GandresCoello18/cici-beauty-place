@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/class-name-casing */
-import { Product } from '../interfaces/products'
+import { Cart } from '../interfaces/products'
 
 const SET_CART = 'SET_CART'
 
-export const setCart = (products: Product[]) => ({
+export const setCart = (products: Cart[]) => ({
   type: SET_CART as typeof SET_CART,
   payload: products,
 })
@@ -11,7 +11,7 @@ export const setCart = (products: Product[]) => ({
 export type CartAction = ReturnType<typeof setCart>
 
 interface initialStateINT {
-  Cart: Product[]
+  Cart: Cart[]
 }
 
 export const initialState: initialStateINT = {
