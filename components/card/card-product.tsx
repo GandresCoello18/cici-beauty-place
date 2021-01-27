@@ -37,6 +37,7 @@ const CardProduct = ({ product, size }: Props) => {
       width: '100%',
       height: 200,
       padding: 2,
+      backgroundColor: 'rgb(244, 237, 237)',
     },
     tachado: {
       padding: 4,
@@ -64,6 +65,7 @@ const CardProduct = ({ product, size }: Props) => {
               src={`${BASE_API}/static/${product.source}`}
               alt={product.title}
               style={Styles.image}
+              className="p-3"
             />
             <CardBody>
               <CardTitle

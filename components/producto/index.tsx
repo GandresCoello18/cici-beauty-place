@@ -1,103 +1,88 @@
-import React from 'react'
-import StarRatingComponent from 'react-star-rating-component'
+/* eslint-disable no-shadow */
+/* eslint-disable no-alert */
+import React, { useEffect, useState } from 'react'
 import { AiTwotoneHeart } from 'react-icons/ai'
-import { Input, Label } from 'reactstrap'
-// import CardProduct from '../card/card-product'
+import { useSelector } from 'react-redux'
+import Skeleton from 'react-loading-skeleton'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
-// import CaroselCard from '../carousel/CaroselCard'
+import CaroselCard from '../carousel/CaroselCard'
 import Survey from '../element/survey'
+import { RootState } from '../../reducers'
+import FilterProduct from './filter-product'
+import { ParamsFilter, Product } from '../../interfaces/products'
+import CardProduct from '../card/card-product'
+import { GetProducts } from '../../api/products'
 
 const Productos = () => {
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [filter, setFilter] = useState<ParamsFilter>({
+    min: 0,
+    max: 0,
+    isPromo: false,
+    starNumber: false,
+    order: undefined,
+    orderPrice: false,
+    orderStar: false,
+  })
+
+  const ProductsReducer = useSelector(
+    (state: RootState) => state.ProductReducer
+  )
+
+  const { ProductsOffers } = ProductsReducer
+
+  useEffect(() => {
+    setLoading(true)
+
+    try {
+      const fetchProduct = async () => {
+        const { products } = await (await GetProducts({ params: filter })).data
+        setProducts(products)
+      }
+
+      fetchProduct()
+    } catch (error) {
+      alert(error.message)
+    }
+
+    setLoading(false)
+  }, [filter])
+
   return (
     <section className="container">
-      <div className="row p-3 mt-md-3 bg-white font-arvo">
-        <div className="col-7 col-md-3 border-right">
-          <span>Precio: </span>
-          <div className="row justify-content-start">
-            <div className="col-6">
-              <input className="form-control" placeholder="Min" />
-            </div>
-            <div className="col-6">
-              <input className="form-control" placeholder="Max" />
-            </div>
-          </div>
-        </div>
-        <div className="col-5 col-md-3 col-lg-2 border-right">
-          <div className="row justify-content-around">
-            <div className="col-10">
-              <Label check>
-                <Input type="checkbox" style={{ width: 20, height: 20 }} />
-                &nbsp; Promo
-              </Label>
-            </div>
-            <div className="col-10">
-              <Label check>
-                <Input type="checkbox" style={{ width: 20, height: 20 }} />
-                &nbsp;
-                <StarRatingComponent
-                  name="rate1"
-                  starCount={5}
-                  value={4}
-                  onStarClick={(
-                    nextValue: number,
-                    prevValue: number,
-                    name: string
-                  ) => console.log(`${nextValue} - ${prevValue} - ${name}`)}
-                />
-              </Label>
-            </div>
-          </div>
-        </div>
-        <div className="col-12 col-md-5 mt-4 mt-md-0">
-          <div className="row justify-content-start">
-            <div className="col-4 col-md-3">
-              <span>Ordenar: </span>
-            </div>
-            <div className="col-4">
-              <Label check>
-                <Input type="checkbox" style={{ width: 20, height: 20 }} />
-                &nbsp; Precio
-              </Label>
-              <br />
-              <Label check>
-                <Input type="checkbox" style={{ width: 20, height: 20 }} />
-                &nbsp; Star
-              </Label>
-            </div>
-            <div className="col-4">
-              <Label check>
-                <Input type="radio" name="radio1" />
-                Ascendente
-              </Label>
-              <br />
-              <Label check>
-                <Input type="radio" name="radio1" />
-                Descendente
-              </Label>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FilterProduct setFilter={setFilter} />
       <div className="row justify-content-around p-3 mt-3">
         <div className="col-12 col-md-9 col-lg-10">
           <div className="row justify-content-center">
-            {/* [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (item) => (
-                <div
-                  className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
-                  key={item}
-                >
-                  <CardProduct product={product} size="small" />
-                </div>
-              )
-              ) */}
+            {loading
+              ? [0, 1, 2, 3].map((item) => (
+                  <div
+                    className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
+                    key={item}
+                  >
+                    <Skeleton width={240} height={300} />
+                  </div>
+                ))
+              : products.map((product) => (
+                  <div
+                    className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
+                    key={product.idProducts}
+                  >
+                    <CardProduct product={product} size="small" />
+                  </div>
+                ))}
           </div>
 
           <div className="row mt-2 mb-3 justify-content-center">
             <div className="col-11 col-md-4 bg-white border-round">
               <br />
-              <PaginationElement />
+              {loading ? (
+                <Skeleton width="90%" height={50} />
+              ) : (
+                <PaginationElement />
+              )}
             </div>
           </div>
         </div>
@@ -120,7 +105,9 @@ const Productos = () => {
           <AiTwotoneHeart color="pink" size={20} /> &nbsp;{' '}
           <strong>Productos recomendados</strong>
         </div>
-        <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
+        <div className="col-12 font-arvo">
+          <CaroselCard products={ProductsOffers} />
+        </div>
       </div>
     </section>
   )

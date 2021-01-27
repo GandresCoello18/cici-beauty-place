@@ -28,7 +28,7 @@ export const configureStore = (initialState: RootState) => {
     })
     .catch((error) => console.log(error.message))
 
-  GetProductsBestRated({ limit: 6 })
+  GetProductsBestRated({ limit: 8 })
     .then((products) => {
       store.dispatch(setProductsBestRated(products.data.products))
     })

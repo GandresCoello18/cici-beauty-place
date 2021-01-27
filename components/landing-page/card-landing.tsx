@@ -1,29 +1,37 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { BsFillEyeFill } from 'react-icons/bs'
 import Link from 'next/link'
+import { BASE_API } from '../../api'
+import { Product } from '../../interfaces/products'
 
-const CardLanding = () => {
+interface Props {
+  product: Product
+}
+
+const CardLanding = ({ product }: Props) => {
   return (
     <div className="product d-flex flex-column">
-      <a href="/" className="img-prod">
-        <img
-          className="img-fluid"
-          src="https://preview.colorlib.com/theme/minishop/images/product-1.png"
-          alt="Colorlib Template"
-        />
-        <div className="overlay" />
-      </a>
+      <Link href={`/productos/${product.idProducts}`}>
+        <a className="img-prod">
+          <img
+            width="90%"
+            className="p-4"
+            src={`${BASE_API}/static/${product.source}`}
+            alt={product.title}
+          />
+          <div className="overlay" />
+        </a>
+      </Link>
       <div className="text py-3 pb-4 px-3">
-        <div className="d-flex">
-          <div className="cat">
-            <span>Lifestyle</span>
-          </div>
+        <div className="cat" style={{ width: '100%' }}>
+          <span>{product.available} Disponibles</span>
         </div>
-        <h3>Nike Free RN 2019 iD</h3>
+        <h3>{product.title}</h3>
         <div className="pricing">
           <p className="price">
-            <span>$120.00</span>
+            <span>${product.price}</span>
           </p>
         </div>
         <p className="bottom-area d-flex px-3">
@@ -32,8 +40,8 @@ const CardLanding = () => {
               Agregar <HiOutlineShoppingCart />
             </span>
           </a>
-          <Link href={`/productos/${5165}`}>
-            <a href={`/productos/${5165}`} className="buy-now text-center py-2">
+          <Link href={`/productos/${product.idProducts}`}>
+            <a className="buy-now text-center py-2">
               Ver <BsFillEyeFill />
             </a>
           </Link>
