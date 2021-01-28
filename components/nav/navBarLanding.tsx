@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link'
 import React, { useState } from 'react'
 import {
   Collapse,
   Nav,
+  NavItem,
+  NavLink,
   Navbar,
   NavbarBrand,
   NavbarText,
@@ -38,7 +41,27 @@ const NavBarLanding = () => {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav navbar className="mr-auto">
-          <></>
+          <NavItem>
+            <NavLink>
+              <Link href="/home">
+                <a style={styles.colorLink}>Inicio</a>
+              </Link>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink>
+              <Link href="/productos/ofertas">
+                <a style={styles.colorLink}>Ofertas</a>
+              </Link>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink>
+              <Link href="/productos/mas-vendidos">
+                <a style={styles.colorLink}>Mas vendidos</a>
+              </Link>
+            </NavLink>
+          </NavItem>
         </Nav>
 
         <NavbarText>

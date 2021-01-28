@@ -104,7 +104,7 @@ const Home = () => {
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
             <FaPercentage color="pink" /> &nbsp; <strong>Ofertas</strong>
-            <Link href="/products/ofertas">
+            <Link href="/productos/ofertas">
               <a className="float-right">Ver màs</a>
             </Link>
           </div>
@@ -148,7 +148,7 @@ const Home = () => {
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
             <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
-            <Link href="/products/mejor-valorados">
+            <Link href="/productos/mejor-valorados">
               <a className="float-right">Ver màs</a>
             </Link>
           </div>

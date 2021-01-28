@@ -106,14 +106,14 @@ const NavBarElement = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/productos?type=ofertas">
+                <Link href="/productos/ofertas">
                   <a style={styles.colorLink}>Ofertas</a>
                 </Link>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink>
-                <Link href="/productos?type=mas-vendidos">
+                <Link href="/productos/mas-vendidos">
                   <a style={styles.colorLink}>Mas vendidos</a>
                 </Link>
               </NavLink>
