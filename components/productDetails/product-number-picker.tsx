@@ -53,7 +53,7 @@ const ProductPicker = ({
           <GoPlus />
         </Badge>
       )}
-      <span style={{ color: '#999', marginLeft: 13 }}>
+      <span style={{ color: '#999' }} className="ml-1 ml-md-3">
         {loading ? <Skeleton height={15} /> : <>{available} disponibles</>}
       </span>
     </>

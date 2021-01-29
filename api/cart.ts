@@ -27,3 +27,15 @@ export const getProductCart = async (options: {
   })
   return response
 }
+
+export const deleteProductCart = async (options: {
+  token: string | undefined
+  idProduct: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'DELETE',
+    url: `/cart/${options.idProduct}`,
+  })
+  return response
+}

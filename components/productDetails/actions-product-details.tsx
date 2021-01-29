@@ -161,7 +161,7 @@ const ActionsProductDetails = ({
                   <div className="col-2">
                     <MdShoppingBasket size={20} />
                   </div>
-                  <div className="col-6">
+                  <div className="col-7">
                     Añadir{' '}
                     {existCart !== undefined && <>({existCart.quantity})</>}
                   </div>

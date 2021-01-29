@@ -2,26 +2,25 @@
 /* eslint-disable no-console */
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import StepProgressBar from 'react-step-progress'
-import { RootState } from '../../reducers'
+import { Cart } from '../../interfaces/products'
 import CartContainer from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
 
 interface Props {
+  CartReducer: Cart[]
   startingStep: number
   setItemStep: Dispatch<SetStateAction<number>>
   setFinishShopping: Dispatch<SetStateAction<boolean>>
 }
 
 const StepsShopping = ({
+  CartReducer,
   startingStep,
   setItemStep,
   setFinishShopping,
 }: Props) => {
-  const { Cart } = useSelector((state: RootState) => state.CartReducer)
-
   const validarPagos = () => {
     setItemStep(2)
     return true
@@ -37,11 +36,11 @@ const StepsShopping = ({
   }
 
   useEffect(() => {
-    if (Cart.length === 0) {
+    if (CartReducer.length === 0) {
       const btnNext: any = document.querySelector('.primaryBtnStep')
       console.log((btnNext.style.display = 'none'))
     }
-  }, [Cart])
+  }, [CartReducer])
 
   return (
     <>
@@ -62,7 +61,7 @@ const StepsShopping = ({
             name: 'Carrito',
             content: (
               <div className="mt-5">
-                <CartContainer ProductsCart={Cart} />
+                <CartContainer />
               </div>
             ),
           },

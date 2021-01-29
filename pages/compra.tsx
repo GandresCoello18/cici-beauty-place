@@ -5,13 +5,17 @@ import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
 import { FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
+import { RootState } from '../reducers'
 
 const Compra = () => {
   const [itemStep, setItemStep] = useState<number>(0)
   const [finishShopping, setFinishShopping] = useState<boolean>(false)
   const [visible, setVisible] = useState<boolean>(false)
+
+  const { Cart } = useSelector((state: RootState) => state.CartReducer)
 
   const Styles = {
     text: {
@@ -89,6 +93,7 @@ const Compra = () => {
                 </div>
               ) : (
                 <StepsShopping
+                  CartReducer={Cart}
                   startingStep={itemStep}
                   setItemStep={setItemStep}
                   setFinishShopping={setFinishShopping}
