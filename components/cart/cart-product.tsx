@@ -40,7 +40,7 @@ const CartProduct = ({ product }: Props) => {
                     setQuantity={setQuantity}
                   />
                 </div>
-                <div className="col-12 float-right">
+                <div className="col-12 float-right p-2">
                   <ActionFavoritePrduct />
                 </div>
               </div>

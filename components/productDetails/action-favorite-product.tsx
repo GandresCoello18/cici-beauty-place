@@ -4,7 +4,7 @@ import { Button } from 'reactstrap'
 
 const ActionFavoritePrduct = () => {
   return (
-    <Button outline color="secondary">
+    <Button outline color="secondary" size="sm">
       <MdFavorite /> ¿Te gusta?
     </Button>
   )
