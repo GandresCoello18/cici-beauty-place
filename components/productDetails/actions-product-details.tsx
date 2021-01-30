@@ -172,7 +172,7 @@ const ActionsProductDetails = ({
         </>
       )}
       <div className="col-12 col-lg-3 mt-3 mt-md-0">
-        <ActionFavoritePrduct />
+        <ActionFavoritePrduct idProduct={product.idProducts} />
       </div>
     </div>
   )

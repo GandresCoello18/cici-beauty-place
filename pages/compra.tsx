@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
@@ -26,7 +28,12 @@ const Compra = () => {
 
   useEffect(() => {
     finishShopping && setVisible(true)
-  }, [finishShopping])
+
+    if (Cart.length === 0) {
+      const btnNext: any = document.querySelector('.primaryBtnStep')
+      console.log((btnNext.style.display = 'none'))
+    }
+  }, [finishShopping, Cart])
 
   return (
     <>
@@ -93,7 +100,6 @@ const Compra = () => {
                 </div>
               ) : (
                 <StepsShopping
-                  CartReducer={Cart}
                   startingStep={itemStep}
                   setItemStep={setItemStep}
                   setFinishShopping={setFinishShopping}

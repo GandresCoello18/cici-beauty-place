@@ -61,7 +61,7 @@ const CartProduct = ({ product }: Props) => {
                   />
                 </div>
                 <div className="col-12 float-right p-2">
-                  <ActionFavoritePrduct />
+                  <ActionFavoritePrduct idProduct={product.idProducts} />
                 </div>
               </div>
               <small className="text-cici mb-1 mt-1">

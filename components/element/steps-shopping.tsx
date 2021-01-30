@@ -1,22 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import StepProgressBar from 'react-step-progress'
-import { Cart } from '../../interfaces/products'
 import CartContainer from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
 
 interface Props {
-  CartReducer: Cart[]
   startingStep: number
   setItemStep: Dispatch<SetStateAction<number>>
   setFinishShopping: Dispatch<SetStateAction<boolean>>
 }
 
 const StepsShopping = ({
-  CartReducer,
   startingStep,
   setItemStep,
   setFinishShopping,
@@ -34,13 +29,6 @@ const StepsShopping = ({
     // This function will be executed at the last step
     // when the submit button (next button in the previous steps) is pressed
   }
-
-  useEffect(() => {
-    if (CartReducer.length === 0) {
-      const btnNext: any = document.querySelector('.primaryBtnStep')
-      console.log((btnNext.style.display = 'none'))
-    }
-  }, [CartReducer])
 
   return (
     <>
