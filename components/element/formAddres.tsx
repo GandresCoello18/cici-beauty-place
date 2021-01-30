@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Col,
@@ -11,7 +11,13 @@ import {
   Row,
 } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
+import { newAdrees } from '../../api/addresses'
+import { CreateAddresses } from '../../interfaces/address'
+import SpinnerLoader from './spinner-cici'
 
+interface Props {
+  isSession: boolean
+}
 interface FormAddres {
   title: string
   phone: number
@@ -20,13 +26,31 @@ interface FormAddres {
   address: string
 }
 
-const FormAddres = () => {
+const FormAddres = ({ isSession }: Props) => {
+  const [loading, setLoading] = useState<boolean>(false)
   const methods = useForm<FormAddres>()
   const { handleSubmit, control, reset, errors } = methods
 
-  const send = (data: FormAddres) => {
-    console.log(data)
-    reset()
+  const send = async (data: FormAddres) => {
+    setLoading(true)
+    const { title, phone, city, codePostal, address } = data
+
+    try {
+      const CreateAddress: CreateAddresses = {
+        title,
+        phone,
+        city,
+        address,
+        postalCode: codePostal,
+        idUser: '',
+      }
+
+      await newAdrees({ address: CreateAddress })
+      reset()
+      setLoading(false)
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (
@@ -136,11 +160,12 @@ const FormAddres = () => {
       </FormGroup>
       <Button
         type="submit"
-        disabled={false}
+        disabled={loading}
         style={{ backgroundColor: '#efccd3', color: '#000' }}
         block
       >
-        Registrar direccion
+        {isSession ? 'Registrar direccion' : 'Utilizar esta direccion'}
+        {loading && <SpinnerLoader />}
       </Button>
     </Form>
   )

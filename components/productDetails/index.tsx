@@ -177,7 +177,7 @@ const ProductDetails = ({ product, loading }: Props) => {
             </div>
             <div className="p-3 border-bottom">
               <div className="row">
-                <div className="col-5 col-lg-3">
+                <div className="col-6 col-lg-3">
                   <strong style={{ fontSize: 20 }}>
                     {loading ? (
                       <Skeleton height={16} />
@@ -188,7 +188,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                 </div>
                 {product?.discount ? (
                   <>
-                    <div className="col-5 col-md-3">
+                    <div className="col-4 col-md-2">
                       {loading ? (
                         <Skeleton height={15} />
                       ) : (
@@ -217,7 +217,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                 <Share ShareUrl={urlShare} />
               )}
             </div>
-            <div className="p-3">
+            <div className="p-1 mt-1 mb-1">
               <ProductPicker
                 loading={loading}
                 quantity={quantity}

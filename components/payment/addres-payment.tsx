@@ -1,19 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { GrLocation } from 'react-icons/gr'
 import CardAddres from '../card/card-addres'
 import FormAddres from '../element/formAddres'
+import { TokenContext } from '../../context/contextToken'
 
 const AdressPayment = () => {
-  const [newAddres, setNewAddres] = useState<boolean>(false)
+  const { token } = useContext(TokenContext)
+  const [myAddresses, setMyAddres] = useState<boolean>(!!token)
 
   return (
     <>
-      {newAddres ? (
-        <>
-          <h4>Nueva Direccion:</h4>
-          <FormAddres />
-        </>
-      ) : (
+      {myAddresses ? (
         <>
           <h4>Mis Direcciones:</h4>
           <div className="row justify-content-center">
@@ -26,17 +23,27 @@ const AdressPayment = () => {
             ))}
           </div>
         </>
+      ) : (
+        <>
+          <h4>Nueva Direccion:</h4>
+          <FormAddres isSession={!!token} />
+        </>
       )}
-      <div
-        className="btn-link cursor-pointer mt-3"
-        aria-hidden="true"
-        onClick={() => setNewAddres(!newAddres)}
-      >
-        <GrLocation />{' '}
-        {newAddres
-          ? 'Seleccionar una direccion guardada'
-          : 'Especificar una nueva direccion'}
-      </div>
+
+      {token ? (
+        <div
+          className="btn-link cursor-pointer mt-3"
+          aria-hidden="true"
+          onClick={() => setMyAddres(!myAddresses)}
+        >
+          <GrLocation />{' '}
+          {myAddresses
+            ? 'Seleccionar una direccion guardada'
+            : 'Especificar una nueva direccion'}
+        </div>
+      ) : (
+        ''
+      )}
     </>
   )
 }

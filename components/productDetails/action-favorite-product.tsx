@@ -2,13 +2,15 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react'
-import { MdFavorite } from 'react-icons/md'
+import { MdFavorite, MdPeople } from 'react-icons/md'
 import { Button } from 'reactstrap'
+import Millify from 'millify'
 import { TokenContext } from '../../context/contextToken'
 import {
   createLikeProduct,
   deleteLikeProduct,
   getLikeProduct,
+  getLikeProductCount,
 } from '../../api/favorite'
 import SpinnerLoader from '../element/spinner-cici'
 
@@ -18,6 +20,7 @@ interface Props {
 
 const ActionFavoritePrduct = ({ idProduct }: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const [countFav, setCountFav] = useState<number>(0)
   const [isLike, setIsLike] = useState<boolean>(false)
   const { token } = useContext(TokenContext)
 
@@ -29,7 +32,14 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
         setIsLike(isFav)
       }
 
+      const fetchCountFav = async () => {
+        const { count } = await (await getLikeProductCount({ idProduct })).data
+        console.log(count)
+        setCountFav(count)
+      }
+
       token && fetchFav()
+      fetchCountFav()
     } catch (error) {
       console.log(error.message)
     }
@@ -66,14 +76,13 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
   const renderText = () => {
     return (
       <>
-        {isLike ? (
-          <span>
-            <MdFavorite /> Te gusta
-          </span>
+        <MdFavorite /> {isLike ? 'Te gusta' : '¿Te gusta?'}{' '}
+        {countFav ? (
+          <>
+            | {Millify(countFav)} <MdPeople />
+          </>
         ) : (
-          <span>
-            <MdFavorite /> ¿Te gusta?
-          </span>
+          ''
         )}
       </>
     )

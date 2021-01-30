@@ -22,18 +22,43 @@ const CartProduct = ({ product }: Props) => {
 
   const cartReducer = useSelector((state: RootState) => state.CartReducer.Cart)
 
+  const Styles = {
+    tachado: {
+      padding: 4,
+      color: '#999',
+      textDecoration: 'line-through',
+    },
+  }
+
   useEffect(() => {
     console.log(quantity)
   }, [quantity])
 
-  const RemoveProductCart = async () => {
+  const RemoveProductReducer = () => {
     const setCartReducer = cartReducer.filter(
       (item) => item.idProducts !== product.idProducts
     )
 
-    deleteProductCart({ token, idProduct: product.idProducts })
-      .then(() => dispatch(setCart(setCartReducer)))
-      .catch((error) => console.log(error.message))
+    dispatch(setCart(setCartReducer))
+  }
+
+  const RemoveProductCart = async () => {
+    if (token) {
+      deleteProductCart({ token, idProduct: product.idProducts })
+        .then(() => RemoveProductReducer())
+        .catch((error) => console.log(error.message))
+    } else {
+      RemoveProductReducer()
+    }
+  }
+
+  const calculatePrice = () => {
+    if (product.discount) {
+      const porcent: number = (product.price * product.discount) / 100
+      return (product.price - porcent).toFixed(2)
+    }
+
+    return product.price
   }
 
   return (
@@ -60,7 +85,24 @@ const CartProduct = ({ product }: Props) => {
                     setQuantity={setQuantity}
                   />
                 </div>
-                <div className="col-12 float-right p-2">
+                <div className="col-12 p-1">
+                  <div className="p-1 mb-2 border-bottom">
+                    <strong style={{ fontSize: 20 }}>
+                      US ${calculatePrice()}
+                    </strong>
+                    {product.discount ? (
+                      <>
+                        <span className="ml-2" style={Styles.tachado}>
+                          US ${product.price}
+                        </span>
+                        <span className="tag-discount ml-2">
+                          -{product.discount}%
+                        </span>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
                   <ActionFavoritePrduct idProduct={product.idProducts} />
                 </div>
               </div>
