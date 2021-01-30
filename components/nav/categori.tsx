@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import { AiFillVideoCamera, AiOutlineUnorderedList } from 'react-icons/ai'
@@ -56,9 +57,8 @@ const CategoriNav = () => {
           <NavLink href="#">-----</NavLink>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Cejas y Pestañas">
             <NavLink
-              href="/"
               style={
                 isHover && item === 1 ? styles.navLinkHover : styles.navLink
               }
@@ -70,9 +70,8 @@ const CategoriNav = () => {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Cuidados de la piel">
             <NavLink
-              href="/"
               style={
                 isHover && item === 2 ? styles.navLinkHover : styles.navLink
               }
@@ -84,9 +83,8 @@ const CategoriNav = () => {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Labiales">
             <NavLink
-              href="/"
               style={
                 isHover && item === 3 ? styles.navLinkHover : styles.navLink
               }
@@ -98,9 +96,8 @@ const CategoriNav = () => {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Brochas y Sombras">
             <NavLink
-              href="/"
               style={
                 isHover && item === 4 ? styles.navLinkHover : styles.navLink
               }
@@ -112,9 +109,8 @@ const CategoriNav = () => {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Protector para celular">
             <NavLink
-              href="/"
               style={
                 isHover && item === 5 ? styles.navLinkHover : styles.navLink
               }
@@ -126,9 +122,8 @@ const CategoriNav = () => {
           </Link>
         </NavItem>
         <NavItem>
-          <Link href="/">
+          <Link href="/productos/category/Streamer">
             <NavLink
-              href="/"
               style={
                 isHover && item === 6 ? styles.navLinkHover : styles.navLink
               }

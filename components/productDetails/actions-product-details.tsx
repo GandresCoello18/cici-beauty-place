@@ -1,16 +1,26 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { Dispatch, SetStateAction } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
 import { MdShoppingBasket } from 'react-icons/md'
 import Skeleton from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'reactstrap'
+import { newProductCart } from '../../api/cart'
 import { Cart, Product } from '../../interfaces/products'
 import redirect from '../../lib/redirect'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
+import SpinnerLoader from '../element/spinner-cici'
 import ActionFavoritePrduct from './action-favorite-product'
+import { TokenContext } from '../../context/contextToken'
 
 interface Props {
   loading: boolean
@@ -27,8 +37,20 @@ const ActionsProductDetails = ({
   product,
   setFeedback,
 }: Props) => {
+  const { token } = useContext(TokenContext)
+  const [loadingAction, setLoadingAction] = useState<boolean>(false)
+  const [existCart, setExistCart] = useState<Cart | undefined>()
   const dispatch = useDispatch()
+
   const cartStorage = useSelector((state: RootState) => state.CartReducer.Cart)
+
+  useEffect(() => {
+    const productExist = cartStorage.find(
+      (cart) => cart.idProducts === product.idProducts
+    )
+
+    setExistCart(productExist)
+  }, [cartStorage, product])
 
   const validate_quantity = (ProductQuantity: number): boolean => {
     if (ProductQuantity > available) {
@@ -46,12 +68,23 @@ const ActionsProductDetails = ({
     return true
   }
 
-  const ProductExitCart = (): Cart | undefined => {
-    const productExist = cartStorage.find(
-      (cart) => cart.idProducts === product.idProducts
-    )
-
-    return productExist
+  const fetchAddProduct = async (cart: {
+    idProducts: string
+    quantity: number
+  }) => {
+    if (token) {
+      setLoadingAction(true)
+      try {
+        await newProductCart({
+          idProduct: cart.idProducts,
+          quantity: cart.quantity,
+          token,
+        })
+        setLoadingAction(false)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
   }
 
   const addProductCart = () => {
@@ -67,27 +100,32 @@ const ActionsProductDetails = ({
       quantity: quantity || 1,
     }
 
-    validate_quantity(cart.quantity) &&
+    if (validate_quantity(cart.quantity)) {
       dispatch(setCart([...cartStorage, ...[cart]]))
+      fetchAddProduct({ idProducts: cart.idProducts, quantity: cart.quantity })
+    }
   }
 
   const addCart = () => {
-    const productExist = ProductExitCart()
-
-    if (!productExist) {
+    if (!existCart) {
       addProductCart()
     } else {
-      productExist.quantity += quantity || 1
-      cartStorage.splice(0, cartStorage.length, productExist)
-      validate_quantity(productExist.quantity) &&
+      existCart.quantity += quantity || 1
+      cartStorage.splice(0, cartStorage.length, existCart)
+      if (validate_quantity(existCart.quantity)) {
         dispatch(setCart([...cartStorage]))
+        fetchAddProduct({
+          idProducts: existCart.idProducts,
+          quantity: quantity || 1,
+        })
+      } else {
+        existCart.quantity -= quantity || 1
+      }
     }
   }
 
   const toBuy = () => {
-    const productExist = ProductExitCart()
-
-    if (!productExist) {
+    if (!existCart) {
       addProductCart()
     }
 
@@ -96,36 +134,45 @@ const ActionsProductDetails = ({
 
   return (
     <div className="row justify-content-start">
-      <div className="col-6 col-lg-3">
-        {loading ? (
-          <Skeleton height={40} />
-        ) : (
-          <Button color="danger" onClick={toBuy}>
-            <div className="row">
-              <div className="col-2">
-                <FaMoneyCheckAlt size={20} />
-              </div>
-              <div className="col-6">Comprar</div>
-            </div>
-          </Button>
-        )}
-      </div>
-      <div className="col-6 col-lg-3">
-        {loading ? (
-          <Skeleton height={40} />
-        ) : (
-          <Button color="warning" className="text-white" onClick={addCart}>
-            <div className="row">
-              <div className="col-2">
-                <MdShoppingBasket size={20} />
-              </div>
-              <div className="col-6">Añadir</div>
-            </div>
-          </Button>
-        )}
-      </div>
+      {loadingAction ? (
+        <SpinnerLoader />
+      ) : (
+        <>
+          <div className="col-6 col-lg-3">
+            {loading ? (
+              <Skeleton height={40} />
+            ) : (
+              <Button color="danger" onClick={toBuy}>
+                <div className="row">
+                  <div className="col-2">
+                    <FaMoneyCheckAlt size={20} />
+                  </div>
+                  <div className="col-6">Comprar</div>
+                </div>
+              </Button>
+            )}
+          </div>
+          <div className="col-6 col-lg-3">
+            {loading ? (
+              <Skeleton height={40} />
+            ) : (
+              <Button color="warning" className="text-white" onClick={addCart}>
+                <div className="row">
+                  <div className="col-2">
+                    <MdShoppingBasket size={20} />
+                  </div>
+                  <div className="col-7">
+                    Añadir{' '}
+                    {existCart !== undefined && <>({existCart.quantity})</>}
+                  </div>
+                </div>
+              </Button>
+            )}
+          </div>
+        </>
+      )}
       <div className="col-12 col-lg-3 mt-3 mt-md-0">
-        <ActionFavoritePrduct />
+        <ActionFavoritePrduct idProduct={product.idProducts} />
       </div>
     </div>
   )

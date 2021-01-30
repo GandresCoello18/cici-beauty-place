@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
@@ -5,13 +7,17 @@ import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
 import { FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
+import { RootState } from '../reducers'
 
 const Compra = () => {
   const [itemStep, setItemStep] = useState<number>(0)
   const [finishShopping, setFinishShopping] = useState<boolean>(false)
   const [visible, setVisible] = useState<boolean>(false)
+
+  const { Cart } = useSelector((state: RootState) => state.CartReducer)
 
   const Styles = {
     text: {
@@ -22,7 +28,12 @@ const Compra = () => {
 
   useEffect(() => {
     finishShopping && setVisible(true)
-  }, [finishShopping])
+
+    if (Cart.length === 0) {
+      const btnNext: any = document.querySelector('.primaryBtnStep')
+      console.log((btnNext.style.display = 'none'))
+    }
+  }, [finishShopping, Cart])
 
   return (
     <>

@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { Dispatch, SetStateAction, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { Dispatch, SetStateAction } from 'react'
 import StepProgressBar from 'react-step-progress'
-import { RootState } from '../../reducers'
 import CartContainer from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
@@ -20,8 +16,6 @@ const StepsShopping = ({
   setItemStep,
   setFinishShopping,
 }: Props) => {
-  const { Cart } = useSelector((state: RootState) => state.CartReducer)
-
   const validarPagos = () => {
     setItemStep(2)
     return true
@@ -35,13 +29,6 @@ const StepsShopping = ({
     // This function will be executed at the last step
     // when the submit button (next button in the previous steps) is pressed
   }
-
-  useEffect(() => {
-    if (Cart.length === 0) {
-      const btnNext: any = document.querySelector('.primaryBtnStep')
-      console.log((btnNext.style.display = 'none'))
-    }
-  }, [Cart])
 
   return (
     <>
@@ -62,7 +49,7 @@ const StepsShopping = ({
             name: 'Carrito',
             content: (
               <div className="mt-5">
-                <CartContainer ProductsCart={Cart} />
+                <CartContainer />
               </div>
             ),
           },

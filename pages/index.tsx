@@ -71,7 +71,7 @@ const Index = () => {
             </div>
             {ProductsBestRated.map((item) => (
               <div
-                className="col-12 col-md-4 col-lg-3"
+                className="col-12 col-md-4 col-lg-3 font-arvo"
                 key={item.idProducts}
                 ref={ref}
               >

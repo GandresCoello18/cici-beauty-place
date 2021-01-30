@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
+import { Alert } from 'reactstrap'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
 import CaroselCard from '../carousel/CaroselCard'
@@ -40,19 +41,18 @@ const Productos = () => {
       const fetchProduct = async () => {
         const { products } = await (await GetProducts({ params: filter })).data
         setProducts(products)
+        setLoading(false)
       }
 
       fetchProduct()
     } catch (error) {
       alert(error.message)
     }
-
-    setLoading(false)
   }, [filter])
 
   return (
     <section className="container">
-      <FilterProduct setFilter={setFilter} />
+      <FilterProduct setFilter={setFilter} filter={filter} />
       <div className="row justify-content-around p-3 mt-3">
         <div className="col-12 col-md-9 col-lg-10">
           <div className="row justify-content-center">
@@ -62,7 +62,7 @@ const Productos = () => {
                     className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
                     key={item}
                   >
-                    <Skeleton width={240} height={300} />
+                    <Skeleton width={200} height={300} />
                   </div>
                 ))
               : products.map((product) => (
@@ -73,6 +73,11 @@ const Productos = () => {
                     <CardProduct product={product} size="small" />
                   </div>
                 ))}
+            {!loading && products.length === 0 && (
+              <div className="col-12">
+                <Alert color="info">No hay datos para mostrar</Alert>
+              </div>
+            )}
           </div>
 
           <div className="row mt-2 mb-3 justify-content-center">

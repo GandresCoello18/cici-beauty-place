@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable no-alert */
 /* eslint-disable no-unused-expressions */
 import React, { Dispatch, SetStateAction } from 'react'
@@ -6,10 +7,11 @@ import { Input, Label } from 'reactstrap'
 import { ParamsFilter } from '../../interfaces/products'
 
 interface Props {
+  filter: ParamsFilter
   setFilter: Dispatch<SetStateAction<ParamsFilter>>
 }
 
-const FilterProduct = ({ setFilter }: Props) => {
+const FilterProduct = ({ filter, setFilter }: Props) => {
   return (
     <div className="row p-3 mt-md-3 bg-white font-arvo">
       <div className="col-7 col-md-3 border-right">
@@ -21,8 +23,11 @@ const FilterProduct = ({ setFilter }: Props) => {
               placeholder="Min"
               onChange={(e) => {
                 const value = Number(e.target.value)
-                value > 0
-                  ? setFilter({ min: value })
+                value >= 0
+                  ? setFilter({
+                      ...filter,
+                      min: value,
+                    })
                   : alert('Solo numeros positivos')
               }}
             />
@@ -33,8 +38,11 @@ const FilterProduct = ({ setFilter }: Props) => {
               placeholder="Max"
               onChange={(e) => {
                 const value = Number(e.target.value)
-                value > 0
-                  ? setFilter({ max: value })
+                value >= 0
+                  ? setFilter({
+                      ...filter,
+                      max: value,
+                    })
                   : alert('Solo numeros positivos')
               }}
             />
@@ -48,7 +56,12 @@ const FilterProduct = ({ setFilter }: Props) => {
               <Input
                 type="checkbox"
                 style={{ width: 20, height: 20 }}
-                onChange={(e) => setFilter({ isPromo: e.target.checked })}
+                onChange={(e) =>
+                  setFilter({
+                    ...filter,
+                    isPromo: e.target.checked,
+                  })
+                }
               />
               &nbsp; Promo
             </Label>
@@ -58,7 +71,12 @@ const FilterProduct = ({ setFilter }: Props) => {
               <Input
                 type="checkbox"
                 style={{ width: 20, height: 20 }}
-                onChange={(e) => setFilter({ starNumber: e.target.checked })}
+                onChange={(e) =>
+                  setFilter({
+                    ...filter,
+                    starNumber: e.target.checked,
+                  })
+                }
               />
               &nbsp;
               <StarRatingComponent name="rate1" starCount={5} value={4} />
@@ -76,7 +94,12 @@ const FilterProduct = ({ setFilter }: Props) => {
               <Input
                 type="checkbox"
                 style={{ width: 20, height: 20 }}
-                onChange={(e) => setFilter({ orderPrice: e.target.checked })}
+                onChange={(e) =>
+                  setFilter({
+                    ...filter,
+                    orderPrice: e.target.checked,
+                  })
+                }
               />
               &nbsp; Precio
             </Label>
@@ -85,7 +108,12 @@ const FilterProduct = ({ setFilter }: Props) => {
               <Input
                 type="checkbox"
                 style={{ width: 20, height: 20 }}
-                onChange={(e) => setFilter({ orderStar: e.target.checked })}
+                onChange={(e) =>
+                  setFilter({
+                    ...filter,
+                    orderStar: e.target.checked,
+                  })
+                }
               />
               &nbsp; Star
             </Label>
@@ -97,6 +125,7 @@ const FilterProduct = ({ setFilter }: Props) => {
                 name="radio1"
                 onChange={(e) =>
                   setFilter({
+                    ...filter,
                     order: e.target.checked ? 'Asc' : undefined,
                   })
                 }
@@ -110,6 +139,7 @@ const FilterProduct = ({ setFilter }: Props) => {
                 name="radio1"
                 onChange={(e) =>
                   setFilter({
+                    ...filter,
                     order: e.target.checked ? 'Desc' : undefined,
                   })
                 }

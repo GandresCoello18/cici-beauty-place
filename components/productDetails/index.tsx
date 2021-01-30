@@ -81,7 +81,7 @@ const ProductDetails = ({ product, loading }: Props) => {
 
   const renderPreViewProduct = () => {
     return (
-      <section className="container">
+      <section className="container font-arvo">
         <div className="row mt-3" style={{ backgroundColor: '#e9ecef' }}>
           <div className="col-12">
             {loading ? (
