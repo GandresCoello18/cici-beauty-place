@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import {
+  Button,
   Collapse,
   Nav,
   NavItem,
@@ -65,6 +66,13 @@ const NavBarLanding = () => {
         </Nav>
 
         <NavbarText>
+          <Link href="/login">
+            <a className="mr-3">
+              <Button outline color="secondary" size="sm">
+                Iniciar Sesiòn
+              </Button>
+            </a>
+          </Link>
           <CartIcon />
         </NavbarText>
 

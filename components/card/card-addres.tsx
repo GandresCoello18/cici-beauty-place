@@ -1,31 +1,55 @@
 import React from 'react'
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
-import { Button, Card, CardText, CardTitle } from 'reactstrap'
+import { AiFillDelete, AiFillEdit, AiOutlineSelect } from 'react-icons/ai'
+import { GoVerified } from 'react-icons/go'
+import { Button, Card, CardSubtitle, CardText, CardTitle } from 'reactstrap'
+import { Addresses } from '../../interfaces/address'
 
 interface Props {
-  item: number
+  address: Addresses
 }
 
-const CardAddres = ({ item }: Props) => {
+const CardAddres = ({ address }: Props) => {
   return (
-    <div className={`${item === 1 ? 'border-cici' : 'set-border-cici'}`}>
-      <Card body className={`${item === 1 && 'select-addres'}`}>
+    <div className={`${address.selected ? 'border-cici' : 'set-border-cici'}`}>
+      <Card body className={`${address.selected && 'select-addres'}`}>
         <CardTitle tag="h5" className="font-weight-bold">
-          Mi Casa
+          {address.title}
         </CardTitle>
-        <CardText>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias
-          quam est consequatur temporibus qui deleniti atque porro assumenda
-          recusandae sequi quod ipsa dignissimos obcaecati nostrum fugit harum,
-          maiores repellat omnis?.
-        </CardText>
-        <div className="row">
-          <div className="col">
+        <CardText>{address.address}</CardText>
+        <CardSubtitle className="mt-1 mb-3">
+          <ul>
+            <li>
+              <strong>Creado: </strong> <u>{address.created_at}</u>
+            </li>
+            <li>
+              <strong>Telefono: </strong> <u>{address.phone}</u>
+            </li>
+            <li>
+              <strong>Codigo postal: </strong>{' '}
+              <u>{address.postalCode || 'No especificado'}</u>
+            </li>
+          </ul>
+        </CardSubtitle>
+        <div className="row justify-content-center">
+          <div className="col-4">
+            <Button color="success" size="sm">
+              {address.selected ? (
+                <>
+                  <GoVerified /> En uso
+                </>
+              ) : (
+                <>
+                  <AiOutlineSelect /> Elegir
+                </>
+              )}
+            </Button>
+          </div>
+          <div className="col-4">
             <Button color="warning" size="sm">
               <AiFillEdit /> Editar
             </Button>
           </div>
-          <div className="col">
+          <div className="col-4">
             <Button color="danger" size="sm">
               <AiFillDelete /> Eliminar
             </Button>

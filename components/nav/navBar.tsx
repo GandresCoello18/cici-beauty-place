@@ -32,10 +32,12 @@ import { CgFileDocument } from 'react-icons/cg'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
 import { RiLockPasswordLine } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
-import { BASE_API } from '../../api'
+import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { RootState } from '../../reducers'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -43,6 +45,8 @@ const NavBarElement = () => {
   const [istheme, setIsTheme] = useState<boolean>(false)
   const [isPermiso, setIsPermiso] = useState<string>('')
   const { theme, setTheme } = useTheme()
+
+  const { User } = useSelector((state: RootState) => state.UserReducer)
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -122,10 +126,19 @@ const NavBarElement = () => {
 
           <div className="row mt-3 mt-md-0">
             <div className="col-2 col-md-3">
-              <figure className="avatar ml-2">
+              <figure
+                className="avatar ml-2"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title={User.userName}
+              >
                 <img
-                  src="https://andres-coello-goyes.herokuapp.com/img/profile-test.jpg"
-                  alt="avatar perfil"
+                  src={
+                    User.avatar === 'null'
+                      ? `${BASE_API}/static/${DEFAULT_AVATAR}`
+                      : User.avatar
+                  }
+                  alt={User.userName}
                 />
               </figure>
             </div>
@@ -170,7 +183,7 @@ const NavBarElement = () => {
                     <GrConfigure /> Configuracion
                   </DropdownItem>
                   <DropdownItem style={styles.colorClose}>
-                    <AiFillCloseCircle /> Cerrar Sesiòn
+                    <AiFillCloseCircle /> Salir
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -197,16 +210,18 @@ const NavBarElement = () => {
               checked={istheme}
             />
           </li>
-          <li
-            className="list-group-item cursor-pointer"
-            style={styles.colorLink}
-          >
-            <Link href="/configuracion/cambiar-clave">
-              <a style={{ textDecoration: 'none', color: '#999' }}>
-                <RiLockPasswordLine /> Cambio de contraseña
-              </a>
-            </Link>
-          </li>
+          {User.provider === 'cici' && (
+            <li
+              className="list-group-item cursor-pointer"
+              style={styles.colorLink}
+            >
+              <Link href="/configuracion/cambiar-clave">
+                <a style={{ textDecoration: 'none', color: '#999' }}>
+                  <RiLockPasswordLine /> Cambio de contraseña
+                </a>
+              </Link>
+            </li>
+          )}
           <li
             className="list-group-item cursor-pointer"
             style={styles.colorLink}

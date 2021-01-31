@@ -16,10 +16,12 @@ import Cookies from 'js-cookie'
 import { FcGoogle } from 'react-icons/fc'
 import { Controller, useForm } from 'react-hook-form'
 import { AiFillFacebook } from 'react-icons/ai'
+import { useDispatch } from 'react-redux'
 import Redirect from '../../lib/redirect'
 import { loginWithFacebook, loginWithGoogle } from '../../firebase/firebase'
 import SpinnerLoader from '../element/spinner-cici'
 import { LoginUser } from '../../api/users'
+import { setUser } from '../../reducers/user'
 
 interface FormLogin {
   email: string
@@ -28,6 +30,7 @@ interface FormLogin {
 }
 
 const Login = () => {
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>()
   const [remember, setRemember] = useState<boolean>(false)
   const [feedback, setFeedback] = useState<{ content: string; type: string }>({
@@ -59,10 +62,12 @@ const Login = () => {
           avatar: undefined,
         },
       })
-      console.log(response.data.me.user)
+
+      dispatch(setUser(response.data.me.user))
       Cookies.set('access-token', response.data.me.token)
       reset()
       Redirect('/home')
+
       setFeedback({
         content: 'Ingreso exitoso, seras redirigido al sitio principal',
         type: 'success',
@@ -93,7 +98,7 @@ const Login = () => {
               provider: 'google',
             },
           })
-          console.log(response.data.me.user)
+          dispatch(setUser(response.data.me.user))
           Cookies.set('access-token', response.data.me.token)
           reset()
           Redirect('/home')

@@ -7,6 +7,7 @@ export interface Addresses {
   address: string
   idUser: string | null
   created_at: Date | string
+  selected: boolean
 }
 
 export interface CreateAddresses {
@@ -15,5 +16,5 @@ export interface CreateAddresses {
   city: string
   postalCode: number
   address: string
-  idUser: string | null
+  idUser: string | null | undefined
 }

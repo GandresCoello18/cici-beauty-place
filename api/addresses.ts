@@ -17,7 +17,7 @@ export const newAdrees = async (options: { address: CreateAddresses }) => {
   return response
 }
 
-export const getMyAddress = async (options: { token: string | undefined }) => {
+export const GetMyAddress = async (options: { token: string | undefined }) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
     method: 'GET',

@@ -1,12 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { GrLocation } from 'react-icons/gr'
+import { useSelector } from 'react-redux'
 import CardAddres from '../card/card-addres'
 import FormAddres from '../element/formAddres'
 import { TokenContext } from '../../context/contextToken'
+import { RootState } from '../../reducers'
 
 const AdressPayment = () => {
   const { token } = useContext(TokenContext)
   const [myAddresses, setMyAddres] = useState<boolean>(!!token)
+
+  const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
 
   return (
     <>
@@ -14,10 +18,10 @@ const AdressPayment = () => {
         <>
           <h4>Mis Direcciones:</h4>
           <div className="row justify-content-center">
-            {[0, 1].map((item) => (
-              <div className="col-12 col-md-6 col-xl-4 mb-2" key={item}>
+            {Addresses.map((address) => (
+              <div className="col-12 col-md-6 mb-2" key={address.idAddresses}>
                 <div className="cursor-pointer">
-                  <CardAddres item={item} />
+                  <CardAddres address={address} />
                 </div>
               </div>
             ))}
@@ -38,8 +42,8 @@ const AdressPayment = () => {
         >
           <GrLocation />{' '}
           {myAddresses
-            ? 'Seleccionar una direccion guardada'
-            : 'Especificar una nueva direccion'}
+            ? 'Especificar una nueva direccion'
+            : 'Seleccionar una direccion guardada'}
         </div>
       ) : (
         ''
