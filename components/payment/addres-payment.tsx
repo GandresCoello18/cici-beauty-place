@@ -1,42 +1,53 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { GrLocation } from 'react-icons/gr'
+import { useSelector } from 'react-redux'
 import CardAddres from '../card/card-addres'
 import FormAddres from '../element/formAddres'
+import { TokenContext } from '../../context/contextToken'
+import { RootState } from '../../reducers'
 
 const AdressPayment = () => {
-  const [newAddres, setNewAddres] = useState<boolean>(false)
+  const { token } = useContext(TokenContext)
+  const [myAddresses, setMyAddres] = useState<boolean>(!!token)
+
+  const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
 
   return (
     <>
-      {newAddres ? (
-        <>
-          <h4>Nueva Direccion:</h4>
-          <FormAddres />
-        </>
-      ) : (
+      {myAddresses ? (
         <>
           <h4>Mis Direcciones:</h4>
           <div className="row justify-content-center">
-            {[0, 1].map((item) => (
-              <div className="col-12 col-md-6 col-xl-4 mb-2" key={item}>
+            {Addresses.map((address) => (
+              <div className="col-12 col-md-6 mb-2" key={address.idAddresses}>
                 <div className="cursor-pointer">
-                  <CardAddres item={item} />
+                  <CardAddres address={address} />
                 </div>
               </div>
             ))}
           </div>
         </>
+      ) : (
+        <>
+          <h4>Nueva Direccion:</h4>
+          <FormAddres isSession={!!token} />
+        </>
       )}
-      <div
-        className="btn-link cursor-pointer mt-3"
-        aria-hidden="true"
-        onClick={() => setNewAddres(!newAddres)}
-      >
-        <GrLocation />{' '}
-        {newAddres
-          ? 'Seleccionar una direccion guardada'
-          : 'Especificar una nueva direccion'}
-      </div>
+
+      {token ? (
+        <div
+          className="btn-link cursor-pointer mt-3"
+          aria-hidden="true"
+          onClick={() => setMyAddres(!myAddresses)}
+        >
+          <GrLocation />{' '}
+          {myAddresses
+            ? 'Especificar una nueva direccion'
+            : 'Seleccionar una direccion guardada'}
+        </div>
+      ) : (
+        ''
+      )}
     </>
   )
 }

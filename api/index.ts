@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 
+export const DEFAULT_AVATAR = 'avatar-default.svg'
 const apiDev = 'http://localhost:9000'
 // const apiProd = 'https://';
 

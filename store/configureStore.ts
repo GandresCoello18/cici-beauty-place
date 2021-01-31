@@ -15,6 +15,10 @@ import {
 import { RootState, rootReducer } from '../reducers'
 import { getProductCart } from '../api/cart'
 import { setCart } from '../reducers/cart'
+import { GetMeUser } from '../api/users'
+import { setUser } from '../reducers/user'
+import { GetMyAddress } from '../api/addresses'
+import { setAddress } from '../reducers/address'
 
 export const configureStore = (initialState: RootState) => {
   const store = createStore(rootReducer, initialState, devToolsEnhancer({}))
@@ -37,10 +41,24 @@ export const configureStore = (initialState: RootState) => {
     })
     .catch((error) => console.log(error.message))
 
-  if (Cookies.get('access-token')) {
-    getProductCart({ token: Cookies.get('access-token') })
+  const token: string | undefined = Cookies.get('access-token')
+
+  if (token) {
+    getProductCart({ token })
       .then((response) => {
         store.dispatch(setCart(response.data.products))
+      })
+      .catch((error) => console.log(error.message))
+
+    GetMeUser({ token })
+      .then((response) => {
+        store.dispatch(setUser(response.data.me))
+      })
+      .catch((error) => console.log(error.message))
+
+    GetMyAddress({ token })
+      .then((response) => {
+        store.dispatch(setAddress(response.data.address))
       })
       .catch((error) => console.log(error.message))
   }

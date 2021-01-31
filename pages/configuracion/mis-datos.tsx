@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { GrUpdate } from 'react-icons/gr'
 import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import Layout from '../../components/layout'
+import { RootState } from '../../reducers'
+import CardAddres from '../../components/card/card-addres'
+import FormAddres from '../../components/element/formAddres'
 
 interface FromMiData {
   username: string
@@ -12,12 +16,90 @@ interface FromMiData {
 }
 
 const MyData = () => {
+  const [newAddress, setNewAddress] = useState<boolean>(false)
+  const { User } = useSelector((state: RootState) => state.UserReducer)
   const methods = useForm<FromMiData>()
-  const { handleSubmit, control, reset, errors } = methods
+  const { handleSubmit, register, reset, errors } = methods
+
+  const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
 
   const send = (_data: FromMiData) => {
     console.log(_data)
     reset()
+  }
+
+  const renderUpdateData = () => {
+    return (
+      <div className="col-12 col-md-8 p-3 mb-4">
+        <h3 className="text-center p-1 mb-3">Mis datos actuales</h3>
+        <Form onSubmit={handleSubmit(send)}>
+          <div className="row">
+            <div className="col-12 col-md-6">
+              <FormGroup>
+                <Label for="username">Nombre de usuario</Label>
+                <input
+                  type="text"
+                  name="username"
+                  className="form-control"
+                  id="username"
+                  placeholder="Nombre de usuario"
+                  defaultValue={User.userName}
+                  ref={register({ required: true })}
+                />
+                <FormFeedback invalid={errors.username && true}>
+                  {errors.username && 'Escribe algun nombre de usuario'}
+                </FormFeedback>
+              </FormGroup>
+            </div>
+            <div className="col-12 col-md-6">
+              <FormGroup>
+                <Label for="email">Direccion de correo</Label>
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Direccion de correo"
+                  defaultValue={User.email}
+                  ref={register({ required: true })}
+                />
+                <FormFeedback invalid={errors.email && true}>
+                  {errors.email && 'Escribe algun direccion de correo'}
+                </FormFeedback>
+              </FormGroup>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 col-md-6 mb-4">
+              <FormGroup>
+                <Label for="username">Te unistes el</Label>
+                <Input disabled defaultValue={`${User.created_at}`} />
+              </FormGroup>
+            </div>
+            <div className="col-12 col-md-6">
+              <FormGroup>
+                <Label for="email">Proveedor de datos</Label>
+                <Input disabled value={User.provider} />
+              </FormGroup>
+            </div>
+          </div>
+
+          <button type="submit" className="btn btn-warning">
+            <GrUpdate /> Actualizar Datos
+          </button>
+        </Form>
+      </div>
+    )
+  }
+
+  const renderFromAddress = () => {
+    return (
+      <div className="col-12 col-md-8">
+        <h3 className="p-2 text-center">Nueva Direccion</h3>
+        <FormAddres isSession setNewAddress={setNewAddress} />
+      </div>
+    )
   }
 
   return (
@@ -29,79 +111,35 @@ const MyData = () => {
 
       <Layout>
         <section className="container mt-md-4 mb-md-4 font-arvo">
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-8 bg-white p-3">
-              <h5 className="text-center p-1 mb-3">Mis datos actuales</h5>
-              <Form onSubmit={handleSubmit(send)}>
-                <div className="row">
-                  <div className="col-12 col-md-6">
-                    <FormGroup>
-                      <Label for="username">Nombre de usuario</Label>
-                      <Controller
-                        as={
-                          <Input
-                            invalid={errors.username && true}
-                            name="username"
-                            id="username"
-                            defaultValue="gandrescoello18"
-                            placeholder="Nombre de usuario"
-                          />
-                        }
-                        type="text"
-                        name="currentKey"
-                        control={control}
-                        rules={{ required: true }}
-                      />
-                      <FormFeedback invalid={errors.username && true}>
-                        {errors.username && 'Escribe algun nombre de usuario'}
-                      </FormFeedback>
-                    </FormGroup>
+          <div className="row justify-content-center bg-white">
+            {newAddress ? renderFromAddress() : renderUpdateData()}
+            <div className="col-12 col-md-8 border-top p-2">
+              {!newAddress && (
+                <>
+                  <h3 className="text-center p-2 mt-4">Mis direcciones</h3>
+                  <div className="row">
+                    {Addresses.map((address) => (
+                      <div
+                        className="col-12 col-md-6 mb-2"
+                        key={address.idAddresses}
+                      >
+                        <div className="cursor-pointer">
+                          <CardAddres address={address} />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="col-12 col-md-6">
-                    <FormGroup>
-                      <Label for="email">Direccion de correo</Label>
-                      <Controller
-                        as={
-                          <Input
-                            invalid={errors.email && true}
-                            name="email"
-                            defaultValue="goyeselcoca@gmail.com"
-                            id="email"
-                            placeholder="7 o mas caracteres"
-                          />
-                        }
-                        type="email"
-                        name="email"
-                        control={control}
-                        rules={{ required: true }}
-                      />
-                      <FormFeedback invalid={errors.email && true}>
-                        {errors.email && 'Escribe algun direccion de correo'}
-                      </FormFeedback>
-                    </FormGroup>
-                  </div>
-                  <div className="col-12 border-top mt-3 p-2">
-                    <h3 className="text-center p-2">Mis direcciones</h3>
-                    <FormGroup>
-                      <Label for="direccion">Mi casa</Label>
-                      <Input
-                        type="textarea"
-                        height="200"
-                        name="direccion"
-                        id="direccion"
-                        placeholder="Especifica la direccion donde quieres que sea entregado tus compras con regularidad, utiliza referencias si es necesario."
-                      />
-                    </FormGroup>
-                    <Button color="link" type="button" className="float-right">
-                      Agregar otra direccion
-                    </Button>
-                  </div>
-                </div>
+                </>
+              )}
 
-                <button type="submit" className="btn btn-warning">
-                  <GrUpdate /> Actualizar Datos
-                </button>
-              </Form>
+              <Button
+                color="link"
+                type="button"
+                className="float-right"
+                onClick={() => setNewAddress(!newAddress)}
+              >
+                {newAddress ? 'Ver mis direcciones' : 'Agregar otra direccion'}
+              </Button>
             </div>
           </div>
         </section>

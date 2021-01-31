@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
-import React from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
   Button,
   Col,
@@ -11,7 +12,17 @@ import {
   Row,
 } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { newAdrees } from '../../api/addresses'
+import { Addresses, CreateAddresses } from '../../interfaces/address'
+import SpinnerLoader from './spinner-cici'
+import { RootState } from '../../reducers'
+import { setAddress } from '../../reducers/address'
 
+interface Props {
+  isSession: boolean
+  setNewAddress?: Dispatch<SetStateAction<boolean>> | undefined
+}
 interface FormAddres {
   title: string
   phone: number
@@ -20,13 +31,43 @@ interface FormAddres {
   address: string
 }
 
-const FormAddres = () => {
+const FormAddres = ({ isSession, setNewAddress }: Props) => {
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState<boolean>(false)
   const methods = useForm<FormAddres>()
   const { handleSubmit, control, reset, errors } = methods
 
-  const send = (data: FormAddres) => {
-    console.log(data)
-    reset()
+  const { User } = useSelector((state: RootState) => state.UserReducer)
+
+  const AddressesReducer = useSelector(
+    (state: RootState) => state.AddressReducer.Addresses
+  )
+
+  const send = async (data: FormAddres) => {
+    setLoading(true)
+    const { title, phone, city, codePostal, address } = data
+
+    try {
+      const CreateAddress: CreateAddresses = {
+        title,
+        phone,
+        city,
+        address,
+        postalCode: codePostal,
+        idUser: User.idUser || undefined,
+      }
+
+      const response = await newAdrees({ address: CreateAddress })
+      const newAddress: Addresses = response.data.address
+      dispatch(setAddress([...AddressesReducer, ...[newAddress]]))
+
+      reset()
+      setLoading(false)
+      setNewAddress && setNewAddress(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error.message)
+    }
   }
 
   return (
@@ -122,11 +163,10 @@ const FormAddres = () => {
             <Input
               invalid={errors.address && true}
               type="textarea"
-              name="address"
               placeholder="Especifique su direccion y utilize referencias de como llegar."
             />
           }
-          name="codePostal"
+          name="address"
           control={control}
           rules={{ required: true }}
         />
@@ -136,11 +176,12 @@ const FormAddres = () => {
       </FormGroup>
       <Button
         type="submit"
-        disabled={false}
+        disabled={loading}
         style={{ backgroundColor: '#efccd3', color: '#000' }}
         block
       >
-        Registrar direccion
+        {isSession ? 'Registrar direccion' : 'Utilizar esta direccion'}
+        {loading && <SpinnerLoader />}
       </Button>
     </Form>
   )

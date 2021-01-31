@@ -1,6 +1,8 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { Dispatch, SetStateAction } from 'react'
+import { useDispatch } from 'react-redux'
 import StepProgressBar from 'react-step-progress'
+import { setCart } from '../../reducers/cart'
 import CartContainer from '../cart'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
@@ -16,6 +18,7 @@ const StepsShopping = ({
   setItemStep,
   setFinishShopping,
 }: Props) => {
+  const dispatch = useDispatch()
   const validarPagos = () => {
     setItemStep(2)
     return true
@@ -24,6 +27,7 @@ const StepsShopping = ({
     return true
   }
   const onFormSubmit = () => {
+    dispatch(setCart([]))
     setFinishShopping(true)
     // handle the submit logic here
     // This function will be executed at the last step

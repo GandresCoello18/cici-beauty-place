@@ -1,6 +1,15 @@
 import { api } from '.'
 import { UserRegister } from '../interfaces/users'
 
+export const GetMeUser = async (options: { token: string | undefined }) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: '/users/me',
+  })
+  return response
+}
+
 export const RegisterUser = async (options: {
   token: string | undefined
   user: UserRegister

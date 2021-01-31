@@ -38,3 +38,11 @@ export const getLikeProduct = async (options: {
   })
   return response
 }
+
+export const getLikeProductCount = async (options: { idProduct: string }) => {
+  const response = await api({
+    method: 'GET',
+    url: `/favorite/count/${options.idProduct}`,
+  })
+  return response
+}
