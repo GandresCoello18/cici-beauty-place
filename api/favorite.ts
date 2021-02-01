@@ -27,6 +27,17 @@ export const deleteLikeProduct = async (options: {
   return response
 }
 
+export const deleteMyFavorites = async (options: {
+  token: string | undefined
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'DELETE',
+    url: `/favorite`,
+  })
+  return response
+}
+
 export const getLikeProduct = async (options: {
   idProduct: string
   token: string | undefined
@@ -35,6 +46,15 @@ export const getLikeProduct = async (options: {
   const response = await api({
     method: 'GET',
     url: `/favorite/${options.idProduct}`,
+  })
+  return response
+}
+
+export const getFavorites = async (options: { token: string | undefined }) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: `/favorite`,
   })
   return response
 }

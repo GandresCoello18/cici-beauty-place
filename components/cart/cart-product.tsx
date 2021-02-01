@@ -10,6 +10,7 @@ import { setCart } from '../../reducers/cart'
 import ActionFavoritePrduct from '../productDetails/action-favorite-product'
 import { TokenContext } from '../../context/contextToken'
 import ProductPicker from '../productDetails/product-number-picker'
+import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
   product: Cart
@@ -21,14 +22,6 @@ const CartProduct = ({ product }: Props) => {
   const [quantity, setQuantity] = useState<number>(product.quantity)
 
   const cartReducer = useSelector((state: RootState) => state.CartReducer.Cart)
-
-  const Styles = {
-    tachado: {
-      padding: 4,
-      color: '#999',
-      textDecoration: 'line-through',
-    },
-  }
 
   useEffect(() => {
     console.log(quantity)
@@ -52,14 +45,14 @@ const CartProduct = ({ product }: Props) => {
     }
   }
 
-  const calculatePrice = () => {
+  /* const calculatePrice = () => {
     if (product.discount) {
       const porcent: number = (product.price * product.discount) / 100
       return (product.price - porcent).toFixed(2)
     }
 
     return product.price
-  }
+  } */
 
   return (
     <>
@@ -88,11 +81,15 @@ const CartProduct = ({ product }: Props) => {
                 <div className="col-12 p-1">
                   <div className="p-1 mb-2 border-bottom">
                     <strong style={{ fontSize: 20 }}>
-                      US ${calculatePrice()}
+                      US $
+                      {calculatePrice({
+                        discount: product.discount,
+                        price: product.price,
+                      })}
                     </strong>
                     {product.discount ? (
                       <>
-                        <span className="ml-2" style={Styles.tachado}>
+                        <span className="ml-2 tachado">
                           US ${product.price}
                         </span>
                         <span className="tag-discount ml-2">

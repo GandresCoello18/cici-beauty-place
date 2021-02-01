@@ -13,6 +13,7 @@ import StarRatingComponent from 'react-star-rating-component'
 import { MdPeople } from 'react-icons/md'
 import { Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
+import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
   product: Product
@@ -39,21 +40,16 @@ const CardProduct = ({ product, size }: Props) => {
       padding: 2,
       backgroundColor: 'rgb(244, 237, 237)',
     },
-    tachado: {
-      padding: 4,
-      color: '#999',
-      textDecoration: 'line-through',
-    },
   }
 
-  const calculatePrice = () => {
+  /* const calculatePrice = () => {
     if (product.discount && product.price) {
       const porcent: number = (product.price * product.discount) / 100
       return (product.price - porcent).toFixed(2)
     }
 
     return product.price
-  }
+  } */
 
   return (
     <>
@@ -77,11 +73,16 @@ const CardProduct = ({ product, size }: Props) => {
                 {product.title}
               </CardTitle>
               <CardText>
-                <strong className="mr-4">US ${calculatePrice()}</strong>
+                <strong className="mr-4">
+                  US $
+                  {calculatePrice({
+                    discount: product.discount,
+                    price: product.price,
+                  })}
+                </strong>
                 {product.discount ? (
                   <>
-                    <span style={Styles.tachado}>US ${product.price}</span>{' '}
-                    &nbsp;{' '}
+                    <span className="tachado">US ${product.price}</span> &nbsp;{' '}
                     <span className="tag-discount">-${product.discount}%</span>
                   </>
                 ) : (

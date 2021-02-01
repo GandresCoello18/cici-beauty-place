@@ -229,6 +229,12 @@ footer ul {
   animation: spin 1s linear infinite;
 }
 
+.tachado {
+  padding: 4px;
+  color: #999;
+  text-decoration: line-through;
+}
+
 .time {
   display: inline-block;
 }
