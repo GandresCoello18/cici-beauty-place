@@ -53,3 +53,37 @@ export const LoginUser = async (options: {
   })
   return response
 }
+
+export const UpdateUser = async (options: {
+  token: string | undefined
+  email: string
+  userName: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: '/users',
+    data: {
+      email: options.email,
+      userName: options.userName,
+    },
+  })
+  return response
+}
+
+export const UpdatePasswordUser = async (options: {
+  token: string | undefined
+  currentKey: string
+  newKey: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: '/users/password',
+    data: {
+      newKey: options.newKey,
+      currentKey: options.currentKey,
+    },
+  })
+  return response
+}

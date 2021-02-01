@@ -25,3 +25,27 @@ export const GetMyAddress = async (options: { token: string | undefined }) => {
   })
   return response
 }
+
+export const DeleteMyAddress = async (options: {
+  token: string | undefined
+  title: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'DELETE',
+    url: `/addresses/${options.title}`,
+  })
+  return response
+}
+
+export const SelectedMyAddress = async (options: {
+  token: string | undefined
+  title: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: `/addresses/selected/${options.title}`,
+  })
+  return response
+}
