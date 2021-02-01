@@ -10,6 +10,14 @@ export const GetMeUser = async (options: { token: string | undefined }) => {
   return response
 }
 
+export const GetInviteUser = async (options: { username: string }) => {
+  const response = await api({
+    method: 'GET',
+    url: `/users/invite/${options.username}`,
+  })
+  return response
+}
+
 export const RegisterUser = async (options: {
   token: string | undefined
   user: UserRegister

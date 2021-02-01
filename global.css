@@ -93,6 +93,13 @@ body {
   vertical-align: middle;
 }
 
+.banenr-invitacion {
+  background: #f097ac;
+  font-size: 21px;
+  padding: 10px;
+  color: #fff;
+}
+
 .capa-profile {
   background-color: rgba(35, 47, 62, 0.7);
   position: absolute;
