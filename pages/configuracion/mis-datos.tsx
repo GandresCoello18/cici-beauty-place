@@ -1,14 +1,25 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { GrUpdate } from 'react-icons/gr'
-import { Button, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import {
+  Alert,
+  Button,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from 'reactstrap'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
+import { TokenContext } from '../../context/contextToken'
 import CardAddres from '../../components/card/card-addres'
 import FormAddres from '../../components/element/formAddres'
+import { UpdateUser } from '../../api/users'
+import SpinnerLoader from '../../components/element/spinner-cici'
 
 interface FromMiData {
   username: string
@@ -17,14 +28,26 @@ interface FromMiData {
 
 const MyData = () => {
   const [newAddress, setNewAddress] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const { token } = useContext(TokenContext)
   const { User } = useSelector((state: RootState) => state.UserReducer)
   const methods = useForm<FromMiData>()
   const { handleSubmit, register, reset, errors } = methods
 
   const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
 
-  const send = (_data: FromMiData) => {
-    console.log(_data)
+  const send = async (data: FromMiData) => {
+    setLoading(true)
+    const { username, email } = data
+
+    try {
+      await UpdateUser({ token, userName: username, email })
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error.message)
+    }
+
     reset()
   }
 
@@ -85,8 +108,8 @@ const MyData = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-warning">
-            <GrUpdate /> Actualizar Datos
+          <button type="submit" className="btn btn-warning" disabled={loading}>
+            <GrUpdate /> Actualizar Datos {loading && <SpinnerLoader />}
           </button>
         </Form>
       </div>
@@ -128,6 +151,14 @@ const MyData = () => {
                         </div>
                       </div>
                     ))}
+
+                    {!Addresses.length && (
+                      <div className="col-12">
+                        <Alert color="info">
+                          No hay direcciones registradas.
+                        </Alert>
+                      </div>
+                    )}
                   </div>
                 </>
               )}

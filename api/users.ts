@@ -10,6 +10,14 @@ export const GetMeUser = async (options: { token: string | undefined }) => {
   return response
 }
 
+export const GetInviteUser = async (options: { username: string }) => {
+  const response = await api({
+    method: 'GET',
+    url: `/users/invite/${options.username}`,
+  })
+  return response
+}
+
 export const RegisterUser = async (options: {
   token: string | undefined
   user: UserRegister
@@ -49,6 +57,40 @@ export const LoginUser = async (options: {
       provider: options.user.provider,
       userName: options.user.userName,
       avatar: options.user.avatar,
+    },
+  })
+  return response
+}
+
+export const UpdateUser = async (options: {
+  token: string | undefined
+  email: string
+  userName: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: '/users',
+    data: {
+      email: options.email,
+      userName: options.userName,
+    },
+  })
+  return response
+}
+
+export const UpdatePasswordUser = async (options: {
+  token: string | undefined
+  currentKey: string
+  newKey: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: '/users/password',
+    data: {
+      newKey: options.newKey,
+      currentKey: options.currentKey,
     },
   })
   return response

@@ -25,6 +25,7 @@ import { BASE_API } from '../../api'
 import { RootState } from '../../reducers'
 import ActionsProductDetails from './actions-product-details'
 import ProductPicker from './product-number-picker'
+import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
   product: Product
@@ -49,14 +50,6 @@ const ProductDetails = ({ product, loading }: Props) => {
 
   const { ProductsBestRated } = ProductsReducer
 
-  const Styles = {
-    tachado: {
-      padding: 4,
-      color: '#999',
-      textDecoration: 'line-through',
-    },
-  }
-
   useEffect(() => {
     setUrlShare(window.location.href)
     setPreview({
@@ -70,14 +63,14 @@ const ProductDetails = ({ product, loading }: Props) => {
       setTimeout(() => setFeedback({ type: '', content: '' }), 3000)
   }, [feedback])
 
-  const calculatePrice = () => {
+  /* const calculatePrice = () => {
     if (product.discount) {
       const porcent: number = (product.price * product.discount) / 100
       return (product.price - porcent).toFixed(2)
     }
 
     return product.price
-  }
+  } */
 
   const renderPreViewProduct = () => {
     return (
@@ -182,7 +175,13 @@ const ProductDetails = ({ product, loading }: Props) => {
                     {loading ? (
                       <Skeleton height={16} />
                     ) : (
-                      <>US ${calculatePrice()}</>
+                      <>
+                        US $
+                        {calculatePrice({
+                          discount: product.discount,
+                          price: product.price,
+                        })}
+                      </>
                     )}
                   </strong>
                 </div>
@@ -192,7 +191,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                       {loading ? (
                         <Skeleton height={15} />
                       ) : (
-                        <span style={Styles.tachado}>US ${product.price}</span>
+                        <span className="tachado">US ${product.price}</span>
                       )}
                     </div>
                     <div className="col-1">

@@ -93,6 +93,13 @@ body {
   vertical-align: middle;
 }
 
+.banenr-invitacion {
+  background: #f097ac;
+  font-size: 21px;
+  padding: 10px;
+  color: #fff;
+}
+
 .capa-profile {
   background-color: rgba(35, 47, 62, 0.7);
   position: absolute;
@@ -227,6 +234,12 @@ footer ul {
   border-radius: 50%;
   border-left-color: #f0adbc;
   animation: spin 1s linear infinite;
+}
+
+.tachado {
+  padding: 4px;
+  color: #999;
+  text-decoration: line-through;
 }
 
 .time {

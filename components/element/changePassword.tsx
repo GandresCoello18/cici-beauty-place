@@ -1,21 +1,78 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { GrUpdate } from 'react-icons/gr'
-import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import { Alert, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
+import Cookies from 'js-cookie'
+import { UpdatePasswordUser } from '../../api/users'
+import { TokenContext } from '../../context/contextToken'
+import redirect from '../../lib/redirect'
+import SpinnerLoader from './spinner-cici'
 
 interface FromPassword {
   currentKey: string
   newKey: string
 }
 
+interface Feedback {
+  type: string
+  content: string
+}
+
 const ChangePassword = () => {
+  const { token } = useContext(TokenContext)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [feedback, setFeedback] = useState<Feedback>({
+    type: '',
+    content: '',
+  })
   const methods = useForm<FromPassword>()
   const { handleSubmit, control, reset, errors } = methods
 
-  const send = (_data: FromPassword) => {
-    console.log(_data)
-    reset()
+  const send = async (data: FromPassword) => {
+    setLoading(true)
+    setFeedback({
+      type: '',
+      content: '',
+    })
+
+    const { currentKey, newKey } = data
+
+    try {
+      if (currentKey !== newKey) {
+        setFeedback({
+          type: 'danger',
+          content: 'Las credenciales no son iguales, vuelva a intentarlo',
+        })
+        setLoading(false)
+        return
+      }
+
+      if (newKey.length < 7) {
+        setFeedback({
+          type: 'danger',
+          content:
+            'Las credenciales deben tener 7 o mas caracteres, vuelva a intentarlo',
+        })
+        setLoading(false)
+        return
+      }
+
+      await UpdatePasswordUser({ token, currentKey, newKey })
+      setFeedback({
+        type: 'success',
+        content: 'La clave fue actualizada',
+      })
+
+      Cookies.remove('access-token')
+      redirect('/login')
+
+      reset()
+      setLoading(false)
+    } catch (error) {
+      console.log(error.message)
+      setLoading(false)
+    }
   }
 
   return (
@@ -66,10 +123,12 @@ const ChangePassword = () => {
           </FormFeedback>
         </FormGroup>
 
-        <button type="submit" className="btn btn-warning">
-          <GrUpdate /> Actualizar
+        <button type="submit" className="btn btn-warning" disabled={loading}>
+          <GrUpdate /> Actualizar {loading && <SpinnerLoader />}
         </button>
       </Form>
+      <br />
+      <Alert color={feedback.type}>{feedback.content}</Alert>
     </>
   )
 }
