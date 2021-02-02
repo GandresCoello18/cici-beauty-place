@@ -17,6 +17,7 @@ import {
   Input,
   Label,
 } from 'reactstrap'
+import { toast } from 'react-toast'
 import Redirect from '../../lib/redirect'
 import { RegisterUser } from '../../api/users'
 import { UserRegister } from '../../interfaces/users'
@@ -96,7 +97,7 @@ const SignIn = () => {
       }
       setLoading(false)
     } catch (error) {
-      console.log(error.code)
+      toast.error(error.message)
       setFeedback({
         content: error.message,
         type: 'danger',

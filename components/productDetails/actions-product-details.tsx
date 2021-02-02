@@ -13,6 +13,7 @@ import { MdShoppingBasket } from 'react-icons/md'
 import Skeleton from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'reactstrap'
+import { toast } from 'react-toast'
 import { newProductCart } from '../../api/cart'
 import { Cart, Product } from '../../interfaces/products'
 import redirect from '../../lib/redirect'
@@ -82,7 +83,7 @@ const ActionsProductDetails = ({
         })
         setLoadingAction(false)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
   }

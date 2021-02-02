@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
+import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
 import { GetProduct } from '../../api/products'
@@ -31,7 +32,7 @@ const ProductId = () => {
 
       fetchProduct()
     } catch (error) {
-      alert(error.message)
+      toast.error(error.message)
     }
 
     setLoading(false)

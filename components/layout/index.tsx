@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, { ReactNode, useState } from 'react'
 import Cookies from 'js-cookie'
+import { ToastContainer } from 'react-toast'
 import NavBar from '../nav/navBar'
 import Footer from './footer'
 import NavBarLanding from '../nav/navBarLanding'
@@ -18,6 +19,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       {isSession ? <NavBar /> : <NavBarLanding />}
+      <ToastContainer delay={3000} />
       {children}
       <Footer />
     </>

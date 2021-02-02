@@ -17,6 +17,10 @@ body {
   padding: 0px !important;
 }
 
+.toastContainer {
+  z-index: 9999 !important;
+}
+
 .border-round {
   border-radius: 12px;
 }

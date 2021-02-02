@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Badge } from 'reactstrap'
+import { toast } from 'react-toast'
 import { BASE_API } from '../../api'
 import { deleteProductCart } from '../../api/cart'
 import { Cart } from '../../interfaces/products'
@@ -39,7 +40,7 @@ const CartProduct = ({ product }: Props) => {
     if (token) {
       deleteProductCart({ token, idProduct: product.idProducts })
         .then(() => RemoveProductReducer())
-        .catch((error) => console.log(error.message))
+        .catch((error) => toast.error(error.message))
     } else {
       RemoveProductReducer()
     }

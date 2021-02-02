@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 import React from 'react'
 import { NextSeo } from 'next-seo'
@@ -6,7 +10,10 @@ import { FiSend } from 'react-icons/fi'
 import { AiFillCopy } from 'react-icons/ai'
 import { Alert, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toast'
 import Layout from '../../components/layout'
+import { RootState } from '../../reducers'
 
 interface FromInvite {
   name: string
@@ -17,9 +24,26 @@ const SendInvitation = () => {
   const methods = useForm<FromInvite>()
   const { handleSubmit, control, reset, errors } = methods
 
+  const { User } = useSelector((state: RootState) => state.UserReducer)
+
   const send = (_data: FromInvite) => {
     console.log(_data)
     reset()
+  }
+
+  const CopyText = () => {
+    const url: any = document.querySelector('.url-invite')
+    console.log(url)
+    const range: any = document.createRange()
+    range.selectNode(url)
+    window.getSelection()?.addRange(range)
+
+    try {
+      document.execCommand('copy')
+      toast.success('Se copio la direccion en el porta papeles')
+    } catch (error) {
+      toast.error(`ERROR al intentar copiar url, ${error.message}`)
+    }
   }
 
   return (
@@ -49,13 +73,17 @@ const SendInvitation = () => {
                 <div className="col-12 col-md-10">
                   <Input
                     type="url"
-                    value="https://cici-beauty-place.com/invite/mi-user"
-                    className="p-3 font-weight-bold"
+                    value={`https://cici.com.ec/invitacion/${User.userName}`}
+                    className="p-3 font-weight-bold url-invite"
                     disabled
                   />
                 </div>
                 <div className="col-12 col-md-2">
-                  <button type="button" className="btn bg-cici p-2 w-100 h-100">
+                  <button
+                    type="button"
+                    className="btn bg-cici p-2 w-100 h-100"
+                    onClick={CopyText}
+                  >
                     <AiFillCopy /> Copiar
                   </button>
                 </div>

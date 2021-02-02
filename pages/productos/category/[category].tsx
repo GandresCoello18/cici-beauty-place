@@ -7,6 +7,7 @@ import Skeleton from 'react-loading-skeleton'
 import { Alert } from 'reactstrap'
 import Router from 'next/router'
 import { NextSeo } from 'next-seo'
+import { toast } from 'react-toast'
 import CaroselCard from '../../../components/carousel/CaroselCard'
 import { RootState } from '../../../reducers'
 import { Product } from '../../../interfaces/products'
@@ -45,7 +46,7 @@ const CategoryProducts = () => {
         fetchProduct()
       }
     } catch (error) {
-      alert(error.message)
+      toast.error(error.message)
     }
   }, [])
 
