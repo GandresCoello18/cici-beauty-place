@@ -19,7 +19,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       {isSession ? <NavBar /> : <NavBarLanding />}
-      <ToastContainer delay={3000} />
+      <ToastContainer delay={3000} position="top-right" />
       {children}
       <Footer />
     </>
