@@ -31,7 +31,7 @@ import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
-import { RiLockPasswordLine } from 'react-icons/ri'
+import { RiCouponLine, RiLockPasswordLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
@@ -166,6 +166,13 @@ const NavBarElement = () => {
                     <Link href="/mis-pedidos">
                       <a style={styles.colorLink}>
                         <HiOutlineClipboardList /> Mis Pedidos
+                      </a>
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem style={styles.colorLink}>
+                    <Link href="/mis-cupones">
+                      <a style={styles.colorLink}>
+                        <RiCouponLine /> Mis Cupones
                       </a>
                     </Link>
                   </DropdownItem>

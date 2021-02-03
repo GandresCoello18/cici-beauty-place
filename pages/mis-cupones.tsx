@@ -10,15 +10,15 @@ import {
 } from 'reactstrap'
 import Layout from '../components/layout'
 
-const MisPedidos = () => {
+const MisCupones = () => {
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [selectOptioon, setSelectOption] = useState<string>('Todas')
   const toggle = () => setOpen(!dropdownOpen)
   return (
     <>
       <NextSeo
-        title="Mis Pedidos | Cici beauty place"
-        description="Mis pedidos."
+        title="Mis Cupones | Cici beauty place"
+        description="Mis cupones, en uso, caducados y pendienntes."
       />
 
       <Layout>
@@ -26,7 +26,7 @@ const MisPedidos = () => {
           <div className="row justify-content-center bg-white">
             <div className="col-12 border-bottom p-3">
               <h3 className="p-1">
-                Tus Pedidos{' '}
+                Mis Cupones{' '}
                 <ButtonDropdown
                   direction="left"
                   isOpen={dropdownOpen}
@@ -41,20 +41,19 @@ const MisPedidos = () => {
                     <DropdownItem onClick={() => setSelectOption('Todas')}>
                       Todas
                     </DropdownItem>
-                    <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de pago')}
-                    >
-                      Pendiente de pago
+                    <DropdownItem onClick={() => setSelectOption('Validos')}>
+                      Validos
                     </DropdownItem>
                     <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de envio')}
+                      onClick={() => setSelectOption('No valido aun')}
                     >
-                      Pendiente de envio
+                      No valido aun
                     </DropdownItem>
-                    <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de entrega')}
-                    >
-                      Pendiente de entrega
+                    <DropdownItem onClick={() => setSelectOption('Usados')}>
+                      Usados
+                    </DropdownItem>
+                    <DropdownItem onClick={() => setSelectOption('Expirados')}>
+                      Expirados
                     </DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
@@ -62,11 +61,11 @@ const MisPedidos = () => {
             </div>
           </div>
           <div className="row bg-white border-bottom p-3 text-center">
-            <div className="col-5 border-right font-weight-bold text-cici">
-              Informacion
-            </div>
             <div className="col-4 border-right font-weight-bold text-cici">
-              Rastreo
+              Tipo
+            </div>
+            <div className="col-5 border-right font-weight-bold text-cici">
+              Expira
             </div>
             <div className="col-3 font-weight-bold text-cici">Estado</div>
           </div>
@@ -75,28 +74,14 @@ const MisPedidos = () => {
               className="row bg-white border-bottom p-1 p-md-3 text-center"
               key={item}
             >
-              <div className="col-12 bg-cici mb-2 text-left p-3">
-                <img
-                  width="100"
-                  height="100"
-                  src="http://localhost:9000/static/51R9Nw0GwIL._AC_UL320_.png"
-                  alt="img pedido"
-                />
-                <span>
-                  Crema anti envejecimiento para la hidratacion de la piel.{' '}
-                  <strong>+ 3 productos</strong>
-                </span>
+              <div className="col-4 border-right">
+                <Badge className="bg-cici text-dark">15% descuento</Badge>
               </div>
               <div className="col-5 border-right">
-                Lapiz labial y 3 productos mas.
-              </div>
-              <div className="col-4 border-right">
-                <Badge className="p-1">15550285422</Badge>
-                <br />
-                <Badge color="success">Servientrega</Badge>
+                <span>Martes, 21 de agosto del 2021</span>
               </div>
               <div className="col-3">
-                <Badge color="info">En logistica</Badge>
+                <Badge color="warning">Pendiente</Badge>
               </div>
             </div>
           ))}
@@ -106,4 +91,4 @@ const MisPedidos = () => {
   )
 }
 
-export default MisPedidos
+export default MisCupones

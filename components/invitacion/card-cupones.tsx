@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, CardBody, CardHeader, CardText } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import Link from 'next/link'
 import { BASE_API, DEFAULT_AVATAR } from '../../api'
 import { AssignUserCoupons, getCoupons } from '../../api/coupons'
 import { Coupons } from '../../interfaces/coupons'
@@ -51,15 +52,13 @@ const ContainerCupones = ({ user }: Props) => {
     try {
       if (user) {
         if (User.idUser !== user.idUser) {
-          await AssignUserCoupons({ token, idUser: user.idUser })
+          await AssignUserCoupons({ token, idUser: user.idUser, idCoupon })
         } else {
           setLoading(false)
           toast.warn('No puedes invitarte a ti mismo.')
           return
         }
       }
-
-      await AssignUserCoupons({ token, idCoupon, idUser: User.idUser })
 
       setLoading(false)
       redirect('/mis-cupones')
@@ -87,11 +86,27 @@ const ContainerCupones = ({ user }: Props) => {
                 alt={user.userName}
               />
             </div>
-            <p>
-              <strong>{user.userName}</strong>, te acaba de invitar para que te
-              unas a <strong className="text-cici">Cici Beauty Place</strong>{' '}
-              crea una cuenta y recibes un cupòn totalmente gratis.
-            </p>
+            {token ? (
+              <>
+                <p>
+                  <strong>{user.userName}</strong>, te acaba de invitar para que
+                  le regales <strong className="text-cici">1 Cupon</strong> este
+                  sera valido a partir de tu proxima compra mayor a $20.
+                </p>
+
+                <p>
+                  Tu tambien puedes invitar a alguien y{' '}
+                  <Link href="/configuracion/invitar">recibir cupos</Link>.
+                </p>
+              </>
+            ) : (
+              <p>
+                <strong>{user.userName}</strong>, te acaba de invitar para que
+                te unas a{' '}
+                <strong className="text-cici">Cici Beauty Place</strong> crea
+                una cuenta y recibes un cupòn totalmente gratis.
+              </p>
+            )}
           </div>
         )}
         {cupones.map((cupon) => (

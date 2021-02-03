@@ -11,7 +11,8 @@ export const getCoupons = async () => {
 export const AssignUserCoupons = async (options: {
   token: string | undefined
   idUser: string
-  idCoupon?: string
+  idCoupon: string
+  idGuestUser?: string
 }) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
@@ -20,6 +21,7 @@ export const AssignUserCoupons = async (options: {
     data: {
       idUser: options.idUser,
       idCoupon: options.idCoupon,
+      idGuestUser: options.idGuestUser,
     },
   })
   return response
