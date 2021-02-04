@@ -139,11 +139,7 @@ const NavBarElement = () => {
                 title={User.userName}
               >
                 <img
-                  src={
-                    User.avatar === 'null'
-                      ? `${BASE_API}/static/${DEFAULT_AVATAR}`
-                      : User.avatar
-                  }
+                  src={User.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
                   alt={User.userName}
                 />
               </figure>

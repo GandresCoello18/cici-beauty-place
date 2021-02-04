@@ -88,7 +88,7 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href="/guia-de-compra">
-                    <a href="/guia-de-compra">Crerar cuenta (opcional)</a>
+                    <a href="/guia-de-compra">Crerar cuenta</a>
                   </Link>
                 </li>
                 <li>

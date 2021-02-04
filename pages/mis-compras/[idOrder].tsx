@@ -1,9 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
 import { Badge } from 'reactstrap'
 import Layout from '../../components/layout'
 import CartResumne from '../../components/cart/cart-resumen'
+import QualifyOrder from '../../components/payment/qualifyOrder'
 
 const DetailsCompra = () => {
   const [OrderId, setOrderId] = useState<string>('')
@@ -63,13 +67,16 @@ const DetailsCompra = () => {
                           alt="..."
                         />
                       </div>
-                      <div className="col-9 col-md-3">
+                      <div className="col-9">
                         <div className="card-body">
                           <h5 className="card-title">Card title</h5>
                           <strong style={{ fontSize: 20 }}>
                             $ 31 <span className="text-cici">X 3</span>
                           </strong>
                         </div>
+                      </div>
+                      <div className="col-12 col-md-2">
+                        <QualifyOrder />
                       </div>
                     </div>
                   </div>
