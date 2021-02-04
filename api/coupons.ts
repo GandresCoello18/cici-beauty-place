@@ -26,3 +26,14 @@ export const AssignUserCoupons = async (options: {
   })
   return response
 }
+
+export const GetAssignUserCoupons = async (options: {
+  token: string | undefined
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: '/coupons/assign/user',
+  })
+  return response
+}

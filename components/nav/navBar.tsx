@@ -33,6 +33,7 @@ import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
 import { RiCouponLine, RiLockPasswordLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
@@ -78,6 +79,11 @@ const NavBarElement = () => {
       default:
         return 'link'
     }
+  }
+
+  const closeSesion = () => {
+    Cookies.remove('access-token')
+    window.location.href = '/home'
   }
 
   return (
@@ -189,7 +195,7 @@ const NavBarElement = () => {
                   >
                     <GrConfigure /> Configuracion
                   </DropdownItem>
-                  <DropdownItem style={styles.colorClose}>
+                  <DropdownItem style={styles.colorClose} onClick={closeSesion}>
                     <AiFillCloseCircle /> Salir
                   </DropdownItem>
                 </DropdownMenu>

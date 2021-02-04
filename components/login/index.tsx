@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -73,13 +75,12 @@ const Login = () => {
         type: 'success',
       })
     } catch (error) {
+      setLoading(false)
       setFeedback({
         content: error.message,
         type: 'danger',
       })
     }
-
-    setLoading(false)
   }
 
   const loginGoogle = () => {
@@ -109,13 +110,15 @@ const Login = () => {
             type: 'danger',
           })
         })
+
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       setFeedback({
         content: error.message,
         type: 'danger',
       })
     }
-    setLoading(false)
   }
 
   const loginFacebook = () => {
@@ -130,13 +133,15 @@ const Login = () => {
             type: 'danger',
           })
         })
+
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       setFeedback({
         content: error.message,
         type: 'danger',
       })
     }
-    setLoading(false)
   }
 
   return (
