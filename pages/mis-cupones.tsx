@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable no-unused-expressions */
 import React, { useContext, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import {
@@ -5,6 +7,10 @@ import {
   Badge,
   Button,
   ButtonDropdown,
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -13,24 +19,39 @@ import { toast } from 'react-toast'
 import Skeleton from 'react-loading-skeleton'
 import { TokenContext } from '../context/contextToken'
 import Layout from '../components/layout'
-import { GetAssignUserCoupons } from '../api/coupons'
-import { MyCouponsUser } from '../interfaces/coupons'
+import {
+  GetAssignUserCoupons,
+  UpdateAssignUserCoupons,
+  getCoupons,
+} from '../api/coupons'
+import { Coupons, MyCouponsUser } from '../interfaces/coupons'
 import { BASE_API, DEFAULT_AVATAR } from '../api'
 import { StatusColorCoupons } from '../helpers/statusColor'
+import ModalElement from '../components/element/modal'
+import SpinnerLoader from '../components/element/spinner-cici'
 
 const MisCupones = () => {
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
+  const [cupones, setCupones] = useState<Coupons[]>([])
+  const [modal, setModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
+  const [loadingCupon, setLoadingCupon] = useState<boolean>(false)
   const [misCupones, setMisCupones] = useState<MyCouponsUser[]>([])
-  const [selectOptioon, setSelectOption] = useState<string>('Todas')
+  const [selectOptioon, setSelectOption] = useState<string>('Valido')
+  const [selectUserCoupon, setSelectUserCoupon] = useState<string>('')
+  const [selectType, setSelectType] = useState<string>('')
   const toggle = () => setOpen(!dropdownOpen)
 
   useEffect(() => {
     setLoading(true)
     try {
       const fetchMyCoupons = async () => {
-        const { myCoupons } = await (await GetAssignUserCoupons({ token })).data
+        const { myCoupons } = await (
+          await GetAssignUserCoupons({ token, status: selectOptioon })
+        ).data
+        console.log(myCoupons)
         setMisCupones(myCoupons)
         setLoading(false)
       }
@@ -40,11 +61,47 @@ const MisCupones = () => {
       setLoading(false)
       toast.error(error.message)
     }
-  }, [token])
+  }, [token, selectOptioon])
+
+  useEffect(() => {
+    setLoadingCupon(true)
+    try {
+      const fetchCupones = async () => {
+        const { coupons } = await (await getCoupons()).data
+        setCupones(coupons)
+        setLoadingCupon(false)
+      }
+
+      modal && fetchCupones()
+    } catch (error) {
+      setLoadingCupon(false)
+      toast.error(error.message)
+    }
+  }, [modal])
+
+  const ElegirCupon = async (type: string, idCoupon: string) => {
+    setSelectType(type)
+    setLoadingUpdate(true)
+
+    try {
+      await UpdateAssignUserCoupons({
+        token,
+        idCoupon,
+        id_user_coupons: selectUserCoupon,
+      })
+      setLoadingUpdate(false)
+      setModal(false)
+      window.location.reload()
+      toast.success('Se agrego un cupon valido.')
+    } catch (error) {
+      setLoadingUpdate(false)
+      toast.error(error.message)
+    }
+  }
 
   const renderSkeleton = () => {
     return [0, 1, 2, 3, 4].map((item) => (
-      <div className="bg-white" key={item}>
+      <div className="bg-white p-3" key={item}>
         <Skeleton height={60} />
       </div>
     ))
@@ -57,7 +114,20 @@ const MisCupones = () => {
         key={cupon.id_user_coupons}
       >
         <div className="col-4 border-right">
-          <Badge className="bg-cici text-dark">{cupon.type}</Badge>
+          {cupon.type ? (
+            <Badge className="bg-cici text-dark">{cupon.type}</Badge>
+          ) : (
+            <Button
+              color="info"
+              size="sm"
+              onClick={() => {
+                setModal(true)
+                setSelectUserCoupon(cupon.id_user_coupons)
+              }}
+            >
+              Elegir cupòn {loadingUpdate && <SpinnerLoader />}
+            </Button>
+          )}
         </div>
         <div className="col-5 border-right">
           <span
@@ -73,19 +143,23 @@ const MisCupones = () => {
             {cupon.status}
           </Badge>
         </div>
-        <div className="col-12 col-md-6 mt-2 p-2 bg-light">
-          <span className="font-weight-bold">Invitado el:</span>{' '}
-          {cupon.created_at}
-        </div>
-        <div className="col-12 col-md-6 mt-2 p-2 bg-light">
-          <img
-            width="50"
-            height="50"
-            src={cupon.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
-            alt={cupon.userName}
-          />
-          <span className="p-1 ml-3">{cupon.userName} (Invitado)</span>
-        </div>
+        {cupon.avatar && (
+          <>
+            <div className="col-12 col-md-6 mt-2 p-2 bg-light">
+              <span className="font-weight-bold">Invitado el:</span>{' '}
+              {cupon.created_at}
+            </div>
+            <div className="col-12 col-md-6 mt-2 p-2 bg-light">
+              <img
+                width="50"
+                height="50"
+                src={cupon.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+                alt={cupon.userName}
+              />
+              <span className="p-1 ml-3">{cupon.userName} (Invitado)</span>
+            </div>
+          </>
+        )}
       </div>
     ))
   }
@@ -114,10 +188,7 @@ const MisCupones = () => {
                   </Button>
                   <DropdownToggle split className="bg-cici" />
                   <DropdownMenu>
-                    <DropdownItem onClick={() => setSelectOption('Todas')}>
-                      Todas
-                    </DropdownItem>
-                    <DropdownItem onClick={() => setSelectOption('Validos')}>
+                    <DropdownItem onClick={() => setSelectOption('Valido')}>
                       Validos
                     </DropdownItem>
                     <DropdownItem
@@ -149,12 +220,56 @@ const MisCupones = () => {
           {!loading && misCupones.length === 0 && (
             <div className="row bg-white p-3">
               <div className="col-12">
-                <Alert color="info">No tienes cupones por el momento.</Alert>
+                <Alert color="info">
+                  No tienes cupones <strong>{selectOptioon}</strong> por el
+                  momento.
+                </Alert>
               </div>
             </div>
           )}
         </section>
       </Layout>
+
+      <ModalElement
+        title="Elija un cupon"
+        visible={modal}
+        setVisible={setModal}
+      >
+        <div className="row">
+          {loadingCupon ? (
+            <SpinnerLoader />
+          ) : (
+            cupones.map((cupon) => (
+              <div className="col-12 mb-3 p-3" key={cupon.idCoupon}>
+                <Card>
+                  <CardHeader className="bg-cici text-center font-weight-bold">
+                    {cupon.type}
+                  </CardHeader>
+                  <CardBody>
+                    <CardText>{cupon.descripcion}</CardText>
+                    <Button
+                      outline
+                      className="bg-cici text-dark"
+                      disabled={loadingUpdate}
+                      onClick={() => ElegirCupon(cupon.type, cupon.idCoupon)}
+                    >
+                      Elegir{' '}
+                      {loadingUpdate && selectType === cupon.type && (
+                        <SpinnerLoader />
+                      )}
+                    </Button>
+                  </CardBody>
+                </Card>
+              </div>
+            ))
+          )}
+          {!loadingCupon && cupones.length === 0 && (
+            <Alert color="info">
+              No hay cupones disponibles por el momento.
+            </Alert>
+          )}
+        </div>
+      </ModalElement>
     </>
   )
 }
