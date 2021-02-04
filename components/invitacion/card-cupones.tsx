@@ -1,17 +1,30 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, CardBody, CardHeader, CardText } from 'reactstrap'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toast'
+import Link from 'next/link'
 import { BASE_API, DEFAULT_AVATAR } from '../../api'
-import { getCoupons } from '../../api/coupons'
+import { AssignUserCoupons, getCoupons } from '../../api/coupons'
 import { Coupons } from '../../interfaces/coupons'
 import { Users } from '../../interfaces/users'
+import SpinnerLoader from '../element/spinner-cici'
+import { TokenContext } from '../../context/contextToken'
+import redirect from '../../lib/redirect'
+import { RootState } from '../../reducers'
 
 interface Props {
   user?: Users
 }
 
 const ContainerCupones = ({ user }: Props) => {
+  const { token } = useContext(TokenContext)
   const [cupones, setCupones] = useState<Coupons[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [selectType, setSelectType] = useState<string>('')
+
+  const { User } = useSelector((state: RootState) => state.UserReducer)
 
   useEffect(() => {
     try {
@@ -22,9 +35,38 @@ const ContainerCupones = ({ user }: Props) => {
 
       fetchCoupns()
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }, [])
+
+  const ElegirCupon = async (type: string, idCoupon: string) => {
+    setSelectType(type)
+    setLoading(true)
+
+    if (!token) {
+      window.open('/login', '_blank')
+      setLoading(false)
+      return
+    }
+
+    try {
+      if (user) {
+        if (User.idUser !== user.idUser) {
+          await AssignUserCoupons({ token, idUser: user.idUser, idCoupon })
+        } else {
+          setLoading(false)
+          toast.warn('No puedes invitarte a ti mismo.')
+          return
+        }
+      }
+
+      setLoading(false)
+      redirect('/mis-cupones')
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  }
 
   return (
     <section className="container font-arvo mt-4 mb-4">
@@ -44,11 +86,27 @@ const ContainerCupones = ({ user }: Props) => {
                 alt={user.userName}
               />
             </div>
-            <p>
-              <strong>{user.userName}</strong>, te acaba de invitar para que te
-              unas a <strong className="text-cici">Cici Beauty Place</strong>{' '}
-              crea una cuenta y recibes un cupòn totalmente gratis.
-            </p>
+            {token ? (
+              <>
+                <p>
+                  <strong>{user.userName}</strong>, te acaba de invitar para que
+                  le regales <strong className="text-cici">1 Cupon</strong> este
+                  sera valido a partir de tu proxima compra mayor a $20.
+                </p>
+
+                <p>
+                  Tu tambien puedes invitar a alguien y{' '}
+                  <Link href="/configuracion/invitar">recibir cupos</Link>.
+                </p>
+              </>
+            ) : (
+              <p>
+                <strong>{user.userName}</strong>, te acaba de invitar para que
+                te unas a{' '}
+                <strong className="text-cici">Cici Beauty Place</strong> crea
+                una cuenta y recibes un cupòn totalmente gratis.
+              </p>
+            )}
           </div>
         )}
         {cupones.map((cupon) => (
@@ -59,11 +117,20 @@ const ContainerCupones = ({ user }: Props) => {
             key={cupon.idCoupon}
           >
             <Card>
-              <CardHeader className="bg-cici">{cupon.type}</CardHeader>
+              <CardHeader className="bg-cici text-center">
+                {cupon.type}
+              </CardHeader>
               <CardBody>
                 <CardText>{cupon.descripcion}</CardText>
-                <Button outline block className="bg-cici text-dark">
-                  Elegir
+                <Button
+                  outline
+                  block
+                  className="bg-cici text-dark"
+                  disabled={loading}
+                  onClick={() => ElegirCupon(cupon.type, cupon.idCoupon)}
+                >
+                  Elegir{' '}
+                  {loading && selectType === cupon.type && <SpinnerLoader />}
                 </Button>
               </CardBody>
             </Card>

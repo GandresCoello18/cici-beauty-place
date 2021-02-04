@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
+import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import Invitacion from '../../components/invitacion'
 import { GetInviteUser } from '../../api/users'
@@ -29,7 +30,7 @@ const Index = () => {
         fetchUserInvite(username)
       }
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }, [])
 

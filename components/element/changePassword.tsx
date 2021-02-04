@@ -4,6 +4,7 @@ import { GrUpdate } from 'react-icons/gr'
 import { Alert, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
 import Cookies from 'js-cookie'
+import { toast } from 'react-toast'
 import { UpdatePasswordUser } from '../../api/users'
 import { TokenContext } from '../../context/contextToken'
 import redirect from '../../lib/redirect'
@@ -70,7 +71,7 @@ const ChangePassword = () => {
       reset()
       setLoading(false)
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
       setLoading(false)
     }
   }

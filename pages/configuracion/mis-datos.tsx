@@ -13,6 +13,7 @@ import {
 } from 'reactstrap'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 import { TokenContext } from '../../context/contextToken'
@@ -45,7 +46,7 @@ const MyData = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
 
     reset()

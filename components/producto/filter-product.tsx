@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { Dispatch, SetStateAction } from 'react'
 import StarRatingComponent from 'react-star-rating-component'
+import { toast } from 'react-toast'
 import { Input, Label } from 'reactstrap'
 import { ParamsFilter } from '../../interfaces/products'
 
@@ -28,7 +29,7 @@ const FilterProduct = ({ filter, setFilter }: Props) => {
                       ...filter,
                       min: value,
                     })
-                  : alert('Solo numeros positivos')
+                  : toast.warn('Solo numeros positivos')
               }}
             />
           </div>
@@ -43,7 +44,7 @@ const FilterProduct = ({ filter, setFilter }: Props) => {
                       ...filter,
                       max: value,
                     })
-                  : alert('Solo numeros positivos')
+                  : toast.warn('Solo numeros positivos')
               }}
             />
           </div>

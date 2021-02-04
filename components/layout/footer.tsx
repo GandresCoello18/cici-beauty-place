@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 import Link from 'next/link'
 import * as EmailValidator from 'email-validator'
@@ -7,6 +8,7 @@ import {
   AiFillInstagram,
   AiOutlineWhatsApp,
 } from 'react-icons/ai'
+import { toast } from 'react-toast'
 import { BASE_API } from '../../api'
 
 interface Subs {
@@ -21,7 +23,7 @@ const Footer = () => {
       console.log('se guardo')
       reset()
     } else {
-      alert('Introduce un email valido.')
+      toast.warn('Introduce un email valido.')
     }
   }
 

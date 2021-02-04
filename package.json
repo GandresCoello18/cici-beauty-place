@@ -53,6 +53,7 @@
     "react-star-rating-component": "^1.4.1",
     "react-step-progress": "^1.0.3",
     "react-switch": "^5.0.1",
+    "react-toast": "^1.0.1",
     "reactstrap": "^8.8.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7"

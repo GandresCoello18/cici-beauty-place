@@ -4,6 +4,7 @@ import { AiFillDelete, AiFillEdit, AiOutlineSelect } from 'react-icons/ai'
 import { GoVerified } from 'react-icons/go'
 import { Button, Card, CardSubtitle, CardText, CardTitle } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toast'
 import { DeleteMyAddress, SelectedMyAddress } from '../../api/addresses'
 import { Addresses } from '../../interfaces/address'
 import SpinnerLoader from '../element/spinner-cici'
@@ -39,8 +40,8 @@ const CardAddres = ({ address }: Props) => {
 
       setLoading(false)
     } catch (error) {
+      toast.error(error.message)
       setLoading(false)
-      console.log(error.message)
     }
   }
 
@@ -57,8 +58,8 @@ const CardAddres = ({ address }: Props) => {
       dispatch(setAddress(updateReducer))
       setLoading(false)
     } catch (error) {
+      toast.error(error.message)
       setLoading(false)
-      console.log(error.message)
     }
   }
 

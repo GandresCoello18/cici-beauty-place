@@ -8,6 +8,7 @@ import { NextSeo } from 'next-seo'
 import { Alert, Badge } from 'reactstrap'
 import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
+import { toast } from 'react-toast'
 import Layout from '../components/layout'
 import { BASE_API } from '../api'
 import ActionFavoritePrduct from '../components/productDetails/action-favorite-product'
@@ -32,7 +33,7 @@ const Favorite = () => {
 
       fetchFavorites()
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
       setLoading(false)
     }
   }, [token])
@@ -46,7 +47,7 @@ const Favorite = () => {
       setProduct([])
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 

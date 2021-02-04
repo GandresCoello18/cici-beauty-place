@@ -31,8 +31,9 @@ import { GrConfigure } from 'react-icons/gr'
 import { CgFileDocument } from 'react-icons/cg'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { MdFavorite } from 'react-icons/md'
-import { RiLockPasswordLine } from 'react-icons/ri'
+import { RiCouponLine, RiLockPasswordLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
@@ -78,6 +79,11 @@ const NavBarElement = () => {
       default:
         return 'link'
     }
+  }
+
+  const closeSesion = () => {
+    Cookies.remove('access-token')
+    window.location.href = '/home'
   }
 
   return (
@@ -170,6 +176,13 @@ const NavBarElement = () => {
                     </Link>
                   </DropdownItem>
                   <DropdownItem style={styles.colorLink}>
+                    <Link href="/mis-cupones">
+                      <a style={styles.colorLink}>
+                        <RiCouponLine /> Mis Cupones
+                      </a>
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem style={styles.colorLink}>
                     <Link href="/configuracion/invitar">
                       <a style={{ textDecoration: 'none', color: '#999' }}>
                         <FiSend /> Invitar amigos
@@ -182,7 +195,7 @@ const NavBarElement = () => {
                   >
                     <GrConfigure /> Configuracion
                   </DropdownItem>
-                  <DropdownItem style={styles.colorClose}>
+                  <DropdownItem style={styles.colorClose} onClick={closeSesion}>
                     <AiFillCloseCircle /> Salir
                   </DropdownItem>
                 </DropdownMenu>

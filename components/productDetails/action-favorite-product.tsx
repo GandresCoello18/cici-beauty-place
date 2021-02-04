@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { MdFavorite, MdPeople } from 'react-icons/md'
 import { Button } from 'reactstrap'
 import Millify from 'millify'
+import { toast } from 'react-toast'
 import { TokenContext } from '../../context/contextToken'
 import {
   createLikeProduct,
@@ -41,7 +42,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
       token && fetchFav()
       fetchCountFav()
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }, [idProduct, token])
 
@@ -53,7 +54,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
         setLoading(false)
         setIsLike(true)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     } else {
       window.open('/login', '_blank')
@@ -68,7 +69,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
         setLoading(false)
         setIsLike(false)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
   }

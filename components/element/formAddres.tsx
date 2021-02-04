@@ -13,6 +13,7 @@ import {
 } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toast'
 import { newAdrees } from '../../api/addresses'
 import { Addresses, CreateAddresses } from '../../interfaces/address'
 import SpinnerLoader from './spinner-cici'
@@ -66,7 +67,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
       setNewAddress && setNewAddress(false)
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 

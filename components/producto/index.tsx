@@ -5,6 +5,7 @@ import { AiTwotoneHeart } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { Alert } from 'reactstrap'
+import { toast } from 'react-toast'
 import PaginationElement from '../element/pagination'
 import CategoriNav from '../nav/categori'
 import CaroselCard from '../carousel/CaroselCard'
@@ -46,7 +47,7 @@ const Productos = () => {
 
       fetchProduct()
     } catch (error) {
-      alert(error.message)
+      toast.error(error.message)
     }
   }, [filter])
 
