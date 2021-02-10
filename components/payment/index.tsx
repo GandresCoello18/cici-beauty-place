@@ -1,10 +1,24 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { PayPalButton } from 'react-paypal-button'
 import { UncontrolledCollapse } from 'reactstrap'
+import { toast } from 'react-toast'
+import { ResumenPaymen } from '../../hooks/useResumenPayment'
 import CartResumne from '../cart/cart-resumen'
+import { TokenContext } from '../../context/contextToken'
+import redirect from '../../lib/redirect'
 
 const Payment = () => {
+  const resumen = ResumenPaymen()
+  const { token } = useContext(TokenContext)
+
+  useEffect(() => {
+    if (!token) {
+      redirect('/login')
+      toast.info('Necesitas iniciar sesion para procesar el pago')
+    }
+  }, [token])
+
   return (
     <>
       <div className="row">
@@ -29,7 +43,7 @@ const Payment = () => {
                 <PayPalButton
                   paypalOptions={{
                     clientId:
-                      'AZZhW-vY_amLDLO0H8tZuaPpoF0--0b8b2N4qJaqNESaFBJNZTsn4uZbAprsy-y_GcDCz05XCwukctKq',
+                      'AUdY99XTsYE0XdSzNmJQtA-W_Do8Bi66KZNHshPxA2_hIPBqk9UuTMwWmr5DXATf2BlNIGmYb8jPaZg3',
                     intent: 'capture',
                     currency: 'USD',
                   }}
@@ -37,7 +51,7 @@ const Payment = () => {
                     layout: 'vertical',
                     shape: 'rect',
                   }}
-                  amount={100}
+                  amount={resumen.total}
                   onPaymentStart={() => console.log('payment')}
                   onPaymentSuccess={(data) => console.log(data)}
                   onPaymentError={(error) => console.log(error)}
