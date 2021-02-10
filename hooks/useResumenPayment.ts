@@ -3,17 +3,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ResumenCart } from '../interfaces/products'
 import { RootState } from '../reducers'
 
-interface Resumen {
-  subTotal: number
-  discount: number
-  envio: number
-  total: number
-}
-
 export const ResumenPaymen = () => {
-  const [resumen, setResumen] = useState<Resumen>({
+  const [resumen, setResumen] = useState<ResumenCart>({
     subTotal: 0,
     discount: 0,
     envio: 0,

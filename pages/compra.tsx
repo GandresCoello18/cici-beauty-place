@@ -31,7 +31,9 @@ const Compra = () => {
 
     if (Cart.length === 0) {
       const btnNext: any = document.querySelector('.primaryBtnStep')
-      console.log((btnNext.style.display = 'none'))
+      if (btnNext) {
+        btnNext.style.display = 'none'
+      }
     }
   }, [finishShopping, Cart])
 

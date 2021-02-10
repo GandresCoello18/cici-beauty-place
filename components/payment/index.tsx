@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-console */
 import React, { useContext, useEffect } from 'react'
-import { PayPalButton } from 'react-paypal-button'
+import { OnCaptureData, PayPalButton } from 'react-paypal-button'
 import { UncontrolledCollapse } from 'reactstrap'
 import { toast } from 'react-toast'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
 import CartResumne from '../cart/cart-resumen'
 import { TokenContext } from '../../context/contextToken'
 import redirect from '../../lib/redirect'
+import { NewOrden } from '../../api/orden'
+import { newOrden } from '../../interfaces/orden'
 
 const Payment = () => {
   const resumen = ResumenPaymen()
@@ -19,6 +24,31 @@ const Payment = () => {
     }
   }, [token])
 
+  /* const createOrden = async (response: OnCaptureData) => {
+    const purchase_unit = response.purchase_units[0] as any
+    const capture = purchase_unit.payments.captures[0]
+    const paymentId = capture.id
+
+    try {
+      const orden: newOrden = {
+        paymentMethod: 'Paypal',
+        shipping: resumenCart.envio,
+        discount: resumenCart.discount,
+        totalAmount: resumenCart.total,
+        paymentId,
+      }
+
+      console.log(orden)
+
+      await NewOrden({ token, orden })
+      toast.success('Su orden fue registrada con exito')
+      const btnNext: any = document.querySelector('.primaryBtnStep')
+      btnNext.click()
+    } catch (error) {
+      toast.error(error.message)
+    }
+  } */
+
   return (
     <>
       <div className="row">
@@ -29,7 +59,6 @@ const Payment = () => {
             </div>
             <div className="col-12 border-bottom" id="content-paypal">
               <h4>
-                Paypal{' '}
                 <img
                   width="80"
                   height="60"
@@ -53,8 +82,33 @@ const Payment = () => {
                   }}
                   amount={resumen.total}
                   onPaymentStart={() => console.log('payment')}
-                  onPaymentSuccess={(data) => console.log(data)}
-                  onPaymentError={(error) => console.log(error)}
+                  onPaymentSuccess={() => async (response: OnCaptureData) => {
+                    const purchase_unit = response.purchase_units[0] as any
+                    const capture = purchase_unit.payments.captures[0]
+                    const paymentId = capture.id
+
+                    try {
+                      const orden: newOrden = {
+                        paymentMethod: 'Paypal',
+                        shipping: resumen.envio,
+                        discount: resumen.discount,
+                        totalAmount: resumen.total,
+                        paymentId,
+                      }
+
+                      console.log(orden)
+
+                      await NewOrden({ token, orden })
+                      toast.success('Su orden fue registrada con exito')
+                      const btnNext: any = document.querySelector(
+                        '.primaryBtnStep'
+                      )
+                      btnNext.click()
+                    } catch (error) {
+                      toast.error(error.message)
+                    }
+                  }}
+                  onPaymentError={(error) => toast.error(error)}
                   onPaymentCancel={(data) => console.log(data)}
                 />
               </UncontrolledCollapse>
@@ -64,7 +118,6 @@ const Payment = () => {
 
             <div className="col-12 border-bottom" id="content-deUna">
               <h4>
-                DeUna!{' '}
                 <img
                   width="80"
                   height="60"
