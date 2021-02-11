@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ResumenCart } from '../interfaces/products'
 import { RootState } from '../reducers'
@@ -37,32 +37,31 @@ export const ResumenPaymen = () => {
     })
   }, [Cart])
 
-  const CalculateCartTotal = (
-    subTotal: number,
-    envio: number,
-    discount: number
-  ) => {
-    let total = 0
+  const CalculateCartTotal = useCallback(
+    (subTotal: number, envio: number, discount: number) => {
+      let total = 0
 
-    if (subTotal) {
-      total = subTotal + envio
-    }
+      if (subTotal) {
+        total = subTotal + envio
+      }
 
-    if (discount) {
-      const porcent: number = (total * discount) / 100
-      return Number((total - porcent).toFixed(2))
-    }
+      if (discount) {
+        const porcent: number = (total * discount) / 100
+        return Number((total - porcent).toFixed(2))
+      }
 
-    return total
-  }
+      return total
+    },
+    []
+  )
 
-  const CalculateTotalForProduct = (
-    precio: number,
-    discount: number
-  ): number => {
-    const porcent: number = (precio * discount) / 100
-    return Number((precio - porcent).toFixed(2))
-  }
+  const CalculateTotalForProduct = useCallback(
+    (precio: number, discount: number) => {
+      const porcent: number = (precio * discount) / 100
+      return Number((precio - porcent).toFixed(2))
+    },
+    []
+  )
 
   return resumen
 }

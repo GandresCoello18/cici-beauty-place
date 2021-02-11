@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
-import { FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
+import { FcBookmark, FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
@@ -99,6 +99,15 @@ const Compra = () => {
                       </a>
                     </Link>
                   </div>
+                  <div className="col-12 col-md-5 mb-4">
+                    <Link href="/mis-favoritos">
+                      <a href="/mis-favoritos" style={Styles.text}>
+                        <div className="p-3 border-cici border-round box-shadow-cici">
+                          <FcBookmark size={20} /> Mis Cupones (1)
+                        </div>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <StepsShopping
@@ -122,9 +131,9 @@ const Compra = () => {
             <FcOk size={30} /> Su compra se realizo con exito
           </strong>
           <p className="p-3">
-            Despues de 24 horas puede revisar la seccion de{' '}
-            <strong>mis pedidos</strong> en su perfil, para obtener su guia de
-            rastreo. Para saber mas como son nuestras envios puedes{' '}
+            Revisa la seccion de <strong>mis pedidos</strong> en su perfil, para
+            completar pagos pendientes u obtener su guia de rastreo. Para saber
+            màs como son nuestros envios puedes{' '}
             <Link href="/guia-de-compra/rastreo">
               <a href="/guia-de-compra/rastreo">ver aqui..!</a>
             </Link>
