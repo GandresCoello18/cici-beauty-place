@@ -11,7 +11,6 @@ import React, { useEffect, useState } from 'react'
 import Magnifier from 'react-magnifier'
 import { MdPeople } from 'react-icons/md'
 import StarRatingComponent from 'react-star-rating-component'
-import { Alert } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { AiTwotoneHeart } from 'react-icons/ai'
@@ -35,10 +34,6 @@ interface Props {
 const ProductDetails = ({ product, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
-  const [feedback, setFeedback] = useState<{ content: string; type: string }>({
-    content: '',
-    type: '',
-  })
   const [preview, setPreview] = useState<{ src: string; type: string }>({
     src: '',
     type: '',
@@ -57,20 +52,6 @@ const ProductDetails = ({ product, loading }: Props) => {
       type: 'IMAGEN',
     })
   }, [product])
-
-  useEffect(() => {
-    feedback.content &&
-      setTimeout(() => setFeedback({ type: '', content: '' }), 3000)
-  }, [feedback])
-
-  /* const calculatePrice = () => {
-    if (product.discount) {
-      const porcent: number = (product.price * product.discount) / 100
-      return (product.price - porcent).toFixed(2)
-    }
-
-    return product.price
-  } */
 
   const renderPreViewProduct = () => {
     return (
@@ -230,13 +211,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                 available={product.available}
                 quantity={quantity}
                 product={product}
-                setFeedback={setFeedback}
               />
-              <div className="p-2">
-                {feedback.content && (
-                  <Alert color={feedback.type}>{feedback.content}</Alert>
-                )}
-              </div>
             </div>
           </div>
         </div>

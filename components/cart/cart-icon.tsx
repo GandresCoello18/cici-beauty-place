@@ -11,7 +11,7 @@ const CartIcon = () => {
 
   return (
     <Link href="/compra">
-      <a>
+      <a className="text-dark">
         <AiOutlineShopping size={25} />
         <Badge
           color="dark"

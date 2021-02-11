@@ -36,6 +36,13 @@ export interface Cart {
   quantity: number
 }
 
+export interface ResumenCart {
+  subTotal: number
+  discount: number
+  envio: number
+  total: number
+}
+
 export interface ParamsFilter {
   min?: number
   max?: number

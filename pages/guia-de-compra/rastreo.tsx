@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
+import Link from 'next/link'
 import Layout from '../../components/layout'
 import FeedbackInformation from '../../components/element/feedbackInformation'
 
@@ -20,8 +21,8 @@ const TrackingGuide = () => {
                 Cuando terminamos de entregar los paquetes al servicio de{' '}
                 <b>Servi entrega</b> nos proporcionaran una guia con los datos
                 del envio, (Quien envia y quien recibe) en dicha guia se
-                encuentra el numero de unico de rastreo que podras consultar en
-                el siguiente panel{' '}
+                encuentra el numero unico de rastreo que podras consultar en el
+                siguiente panel{' '}
                 <a
                   href="https://www.servientrega.com.ec/rastreo/multiple"
                   rel="noopener noreferrer"
@@ -29,12 +30,14 @@ const TrackingGuide = () => {
                 >
                   panel de rastreo
                 </a>{' '}
-                puedes usar hasta un maximo de 10 guias por consulta.
+                puedes usar hasta un maximo de 10 guias por consulta o tambien
+                puedes consultar automaticamente en la seccion de{' '}
+                <Link href="/mis-pedidos">mis pedidos</Link>
               </p>
               <img
-                width="100"
-                src="https://www.servientrega.com.ec/assets/frontend/images/tracking/icono.gif"
-                alt="icon panel de rastreo - servi entrega"
+                width="200"
+                src="https://www.servientrega.com.ec/images/logo.png"
+                alt="icon - servi entrega"
               />
             </div>
             <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">

@@ -104,6 +104,9 @@ const NavBarElement = () => {
             </a>
           </Link>
         </NavbarBrand>
+        <span className="d-block d-md-none">
+          <CartIcon />
+        </span>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className="mr-auto">
@@ -199,7 +202,7 @@ const NavBarElement = () => {
             </div>
           </div>
 
-          <NavbarText>
+          <NavbarText className="d-none d-md-block">
             <CartIcon />
           </NavbarText>
 

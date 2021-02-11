@@ -1,13 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
 import { MdShoppingBasket } from 'react-icons/md'
 import Skeleton from 'react-loading-skeleton'
@@ -28,7 +22,6 @@ interface Props {
   available: number
   quantity?: number
   product: Product
-  setFeedback: Dispatch<SetStateAction<{ content: string; type: string }>>
 }
 
 const ActionsProductDetails = ({
@@ -36,7 +29,6 @@ const ActionsProductDetails = ({
   available,
   quantity,
   product,
-  setFeedback,
 }: Props) => {
   const { token } = useContext(TokenContext)
   const [loadingAction, setLoadingAction] = useState<boolean>(false)
@@ -55,17 +47,13 @@ const ActionsProductDetails = ({
 
   const validate_quantity = (ProductQuantity: number): boolean => {
     if (ProductQuantity > available) {
-      setFeedback({
-        type: 'danger',
-        content: `Productos disponibles insuficientes: maximo de ${available} productos`,
-      })
+      toast.error(
+        `Productos disponibles insuficientes: maximo de ${available} productos`
+      )
       return false
     }
 
-    setFeedback({
-      type: 'success',
-      content: `Se agrego: ${quantity || 1} productos mas al carrito`,
-    })
+    toast.success(`Se agrego: ${quantity || 1} productos mas al carrito`)
     return true
   }
 
