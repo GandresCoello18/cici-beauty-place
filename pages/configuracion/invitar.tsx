@@ -12,6 +12,7 @@ import { Alert, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import copy from 'copy-to-clipboard'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 
@@ -29,21 +30,6 @@ const SendInvitation = () => {
   const send = (_data: FromInvite) => {
     console.log(_data)
     reset()
-  }
-
-  const CopyText = () => {
-    const url: any = document.querySelector('.url-invite')
-    console.log(url)
-    const range: any = document.createRange()
-    range.selectNode(url)
-    window.getSelection()?.addRange(range)
-
-    try {
-      document.execCommand('copy')
-      toast.success('Se copio la direccion en el porta papeles')
-    } catch (error) {
-      toast.error(`ERROR al intentar copiar url, ${error.message}`)
-    }
   }
 
   return (
@@ -82,7 +68,10 @@ const SendInvitation = () => {
                   <button
                     type="button"
                     className="btn bg-cici p-2 w-100 h-100"
-                    onClick={CopyText}
+                    onClick={() => {
+                      toast.success('Se copio la direccion en el porta papeles')
+                      copy(`https://cici.com.ec/invitacion/${User.userName}`)
+                    }}
                   >
                     <AiFillCopy /> Copiar
                   </button>
