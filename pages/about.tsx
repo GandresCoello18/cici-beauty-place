@@ -24,13 +24,10 @@ const About = () => {
           <div className="row justify-content-center mt-4">
             <div className="col-12 col-md-6 col-lg-4 mb-3">
               <CardProfile
-                imgSource="https://andres-coello-goyes.herokuapp.com/img/profile-test.jpg"
+                imgSource="img/me.jpg"
                 alt="Andres coello"
                 name="Andres Coello Goyes"
-                description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, ea
-                vel nihil maxime eaque incidunt debitis optio minus nisi soluta
-                cupiditate atque error, laborum aspernatur, sit quia sunt dolorum
-                veniam?"
+                description="Desarrolador de software en ambiente web y mobil multiplataforma, amante de la lectura, astronomia, colores, naturaleza y musica. Autodidacta y en contante aprendizaje con nuevas tecnologias."
                 cargo="Developer Full Stack"
               >
                 <div className="row justify-content-center">
@@ -67,7 +64,7 @@ const About = () => {
 
             <div className="col-12 col-md-6 col-lg-4 mb-3">
               <CardProfile
-                imgSource="https://scontent.fgye18-1.fna.fbcdn.net/v/t1.0-9/95503792_1724734461002446_6638469828300505088_n.jpg?_nc_cat=107&ccb=2&_nc_sid=09cbfe&_nc_ohc=H43XJ3Posm0AX8LuUCW&_nc_ht=scontent.fgye18-1.fna&oh=ede9a2eaf47d1c29a7deb602996095c2&oe=601505ED"
+                imgSource="img/liz.jpg"
                 alt="Lizeth Avilez"
                 name="Lizeth Avilez"
                 description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, ea
