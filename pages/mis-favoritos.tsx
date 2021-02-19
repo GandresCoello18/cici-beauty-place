@@ -65,7 +65,7 @@ const Favorite = () => {
                   alt={product.title}
                 />
               </div>
-              <div className="col-md-8">
+              <div className="col-md-6">
                 <div className="card-body">
                   <h5 className="card-title">{product.title}</h5>
                   <div className="row justify-content-between p-2 mb-2">
@@ -133,13 +133,15 @@ const Favorite = () => {
                 </span>
               </h3>
             </div>
-            {loading
-              ? [1, 2, 3, 4, 5].map((item) => (
-                  <div className="col-12 mb-3" key={item}>
-                    <Skeleton height={100} />
-                  </div>
-                ))
-              : renderFavorites()}
+            {loading ? (
+              [1, 2, 3, 4, 5].map((item) => (
+                <div className="col-12 mb-3" key={item}>
+                  <Skeleton height={100} />
+                </div>
+              ))
+            ) : (
+              <div className="col-12">{renderFavorites()}</div>
+            )}
             {product.length === 0 && !loading && (
               <div className="col-12">
                 <Alert color="info">

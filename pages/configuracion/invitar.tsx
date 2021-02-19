@@ -12,6 +12,7 @@ import { Alert, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import copy from 'copy-to-clipboard'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 
@@ -31,21 +32,6 @@ const SendInvitation = () => {
     reset()
   }
 
-  const CopyText = () => {
-    const url: any = document.querySelector('.url-invite')
-    console.log(url)
-    const range: any = document.createRange()
-    range.selectNode(url)
-    window.getSelection()?.addRange(range)
-
-    try {
-      document.execCommand('copy')
-      toast.success('Se copio la direccion en el porta papeles')
-    } catch (error) {
-      toast.error(`ERROR al intentar copiar url, ${error.message}`)
-    }
-  }
-
   return (
     <>
       <NextSeo
@@ -63,12 +49,11 @@ const SendInvitation = () => {
               </Alert>
               <h4>Seguro conoces a alguien que le gusta nuestros productos</h4>
               <p>
-                Comparte tu link de referidos y cada vez que una persona compre
-                en un valor mayor a $20 recibiras promociones y descuentos para
-                ti.
+                Comparte tu link de referidos y cada vez que ellos compren mayor
+                a $20 recibiras promociones y descuentos para ti.
               </p>
             </div>
-            <div className="col-12 col-md-10 p-3 mb-3">
+            <div className="col-12 col-md-10 p-3 mb-5">
               <div className="row justify-content-center">
                 <div className="col-12 col-md-10">
                   <Input
@@ -82,14 +67,17 @@ const SendInvitation = () => {
                   <button
                     type="button"
                     className="btn bg-cici p-2 w-100 h-100"
-                    onClick={CopyText}
+                    onClick={() => {
+                      toast.success('Se copio la direccion en el porta papeles')
+                      copy(`https://cici.com.ec/invitacion/${User.userName}`)
+                    }}
                   >
                     <AiFillCopy /> Copiar
                   </button>
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-8 p-3">
+            <div className="col-12 col-md-8 p-3 mb-3 mb-md-0">
               <div className="border-bottom p-3">
                 <h3>Invita a un amigo</h3>
               </div>
@@ -148,6 +136,13 @@ const SendInvitation = () => {
                   <FiSend /> Enviar invitacion
                 </button>
               </Form>
+            </div>
+            <div className="col-12 col-md-4 p-2">
+              <img
+                src="../img/shoopping-invite.svg"
+                alt="shopping invite - cici"
+                className="img-fluid"
+              />
             </div>
           </div>
         </section>

@@ -136,13 +136,6 @@ const Payment = () => {
               <div className="col-12 mt-2 p-2">
                 <UncontrolledCollapse toggler="#content-deUna">
                   <div className="text-center">
-                    {/* <strong className="p-2">Acanea el siguiente codigo QR</strong>
-                  <p className="text-left">
-                    <b>Tener encuenta:</b> luego de hacer la transacion se
-                    necesita que alguien del equipo de{' '}
-                    <b className="text-cici">Cici Beauty place</b> confirme el
-                    pago, mientras eso puedes seguir con el siguiente paso.
-                  </p> */}
                     <br />
                     <Button
                       outline
@@ -153,50 +146,6 @@ const Payment = () => {
                     </Button>
                   </div>
                   <br />
-                  {/* <h5>¿Qué es Deuna!?</h5>
-                <p>
-                  Deuna! es la app perfecta para hacer pagos y pasar dinero
-                  desde tu celular. Olvídate de una vez por todas de los
-                  billetes y las monedas. Deuna! cuenta, además, con el respaldo
-                  de{' '}
-                  <a
-                    href="https://www.pichincha.com/portal/inicio"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Banco Pichincha
-                  </a>
-                  .
-                </p>
-                <br />
-                <h5>¿Qué necesito para empezar a usar Deuna!?</h5>
-                <small>Usar Deuna! es facilísimo. Solo necesitas:</small>
-                <ul>
-                  <li>
-                    Una cuenta activa de Banco Pichincha, básica, de ahorro o
-                    corriente.
-                  </li>
-                  <li>Tu clave y usuario de Banca web o Banca móvil.</li>
-                  <li>Tu e-mail registrado en Banco Pichincha.</li>
-                  <li>Datos para conectarte a internet.</li>
-                  <li>Hora automática configurada en tu celular.</li>
-                </ul>
-                <br />
-                <p>
-                  Para mas informacion de <b>DeUna</b> visite su sitio oficil{' '}
-                  <a
-                    href="https://deuna.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    deuna.app
-                  </a>
-                </p>
-                <img
-                  width="220"
-                  src="https://deuna.app/assets/img/mockups/pagos-con-qr.png"
-                  alt="ejemplo de pago con app deuna"
-                /> */}
                 </UncontrolledCollapse>
               </div>
             </div>
