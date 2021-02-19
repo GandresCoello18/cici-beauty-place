@@ -52,3 +52,12 @@ export interface ParamsFilter {
   orderPrice?: boolean
   orderStar?: boolean
 }
+
+export interface ProductReview {
+  idProductReviews: string
+  commentary: string
+  stars: number
+  created_at: Date | string
+  userName: string
+  avatar: string
+}

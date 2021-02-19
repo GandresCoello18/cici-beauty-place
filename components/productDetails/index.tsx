@@ -222,7 +222,6 @@ const ProductDetails = ({ product, loading }: Props) => {
           <div className="col-12 p-2 font-arvo">
             {product && (
               <MoreDetails
-                loading={loading}
                 idProduct={product?.idProducts}
                 brand={product?.brand}
                 size={product?.size}

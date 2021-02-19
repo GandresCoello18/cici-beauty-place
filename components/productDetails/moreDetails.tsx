@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-expressions */
+import React, { useEffect, useState } from 'react'
 import {
+  Alert,
   Col,
   Nav,
   NavItem,
@@ -12,7 +14,10 @@ import { BiDetail } from 'react-icons/bi'
 import { FaRegCommentDots } from 'react-icons/fa'
 import classnames from 'classnames'
 import Skeleton from 'react-loading-skeleton'
+import { toast } from 'react-toast'
 import Comentario from '../element/comentario'
+import { ProductReview } from '../../interfaces/products'
+import { GetProductReviews } from '../../api/products'
 
 interface Props {
   loading: boolean
@@ -22,7 +27,7 @@ interface Props {
   model: string
 }
 
-const MoreDetails = ({ loading, idProduct, brand, size, model }: Props) => {
+const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
   const Styles = {
     color: {
       color: '#999',
@@ -30,10 +35,29 @@ const MoreDetails = ({ loading, idProduct, brand, size, model }: Props) => {
   }
 
   const [activeTab, setActiveTab] = useState<string>('1')
+  const [ProductReviews, setReviews] = useState<ProductReview[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   const toggle = (tab: string) => {
     if (activeTab !== tab) setActiveTab(tab)
   }
+
+  useEffect(() => {
+    setLoading(true)
+
+    try {
+      const fetchReviews = async () => {
+        const { reviews } = await (await GetProductReviews({ idProduct })).data
+        setReviews(reviews)
+        setLoading(false)
+      }
+
+      idProduct && fetchReviews()
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  }, [idProduct])
 
   return (
     <div>
@@ -64,11 +88,17 @@ const MoreDetails = ({ loading, idProduct, brand, size, model }: Props) => {
         <TabPane tabId="1">
           <Row>
             <Col sm="12" md="6">
-              {[0, 1, 2, 3].map((item) => (
-                <div className="p-2 mb-2" key={item}>
-                  <Comentario idProduct={idProduct} loading={loading} />
+              {ProductReviews.map((review) => (
+                <div className="p-2 mb-2" key={review.idProductReviews}>
+                  <Comentario loading={loading} review={review} />
                 </div>
               ))}
+
+              {ProductReviews.length === 0 && !loading && (
+                <Alert color="info">
+                  Por el momento no existen comentarios de este producto
+                </Alert>
+              )}
             </Col>
           </Row>
         </TabPane>

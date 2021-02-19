@@ -34,7 +34,7 @@ const BannerClearFix = () => {
               width="100"
             />
             <br />
-            Compras seguras
+            Pagos seguros
           </h6>
           <p style={styles.colorText}>
             Paga desde cualquier lugar del pais utilizando servicios como Paypal

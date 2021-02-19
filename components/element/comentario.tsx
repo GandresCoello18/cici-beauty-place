@@ -1,22 +1,20 @@
 /* eslint-disable no-console */
-import React, { useEffect } from 'react'
+import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import StarRatingComponent from 'react-star-rating-component'
 import { Media } from 'reactstrap'
+import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { ProductReview } from '../../interfaces/products'
 
 interface Props {
-  idProduct: string
   loading: boolean
+  review: ProductReview
 }
 
-const Comentario = ({ idProduct, loading }: Props) => {
-  useEffect(() => {
-    console.log(`${idProduct} comentarios`)
-  }, [idProduct])
-
+const Comentario = ({ review, loading }: Props) => {
   return (
     <Media>
-      <Media left href="#">
+      <Media left>
         {loading ? (
           <Skeleton width={50} height={60} />
         ) : (
@@ -24,14 +22,14 @@ const Comentario = ({ idProduct, loading }: Props) => {
             object
             style={{ width: 50, height: 50, padding: 5, borderRadius: 10 }}
             data-srce="holder.js/64x64"
-            src="https://andres-coello-goyes.herokuapp.com/img/profile-test.jpg"
-            alt="Generic placeholder image"
+            src={review.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+            alt={review.userName}
           />
         )}
       </Media>
       <Media body>
         <Media heading className="p-1">
-          {loading ? <Skeleton width={180} height={25} /> : <>Andres Coello</>}
+          {loading ? <Skeleton width={180} height={25} /> : review.userName}
         </Media>
         {loading ? (
           <Skeleton width={150} height={25} />
@@ -39,10 +37,7 @@ const Comentario = ({ idProduct, loading }: Props) => {
           <StarRatingComponent
             name="rate1"
             starCount={5}
-            value={3}
-            onStarClick={(nextValue: number, prevValue: number, name: string) =>
-              console.log(`${nextValue} - ${prevValue} - ${name}`)
-            }
+            value={review.stars}
           />
         )}
         <br />
@@ -53,8 +48,9 @@ const Comentario = ({ idProduct, loading }: Props) => {
           </>
         ) : (
           <p className="p-1">
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin commodo.
+            {review.commentary}
+            <br />
+            <span className="text-secondary">({review.created_at})</span>
           </p>
         )}
       </Media>
