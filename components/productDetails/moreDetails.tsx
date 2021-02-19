@@ -20,7 +20,6 @@ import { ProductReview } from '../../interfaces/products'
 import { GetProductReviews } from '../../api/products'
 
 interface Props {
-  loading: boolean
   idProduct: string
   brand: string
   size: string

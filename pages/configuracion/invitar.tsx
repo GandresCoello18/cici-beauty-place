@@ -49,12 +49,11 @@ const SendInvitation = () => {
               </Alert>
               <h4>Seguro conoces a alguien que le gusta nuestros productos</h4>
               <p>
-                Comparte tu link de referidos y cada vez que una persona compre
-                en un valor mayor a $20 recibiras promociones y descuentos para
-                ti.
+                Comparte tu link de referidos y cada vez que ellos compren mayor
+                a $20 recibiras promociones y descuentos para ti.
               </p>
             </div>
-            <div className="col-12 col-md-10 p-3 mb-3">
+            <div className="col-12 col-md-10 p-3 mb-5">
               <div className="row justify-content-center">
                 <div className="col-12 col-md-10">
                   <Input
@@ -78,7 +77,7 @@ const SendInvitation = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-8 p-3">
+            <div className="col-12 col-md-8 p-3 mb-3 mb-md-0">
               <div className="border-bottom p-3">
                 <h3>Invita a un amigo</h3>
               </div>
@@ -137,6 +136,13 @@ const SendInvitation = () => {
                   <FiSend /> Enviar invitacion
                 </button>
               </Form>
+            </div>
+            <div className="col-12 col-md-4 p-2">
+              <img
+                src="../img/shoopping-invite.svg"
+                alt="shopping invite - cici"
+                className="img-fluid"
+              />
             </div>
           </div>
         </section>
