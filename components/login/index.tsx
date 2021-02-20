@@ -28,7 +28,6 @@ import { setUser } from '../../reducers/user'
 interface FormLogin {
   email: string
   password: string
-  check: boolean
 }
 
 const Login = () => {
@@ -46,19 +45,23 @@ const Login = () => {
     if (Cookies.get('access-token')) {
       Redirect('/home')
     }
+
+    if (Cookies.get('email-cici')) {
+      setRemember(true)
+    }
   }, [])
 
   const send = async (data: FormLogin) => {
     setLoading(true)
-    data.check = remember
+
     const { email, password } = data
 
     try {
       const response = await LoginUser({
         token: undefined,
         user: {
-          email,
-          password,
+          email: email || Cookies.get('email-cici'),
+          password: password || Cookies.get('password-cici'),
           provider: 'cici',
           userName: undefined,
           avatar: undefined,
@@ -67,13 +70,25 @@ const Login = () => {
 
       dispatch(setUser(response.data.me.user))
       Cookies.set('access-token', response.data.me.token)
+
+      if (!remember && Cookies.get('email-cici')) {
+        Cookies.remove('email-cici')
+        Cookies.remove('password-cici')
+      }
+
+      if (remember) {
+        Cookies.set('email-cici', email, { expires: 365 })
+        Cookies.set('password-cici', password, { expires: 365 })
+      }
+
       reset()
-      Redirect('/home')
 
       setFeedback({
         content: 'Ingreso exitoso, seras redirigido al sitio principal',
         type: 'success',
       })
+
+      window.location.href = '/home'
     } catch (error) {
       setLoading(false)
       setFeedback({
@@ -181,6 +196,7 @@ const Login = () => {
                       type="email"
                       name="email"
                       disabled={loading}
+                      defaultValue={Cookies.get('email-cici')}
                       placeholder="Direccion de correo electronico"
                       style={{
                         borderColor: 'transparent',
@@ -191,7 +207,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   control={control}
-                  rules={{ required: true }}
+                  rules={{ required: Cookies.get('email-cici') ? false : true }}
                   placeholder="Ingresa tu email"
                 />
                 <FormFeedback invalid={errors.email && true}>
@@ -207,6 +223,7 @@ const Login = () => {
                       type="password"
                       name="password"
                       disabled={loading}
+                      defaultValue={Cookies.get('password-cici')}
                       placeholder="Clave secreta"
                       style={{
                         borderColor: 'transparent',
@@ -216,7 +233,9 @@ const Login = () => {
                   }
                   name="password"
                   control={control}
-                  rules={{ required: true }}
+                  rules={{
+                    required: Cookies.get('password-cici') ? false : true,
+                  }}
                 />
                 <FormFeedback invalid={errors.password && true}>
                   {errors.password && 'Escribe tu clave secreta'}
@@ -254,8 +273,10 @@ const Login = () => {
                   </FormGroup>
                 </div>
                 <div className="col-6">
-                  <p className="text-right cursor-pointer">
-                    ¿Olvidastes tu contraseña?
+                  <p className="text-right cursor-pointer text-dark">
+                    <Link href="/password-reset">
+                      ¿Olvidastes tu contraseña?
+                    </Link>
                   </p>
                 </div>
               </div>

@@ -15,7 +15,7 @@ interface FromPasswordReset {
 const PassWordReset = () => {
   const methods = useForm<FromPasswordReset>()
   const { handleSubmit, control, reset, errors } = methods
-  const [sendEmail, setSendEmail] = useState<boolean>(true)
+  const [sendEmail, setSendEmail] = useState<boolean>(false)
 
   const send = (_data: FromPasswordReset) => {
     console.log(_data)

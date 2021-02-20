@@ -40,7 +40,7 @@ export const RegisterUser = async (options: {
 export const LoginUser = async (options: {
   token: string | undefined
   user: {
-    email: string
+    email: string | undefined
     password: string | undefined
     provider: string
     userName: string | undefined

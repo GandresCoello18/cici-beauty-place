@@ -149,8 +149,8 @@ const NavBarElement = () => {
             </div>
             <div className="col-9">
               <UncontrolledDropdown setActiveFromChild style={styles.colorLink}>
-                <DropdownToggle className="nav-link" caret>
-                  Opciones
+                <DropdownToggle caret size="sm">
+                  {User.userName}
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem style={styles.spaceMenu}>

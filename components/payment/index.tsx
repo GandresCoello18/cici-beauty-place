@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -9,31 +11,44 @@ import { Button, UncontrolledCollapse } from 'reactstrap'
 import { toast } from 'react-toast'
 import { AiOutlineBank } from 'react-icons/ai'
 import { nanoid } from 'nanoid'
+import { useDispatch } from 'react-redux'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
 import CartResumne from '../cart/cart-resumen'
 import { TokenContext } from '../../context/contextToken'
-import redirect from '../../lib/redirect'
 import { NewOrden } from '../../api/orden'
 import { newOrden } from '../../interfaces/orden'
 import SpinnerLoader from '../element/spinner-cici'
+import { setCart } from '../../reducers/cart'
 
 const Payment = () => {
   const resumen = ResumenPaymen()
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
+  const [PaymentIdPaypal, setPaymentIdPaypal] = useState<string>('')
   const { token } = useContext(TokenContext)
 
   useEffect(() => {
     if (!token) {
-      redirect('/login')
+      window.location.href = '/login'
       toast.info('Necesitas iniciar sesion para procesar el pago')
     }
-  }, [token])
+
+    try {
+      const ValidatePaymentPaypal = async () => {
+        await createOrden(PaymentIdPaypal, 'Paypal')
+      }
+
+      PaymentIdPaypal && ValidatePaymentPaypal()
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }, [token, PaymentIdPaypal])
 
   const PaymentPaypal = async (response: OnCaptureData) => {
     const purchase_unit = response.purchase_units[0] as any
     const capture = purchase_unit.payments.captures[0]
     const paymentId = capture.id
-    await createOrden(paymentId, 'Paypal')
+    setPaymentIdPaypal(paymentId)
   }
 
   const PaymentBank = async () => {
@@ -42,8 +57,8 @@ const Payment = () => {
   }
 
   const createOrden = async (paymentId: string, paymentMethod: string) => {
-    console.log(resumen)
     setLoading(true)
+
     try {
       const orden: newOrden = {
         paymentMethod,
@@ -54,17 +69,21 @@ const Payment = () => {
       }
 
       await NewOrden({ token, orden })
+      setLoading(false)
+
       toast.success('Su orden fue registrada con exito')
+      dispatch(setCart([]))
+
       const btnNext: any = document.querySelector('.primaryBtnStep')
       btnNext.click()
     } catch (error) {
+      setLoading(false)
       toast.error(error.message)
     }
   }
 
   return (
     <>
-      {console.log(resumen)}
       <div className="row">
         <div className="col-12 col-lg-8">
           {loading ? (

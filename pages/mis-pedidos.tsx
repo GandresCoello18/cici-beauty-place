@@ -178,9 +178,17 @@ const MisPedidos = () => {
           setVisible={setMOdal}
         >
           <p className="text-left">
-            <b>Tener encuenta:</b> luego de hacer la transacion se necesita que
+            <b>Tener encuenta:</b> luego de hacer la transaccion se necesita que
             alguien del equipo de <b className="text-cici">Cici Beauty place</b>{' '}
-            confirme el pago, mientras eso puedes seguir con el siguiente paso.
+            confirme el pago, luego escribanos a nuestra linea de{' '}
+            <a
+              href="https://wa.me/5212224887710"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Whatsapp
+            </a>{' '}
+            con el recibo y el id de su orden. .
           </p>
 
           <div className="row">
@@ -270,7 +278,9 @@ const MisPedidos = () => {
                   className="text-center text-secondary cursor-pointer font-weight-bold"
                   onClick={() => {
                     toast.success('Guardado en el porta papeles')
-                    copy('#546512154545 - Cici Beauty Place')
+                    copy(
+                      'Banco de pichincha - #546512154545 - Cici Beauty Place'
+                    )
                   }}
                 >
                   Para depositos o trasferencias <BiShareAlt />
