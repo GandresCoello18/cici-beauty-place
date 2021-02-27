@@ -42,7 +42,7 @@ body {
 }
 
 .text-cici {
-  color: #f097ac;
+  color: #f097ac !important;
 }
 
 .bg-cici {

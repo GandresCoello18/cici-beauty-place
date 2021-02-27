@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import StepProgressBar from 'react-step-progress'
 import { setCart } from '../../reducers/cart'
@@ -18,10 +18,11 @@ const StepsShopping = ({
   setItemStep,
   setFinishShopping,
 }: Props) => {
+  const [isOrden, setIsOrden] = useState<boolean>(false)
   const dispatch = useDispatch()
   const validarPagos = () => {
     setItemStep(2)
-    return true
+    return isOrden || false
   }
   const validarEnvio = () => {
     return true
@@ -63,7 +64,7 @@ const StepsShopping = ({
             name: 'Pagos',
             content: (
               <div className="mt-5">
-                <Payment />
+                <Payment setIsOrden={setIsOrden} />
               </div>
             ),
             validator: validarPagos,

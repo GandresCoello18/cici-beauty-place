@@ -6,8 +6,10 @@ import { FaMoneyCheckAlt } from 'react-icons/fa'
 import { MdShoppingBasket } from 'react-icons/md'
 import Skeleton from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button } from 'reactstrap'
+import { Button, Modal, ModalBody } from 'reactstrap'
 import { toast } from 'react-toast'
+import { FcApproval } from 'react-icons/fc'
+import Link from 'next/link'
 import { newProductCart } from '../../api/cart'
 import { Cart, Product } from '../../interfaces/products'
 import redirect from '../../lib/redirect'
@@ -16,6 +18,8 @@ import { setCart } from '../../reducers/cart'
 import SpinnerLoader from '../element/spinner-cici'
 import ActionFavoritePrduct from './action-favorite-product'
 import { TokenContext } from '../../context/contextToken'
+import { BASE_API } from '../../api'
+import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
   loading: boolean
@@ -32,6 +36,7 @@ const ActionsProductDetails = ({
 }: Props) => {
   const { token } = useContext(TokenContext)
   const [loadingAction, setLoadingAction] = useState<boolean>(false)
+  const [Visible, setVisible] = useState<boolean>(false)
   const [existCart, setExistCart] = useState<Cart | undefined>()
   const dispatch = useDispatch()
 
@@ -107,6 +112,7 @@ const ActionsProductDetails = ({
           idProducts: existCart.idProducts,
           quantity: quantity || 1,
         })
+        setVisible(true)
       } else {
         existCart.quantity -= quantity || 1
       }
@@ -122,48 +128,99 @@ const ActionsProductDetails = ({
   }
 
   return (
-    <div className="row justify-content-start">
-      {loadingAction ? (
-        <SpinnerLoader />
-      ) : (
-        <>
-          <div className="col-6 col-lg-3">
-            {loading ? (
-              <Skeleton height={40} />
-            ) : (
-              <Button color="danger" onClick={toBuy}>
-                <div className="row">
-                  <div className="col-2">
-                    <FaMoneyCheckAlt size={20} />
-                  </div>
-                  <div className="col-6">Comprar</div>
-                </div>
-              </Button>
-            )}
-          </div>
-          <div className="col-6 col-lg-3">
-            {loading ? (
-              <Skeleton height={40} />
-            ) : (
-              <Button color="warning" className="text-white" onClick={addCart}>
-                <div className="row">
-                  <div className="col-2">
-                    <MdShoppingBasket size={20} />
-                  </div>
-                  <div className="col-7">
-                    Añadir{' '}
-                    {existCart !== undefined && <>({existCart.quantity})</>}
-                  </div>
-                </div>
-              </Button>
-            )}
-          </div>
-        </>
-      )}
-      <div className="col-12 col-lg-3 mt-3 mt-md-0">
-        <ActionFavoritePrduct idProduct={product.idProducts} />
+    <>
+      <div className="row justify-content-start">
+        {loadingAction ? (
+          <SpinnerLoader />
+        ) : (
+          <>
+            <div className="col-6 col-lg-3">
+              {loading ? (
+                <Skeleton height={40} />
+              ) : (
+                <Button color="danger" onClick={toBuy}>
+                  <FaMoneyCheckAlt
+                    size={20}
+                    className="position-relative mr-2"
+                    style={{ top: 4 }}
+                  />
+                  <span className="mb-1">Comprar</span>
+                </Button>
+              )}
+            </div>
+            <div className="col-6 col-lg-3">
+              {loading ? (
+                <Skeleton height={40} />
+              ) : (
+                <Button
+                  color="warning"
+                  className="text-white"
+                  onClick={addCart}
+                >
+                  <MdShoppingBasket
+                    size={20}
+                    className="position-relative mr-2"
+                    style={{ top: 4 }}
+                  />
+                  Añadir{' '}
+                  {existCart !== undefined && <>({existCart.quantity})</>}
+                </Button>
+              )}
+            </div>
+          </>
+        )}
+        <div className="col-12 col-lg-3 mt-3 mt-md-0">
+          <ActionFavoritePrduct idProduct={product.idProducts} />
+        </div>
       </div>
-    </div>
+
+      <Modal
+        size="lg"
+        isOpen={Visible}
+        toggle={() => setVisible(false)}
+        className="font-arvo"
+      >
+        <ModalBody>
+          <h6>
+            <FcApproval size={21} /> Producto agregado al carrito de compras
+          </h6>
+          <div className="row justify-content-center p-2">
+            <div className="col-12 col-md-3">
+              <img
+                width="100%"
+                src={`${BASE_API}/static/${product.source}`}
+                alt={product.title}
+              />
+            </div>
+            <div className="col-12 col-md-9">
+              <h5 className="p-1">{product.title}</h5>
+              <strong style={{ fontSize: 20, color: '#999' }}>
+                US $
+                {calculatePrice({
+                  discount: product.discount,
+                  price: product.price,
+                })}
+              </strong>
+            </div>
+          </div>
+
+          <div className="row justify-content-end">
+            <div className="col-6 col-md-2 mr-5">
+              <Link href="/productos">
+                <Button color="link" className="text-cici">
+                  Seguir comprando
+                </Button>
+              </Link>
+            </div>
+            <div className="col-6 col-md-2">
+              <Link href="/compra">
+                <Button className="bg-secundary">Ver carrito</Button>
+              </Link>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+    </>
   )
 }
 

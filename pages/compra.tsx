@@ -29,12 +29,12 @@ const Compra = () => {
   useEffect(() => {
     finishShopping && setVisible(true)
 
-    if (Cart.length === 0) {
+    /* if (Cart.length === 0) {
       const btnNext: any = document.querySelector('.primaryBtnStep')
       if (btnNext) {
         btnNext.style.display = 'none'
       }
-    }
+    } */
   }, [finishShopping, Cart])
 
   return (

@@ -5,7 +5,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-console */
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { OnCaptureData, PayPalButton } from 'react-paypal-button'
 import { Button, UncontrolledCollapse } from 'reactstrap'
 import { toast } from 'react-toast'
@@ -20,7 +26,11 @@ import { newOrden } from '../../interfaces/orden'
 import SpinnerLoader from '../element/spinner-cici'
 import { setCart } from '../../reducers/cart'
 
-const Payment = () => {
+interface Props {
+  setIsOrden: Dispatch<SetStateAction<boolean>>
+}
+
+const Payment = ({ setIsOrden }: Props) => {
   const resumen = ResumenPaymen()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
@@ -73,6 +83,7 @@ const Payment = () => {
 
       toast.success('Su orden fue registrada con exito')
       dispatch(setCart([]))
+      setIsOrden(true)
 
       const btnNext: any = document.querySelector('.primaryBtnStep')
       btnNext.click()
