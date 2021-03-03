@@ -1,7 +1,8 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, CardBody, CardHeader, CardText } from 'reactstrap'
+import { Button, Card, CardBody, CardText } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import Link from 'next/link'
@@ -68,6 +69,19 @@ const ContainerCupones = ({ user }: Props) => {
     }
   }
 
+  const renderSource = (type: string) => {
+    switch (type) {
+      case '15% Descuento':
+        return '../img/descuento.svg'
+      case 'Envio gratis':
+        return '../img/shipping.svg'
+      case '+ 1 favorito':
+        return '../img/favorite.svg'
+      default:
+        return ''
+    }
+  }
+
   return (
     <section className="container font-arvo mt-4 mb-4">
       <div className="row justify-content-center p-2">
@@ -78,11 +92,7 @@ const ContainerCupones = ({ user }: Props) => {
                 width={100}
                 height={100}
                 className="p-2 border-round"
-                src={
-                  user.avatar !== 'null'
-                    ? user.avatar
-                    : `${BASE_API}/static/${DEFAULT_AVATAR}`
-                }
+                src={user.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
                 alt={user.userName}
               />
             </div>
@@ -109,6 +119,7 @@ const ContainerCupones = ({ user }: Props) => {
             )}
           </div>
         )}
+
         {cupones.map((cupon) => (
           <div
             className={`col-12 ${
@@ -116,12 +127,22 @@ const ContainerCupones = ({ user }: Props) => {
             } mb-3 mb-md-0`}
             key={cupon.idCoupon}
           >
-            <Card>
-              <CardHeader className="bg-cici text-center">
-                {cupon.type}
-              </CardHeader>
+            <Card style={{ borderRadius: 12 }}>
               <CardBody>
-                <CardText>{cupon.descripcion}</CardText>
+                <div className="text-center ">
+                  <img
+                    src={renderSource(cupon.type)}
+                    alt={cupon.type}
+                    width={150}
+                    height={150}
+                  />
+                  <h6 className="text-cici font-weight-bold mt-2">
+                    {cupon.type}
+                  </h6>
+                </div>
+                <CardText style={{ fontSize: 14 }}>
+                  {cupon.descripcion}
+                </CardText>
                 <Button
                   outline
                   block

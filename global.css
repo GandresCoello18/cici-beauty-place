@@ -136,6 +136,34 @@ body {
   background-color: #f0adbc;
 }
 
+/* CATEGORY */
+
+.head-categori {
+  background-color: #f1d7dd;
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  width: 100%;
+  font-weight: bold;
+  padding: 5px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.item-categori {
+  color: #999;
+  padding: 4px;
+  font-size: 13px;
+  font-family: 'font-arvo';
+}
+
+.item-categori:hover {
+  color: #df7c93;
+  font-size: 13px;
+  font-family: 'font-arvo';
+  box-shadow: 5px 5px 5px #f1d7dd;
+}
+
 /* FOOTER */
 
 footer ul {
