@@ -16,7 +16,7 @@ export const GetProductsOffers = async (options: { limit?: number }) => {
     method: 'GET',
     url: options.limit
       ? `/products/offers/${options.limit}`
-      : '/products/offers',
+      : '/products/offers/0',
   })
   return response
 }

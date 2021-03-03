@@ -16,7 +16,7 @@ const AdressPayment = () => {
     <>
       {myAddresses ? (
         <>
-          <h4>Mis Direcciones:</h4>
+          <h4 className="text-center p-2">Mis Direcciones:</h4>
           <div className="row justify-content-center">
             {Addresses.map((address) => (
               <div className="col-12 col-md-6 mb-2" key={address.idAddresses}>
@@ -29,7 +29,7 @@ const AdressPayment = () => {
         </>
       ) : (
         <>
-          <h4>Nueva Direccion:</h4>
+          <h4 className="text-center p-2">Nueva Direccion:</h4>
           <FormAddres isSession={!!token} />
         </>
       )}

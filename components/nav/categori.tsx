@@ -1,140 +1,89 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
-import React, { useState } from 'react'
+import React from 'react'
 import { AiFillVideoCamera, AiOutlineUnorderedList } from 'react-icons/ai'
 import { GiEyelashes, GiLips } from 'react-icons/gi'
 import Link from 'next/link'
 import { RiBrushLine, RiSmartphoneFill } from 'react-icons/ri'
 import { MdFace } from 'react-icons/md'
-import { Nav, NavItem, NavLink } from 'reactstrap'
 
 const CategoriNav = () => {
   const styles: any = {
-    navLink: {
+    link: {
+      textDecoration: 'none',
       color: '#999',
-      fontSize: 13,
-      fontFamily: 'font-arvo',
     },
-    navLinkHover: {
-      color: '#df7c93',
-      fontSize: 13,
-      fontFamily: 'font-arvo',
-      boxShadow: '5px 5px 5px #f1d7dd',
-    },
-    headCategori: {
-      backgroundColor: '#f1d7dd',
-      position: 'absolute',
-      top: 0,
-      left: 15,
-      width: '100%',
-      fontWeight: 'bold',
-      padding: 5,
-      borderTopLeftRadius: 12,
-      borderTopRightRadius: 12,
-    },
-  }
-
-  const [isHover, setIsHover] = useState<boolean>(false)
-  const [item, setItem] = useState<number>(0)
-
-  const toggleHover = (item: number) => {
-    setIsHover(true)
-    setItem(item)
-
-    setTimeout(() => setIsHover(false), 3000)
   }
 
   return (
     <>
-      <div className="row font-arvo" style={styles.headCategori}>
+      <div className="row font-arvo head-categori">
         <div className="col-1">
           <AiOutlineUnorderedList size={20} />
         </div>
         <div className="col-1">Categorìas</div>
       </div>
-      <Nav vertical>
-        <NavItem>
-          <NavLink href="#">-----</NavLink>
-        </NavItem>
-        <NavItem>
+
+      <div className="row font-arvo mt-5 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Cejas y Pestañas">
-            <NavLink
-              style={
-                isHover && item === 1 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(1)}
-              onMouseLeave={() => toggleHover(1)}
-            >
+            <a style={styles.link}>
               <GiEyelashes size={17} /> &nbsp; Cejas y Pestañas
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-        <NavItem>
+        </div>
+      </div>
+
+      <div className="row font-arvo mt-2 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Cuidados de la piel">
-            <NavLink
-              style={
-                isHover && item === 2 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(2)}
-              onMouseLeave={() => toggleHover(2)}
-            >
+            <a style={styles.link}>
               <MdFace /> &nbsp; Cuidados de la piel
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-        <NavItem>
+        </div>
+      </div>
+
+      <div className="row font-arvo mt-2 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Labiales">
-            <NavLink
-              style={
-                isHover && item === 3 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(3)}
-              onMouseLeave={() => toggleHover(3)}
-            >
+            <a style={styles.link}>
               <GiLips /> &nbsp; Labiales
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-        <NavItem>
+        </div>
+      </div>
+
+      <div className="row font-arvo mt-2 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Brochas y Sombras">
-            <NavLink
-              style={
-                isHover && item === 4 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(4)}
-              onMouseLeave={() => toggleHover(4)}
-            >
+            <a style={styles.link}>
               <RiBrushLine /> &nbsp; Brochas y Sombras
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-        <NavItem>
+        </div>
+      </div>
+
+      <div className="row font-arvo mt-2 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Protector para celular">
-            <NavLink
-              style={
-                isHover && item === 5 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(5)}
-              onMouseLeave={() => toggleHover(5)}
-            >
+            <a style={styles.link}>
               <RiSmartphoneFill /> &nbsp; Protector para celular
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-        <NavItem>
+        </div>
+      </div>
+
+      <div className="row font-arvo mt-2 border-bottom item-categori">
+        <div className="col-12">
           <Link href="/productos/category/Streamer">
-            <NavLink
-              style={
-                isHover && item === 6 ? styles.navLinkHover : styles.navLink
-              }
-              onMouseEnter={() => toggleHover(6)}
-              onMouseLeave={() => toggleHover(6)}
-            >
+            <a style={styles.link}>
               <AiFillVideoCamera /> &nbsp; Streamer
-            </NavLink>
+            </a>
           </Link>
-        </NavItem>
-      </Nav>
+        </div>
+      </div>
     </>
   )
 }
