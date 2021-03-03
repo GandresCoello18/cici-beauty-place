@@ -1,23 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useEffect, useState } from 'react'
-import { NextSeo } from 'next-seo'
+import React, { useState } from 'react'
 import { Modal, ModalBody } from 'reactstrap'
 import Link from 'next/link'
 import { FcBookmark, FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
-import { RootState } from '../reducers'
 
 const Compra = () => {
-  const [itemStep, setItemStep] = useState<number>(0)
   const [finishShopping, setFinishShopping] = useState<boolean>(false)
   const [visible, setVisible] = useState<boolean>(false)
-
-  const { Cart } = useSelector((state: RootState) => state.CartReducer)
 
   const Styles = {
     text: {
@@ -26,40 +20,8 @@ const Compra = () => {
     },
   }
 
-  useEffect(() => {
-    finishShopping && setVisible(true)
-
-    /* if (Cart.length === 0) {
-      const btnNext: any = document.querySelector('.primaryBtnStep')
-      if (btnNext) {
-        btnNext.style.display = 'none'
-      }
-    } */
-  }, [finishShopping, Cart])
-
   return (
     <>
-      {itemStep === 0 && (
-        <NextSeo
-          title="Carrito de compras | Cici beauty place"
-          description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes."
-        />
-      )}
-
-      {itemStep === 1 && (
-        <NextSeo
-          title="Pagos de compras | Cici beauty place"
-          description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes."
-        />
-      )}
-
-      {itemStep === 2 && (
-        <NextSeo
-          title="Envio de compras | Cici beauty place"
-          description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes."
-        />
-      )}
-
       <Layout>
         <section className="container font-arvo p-md-5">
           <div className="row justify-content-between">
@@ -110,11 +72,7 @@ const Compra = () => {
                   </div>
                 </div>
               ) : (
-                <StepsShopping
-                  startingStep={itemStep}
-                  setItemStep={setItemStep}
-                  setFinishShopping={setFinishShopping}
-                />
+                <StepsShopping setFinishShopping={setFinishShopping} />
               )}
             </div>
           </div>
@@ -122,7 +80,7 @@ const Compra = () => {
       </Layout>
 
       <Modal
-        isOpen={visible}
+        isOpen={visible || finishShopping}
         toggle={() => setVisible(!visible)}
         className="font-arvo"
       >

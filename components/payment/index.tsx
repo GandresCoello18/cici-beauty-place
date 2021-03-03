@@ -25,12 +25,13 @@ import { NewOrden } from '../../api/orden'
 import { newOrden } from '../../interfaces/orden'
 import SpinnerLoader from '../element/spinner-cici'
 import { setCart } from '../../reducers/cart'
+import { StepperItem } from '../element/steps-shopping'
 
 interface Props {
-  setIsOrden: Dispatch<SetStateAction<boolean>>
+  setItemStep: Dispatch<SetStateAction<StepperItem>>
 }
 
-const Payment = ({ setIsOrden }: Props) => {
+const Payment = ({ setItemStep }: Props) => {
   const resumen = ResumenPaymen()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
@@ -83,10 +84,16 @@ const Payment = ({ setIsOrden }: Props) => {
 
       toast.success('Su orden fue registrada con exito')
       dispatch(setCart([]))
-      setIsOrden(true)
 
-      const btnNext: any = document.querySelector('.primaryBtnStep')
-      btnNext.click()
+      setItemStep({
+        item: 2,
+        carrito: {
+          complete: true,
+        },
+        pagos: {
+          complete: true,
+        },
+      })
     } catch (error) {
       setLoading(false)
       toast.error(error.message)

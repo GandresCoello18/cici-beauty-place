@@ -17,6 +17,18 @@ body {
   padding: 0px !important;
 }
 
+.step {
+  background-color: #f097ac;
+  border-radius: 12px;
+  width: 35px;
+  height: 35px;
+}
+
+.step span {
+  position: relative;
+  top: 2px;
+}
+
 .toastContainer {
   z-index: 9999 !important;
 }

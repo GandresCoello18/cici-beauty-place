@@ -103,6 +103,7 @@ const ActionsProductDetails = ({
   const addCart = () => {
     if (!existCart) {
       addProductCart()
+      setVisible(true)
     } else {
       existCart.quantity += quantity || 1
       cartStorage.splice(0, cartStorage.length, existCart)
@@ -112,7 +113,6 @@ const ActionsProductDetails = ({
           idProducts: existCart.idProducts,
           quantity: quantity || 1,
         })
-        setVisible(true)
       } else {
         existCart.quantity -= quantity || 1
       }
