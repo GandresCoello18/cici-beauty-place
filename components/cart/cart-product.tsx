@@ -46,15 +46,6 @@ const CartProduct = ({ product }: Props) => {
     }
   }
 
-  /* const calculatePrice = () => {
-    if (product.discount) {
-      const porcent: number = (product.price * product.discount) / 100
-      return (product.price - porcent).toFixed(2)
-    }
-
-    return product.price
-  } */
-
   return (
     <>
       <div className="card mb-3" style={{ width: '100%' }}>

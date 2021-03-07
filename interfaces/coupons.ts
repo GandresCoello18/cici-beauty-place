@@ -10,6 +10,7 @@ export interface MyCouponsUser {
   expiration_date: string | Date
   created_at: string | Date
   type: string
+  descripcion: string
   status: string
   userName: string
   avatar: string
