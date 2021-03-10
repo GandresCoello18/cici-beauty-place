@@ -42,15 +42,6 @@ const CardProduct = ({ product, size }: Props) => {
     },
   }
 
-  /* const calculatePrice = () => {
-    if (product.discount && product.price) {
-      const porcent: number = (product.price * product.discount) / 100
-      return (product.price - porcent).toFixed(2)
-    }
-
-    return product.price
-  } */
-
   return (
     <>
       <Link href={`/productos/${product.idProducts}`}>
@@ -63,6 +54,14 @@ const CardProduct = ({ product, size }: Props) => {
               style={Styles.image}
               className="p-3"
             />
+            {product.available < 4 && (
+              <div
+                className="bg-secondary text-center text-danger font-weight-bold position-absolute top-0 p-3"
+                style={{ width: '100%', opacity: 0.9 }}
+              >
+                AGOTADO
+              </div>
+            )}
             <CardBody>
               <CardTitle
                 tag="h5"
@@ -107,11 +106,6 @@ const CardProduct = ({ product, size }: Props) => {
                       name="rate1"
                       starCount={5}
                       value={product.stars || 0}
-                      onStarClick={(
-                        nextValue: number,
-                        prevValue: number,
-                        name: string
-                      ) => console.log(`${nextValue} - ${prevValue} - ${name}`)}
                     />
                     <span
                       className="position-absolute top-0 ml-3"

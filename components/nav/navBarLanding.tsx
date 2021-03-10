@@ -76,6 +76,9 @@ const NavBarLanding = () => {
               </Button>
             </a>
           </Link>
+        </NavbarText>
+
+        <NavbarText className="d-none d-md-block">
           <CartIcon />
         </NavbarText>
 
