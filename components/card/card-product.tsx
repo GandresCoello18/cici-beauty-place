@@ -56,7 +56,7 @@ const CardProduct = ({ product, size }: Props) => {
             />
             {product.available < 4 && (
               <div
-                className="bg-secondary text-center text-danger font-weight-bold position-absolute top-0 p-3"
+                className="bg-secondary text-center text-white font-weight-bold position-absolute top-0 p-3"
                 style={{ width: '100%', opacity: 0.9 }}
               >
                 AGOTADO

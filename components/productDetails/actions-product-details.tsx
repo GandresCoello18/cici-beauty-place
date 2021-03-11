@@ -1,3 +1,6 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable prettier/prettier */
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -132,6 +135,10 @@ const ActionsProductDetails = ({
       <div className="row justify-content-start">
         {loadingAction ? (
           <SpinnerLoader />
+        ) : product.available < 4 ? (
+          <div className="bg-secondary text-center text-white w-50 font-weight-bold p-3">
+            AGOTADO
+          </div>
         ) : (
           <>
             <div className="col-6 col-lg-3">
