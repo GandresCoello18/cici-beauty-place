@@ -10,12 +10,13 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import { Alert, Button, Card, CardBody, CardText } from 'reactstrap'
 import { GetAssignUserCoupons } from '../../api/coupons'
 import { Coupons, MyCouponsUser } from '../../interfaces/coupons'
 import { RootState } from '../../reducers'
+import { SetCoupon } from '../../reducers/coupon'
 import CartProduct from './cart-product'
 import CartResumne from './cart-resumen'
 import Modal from '../element/modal'
@@ -28,6 +29,7 @@ interface Props {
 const CartContainer = ({ setIdCoupon }: Props) => {
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
 
+  const dispatch = useDispatch()
   const { token } = useContext(TokenContext)
   const [coupon, setCoupon] = useState<MyCouponsUser[]>([])
   const [modal, setModal] = useState<boolean>(false)
@@ -85,7 +87,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
             </div>
             <div className="col-12 col-lg-4">
               <CartResumne />
-              {Cart.length && coupon.length && (
+              {Cart.length && coupon.length ? (
                 <div className="text-center">
                   {selectCoupon && (
                     <span className="p-2">
@@ -96,6 +98,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                         onClick={() => {
                           setIdCoupon('')
                           setSelectCoupon('')
+                          dispatch(SetCoupon(undefined))
                         }}
                       >
                         Eliminar
@@ -103,7 +106,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                     </span>
                   )}
 
-                  {!selectCoupon && coupon.length === 1 && (
+                  {!selectCoupon && coupon.length === 1 ? (
                     <Button
                       color="danger"
                       className="p-1"
@@ -113,8 +116,12 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                         ? 'Cambiar Cupon'
                         : 'Aplicar Cupon'}
                     </Button>
+                  ) : (
+                    ''
                   )}
                 </div>
+              ) : (
+                ''
               )}
             </div>
           </div>
@@ -149,6 +156,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                       setIdCoupon(cupon.id_user_coupons)
                       setSelectCoupon(cupon.type)
                       setModal(false)
+                      dispatch(SetCoupon(cupon))
                     }}
                   >
                     Elegir
