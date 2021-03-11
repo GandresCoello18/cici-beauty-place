@@ -41,6 +41,7 @@ export interface ResumenCart {
   discount: number
   envio: number
   total: number
+  text?: string
 }
 
 export interface ParamsFilter {

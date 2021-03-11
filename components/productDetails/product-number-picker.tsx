@@ -54,7 +54,11 @@ const ProductPicker = ({
         </Badge>
       )}
       <span style={{ color: '#999' }} className="ml-1 ml-md-3">
-        {loading ? <Skeleton height={15} /> : <>{available} disponibles</>}
+        {loading ? (
+          <Skeleton height={15} />
+        ) : (
+          <>&nbsp; &nbsp;{available} disponibles</>
+        )}
       </span>
     </>
   )

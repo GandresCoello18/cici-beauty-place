@@ -23,8 +23,12 @@ const CartResumne = () => {
         </div>
         <div className="p-1 border-bottom">
           <span>Envio</span>
-          <span className="float-right">
-            ${resumen.subTotal > 0 ? resumen.envio : 0}
+          <span className={`float-right ${resumen.text && 'text-success'}`}>
+            {resumen.text ? (
+              resumen.text
+            ) : (
+              <>${resumen.subTotal > 0 ? resumen.envio : 0}</>
+            )}
           </span>
         </div>
         <div className="p-1 bg-cici">

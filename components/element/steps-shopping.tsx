@@ -30,6 +30,7 @@ interface Props {
 const StepsShopping = ({ setFinishShopping }: Props) => {
   const dispatch = useDispatch()
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
+  const [idCoupon, setIdCoupon] = useState<string>('')
   const [itemStep, setItemStep] = useState<StepperItem>({
     item: 0,
     carrito: {
@@ -133,8 +134,10 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
       </Stepper>
 
       <div className="mt-3">
-        {itemStep.item === 0 && <CartContainer />}
-        {itemStep.item === 1 && <Payment setItemStep={setItemStep} />}
+        {itemStep.item === 0 && <CartContainer setIdCoupon={setIdCoupon} />}
+        {itemStep.item === 1 && (
+          <Payment setItemStep={setItemStep} idCoupon={idCoupon} />
+        )}
         {itemStep.item === 2 && <AdressPayment />}
 
         <br />

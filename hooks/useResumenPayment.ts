@@ -12,9 +12,11 @@ export const ResumenPaymen = () => {
     discount: 0,
     envio: 0,
     total: 0,
+    text: '',
   })
 
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
+  const { Coupon } = useSelector((state: RootState) => state.CouponReducer)
 
   useEffect(() => {
     const sub: number = Cart.reduce((product, sumProduct) => {
@@ -29,13 +31,30 @@ export const ResumenPaymen = () => {
 
     const envio = sub > 40 ? 0 : 4
 
-    setResumen({
+    const data = {
       subTotal: sub,
       envio,
       discount: 0,
       total: CalculateCartTotal(sub, envio, 0),
-    })
-  }, [Cart])
+      text: '',
+    }
+
+    if (Coupon) {
+      switch (Coupon.type) {
+        case 'Envio gratis':
+          data.text = 'Gratis'
+          break
+        case '15% Descuento':
+          data.discount = 15
+          data.total = CalculateCartTotal(sub, envio, 15)
+          break
+        default:
+          break
+      }
+    }
+
+    setResumen(data)
+  }, [Cart, Coupon])
 
   const CalculateCartTotal = useCallback(
     (subTotal: number, envio: number, discount: number) => {

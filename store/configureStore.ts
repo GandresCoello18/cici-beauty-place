@@ -21,7 +21,11 @@ import { GetMyAddress } from '../api/addresses'
 import { setAddress } from '../reducers/address'
 
 export const configureStore = (initialState: RootState) => {
-  const store = createStore(rootReducer, initialState, devToolsEnhancer({}))
+  const store = createStore(
+    rootReducer,
+    initialState,
+    process.env.NODE_ENV === 'development' ? devToolsEnhancer({}) : undefined
+  )
 
   GetProducts()
     .then((response) => {

@@ -1,3 +1,6 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable prettier/prettier */
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-expressions */
 import React, { useContext, useEffect, useState } from 'react'
@@ -51,7 +54,6 @@ const MisCupones = () => {
         const { myCoupons } = await (
           await GetAssignUserCoupons({ token, status: selectOptioon })
         ).data
-        console.log(myCoupons)
         setMisCupones(myCoupons)
         setLoading(false)
       }
@@ -116,7 +118,7 @@ const MisCupones = () => {
         <div className="col-4 border-right">
           {cupon.type ? (
             <Badge className="bg-cici text-dark">{cupon.type}</Badge>
-          ) : (
+          ) : cupon.status === 'Pendiente' ? (
             <Button
               color="info"
               size="sm"
@@ -127,6 +129,8 @@ const MisCupones = () => {
             >
               Elegir cupòn {loadingUpdate && <SpinnerLoader />}
             </Button>
+          ) : (
+            <Badge color="danger">No Especificado</Badge>
           )}
         </div>
         <div className="col-5 border-right">
@@ -196,10 +200,10 @@ const MisCupones = () => {
                     >
                       No valido aun
                     </DropdownItem>
-                    <DropdownItem onClick={() => setSelectOption('Usados')}>
+                    <DropdownItem onClick={() => setSelectOption('Usado')}>
                       Usados
                     </DropdownItem>
-                    <DropdownItem onClick={() => setSelectOption('Expirados')}>
+                    <DropdownItem onClick={() => setSelectOption('Expirado')}>
                       Expirados
                     </DropdownItem>
                   </DropdownMenu>

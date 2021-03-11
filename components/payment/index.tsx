@@ -29,9 +29,10 @@ import { StepperItem } from '../element/steps-shopping'
 
 interface Props {
   setItemStep: Dispatch<SetStateAction<StepperItem>>
+  idCoupon: string
 }
 
-const Payment = ({ setItemStep }: Props) => {
+const Payment = ({ setItemStep, idCoupon }: Props) => {
   const resumen = ResumenPaymen()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
@@ -77,6 +78,7 @@ const Payment = ({ setItemStep }: Props) => {
         discount: resumen.discount,
         totalAmount: resumen.total,
         paymentId,
+        id_user_coupons: idCoupon,
       }
 
       await NewOrden({ token, orden })
