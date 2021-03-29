@@ -39,6 +39,7 @@ import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
 import { BASE_API, DEFAULT_AVATAR } from '../../api'
 import { RootState } from '../../reducers'
+import { SourceAvatar } from '../../helpers/sourceAvatar'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -142,7 +143,10 @@ const NavBarElement = () => {
                 title={User.userName}
               >
                 <img
-                  src={User.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+                  src={
+                    SourceAvatar(User.avatar) ||
+                    `${BASE_API}/static/${DEFAULT_AVATAR}`
+                  }
                   alt={User.userName}
                 />
               </figure>
