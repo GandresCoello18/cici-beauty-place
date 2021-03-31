@@ -3,7 +3,7 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { BiSad } from 'react-icons/bi'
 import { FiSend } from 'react-icons/fi'
@@ -15,6 +15,8 @@ import { toast } from 'react-toast'
 import copy from 'copy-to-clipboard'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
+import { TokenContext } from '../../context/contextToken'
+import { SendInvite } from '../../api/invite'
 
 interface FromInvite {
   name: string
@@ -24,12 +26,24 @@ interface FromInvite {
 const SendInvitation = () => {
   const methods = useForm<FromInvite>()
   const { handleSubmit, control, reset, errors } = methods
+  const { token } = useContext(TokenContext)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const { User } = useSelector((state: RootState) => state.UserReducer)
 
-  const send = (_data: FromInvite) => {
-    console.log(_data)
-    reset()
+  const send = async (_data: FromInvite) => {
+    const { name, email } = _data
+    setLoading(true)
+
+    try {
+      await SendInvite({ token, name, email })
+      toast.success(`Se envio tu invitacioó a: ${email}`)
+      reset()
+      setLoading(false)
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
   }
 
   return (
@@ -44,13 +58,12 @@ const SendInvitation = () => {
           <div className="row justify-content-center bg-white">
             <div className="col-12 col-md-10 p-3 mb-3">
               <Alert color="primary">
-                <BiSad /> No has referido amigos, aun no tienes promos o
-                descuentos.
+                <BiSad /> No has referido amigos, aun no tienes cupones.
               </Alert>
               <h4>Seguro conoces a alguien que le gusta nuestros productos</h4>
               <p>
-                Comparte tu link de referidos y cada vez que ellos compren mayor
-                a $20 recibiras promociones y descuentos para ti.
+                Comparte tu link de referidos y cada compra mayor de $20
+                recibiras cupones que puedes elegir.
               </p>
             </div>
             <div className="col-12 col-md-10 p-3 mb-5">
@@ -58,7 +71,7 @@ const SendInvitation = () => {
                 <div className="col-12 col-md-10">
                   <Input
                     type="url"
-                    value={`https://cici.com.ec/invitacion/${User.userName}`}
+                    value={`https://cici.beauty/invitacion/${User.userName}`}
                     className="p-3 font-weight-bold url-invite"
                     disabled
                   />
@@ -69,7 +82,7 @@ const SendInvitation = () => {
                     className="btn bg-cici p-2 w-100 h-100"
                     onClick={() => {
                       toast.success('Se copio la direccion en el porta papeles')
-                      copy(`https://cici.com.ec/invitacion/${User.userName}`)
+                      copy(`https://cici.beauty/invitacion/${User.userName}`)
                     }}
                   >
                     <AiFillCopy /> Copiar
@@ -82,10 +95,7 @@ const SendInvitation = () => {
                 <h3>Invita a un amigo</h3>
               </div>
               <br />
-              <p>
-                Envia tu enlace de referidos al correo de hasta <b>3 amigos</b>{' '}
-                por mes.
-              </p>
+              <p>Envia tu enlace de referidos por correo.</p>
               <Form onSubmit={handleSubmit(send)}>
                 <div className="row">
                   <div className="col-12 col-md-6">
@@ -132,8 +142,18 @@ const SendInvitation = () => {
                   </div>
                 </div>
 
-                <button type="submit" className="btn bg-cici">
-                  <FiSend /> Enviar invitacion
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn bg-cici"
+                >
+                  {loading ? (
+                    'Cargando...'
+                  ) : (
+                    <>
+                      <FiSend /> Enviar invitacion
+                    </>
+                  )}
                 </button>
               </Form>
             </div>

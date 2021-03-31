@@ -67,11 +67,11 @@ const Index = () => {
         >
           <InView className="row">
             <div className="col-12 p-2 mb-3">
-              <h3 className="text-center">Nuestros productos</h3>
+              <h3 className="text-center">Productos populares</h3>
             </div>
             {ProductsBestRated.map((item) => (
               <div
-                className="col-12 col-md-4 col-lg-3 font-arvo"
+                className="col-12 col-md-4 col-lg-3 font-arvo p-3"
                 key={item.idProducts}
                 ref={ref}
               >
