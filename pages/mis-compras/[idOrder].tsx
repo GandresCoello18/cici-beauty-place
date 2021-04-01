@@ -15,6 +15,7 @@ import QualifyOrder from '../../components/payment/qualifyOrder'
 import { getDetailsOrden } from '../../api/orden'
 import { TokenContext } from '../../context/contextToken'
 import { DetailsOrdenAndShipping } from '../../interfaces/shipping'
+import { BASE_API } from '../../api'
 
 const DetailsCompra = () => {
   const [loading, setLoading] = useState(false)
@@ -32,7 +33,10 @@ const DetailsCompra = () => {
         ).data
         setDetails(DetailOrden)
 
-        console.log(DetailOrden)
+        if (!DetailOrden) {
+          Router.push('/mis-compras')
+        }
+
         setLoading(false)
       } catch (error) {
         toast.error(error.message)
@@ -79,7 +83,14 @@ const DetailsCompra = () => {
                     </>
                   )}
                   <br />
-                  <CartResumne loading={loading} />
+                  <CartResumne
+                    loading={loading}
+                    subTotal={0}
+                    envio={Details?.shipping || 0}
+                    text={Details?.shipping === 0 ? 'Gratis' : ''}
+                    total={Details?.totalAmount || 0}
+                    discount={Details?.discount || 0}
+                  />
                 </div>
                 <div className="card-body">
                   <div className="row border-bottom">
@@ -137,7 +148,7 @@ const DetailsCompra = () => {
                             <Skeleton width={100} height={100} />
                           ) : (
                             <img
-                              src={product.source}
+                              src={`${BASE_API}/static/${product.source}`}
                               width="100"
                               height="100"
                               alt={product.title}

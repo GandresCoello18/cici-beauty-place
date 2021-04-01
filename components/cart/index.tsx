@@ -21,6 +21,7 @@ import CartProduct from './cart-product'
 import CartResumne from './cart-resumen'
 import Modal from '../element/modal'
 import { TokenContext } from '../../context/contextToken'
+import { ResumenPaymen } from '../../hooks/useResumenPayment'
 
 interface Props {
   setIdCoupon: Dispatch<SetStateAction<string>>
@@ -28,6 +29,7 @@ interface Props {
 
 const CartContainer = ({ setIdCoupon }: Props) => {
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
+  const resumen = ResumenPaymen()
 
   const dispatch = useDispatch()
   const { token } = useContext(TokenContext)
@@ -86,7 +88,13 @@ const CartContainer = ({ setIdCoupon }: Props) => {
               )}
             </div>
             <div className="col-12 col-lg-4">
-              <CartResumne />
+              <CartResumne
+                subTotal={resumen.subTotal}
+                envio={resumen.envio}
+                text={resumen.text || ''}
+                total={resumen.total}
+                discount={resumen.discount}
+              />
               {Cart.length && coupon.length ? (
                 <div className="text-center">
                   {selectCoupon && (

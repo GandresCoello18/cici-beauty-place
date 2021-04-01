@@ -3,15 +3,24 @@
 /* eslint-disable no-shadow */
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { ResumenPaymen } from '../../hooks/useResumenPayment'
 
 interface Props {
   loading?: boolean
+  subTotal: number
+  discount: number
+  envio: number
+  text: string
+  total: number
 }
 
-const CartResumne = ({ loading }: Props) => {
-  const resumen = ResumenPaymen()
-
+const CartResumne = ({
+  loading,
+  subTotal,
+  discount,
+  envio,
+  text,
+  total,
+}: Props) => {
   return (
     <>
       <div className="p-3">
@@ -24,7 +33,7 @@ const CartResumne = ({ loading }: Props) => {
           ) : (
             <>
               <span>Sub total</span>
-              <span className="float-right">${resumen.subTotal}</span>
+              <span className="float-right">${subTotal}</span>
             </>
           )}
         </div>
@@ -34,7 +43,7 @@ const CartResumne = ({ loading }: Props) => {
           ) : (
             <>
               <span>Descuento</span>
-              <span className="float-right">-{resumen.discount}%</span>
+              <span className="float-right">-{discount}%</span>
             </>
           )}
         </div>
@@ -44,12 +53,8 @@ const CartResumne = ({ loading }: Props) => {
           ) : (
             <>
               <span>Envio</span>
-              <span className={`float-right ${resumen.text && 'text-success'}`}>
-                {resumen.text ? (
-                  resumen.text
-                ) : (
-                  <>${resumen.subTotal > 0 ? resumen.envio : 0}</>
-                )}
+              <span className={`float-right ${text && 'text-success'}`}>
+                {text || `$${envio}`}
               </span>
             </>
           )}
@@ -60,7 +65,7 @@ const CartResumne = ({ loading }: Props) => {
           ) : (
             <>
               <span>Monto a pagar</span>
-              <span className="float-right">${resumen.total}</span>
+              <span className="float-right">${total}</span>
             </>
           )}
         </div>

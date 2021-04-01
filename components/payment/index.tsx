@@ -34,6 +34,7 @@ interface Props {
 
 const Payment = ({ setItemStep, idCoupon }: Props) => {
   const resumen = ResumenPaymen()
+
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
   const [PaymentIdPaypal, setPaymentIdPaypal] = useState<string>('')
@@ -191,7 +192,13 @@ const Payment = ({ setItemStep, idCoupon }: Props) => {
           )}
         </div>
         <div className="col-12 col-lg-4">
-          <CartResumne />
+          <CartResumne
+            subTotal={resumen.subTotal}
+            envio={resumen.envio}
+            text={resumen.text || ''}
+            total={resumen.total}
+            discount={resumen.discount}
+          />
         </div>
       </div>
     </>
