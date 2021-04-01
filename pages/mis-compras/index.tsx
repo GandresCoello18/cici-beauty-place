@@ -18,6 +18,7 @@ import Layout from '../../components/layout'
 import { TokenContext } from '../../context/contextToken'
 import { getProductShipping } from '../../api/shipping'
 import { MisShipping } from '../../interfaces/shipping'
+import { BASE_API } from '../../api'
 
 const Compras = () => {
   const [dropdownOpen, setOpen] = useState(false)
@@ -50,6 +51,17 @@ const Compras = () => {
         <Skeleton width="100%" height={60} />
       </div>
     ))
+  }
+
+  const renderStatus = (status: string) => {
+    switch (status) {
+      case 'Sent':
+        return 'Enviado'
+      case 'Delivered':
+        return 'Entregado'
+      default:
+        return ''
+    }
   }
 
   return (
@@ -89,41 +101,54 @@ const Compras = () => {
               >
                 <div className="card mb-3 border-0" style={{ width: '100%' }}>
                   <div className="row g-0 justify-content-between">
-                    <div className="col-3 col-md-1">
+                    <div className="col-12 col-md-2">
                       <img
-                        src={item.sourcesProduct}
+                        src={`${BASE_API}/static/${item.sourcesProduct}`}
                         width="100"
                         height="100"
                         alt={item.titleProduct}
                       />
                     </div>
-                    <div className="col-9 col-md-3">
-                      <div className="card-body">
-                        <h6 className="card-title">{item.titleProduct}</h6>
-                        {item.products ? (
-                          <strong style={{ fontSize: 20 }}>
-                            <span className="text-cici">+ {item.products}</span>
-                          </strong>
-                        ) : (
-                          ''
-                        )}
-                      </div>
+                    <div className="col-6 col-md-2">
+                      Estado:{' '}
+                      <Badge color="info">{renderStatus(item.status)}</Badge>
                     </div>
-                    <div className="col-8 col-md-2 p-2">
-                      Estado: <Badge color="success">{item.status}</Badge>
+                    <div className="col-6 col-md-2">
+                      Guia:{' '}
+                      {item.guide ? (
+                        <a
+                          href={`https://www.servientrega.com.ec/rastreo/guia/${item.guide}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.guide}
+                        </a>
+                      ) : (
+                        'None'
+                      )}
                     </div>
-                    <div className="col-10 col-md-3 p-2">
+                    <div className="col-12 col-md-4">
                       Ultima actualizacion:{' '}
                       <Badge color="info">{item.update_at}</Badge>
                     </div>
-                    <div className="col-2">
+                    <div className="col-12 col-md-6 mt-4 mt-md-0">
+                      <h6 className="card-title">{item.titleProduct}</h6>
+                      {item.products ? (
+                        <strong style={{ fontSize: 20 }}>
+                          <span className="text-cici">+ {item.products}</span>
+                        </strong>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div className="col-12 col-md-6 float-right">
                       <Link href={`/mis-compras/${item.idOrder}`}>
                         <a
                           href={`/mis-compras/${item.idOrder}`}
                           style={{ color: '#000' }}
                           className="btn bg-cici float-right"
                         >
-                          Ver detalles
+                          Detalles
                         </a>
                       </Link>
                     </div>
