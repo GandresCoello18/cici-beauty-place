@@ -133,6 +133,7 @@ const Favorite = () => {
                 </span>
               </h3>
             </div>
+
             {loading ? (
               [1, 2, 3, 4, 5].map((item) => (
                 <div className="col-12 mb-3" key={item}>
@@ -142,6 +143,7 @@ const Favorite = () => {
             ) : (
               <div className="col-12">{renderFavorites()}</div>
             )}
+
             {product.length === 0 && !loading && (
               <div className="col-12">
                 <Alert color="info">
