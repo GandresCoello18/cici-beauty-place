@@ -168,7 +168,7 @@ const DetailsCompra = () => {
                           {loading ? (
                             <Skeleton width={100} height={50} />
                           ) : (
-                            <QualifyOrder />
+                            <QualifyOrder idProduct={product.idProducts} />
                           )}
                         </div>
                       </div>
