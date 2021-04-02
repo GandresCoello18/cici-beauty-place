@@ -2,11 +2,25 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-shadow */
 import React from 'react'
-import { ResumenPaymen } from '../../hooks/useResumenPayment'
+import Skeleton from 'react-loading-skeleton'
 
-const CartResumne = () => {
-  const resumen = ResumenPaymen()
+interface Props {
+  loading?: boolean
+  subTotal: number
+  discount: number
+  envio: number
+  text: string
+  total: number
+}
 
+const CartResumne = ({
+  loading,
+  subTotal,
+  discount,
+  envio,
+  text,
+  total,
+}: Props) => {
   return (
     <>
       <div className="p-3">
@@ -14,26 +28,46 @@ const CartResumne = () => {
           <h3>Resumen</h3>
         </div>
         <div className="p-1 border-bottom">
-          <span>Sub total</span>
-          <span className="float-right">${resumen.subTotal}</span>
+          {loading ? (
+            <Skeleton width="100%" height={20} />
+          ) : (
+            <>
+              <span>Sub total</span>
+              <span className="float-right">${subTotal}</span>
+            </>
+          )}
         </div>
         <div className="p-1 border-bottom">
-          <span>Descuento</span>
-          <span className="float-right">-{resumen.discount}%</span>
+          {loading ? (
+            <Skeleton width="100%" height={20} />
+          ) : (
+            <>
+              <span>Descuento</span>
+              <span className="float-right">-{discount}%</span>
+            </>
+          )}
         </div>
         <div className="p-1 border-bottom">
-          <span>Envio</span>
-          <span className={`float-right ${resumen.text && 'text-success'}`}>
-            {resumen.text ? (
-              resumen.text
-            ) : (
-              <>${resumen.subTotal > 0 ? resumen.envio : 0}</>
-            )}
-          </span>
+          {loading ? (
+            <Skeleton width="100%" height={20} />
+          ) : (
+            <>
+              <span>Envio</span>
+              <span className={`float-right ${text && 'text-success'}`}>
+                {text || `$${envio}`}
+              </span>
+            </>
+          )}
         </div>
         <div className="p-1 bg-cici">
-          <span>Monto a pagar</span>
-          <span className="float-right">${resumen.total}</span>
+          {loading ? (
+            <Skeleton width="100%" height={20} />
+          ) : (
+            <>
+              <span>Monto a pagar</span>
+              <span className="float-right">${total}</span>
+            </>
+          )}
         </div>
       </div>
     </>

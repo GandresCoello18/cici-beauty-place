@@ -1,4 +1,5 @@
 import { api } from '.'
+import { FormCalifica } from '../components/payment/qualifyOrder'
 import { ParamsFilter } from '../interfaces/products'
 
 export const GetProducts = async (filter?: { params: ParamsFilter }) => {
@@ -35,6 +36,21 @@ export const GetProduct = async (options: { idProduct: string }) => {
   const response = await api({
     method: 'GET',
     url: `/products/${options.idProduct}`,
+  })
+  return response
+}
+
+export const NewProductReviews = async (options: {
+  token: string | undefined
+  data: FormCalifica
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'POST',
+    url: '/products/review',
+    data: {
+      ...options.data,
+    },
   })
   return response
 }

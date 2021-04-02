@@ -33,3 +33,15 @@ export const getMyOrden = async (options: {
   })
   return response
 }
+
+export const getDetailsOrden = async (options: {
+  token: string | undefined
+  idOrden: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: `/orden/details/${options.idOrden}`,
+  })
+  return response
+}

@@ -1,30 +1,54 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Form, FormGroup, Label } from 'reactstrap'
 import { BsFillStarFill } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toast'
 import StarRatingComponent from 'react-star-rating-component'
 import ModalElement from '../element/modal'
+import { NewProductReviews } from '../../api/products'
+import { TokenContext } from '../../context/contextToken'
 
-interface FormCalifica {
-  recibistes: string
-  recomendacion: string
-  opinion: string
+export interface FormCalifica {
+  received: string
+  recommendation: string
+  commentary: string
+  stars: number
+  idProduct: string
 }
 
-const QualifyOrder = () => {
+interface Props {
+  idProduct: string
+}
+
+const QualifyOrder = ({ idProduct }: Props) => {
   const methods = useForm<FormCalifica>()
+  const { token } = useContext(TokenContext)
   const [Modal, setModal] = useState<boolean>(false)
+  const [Loading, setLoading] = useState<boolean>(false)
   const [startCount, setStartCount] = useState<number>(0)
   const { handleSubmit, register, reset } = methods
 
   const send = async (data: FormCalifica) => {
+    setLoading(true)
     console.log(data)
-    reset()
-    setModal(false)
-    toast.success('Tu opion fue registrada con exito.')
+
+    data.stars = startCount
+    data.idProduct = idProduct
+
+    try {
+      await NewProductReviews({ token, data })
+      reset()
+
+      setModal(false)
+      setLoading(false)
+      toast.success('Tu calificacion fue registrada con exito.')
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
   }
 
   return (
@@ -49,7 +73,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recibir"
+                  name="received"
                   id="Sí, tengo el producto y está bien"
                   value="Si"
                   ref={register({ required: true })}
@@ -65,7 +89,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recibir"
+                  name="received"
                   id="Decidí no comprarlo"
                   value="No comprar"
                   ref={register({ required: true })}
@@ -81,7 +105,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recibir"
+                  name="received"
                   id="No, tuve un problema"
                   value="No"
                   ref={register({ required: true })}
@@ -101,7 +125,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recomendacion"
+                  name="recommendation"
                   id="Si"
                   value="Si"
                   ref={register({ required: true })}
@@ -114,7 +138,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recomendacion"
+                  name="recommendation"
                   id="No estoy seguro"
                   value="No estoy seguro"
                   ref={register({ required: true })}
@@ -130,7 +154,7 @@ const QualifyOrder = () => {
               <div className="form-check">
                 <input
                   type="radio"
-                  name="recomendacion"
+                  name="recommendation"
                   id="No"
                   value="No"
                   ref={register({ required: true })}
@@ -158,7 +182,7 @@ const QualifyOrder = () => {
                 <textarea
                   rows={3}
                   className="form-control"
-                  name="opinion"
+                  name="commentary"
                   id="opinion"
                   maxLength={200}
                   ref={register()}
@@ -167,10 +191,10 @@ const QualifyOrder = () => {
 
               <Button
                 type="submit"
-                disabled={false}
+                disabled={Loading}
                 className="bg-cici text-dark"
               >
-                Guardar
+                {Loading ? 'Guardando...' : 'Guardar'}
               </Button>
             </Form>
           </div>

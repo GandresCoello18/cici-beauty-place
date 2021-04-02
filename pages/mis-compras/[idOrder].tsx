@@ -1,25 +1,66 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
 import { Badge } from 'reactstrap'
+import Skeleton from 'react-loading-skeleton'
+import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import CartResumne from '../../components/cart/cart-resumen'
 import QualifyOrder from '../../components/payment/qualifyOrder'
+import { getDetailsOrden } from '../../api/orden'
+import { TokenContext } from '../../context/contextToken'
+import { DetailsOrdenAndShipping } from '../../interfaces/shipping'
+import { BASE_API } from '../../api'
 
 const DetailsCompra = () => {
-  const [OrderId, setOrderId] = useState<string>('')
+  const [loading, setLoading] = useState(false)
+  const { token } = useContext(TokenContext)
+  const [Details, setDetails] = useState<DetailsOrdenAndShipping>()
 
   useEffect(() => {
-    if (!Router.query.idOrder) {
-      Router.push('/')
+    const FetchOrdenDetails = async () => {
+      setLoading(true)
+
+      try {
+        const idOrden = Router.query.idOrder as string
+        const { DetailOrden } = await (
+          await getDetailsOrden({ token, idOrden })
+        ).data
+        setDetails(DetailOrden)
+
+        if (!DetailOrden) {
+          Router.push('/mis-compras')
+        }
+
+        setLoading(false)
+      } catch (error) {
+        toast.error(error.message)
+        setLoading(false)
+      }
     }
 
-    setOrderId(Router.query.idOrder as string)
-    console.log(`desde efect de product ID${OrderId}`)
-  }, [OrderId])
+    if (!Router.query.idOrder) {
+      Router.push('/')
+    } else {
+      FetchOrdenDetails()
+    }
+  }, [token])
+
+  const renderStatus = (status?: string) => {
+    switch (status) {
+      case 'Sent':
+        return 'Enviado'
+      case 'Delivered':
+        return 'Entregado'
+      default:
+        return ''
+    }
+  }
 
   return (
     <>
@@ -34,51 +75,104 @@ const DetailsCompra = () => {
             <div className="col-12 p-3">
               <div className="card">
                 <div className="card-header p-3">
-                  Compra: <strong>#3843</strong> - Martes 14 de octubre 2020
+                  {loading ? (
+                    <Skeleton width="80%" height={40} />
+                  ) : (
+                    <>
+                      Compra: <strong>#3843</strong>
+                    </>
+                  )}
                   <br />
-                  <CartResumne />
+                  <CartResumne
+                    loading={loading}
+                    subTotal={0}
+                    envio={Details?.shipping || 0}
+                    text={Details?.shipping === 0 ? 'Gratis' : ''}
+                    total={Details?.totalAmount || 0}
+                    discount={Details?.discount || 0}
+                  />
                 </div>
                 <div className="card-body">
                   <div className="row border-bottom">
                     <div className="col-12 col-md-3 p-2">
                       Ordenado el:{' '}
-                      <Badge color="info">domingo 18 de agosto 2020</Badge>
+                      {loading ? (
+                        <Skeleton width={80} />
+                      ) : (
+                        <Badge color="info">{Details?.ordenado_el}</Badge>
+                      )}
                     </div>
                     <div className="col-12 col-md-3 p-2">
                       Enviado el:{' '}
-                      <Badge color="info">martes 21 de agosto 2020</Badge>
+                      {loading ? (
+                        <Skeleton width={80} />
+                      ) : (
+                        <Badge color="info">{Details?.enviado_el}</Badge>
+                      )}
                     </div>
                     <div className="col-12 col-md-3 p-2">
                       Entregado el:{' '}
-                      <Badge color="info">sabado 25 de agosto 2020</Badge>
+                      {loading ? (
+                        <Skeleton width={80} />
+                      ) : (
+                        <Badge color="info">
+                          {Details?.entregado_el === Details?.enviado_el
+                            ? 'No Entregado'
+                            : Details?.entregado_el}
+                        </Badge>
+                      )}
                     </div>
                     <div className="col-12 col-md-2 p-2">
-                      Estado: <Badge color="success">Entregado</Badge>
+                      Estado:{' '}
+                      {loading ? (
+                        <Skeleton width={80} />
+                      ) : (
+                        <Badge
+                          color={
+                            renderStatus(Details?.status) === 'Entregado'
+                              ? 'success'
+                              : 'warning'
+                          }
+                        >
+                          {renderStatus(Details?.status)}
+                        </Badge>
+                      )}
                     </div>
                   </div>
                   <br />
                   <div className="card mb-3 border-0" style={{ width: '100%' }}>
-                    <div className="row g-0">
-                      <div className="col-3 col-md-1">
-                        <img
-                          src="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                          width="100"
-                          height="100"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="col-9">
-                        <div className="card-body">
-                          <h5 className="card-title">Card title</h5>
-                          <strong style={{ fontSize: 20 }}>
-                            $ 31 <span className="text-cici">X 3</span>
-                          </strong>
+                    {Details?.products.map((product) => (
+                      <div className="row g-0" key={product.idProducts}>
+                        <div className="col-3 col-md-1">
+                          {loading ? (
+                            <Skeleton width={100} height={100} />
+                          ) : (
+                            <img
+                              src={`${BASE_API}/static/${product.source}`}
+                              width="100"
+                              height="100"
+                              alt={product.title}
+                            />
+                          )}
+                        </div>
+                        <div className="col-9">
+                          <div className="card-body">
+                            {loading ? (
+                              <Skeleton width="70%" height={25} />
+                            ) : (
+                              <h5 className="card-title">{product.title}</h5>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-2">
+                          {loading ? (
+                            <Skeleton width={100} height={50} />
+                          ) : (
+                            <QualifyOrder idProduct={product.idProducts} />
+                          )}
                         </div>
                       </div>
-                      <div className="col-12 col-md-2">
-                        <QualifyOrder />
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

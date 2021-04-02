@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { BsFillEyeFill } from 'react-icons/bs'
 import Link from 'next/link'
 import { BASE_API } from '../../api'
@@ -35,14 +34,9 @@ const CardLanding = ({ product }: Props) => {
           </p>
         </div>
         <p className="bottom-area d-flex px-3">
-          <a href="/" className="add-to-cart text-center py-2 mr-1">
-            <span>
-              Agregar <HiOutlineShoppingCart />
-            </span>
-          </a>
           <Link href={`/productos/${product.idProducts}`}>
             <a className="buy-now text-center py-2">
-              Ver <BsFillEyeFill />
+              Más detalles <BsFillEyeFill />
             </a>
           </Link>
         </p>
