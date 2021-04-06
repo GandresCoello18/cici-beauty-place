@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -116,7 +117,24 @@ const Favorite = () => {
     <>
       <NextSeo
         title="Mis Favoritos | Cici beauty place"
-        description="Mis productos favoritos."
+        description="Sabemos que amas estos productos y lo guardamos para ti."
+        canonical="https://cici.beauty/mis-favoritos"
+        openGraph={{
+          url: 'https://cici.beauty/mis-favoritos',
+          title: 'Mis Favoritos',
+          description:
+            'Sabemos que amas estos productos y lo guardamos para ti',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>
