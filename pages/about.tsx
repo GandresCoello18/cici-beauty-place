@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { AiOutlineFacebook, AiOutlineTwitter } from 'react-icons/ai'
@@ -10,7 +11,24 @@ const About = () => {
     <>
       <NextSeo
         title="Sobre nosotros | Cici beauty place"
-        description="Equipo de trabajo que esta detras de cici beauty place."
+        description="Descubre el equipo de trabajo que esta detras de cici beauty place."
+        canonical="https://cici.beauty/about"
+        openGraph={{
+          url: 'https://cici.beauty/about',
+          title: 'Sobre nosotros | Cici beauty place',
+          description:
+            'Descubre el equipo de trabajo que esta detras de cici beauty place.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>
@@ -18,7 +36,7 @@ const About = () => {
           <div className="row">
             <div className="col-12 col-8 text-center">
               <h3 className="font-weight-bold">Sobre Nosotros</h3>
-              <p>Descubre al personal detrás del cici beauty place</p>
+              <p>Descubre al equipo de trabajo de cici beauty place</p>
             </div>
           </div>
           <div className="row justify-content-center mt-4">

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Layout from '../components/layout'
@@ -8,6 +9,23 @@ const Faq = () => {
       <NextSeo
         title="Preguntas frecuentes | Cici beauty place"
         description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes."
+        canonical="https://cici.beauty/faq"
+        openGraph={{
+          url: 'https://cici.beauty/faq',
+          title: 'Preguntas frecuentes | Cici beauty place',
+          description:
+            'Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

@@ -110,26 +110,34 @@ const Compras = () => {
                       />
                     </div>
                     <div className="col-6 col-md-2">
-                      Estado:{' '}
-                      <Badge color="info">{renderStatus(item.status)}</Badge>
+                      <div className="border text-center">
+                        <div className="border-bottom">Estado</div>
+                        <Badge color="info">{renderStatus(item.status)}</Badge>
+                      </div>
                     </div>
                     <div className="col-6 col-md-2">
-                      Guia:{' '}
-                      {item.guide ? (
-                        <a
-                          href={`https://www.servientrega.com.ec/rastreo/guia/${item.guide}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {item.guide}
-                        </a>
-                      ) : (
-                        'None'
-                      )}
+                      <div className="border text-center">
+                        <div className="border-bottom">Guia</div>
+                        {item.guide ? (
+                          <a
+                            href={`https://www.servientrega.com.ec/rastreo/guia/${item.guide}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {item.guide}
+                          </a>
+                        ) : (
+                          'None'
+                        )}
+                      </div>
                     </div>
-                    <div className="col-12 col-md-4">
-                      Ultima actualizacion:{' '}
-                      <Badge color="info">{item.update_at}</Badge>
+                    <div className="col-12 col-md-3">
+                      <div className="border text-center mt-3 mt-md-0">
+                        <div className="border-bottom">
+                          Ultima actualizacion
+                        </div>
+                        <Badge color="info">{item.update_at}</Badge>
+                      </div>
                     </div>
                     <div className="col-12 col-md-6 mt-4 mt-md-0">
                       <h6 className="card-title">{item.titleProduct}</h6>

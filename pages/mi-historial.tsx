@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { Card, CardColumns, CardImg } from 'reactstrap'
@@ -8,7 +9,24 @@ const History = () => {
     <>
       <NextSeo
         title="Mi historial | Cici beauty place"
-        description="Mis productos comprados."
+        description="Sabemos que te gusta este producto, esta vez aprovecha para comprarlo."
+        canonical="https://cici.beauty/mi-historial"
+        openGraph={{
+          url: 'https://cici.beauty/mi-historial',
+          title: 'Mi historial',
+          description:
+            'Sabemos que te gusta este producto, esta vez aprovecha para comprarlo.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -56,7 +57,24 @@ const MisPedidos = () => {
     <>
       <NextSeo
         title="Mis Pedidos | Cici beauty place"
-        description="Mis pedidos."
+        description="Revisa tus pedidos constantemente, puedes saber datos de pagos, rastreo, cupones en uso y mas."
+        canonical="https://cici.beauty/mis-pedidos"
+        openGraph={{
+          url: 'https://cici.beauty/mis-pedidos',
+          title: 'Mis pedidos',
+          description:
+            'Revisa tus pedidos constantemente, puedes saber datos de pagos, rastreo, cupones en uso y mas.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

@@ -17,13 +17,15 @@ export interface FormCalifica {
   commentary: string
   stars: number
   idProduct: string
+  idOrden: string
 }
 
 interface Props {
   idProduct: string
+  idOrden: string
 }
 
-const QualifyOrder = ({ idProduct }: Props) => {
+const QualifyOrder = ({ idProduct, idOrden }: Props) => {
   const methods = useForm<FormCalifica>()
   const { token } = useContext(TokenContext)
   const [Modal, setModal] = useState<boolean>(false)
@@ -37,6 +39,7 @@ const QualifyOrder = ({ idProduct }: Props) => {
 
     data.stars = startCount
     data.idProduct = idProduct
+    data.idOrden = idOrden
 
     try {
       await NewProductReviews({ token, data })

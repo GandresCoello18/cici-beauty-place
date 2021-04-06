@@ -172,7 +172,24 @@ const MisCupones = () => {
     <>
       <NextSeo
         title="Mis Cupones | Cici beauty place"
-        description="Mis cupones, en uso, caducados y pendienntes."
+        description="Revisa tus cupones, en uso, caducados y pendienntes, usalos en tu proxima compra."
+        canonical="https://cici.beauty/mis-cupones"
+        openGraph={{
+          url: 'https://cici.beauty/mis-cupones',
+          title: 'Mis cupones',
+          description:
+            'Revisa tus cupones, en uso, caducados y pendienntes, usalos en tu proxima compra.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

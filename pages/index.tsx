@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { NextSeo } from 'next-seo'
@@ -26,8 +27,26 @@ const Index = () => {
     <>
       <NextSeo
         title="Cici beauty place"
-        description="Encuentra todo sobre cosmeticos y belleza."
+        description="Encuentra todo sobre cosmeticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda fisica."
+        canonical="https://cici.beauty/"
+        openGraph={{
+          url: 'https://cici.beauty/',
+          title: 'Cici beauty place',
+          description:
+            'Encuentra todo sobre cosmeticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda fisica.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 800,
+              height: 600,
+              alt: 'logo de cici beauty place',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
+
       <Layout>
         <div className="banner-img text-white">
           <section className="container font-arvo">

@@ -29,7 +29,11 @@ export const ResumenPaymen = () => {
       return product + sumProduct.price
     }, 0)
 
-    const envio = sub > 40 ? 0 : 4
+    let envio = sub > 40 ? 0 : 4
+
+    if (!sub) {
+      envio = 0
+    }
 
     const data = {
       subTotal: sub,

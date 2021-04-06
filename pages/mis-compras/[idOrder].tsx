@@ -21,6 +21,7 @@ const DetailsCompra = () => {
   const [loading, setLoading] = useState(false)
   const { token } = useContext(TokenContext)
   const [Details, setDetails] = useState<DetailsOrdenAndShipping>()
+  const [OrderId, setOrderId] = useState<string>('')
 
   useEffect(() => {
     const FetchOrdenDetails = async () => {
@@ -28,6 +29,8 @@ const DetailsCompra = () => {
 
       try {
         const idOrden = Router.query.idOrder as string
+        setOrderId(idOrden)
+
         const { DetailOrden } = await (
           await getDetailsOrden({ token, idOrden })
         ).data
@@ -94,49 +97,57 @@ const DetailsCompra = () => {
                 </div>
                 <div className="card-body">
                   <div className="row border-bottom">
-                    <div className="col-12 col-md-3 p-2">
-                      Ordenado el:{' '}
-                      {loading ? (
-                        <Skeleton width={80} />
-                      ) : (
-                        <Badge color="info">{Details?.ordenado_el}</Badge>
-                      )}
+                    <div className="col-6 col-md-3 p-2">
+                      <div className="border text-center">
+                        <div className="border-bottom">Ordenado el</div>
+                        {loading ? (
+                          <Skeleton width={80} />
+                        ) : (
+                          <Badge color="info">{Details?.ordenado_el}</Badge>
+                        )}
+                      </div>
                     </div>
-                    <div className="col-12 col-md-3 p-2">
-                      Enviado el:{' '}
-                      {loading ? (
-                        <Skeleton width={80} />
-                      ) : (
-                        <Badge color="info">{Details?.enviado_el}</Badge>
-                      )}
+                    <div className="col-6 col-md-3 p-2">
+                      <div className="border text-center">
+                        <div className="border-bottom">Enviado el</div>
+                        {loading ? (
+                          <Skeleton width={80} />
+                        ) : (
+                          <Badge color="info">{Details?.enviado_el}</Badge>
+                        )}
+                      </div>
                     </div>
-                    <div className="col-12 col-md-3 p-2">
-                      Entregado el:{' '}
-                      {loading ? (
-                        <Skeleton width={80} />
-                      ) : (
-                        <Badge color="info">
-                          {Details?.entregado_el === Details?.enviado_el
-                            ? 'No Entregado'
-                            : Details?.entregado_el}
-                        </Badge>
-                      )}
+                    <div className="col-6 col-md-3 p-2">
+                      <div className="border text-center">
+                        <div className="border-bottom">Entregado el</div>
+                        {loading ? (
+                          <Skeleton width={80} />
+                        ) : (
+                          <Badge color="info">
+                            {Details?.entregado_el === Details?.enviado_el
+                              ? 'No Entregado'
+                              : Details?.entregado_el}
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                    <div className="col-12 col-md-2 p-2">
-                      Estado:{' '}
-                      {loading ? (
-                        <Skeleton width={80} />
-                      ) : (
-                        <Badge
-                          color={
-                            renderStatus(Details?.status) === 'Entregado'
-                              ? 'success'
-                              : 'warning'
-                          }
-                        >
-                          {renderStatus(Details?.status)}
-                        </Badge>
-                      )}
+                    <div className="col-6 col-md-2 p-2">
+                      <div className="border text-center">
+                        <div className="border-bottom">Estado</div>
+                        {loading ? (
+                          <Skeleton width={80} />
+                        ) : (
+                          <Badge
+                            color={
+                              renderStatus(Details?.status) === 'Entregado'
+                                ? 'success'
+                                : 'warning'
+                            }
+                          >
+                            {renderStatus(Details?.status)}
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <br />
@@ -168,7 +179,10 @@ const DetailsCompra = () => {
                           {loading ? (
                             <Skeleton width={100} height={50} />
                           ) : (
-                            <QualifyOrder idProduct={product.idProducts} />
+                            <QualifyOrder
+                              idProduct={product.idProducts}
+                              idOrden={OrderId}
+                            />
                           )}
                         </div>
                       </div>
