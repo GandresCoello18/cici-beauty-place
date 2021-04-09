@@ -15,6 +15,12 @@ export interface Product {
   created_at: Date | string
   discount: number
   starsPeople: number
+  colors?: string
+}
+
+export interface Colors {
+  hex: string
+  disabled: boolean
 }
 
 export interface SourcesProduct {

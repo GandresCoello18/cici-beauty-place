@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable unicorn/no-nested-ternary */
@@ -19,7 +21,7 @@ import MigasPan from '../element/breadcrumbs'
 import ListImage from './listImage'
 import MoreDetails from './moreDetails'
 import CaroselCard from '../carousel/CaroselCard'
-import { Product } from '../../interfaces/products'
+import { Colors, Product } from '../../interfaces/products'
 import { BASE_API } from '../../api'
 import { RootState } from '../../reducers'
 import ActionsProductDetails from './actions-product-details'
@@ -34,6 +36,7 @@ interface Props {
 const ProductDetails = ({ product, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
+  const [colors, setColors] = useState<Colors[]>([])
   const [preview, setPreview] = useState<{ src: string; type: string }>({
     src: '',
     type: '',
@@ -44,6 +47,7 @@ const ProductDetails = ({ product, loading }: Props) => {
   )
 
   const { ProductsBestRated } = ProductsReducer
+  console.log(product)
 
   useEffect(() => {
     setUrlShare(window.location.href)
@@ -51,6 +55,10 @@ const ProductDetails = ({ product, loading }: Props) => {
       src: `${BASE_API}/static/${product?.source}`,
       type: 'IMAGEN',
     })
+
+    if (product.colors) {
+      setColors(JSON.parse(product.colors))
+    }
   }, [product])
 
   const renderPreViewProduct = () => {
@@ -149,6 +157,33 @@ const ProductDetails = ({ product, loading }: Props) => {
                 </div>
               </div>
             </div>
+
+            <div className="p-3 border-bottom">
+              <div className="row">
+                <div className="col-12">
+                  <span>Colores:</span>
+                  <div className="flex space">
+                    {colors.map(
+                      (color) =>
+                        !color.disabled && (
+                          <button
+                            disabled={color.disabled}
+                            key={color.hex}
+                            className="cursor-pointer border-round p-2 ml-2"
+                            style={{
+                              background: color.hex,
+                              borderColor: color.hex,
+                              width: 18,
+                              height: 18,
+                            }}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="p-3 border-bottom">
               <div className="row">
                 <div className="col-6 col-lg-3">

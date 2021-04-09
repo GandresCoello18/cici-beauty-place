@@ -12,7 +12,6 @@ import {
   NavbarText,
   NavbarToggler,
 } from 'reactstrap'
-import { BASE_API } from '../../api'
 import CartIcon from '../cart/cart-icon'
 import SearchInput from '../element/searchInput'
 
@@ -34,7 +33,10 @@ const NavBarLanding = () => {
         <Link href="/home">
           <a href="/home" style={styles.colorLink}>
             <figure className="logo">
-              <img src={`${BASE_API}/static/logo.jpg`} alt="logotipo" />
+              <img
+                src="https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg"
+                alt="logotipo"
+              />
             </figure>
           </a>
         </Link>
