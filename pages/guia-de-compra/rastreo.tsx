@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -9,7 +10,24 @@ const TrackingGuide = () => {
     <>
       <NextSeo
         title="Rastreo | Guia de compras | Cici beauty place"
-        description="Como son los reastreos para mis pedidos."
+        description="Como puedo rastrear mis pedidos."
+        canonical="https://cici.beauty/guia-de-compra/rastreo"
+        openGraph={{
+          url: 'https://cici.beauty/guia-de-compra/rastreo',
+          title: '¿Como puedo rastrear mis pedidos de cici beauty place?',
+          description:
+            'Cuando realizemos tu envio te notificamos por correo electronico para que puedas ver el numero de guia y el seguimiento de tu paquete.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

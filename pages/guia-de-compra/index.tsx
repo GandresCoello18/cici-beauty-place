@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -10,6 +11,24 @@ const CreateAccount = () => {
       <NextSeo
         title="Crear cuenta | Guia de compras | Cici beauty place"
         description="Que se necesita para crear una cuenta en la tienda de cici beauty place."
+        canonical="https://cici.beauty/guia-de-compra"
+        openGraph={{
+          url: 'https://cici.beauty/guia-de-compra',
+          title:
+            '¿Que se necesita para crear una cuenta en la tienda de cici beauty place?',
+          description:
+            'Registrarse en cici es muy facil, solo tomara 2 minutos.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>
@@ -48,10 +67,6 @@ const CreateAccount = () => {
                   </a>
                 </Link>
                 )
-              </p>
-              <p className="p-1">
-                Ten encuenta que no es necesario crearte una cuenta para comprar
-                en <b className="text-cici">Cici beauty place</b>.
               </p>
             </div>
             <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">

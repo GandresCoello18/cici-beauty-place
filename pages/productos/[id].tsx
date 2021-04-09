@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
@@ -10,6 +11,7 @@ import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
 import { GetProduct } from '../../api/products'
 import { Product } from '../../interfaces/products'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 
 const ProductId = () => {
   const [product, setProduct] = useState<Product>()
@@ -41,8 +43,29 @@ const ProductId = () => {
   return (
     <>
       <NextSeo
-        title={`${product?.title ? product?.title : ''} - Cici beauty place`}
-        description="Encuentra todo sobre cosmeticos y belleza."
+        title={`${product?.title || ''} - Cici beauty place`}
+        description={`${
+          product?.description ||
+          'Encuentra todo sobre cosmeticos, belleza y cuidados de la piel'
+        }`}
+        canonical="https://cici.beauty/productos"
+        openGraph={{
+          url: 'https://cici.beauty/productos',
+          title: `${product?.title || ''} | Cici beauty place'`,
+          description: `${
+            product?.description ||
+            'Encuentra todo sobre cosmeticos, belleza y cuidados de la piel'
+          }`,
+          images: [
+            {
+              url: `${BASE_API_IMAGES_CLOUDINNARY}/${product?.source}`,
+              width: 700,
+              height: 500,
+              alt: product?.title || '',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

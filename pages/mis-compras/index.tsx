@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react'
@@ -68,7 +69,24 @@ const Compras = () => {
     <>
       <NextSeo
         title="Mis Compras | Cici beauty place"
-        description="Mis productos comprados."
+        description="Mira tus productos comprados y dinos que te parecen con una calificación."
+        canonical="https://cici.beauty/mis-compras"
+        openGraph={{
+          url: 'https://cici.beauty/mis-compras',
+          title: 'Mis compras',
+          description:
+            'Mira tus productos comprados y dinos que te parecen con una calificación.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

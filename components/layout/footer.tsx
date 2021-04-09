@@ -9,7 +9,6 @@ import {
   AiOutlineWhatsApp,
 } from 'react-icons/ai'
 import { toast } from 'react-toast'
-import { BASE_API } from '../../api'
 
 interface Subs {
   email: string
@@ -37,7 +36,10 @@ const Footer = () => {
                 <Link href="/home">
                   <a href="/home">
                     <figure className="logo">
-                      <img src={`${BASE_API}/static/logo.jpg`} alt="logotipo" />
+                      <img
+                        src="https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg"
+                        alt="logotipo"
+                      />
                     </figure>
                   </a>
                 </Link>
@@ -48,7 +50,7 @@ const Footer = () => {
                   (frente al hotel Capitol) Babahoyo, Ecuador
                 </li>
                 <li>Telelfono: +593 980 378 869</li>
-                <li>Correo: cici@gmail.com</li>
+                <li>Correo: team@cici.beauty</li>
               </ul>
               <div className="footer-social">
                 <ul className="text-center ul list-unstyled">
@@ -111,7 +113,7 @@ const Footer = () => {
           </div>
           <div className="col-lg-2">
             <div className="footer-widget">
-              <h5>Conòcenos</h5>
+              <h5>Conócenos</h5>
               <ul>
                 <li>
                   <Link href="/faq">
@@ -125,7 +127,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link href="/contacto">
-                    <a href="/contacto">Contactos</a>
+                    <a href="/contacto">Contacto</a>
                   </Link>
                 </li>
               </ul>

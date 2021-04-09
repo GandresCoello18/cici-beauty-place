@@ -51,7 +51,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
         setCoupon(NoDuplicate)
       }
 
-      Cart.length && fetchCoupon()
+      Cart.length && token && fetchCoupon()
     } catch (error) {
       toast.error(error.message)
     }

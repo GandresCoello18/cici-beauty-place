@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unicorn/consistent-function-scoping */
@@ -51,6 +52,23 @@ const SendInvitation = () => {
       <NextSeo
         title="Invitar a alguien | Cici beauty place"
         description="Invita a tus amigos y familiares y por cada compra mayor a 20 recibiras promociones y descuentos para ti."
+        canonical="https://cici.beauty/invitacion"
+        openGraph={{
+          url: 'https://cici.beauty/invitacion',
+          title: 'Invita a un amigo y recibe cupones gratis',
+          description:
+            'Al invitar a un amigo a cici beauty place, el obtendra un cupon gratis por registrarse.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Layout from '../../components/layout'
@@ -9,6 +10,24 @@ const PaymentGuide = () => {
       <NextSeo
         title="Metodos de pagos | Guia de compras | Cici beauty place"
         description="Como o con que puedo pagar en la tienda de cici beauty place."
+        canonical="https://cici.beauty/guia-de-compra/pago"
+        openGraph={{
+          url: 'https://cici.beauty/guia-de-compra/pago',
+          title:
+            '¿Como o con que puedo pagar en la tienda de cici beauty place?',
+          description:
+            'Usamos servicios como Paypal para realizar tus pagos o tambien mediante codigo QR para transferencias bancarios.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>
@@ -30,13 +49,13 @@ const PaymentGuide = () => {
                 </a>
                 ,{' '}
                 <a
-                  href="https://stripe.com/es-us"
+                  href="https://deuna.app/"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  strape
+                  Deuna
                 </a>{' '}
-                o tambien puedes hacer un deposito o trasferencia bancaria,
+                o tambien puedes hacer un deposito o trasferencia bancaria y
                 luego envia tu recibo al nuestra linea telefonica o whatsapp
               </p>
             </div>

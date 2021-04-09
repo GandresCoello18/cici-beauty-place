@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Layout from '../../components/layout'
@@ -9,6 +10,23 @@ const ShippingGuide = () => {
       <NextSeo
         title="Metodos de envio | Guia de compras | Cici beauty place"
         description="Como son los metodo de envio para mis pedidos."
+        canonical="https://cici.beauty/guia-de-compra/envios"
+        openGraph={{
+          url: 'https://cici.beauty/guia-de-compra/envios',
+          title: '¿Como enviamos tus pedidos a su lugar de destino?',
+          description:
+            'Para enviar tus productos usamos los servicos de ServiEntrega u otras empresas.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>

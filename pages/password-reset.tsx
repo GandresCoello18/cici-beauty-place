@@ -4,8 +4,10 @@ import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
+import * as EmailValidator from 'email-validator'
 import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import { toast } from 'react-toast'
 import Layout from '../components/layout'
 
 interface FromPasswordReset {
@@ -17,10 +19,16 @@ const PassWordReset = () => {
   const { handleSubmit, control, reset, errors } = methods
   const [sendEmail, setSendEmail] = useState<boolean>(false)
 
-  const send = (_data: FromPasswordReset) => {
-    console.log(_data)
-    setSendEmail(true)
-    reset()
+  const send = (data: FromPasswordReset) => {
+    console.log(data)
+
+    if (EmailValidator.validate(data.email)) {
+      console.log('se guardo')
+      setSendEmail(true)
+      reset()
+    } else {
+      toast.warn('Introduce un email valido.')
+    }
   }
 
   return (
