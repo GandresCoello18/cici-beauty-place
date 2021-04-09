@@ -3,6 +3,7 @@ import { api } from '.'
 export const newProductCart = async (options: {
   idProduct: string
   quantity: number
+  colour: string | undefined
   token: string | undefined
 }) => {
   api.defaults.headers['access-token'] = options.token
@@ -12,6 +13,7 @@ export const newProductCart = async (options: {
     data: {
       idProduct: options.idProduct,
       quantity: options.quantity,
+      colour: options.colour,
     },
   })
   return response

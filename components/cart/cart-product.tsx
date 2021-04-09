@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -62,6 +64,20 @@ const CartProduct = ({ product }: Props) => {
             <div className="card-body">
               <h5 className="card-title">{product.title}</h5>
               <div className="row justify-content-between">
+                {product.colour && (
+                  <div className="col-12">
+                    Color:{' '}
+                    <button
+                      disabled
+                      className="cursor-pointer border-round p-2 ml-2 mb-2"
+                      style={{
+                        background: product.colour,
+                        width: 18,
+                        height: 18,
+                      }}
+                    />
+                  </div>
+                )}
                 <div className="col-12">
                   <ProductPicker
                     loading={false}

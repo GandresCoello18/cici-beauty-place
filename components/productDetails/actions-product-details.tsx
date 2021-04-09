@@ -29,6 +29,7 @@ interface Props {
   available: number
   quantity?: number
   product: Product
+  colour: string | undefined
 }
 
 const ActionsProductDetails = ({
@@ -36,6 +37,7 @@ const ActionsProductDetails = ({
   available,
   quantity,
   product,
+  colour,
 }: Props) => {
   const { token } = useContext(TokenContext)
   const [loadingAction, setLoadingAction] = useState<boolean>(false)
@@ -68,6 +70,7 @@ const ActionsProductDetails = ({
   const fetchAddProduct = async (cart: {
     idProducts: string
     quantity: number
+    colour: string | undefined
   }) => {
     if (token) {
       setLoadingAction(true)
@@ -75,6 +78,7 @@ const ActionsProductDetails = ({
         await newProductCart({
           idProduct: cart.idProducts,
           quantity: cart.quantity,
+          colour: cart.colour,
           token,
         })
         setLoadingAction(false)
@@ -95,11 +99,16 @@ const ActionsProductDetails = ({
       created_at: product.created_at,
       discount: product.discount,
       quantity: quantity || 1,
+      colour,
     }
 
     if (validate_quantity(cart.quantity)) {
       dispatch(setCart([...cartStorage, ...[cart]]))
-      fetchAddProduct({ idProducts: cart.idProducts, quantity: cart.quantity })
+      fetchAddProduct({
+        idProducts: cart.idProducts,
+        quantity: cart.quantity,
+        colour,
+      })
     }
   }
 
@@ -110,11 +119,13 @@ const ActionsProductDetails = ({
     } else {
       existCart.quantity += quantity || 1
       cartStorage.splice(0, cartStorage.length, existCart)
+
       if (validate_quantity(existCart.quantity)) {
         dispatch(setCart([...cartStorage]))
         fetchAddProduct({
           idProducts: existCart.idProducts,
           quantity: quantity || 1,
+          colour,
         })
       } else {
         existCart.quantity -= quantity || 1

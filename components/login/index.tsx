@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
@@ -18,6 +19,7 @@ import Cookies from 'js-cookie'
 import { FcGoogle } from 'react-icons/fc'
 import { Controller, useForm } from 'react-hook-form'
 import { AiFillFacebook } from 'react-icons/ai'
+import ValidateEmail from 'email-validator'
 import { useDispatch } from 'react-redux'
 import Redirect from '../../lib/redirect'
 import { loginWithFacebook, loginWithGoogle } from '../../firebase/firebase'
@@ -55,6 +57,15 @@ const Login = () => {
     setLoading(true)
 
     const { email, password } = data
+
+    if (!ValidateEmail.validate(email)) {
+      setFeedback({
+        content: 'Asegurate de escribir un correo electronico valido.',
+        type: 'danger',
+      })
+      setLoading(false)
+      return
+    }
 
     try {
       const response = await LoginUser({
@@ -275,7 +286,9 @@ const Login = () => {
                 <div className="col-6">
                   <p className="text-right cursor-pointer text-dark">
                     <Link href="/password-reset">
-                      ¿Olvidastes tu contraseña?
+                      <a style={{ color: '#000' }}>
+                        ¿Olvidastes tu contraseña?
+                      </a>
                     </Link>
                   </p>
                 </div>

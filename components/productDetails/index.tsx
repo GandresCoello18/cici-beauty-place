@@ -36,6 +36,7 @@ interface Props {
 const ProductDetails = ({ product, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
+  const [colour, setColour] = useState<string | undefined>(undefined)
   const [colors, setColors] = useState<Colors[]>([])
   const [preview, setPreview] = useState<{ src: string; type: string }>({
     src: '',
@@ -158,31 +159,36 @@ const ProductDetails = ({ product, loading }: Props) => {
               </div>
             </div>
 
-            <div className="p-3 border-bottom">
-              <div className="row">
-                <div className="col-12">
-                  <span>Colores:</span>
-                  <div className="flex space">
-                    {colors.map(
-                      (color) =>
-                        !color.disabled && (
-                          <button
-                            disabled={color.disabled}
-                            key={color.hex}
-                            className="cursor-pointer border-round p-2 ml-2"
-                            style={{
-                              background: color.hex,
-                              borderColor: color.hex,
-                              width: 18,
-                              height: 18,
-                            }}
-                          />
-                        )
-                    )}
+            {product.colors && (
+              <div className="p-3 border-bottom">
+                <div className="row">
+                  <div className="col-12">
+                    <span>Colores:</span>
+                    <div className="flex space">
+                      {colors.map(
+                        (color) =>
+                          !color.disabled && (
+                            <button
+                              disabled={color.disabled}
+                              onClick={() => setColour(color.hex)}
+                              key={color.hex}
+                              className="cursor-pointer border-round p-2 ml-2"
+                              style={{
+                                background: color.hex,
+                                border: `3px solid ${
+                                  colour === color.hex ? 'red' : color.hex
+                                }`,
+                                width: 18,
+                                height: 18,
+                              }}
+                            />
+                          )
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="p-3 border-bottom">
               <div className="row">
@@ -246,6 +252,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                 available={product.available}
                 quantity={quantity}
                 product={product}
+                colour={colour}
               />
             </div>
           </div>
