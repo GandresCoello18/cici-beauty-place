@@ -179,10 +179,16 @@ const DetailsCompra = () => {
                           {loading ? (
                             <Skeleton width={100} height={50} />
                           ) : (
-                            <QualifyOrder
-                              idProduct={product.idProducts}
-                              idOrden={OrderId}
-                            />
+                            <>
+                              {Details.qualified ? (
+                                <Badge color="secondary p-2">Calificado</Badge>
+                              ) : (
+                                <QualifyOrder
+                                  idProduct={product.idProducts}
+                                  idOrden={OrderId}
+                                />
+                              )}
+                            </>
                           )}
                         </div>
                       </div>
