@@ -28,10 +28,10 @@ const Home = () => {
 
   return (
     <>
-      <section className="container mt-4">
+      <section className="container mt-md-4">
         <div className="row justify-content-between p-2">
-          <div className="col-12 col-md-3 col-lg-2 mb-3 mb-md-0 bg-white border-round">
-            <CategoriNav />
+          <div className="col-12 col-md-4 mb-3 mb-md-0">
+            <CarouselAdvertising />
           </div>
           <div className="col-12 col-md-4 col-lg-5 mb-3 mb-md-0">
             <div className="row bg-white border-round font-arvo">
@@ -90,8 +90,8 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-4 mb-3 mb-md-0 bg-white border-round p-2">
-            <CarouselAdvertising />
+          <div className="col-12 col-md-3 col-lg-2 mb-3 mb-md-0 bg-white border-round p-2">
+            <CategoriNav />
           </div>
         </div>
 

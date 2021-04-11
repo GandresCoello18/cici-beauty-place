@@ -1,15 +1,10 @@
 import React from 'react'
 import { ServerResponse } from 'http'
 
-const getRobots = () => `User-agent: *
-Disallow: /_next/static/
+const getRobots = () => `
+User-agent: *
 Disallow: /compra/
 Disallow: /login/
-Disallow: /configuracion/*
-Disallow: /mis-favoritos/
-Disallow: /mis-pedidos/
-Disallow: /mi-historial/
-Disallow: /mis-compras/*
 `
 
 interface Params {
