@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
@@ -9,6 +9,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { toast } from 'react-toast'
 import Layout from '../components/layout'
+import { newTimeMessage } from '../api/time-message'
+import { TokenContext } from '../context/contextToken'
 
 interface FromPasswordReset {
   email: string
@@ -16,18 +18,27 @@ interface FromPasswordReset {
 
 const PassWordReset = () => {
   const methods = useForm<FromPasswordReset>()
+  const { token } = useContext(TokenContext)
   const { handleSubmit, control, reset, errors } = methods
   const [sendEmail, setSendEmail] = useState<boolean>(false)
 
-  const send = (data: FromPasswordReset) => {
-    console.log(data)
+  const send = async (data: FromPasswordReset) => {
+    if (!EmailValidator.validate(data.email)) {
+      toast.warn('Introduce un email valido.')
+    }
 
-    if (EmailValidator.validate(data.email)) {
-      console.log('se guardo')
+    try {
+      await newTimeMessage({
+        token,
+        destination: data.email,
+        subject: 'Recuperar contraseña',
+      })
+
+      toast.success('Revise su bandeja de correo electronico')
       setSendEmail(true)
       reset()
-    } else {
-      toast.warn('Introduce un email valido.')
+    } catch (error) {
+      toast.error(error.message)
     }
   }
 
