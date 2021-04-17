@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react'
-import { NextSeo } from 'next-seo'
+import { CorporateContactJsonLd, NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { ImFacebook2 } from 'react-icons/im'
 import { IoLogoWhatsapp } from 'react-icons/io'
@@ -69,7 +70,37 @@ const Index = () => {
     <>
       <NextSeo
         title="Contacto | Cici beauty place"
-        description="Contacte con nosotros si tieneal algun problema o duda."
+        description="Contacte con nosotros por nuestra tienda fisica o nuestas redes si tieneal algun problema o duda."
+        canonical="https://cici.beauty/contacto"
+        openGraph={{
+          url: `https://cici.beauty/contacto`,
+          title: 'Contacto',
+          description:
+            'Contacte con nosotros por nuestra tienda fisica o nuestas redes si tieneal algun problema o duda',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
+      />
+
+      <CorporateContactJsonLd
+        url="https://cici.beauty/contacto"
+        logo="https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg"
+        contactPoint={[
+          {
+            telephone: '+593 980 378 869',
+            contactType: 'Servicio al cliente',
+            areaServed: 'US',
+            availableLanguage: ['English', 'Spanish'],
+          },
+        ]}
       />
 
       <Layout>

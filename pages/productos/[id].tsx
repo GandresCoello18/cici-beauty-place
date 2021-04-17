@@ -6,7 +6,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
-import { NextSeo, ProductJsonLd } from 'next-seo'
+import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Router from 'next/router'
 import { toast } from 'react-toast'
 import Layout from '../../components/layout'
@@ -123,13 +123,33 @@ const ProductId = () => {
           {
             price: `${product?.price}`,
             priceCurrency: 'USD',
-            priceValidUntil: '2020-11-05',
+            priceValidUntil: `${product?.offer_expires_date}`,
             seller: {
               name: 'Cici beauty place',
             },
           },
         ]}
         mpn="925872"
+      />
+
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Inicio',
+            item: 'https://cici.beauty/home',
+          },
+          {
+            position: 2,
+            name: 'Productos',
+            item: 'https://cici.beauty/productos',
+          },
+          {
+            position: 3,
+            name: `${product?.title}`,
+            item: `https://cici.beauty/productos/${product?.idProducts}`,
+          },
+        ]}
       />
 
       <Layout>

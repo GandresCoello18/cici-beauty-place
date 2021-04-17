@@ -17,6 +17,7 @@ export interface Product {
   discount: number
   starsPeople: number
   colors?: string
+  offer_expires_date: string | Date
 }
 
 export interface Colors {
