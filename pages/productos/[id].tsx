@@ -112,8 +112,6 @@ const ProductId = () => {
         images={[`${BASE_API_IMAGES_CLOUDINNARY}/${product?.source}`]}
         description={`${product?.description}`}
         brand={product?.brand}
-        color={product?.colors}
-        releaseDate="2014-02-05T08:00:00+08:00"
         reviews={ProductReviews}
         aggregateRating={{
           ratingValue: `${product?.stars}`,
