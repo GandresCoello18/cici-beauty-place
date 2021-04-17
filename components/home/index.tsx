@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
@@ -18,6 +18,7 @@ import { Product } from '../../interfaces/products'
 import CardImageOnly from '../card/card-image-only'
 
 const Home = () => {
+  const [IsRunning, SetIsRunning] = useState<boolean>(true)
   const ProductsReducer = useSelector(
     (state: RootState) => state.ProductReducer
   )
@@ -113,14 +114,21 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="row mt-3 mb-3 bg-white p-3">
-          <div className="col-12 p-2">
-            <BsFillLightningFill color="pink" /> &nbsp;{' '}
-            <strong>Flash Ofertas</strong> &nbsp; &nbsp;
-            <Time />
+        {IsRunning ? (
+          <div className="row mt-3 mb-3 bg-white p-3">
+            <div className="col-12 p-2">
+              <BsFillLightningFill color="pink" /> &nbsp;{' '}
+              <strong>Flash Ofertas</strong> &nbsp; &nbsp;
+              <Time
+                expiryTimestamp={1618694164986}
+                SetIsRunning={SetIsRunning}
+              />
+            </div>
+            <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
           </div>
-          <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
-        </div>
+        ) : (
+          ''
+        )}
 
         <div className="row justify-content-center">
           <div className="col-12 p-3">
