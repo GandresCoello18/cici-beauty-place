@@ -13,9 +13,11 @@ export interface Product {
   model: string
   related_sources: SourcesProduct[]
   created_at: Date | string
+  updated_at: Date | string
   discount: number
   starsPeople: number
   colors?: string
+  offer_expires_date: string | Date
 }
 
 export interface Colors {
@@ -68,4 +70,18 @@ export interface ProductReview {
   created_at: Date | string
   userName: string
   avatar: string
+}
+
+export interface SeoProductReview {
+  author: {
+    type: string
+    name: string
+  }
+  datePublished: string
+  reviewBody: string
+  name: string
+  reviewRating: {
+    bestRating: string
+    ratingValue: string
+  }
 }

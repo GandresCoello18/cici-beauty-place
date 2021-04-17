@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react'
-import { NextSeo } from 'next-seo'
+import { FAQPageJsonLd, NextSeo } from 'next-seo'
 import Layout from '../components/layout'
 
 const Faq = () => {
@@ -26,6 +26,19 @@ const Faq = () => {
           ],
           site_name: 'Cici beauty place',
         }}
+      />
+
+      <FAQPageJsonLd
+        mainEntity={[
+          {
+            questionName: 'How long is the delivery time?',
+            acceptedAnswerText: '3-5 business days.',
+          },
+          {
+            questionName: 'Where can I find information about product recalls?',
+            acceptedAnswerText: 'Read more on under information.',
+          },
+        ]}
       />
 
       <Layout>
