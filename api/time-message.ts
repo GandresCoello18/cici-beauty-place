@@ -16,3 +16,15 @@ export const newTimeMessage = async (options: {
   })
   return response
 }
+
+export const getTimeMessage = async (options: {
+  token: string | undefined
+  idMessage: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: `/timeMessage/${options.idMessage}`,
+  })
+  return response
+}
