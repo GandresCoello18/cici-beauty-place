@@ -3,6 +3,7 @@ export interface Coupons {
   type: string
   descripcion: string
   status: string
+  source: string
 }
 
 export interface MyCouponsUser {
@@ -13,6 +14,7 @@ export interface MyCouponsUser {
   type: string
   descripcion: string
   status: string
+  source: string
   userName: string
   avatar: string
 }

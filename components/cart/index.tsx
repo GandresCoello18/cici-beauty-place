@@ -22,6 +22,7 @@ import CartResumne from './cart-resumen'
 import Modal from '../element/modal'
 import { TokenContext } from '../../context/contextToken'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 
 interface Props {
   setIdCoupon: Dispatch<SetStateAction<string>>
@@ -56,19 +57,6 @@ const CartContainer = ({ setIdCoupon }: Props) => {
       toast.error(error.message)
     }
   }, [Cart, token])
-
-  const renderSource = (type: string) => {
-    switch (type) {
-      case '15% Descuento':
-        return '../img/descuento.svg'
-      case 'Envio gratis':
-        return '../img/shipping.svg'
-      case '+ 1 favorito':
-        return '../img/favorite.svg'
-      default:
-        return ''
-    }
-  }
 
   return (
     <>
@@ -144,7 +132,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                 <CardBody>
                   <div className="text-center ">
                     <img
-                      src={renderSource(cupon.type)}
+                      src={`${BASE_API_IMAGES_CLOUDINNARY}/${cupon.source}`}
                       alt={cupon.type}
                       width={150}
                       height={150}

@@ -6,7 +6,7 @@ import { Button, Card, CardBody, CardText } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import Link from 'next/link'
-import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { AssignUserCoupons, getCoupons } from '../../api/coupons'
 import { Coupons } from '../../interfaces/coupons'
 import { Users } from '../../interfaces/users'
@@ -14,6 +14,7 @@ import SpinnerLoader from '../element/spinner-cici'
 import { TokenContext } from '../../context/contextToken'
 import redirect from '../../lib/redirect'
 import { RootState } from '../../reducers'
+import { SourceAvatar } from '../../helpers/sourceAvatar'
 
 interface Props {
   user?: Users
@@ -69,19 +70,6 @@ const ContainerCupones = ({ user }: Props) => {
     }
   }
 
-  const renderSource = (type: string) => {
-    switch (type) {
-      case '15% Descuento':
-        return '../img/descuento.svg'
-      case 'Envio gratis':
-        return '../img/shipping.svg'
-      case '+ 1 favorito':
-        return '../img/favorite.svg'
-      default:
-        return ''
-    }
-  }
-
   return (
     <section className="container font-arvo mt-4 mb-4">
       <div className="row justify-content-center p-2">
@@ -92,7 +80,7 @@ const ContainerCupones = ({ user }: Props) => {
                 width={100}
                 height={100}
                 className="p-2 border-round"
-                src={user.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+                src={SourceAvatar(user.avatar)}
                 alt={user.userName}
               />
             </div>
@@ -131,7 +119,7 @@ const ContainerCupones = ({ user }: Props) => {
               <CardBody>
                 <div className="text-center ">
                   <img
-                    src={renderSource(cupon.type)}
+                    src={`${BASE_API_IMAGES_CLOUDINNARY}/${cupon.source}`}
                     alt={cupon.type}
                     width={150}
                     height={150}
