@@ -24,6 +24,7 @@ export const initialState: initialStateINT = {
     type: '',
     descripcion: '',
     status: '',
+    source: '',
     userName: '',
     avatar: '',
   },
