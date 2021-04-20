@@ -108,3 +108,19 @@ export const UpdatePasswordUser = async (options: {
   })
   return response
 }
+
+export const UpdatePasswordEmail = async (options: {
+  token: string | undefined
+  email: string
+  newKey: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: `/users/rerset-password/${options.email}`,
+    data: {
+      newKey: options.newKey,
+    },
+  })
+  return response
+}

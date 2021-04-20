@@ -8,9 +8,9 @@ import * as EmailValidator from 'email-validator'
 import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { toast } from 'react-toast'
-import Layout from '../components/layout'
-import { newTimeMessage } from '../api/time-message'
-import { TokenContext } from '../context/contextToken'
+import Layout from '../../components/layout'
+import { newTimeMessage } from '../../api/time-message'
+import { TokenContext } from '../../context/contextToken'
 
 interface FromPasswordReset {
   email: string
@@ -21,11 +21,15 @@ const PassWordReset = () => {
   const { token } = useContext(TokenContext)
   const { handleSubmit, control, reset, errors } = methods
   const [sendEmail, setSendEmail] = useState<boolean>(false)
+  const [Loading, setLoading] = useState<boolean>(false)
 
   const send = async (data: FromPasswordReset) => {
     if (!EmailValidator.validate(data.email)) {
       toast.warn('Introduce un email valido.')
+      return
     }
+
+    setLoading(true)
 
     try {
       await newTimeMessage({
@@ -36,9 +40,12 @@ const PassWordReset = () => {
 
       toast.success('Revise su bandeja de correo electronico')
       setSendEmail(true)
+
       reset()
+      setLoading(false)
     } catch (error) {
       toast.error(error.message)
+      setLoading(false)
     }
   }
 
@@ -84,6 +91,7 @@ const PassWordReset = () => {
                             invalid={errors.email && true}
                             type="email"
                             name="email"
+                            disabled={Loading}
                             id="email"
                             placeholder="ejemplo@gmail.com"
                           />
@@ -99,7 +107,11 @@ const PassWordReset = () => {
                       </FormFeedback>
                     </FormGroup>
 
-                    <button type="submit" className="btn bg-cici">
+                    <button
+                      type="submit"
+                      disabled={Loading}
+                      className="btn bg-cici"
+                    >
                       Recuperar cuenta
                     </button>
                   </Form>

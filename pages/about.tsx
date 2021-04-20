@@ -34,7 +34,7 @@ const About = () => {
       <Layout>
         <section className="container mt-5 mb-5 p-2 font-arvo">
           <div className="row">
-            <div className="col-12 col-8 text-center">
+            <div className="col-12 col-md-8 text-center">
               <h3 className="font-weight-bold">Sobre Nosotros</h3>
               <p>Descubre al equipo de trabajo de cici beauty place</p>
             </div>
