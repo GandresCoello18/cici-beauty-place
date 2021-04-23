@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import Autocomplete from 'autocompleter'
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap'
+import Router from 'next/router'
+import { toast } from 'react-toast'
 
 interface SearchAutoComplete {
   label: string
@@ -12,6 +14,7 @@ interface SearchAutoComplete {
 }
 
 const SearchInput = () => {
+  const [SearchValue, setSearchValue] = useState<string>('')
   const [countries] = useState<SearchAutoComplete[]>([
     { label: 'United Kingdom', value: 'UK' },
     { label: 'United States', value: 'US' },
@@ -35,14 +38,29 @@ const SearchInput = () => {
     })
   }, [countries])
 
+  const SearchKey = () => {
+    if (SearchValue) {
+      Router.push(`/buscar/${SearchValue}`)
+    } else {
+      toast.error(
+        'Escribe lo que estas buscando, ya sea un producto o categoria'
+      )
+    }
+  }
+
   return (
     <InputGroup style={{ width: 300 }} className="ml-md-4">
       <Input
         id="input-search"
         placeholder="Buscar..."
         style={{ borderColor: '#f1d7dd', borderWidth: 2 }}
+        onChange={(event) => setSearchValue(event.target.value)}
       />
-      <InputGroupAddon addonType="append">
+      <InputGroupAddon
+        addonType="append"
+        className="cursor-pointer"
+        onClick={SearchKey}
+      >
         <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
           <AiOutlineSearch />
         </InputGroupText>

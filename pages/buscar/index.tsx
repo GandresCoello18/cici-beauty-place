@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React from 'react'
 import { NextSeo } from 'next-seo'
-import Layout from '../components/layout'
+import React from 'react'
+import SearchInput from '../../components/element/searchInput'
+import Layout from '../../components/layout'
 
 const Search = () => {
   return (
@@ -30,19 +31,17 @@ const Search = () => {
       <Layout>
         <section className="container mt-md-5 mb-md-5 p-2 font-arvo">
           <div className="row bg-white border-round p-3">
-            <div className="col-12">
-              <div className="text-center">
-                <img
-                  src="/img/not_found_search.svg"
-                  alt="empty search product"
-                  height={200}
-                />
-              </div>
-              <br />
-              <h3 className="text-center">Ningún resultado encontrado</h3>
-              <p className="text-center text-secondary">
-                Prueba a acortar o reformular la búsqueda.
+            <div className="col-12 p-2 text-center">
+              <h3 className="p-1">¿Que estas buscando?</h3>
+              <p className="text-secondary">
+                Escribe palabras claves como: marcas, productos, categorias.
               </p>
+
+              <div className="row justify-content-center align-items-center mt-2">
+                <div className="col-auto">
+                  <SearchInput />
+                </div>
+              </div>
             </div>
           </div>
         </section>

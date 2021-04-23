@@ -48,7 +48,6 @@ const ProductDetails = ({ product, loading }: Props) => {
   )
 
   const { ProductsBestRated } = ProductsReducer
-  console.log(product)
 
   useEffect(() => {
     setUrlShare(window.location.href)
