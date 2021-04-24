@@ -53,6 +53,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
       }
 
       Cart.length && token && fetchCoupon()
+      // setResument(ResumenPaymen())
     } catch (error) {
       toast.error(error.message)
     }

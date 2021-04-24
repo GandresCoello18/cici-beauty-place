@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-console */
@@ -6,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Badge } from 'reactstrap'
 import { toast } from 'react-toast'
 import { BASE_API } from '../../api'
-import { deleteProductCart } from '../../api/cart'
+import { deleteProductCart, newProductCart } from '../../api/cart'
 import { Cart } from '../../interfaces/products'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
@@ -14,6 +16,7 @@ import ActionFavoritePrduct from '../productDetails/action-favorite-product'
 import { TokenContext } from '../../context/contextToken'
 import ProductPicker from '../productDetails/product-number-picker'
 import { calculatePrice } from '../../helpers/calculatePrice'
+import SpinnerLoader from '../element/spinner-cici'
 
 interface Props {
   product: Cart
@@ -22,13 +25,23 @@ interface Props {
 const CartProduct = ({ product }: Props) => {
   const dispatch = useDispatch()
   const { token } = useContext(TokenContext)
-  const [quantity, setQuantity] = useState<number>(product.quantity)
+  const [Loading, setLoading] = useState<boolean>(false)
+  const [quantity, setQuantity] = useState<number>(0)
 
   const cartReducer = useSelector((state: RootState) => state.CartReducer.Cart)
 
-  useEffect(() => {
-    console.log(quantity)
-  }, [quantity])
+  const QuantityProductReducer = () => {
+    const ProductCartReducer = cartReducer.find(
+      (item) => item.idProducts === product.idProducts
+    )
+
+    if (ProductCartReducer) {
+      ProductCartReducer.quantity = quantity
+      cartReducer.splice(0, cartReducer.length, ProductCartReducer)
+
+      dispatch(setCart(cartReducer))
+    }
+  }
 
   const RemoveProductReducer = () => {
     const setCartReducer = cartReducer.filter(
@@ -47,6 +60,33 @@ const CartProduct = ({ product }: Props) => {
       RemoveProductReducer()
     }
   }
+
+  useEffect(() => {
+    if (token) {
+      const fetchAddProduct = async () => {
+        setLoading(true)
+
+        try {
+          await newProductCart({
+            idProduct: product.idProducts,
+            quantity: quantity - product.quantity,
+            colour: product.colour,
+            token,
+          })
+
+          QuantityProductReducer()
+          setLoading(false)
+        } catch (error) {
+          toast.error(error.message)
+          setLoading(false)
+        }
+      }
+
+      quantity && fetchAddProduct()
+    } else {
+      quantity && QuantityProductReducer()
+    }
+  }, [quantity, token])
 
   return (
     <>
@@ -79,12 +119,16 @@ const CartProduct = ({ product }: Props) => {
                   </div>
                 )}
                 <div className="col-12">
-                  <ProductPicker
-                    loading={false}
-                    quantity={product.quantity || 1}
-                    available={product.available}
-                    setQuantity={setQuantity}
-                  />
+                  {Loading ? (
+                    <SpinnerLoader />
+                  ) : (
+                    <ProductPicker
+                      loading={false}
+                      quantity={product.quantity || 1}
+                      available={product.available}
+                      setQuantity={setQuantity}
+                    />
+                  )}
                 </div>
                 <div className="col-12 p-1">
                   <div className="p-1 mb-2 border-bottom">
@@ -111,10 +155,14 @@ const CartProduct = ({ product }: Props) => {
                   <ActionFavoritePrduct idProduct={product.idProducts} />
                 </div>
               </div>
-              <small className="text-cici mb-1 mt-1">
-                Solo queda(n) <strong>5</strong> en stock (hay más unidades en
-                camino)
-              </small>
+
+              {product.available <= 5 && (
+                <small className="text-cici mb-1 mt-1">
+                  Solo queda(n) <strong>{product.available}</strong> en stock
+                  (hay más unidades en camino)
+                </small>
+              )}
+
               <Badge
                 color={product.status === 'Disponible' ? 'success' : 'danger'}
               >
