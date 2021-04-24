@@ -53,6 +53,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
       }
 
       Cart.length && token && fetchCoupon()
+      // setResument(ResumenPaymen())
     } catch (error) {
       toast.error(error.message)
     }
@@ -70,9 +71,19 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                   <CartProduct product={item} key={item.idProducts} />
                 ))
               ) : (
-                <Alert color="info">
-                  Por el momento no tienes productos en tu carrito.
-                </Alert>
+                <>
+                  <div className="text-center p-2 mb-2">
+                    <img
+                      src="img/empty_cart.svg"
+                      alt="empty cart product"
+                      width="100%"
+                      height={300}
+                    />
+                  </div>
+                  <Alert color="info">
+                    Por el momento no tienes productos en tu carrito.
+                  </Alert>
+                </>
               )}
             </div>
             <div className="col-12 col-lg-4">

@@ -27,11 +27,11 @@ const ProductId = () => {
   useEffect(() => {
     setLoading(true)
 
-    try {
-      if (!Router.query.id) {
-        Router.push('/')
-      }
+    if (!Router.query.id) {
+      Router.push('/')
+    }
 
+    try {
       const fetchProduct = async () => {
         const productId = Router.query.id as string
         const { product } = await (await GetProduct({ idProduct: productId }))
