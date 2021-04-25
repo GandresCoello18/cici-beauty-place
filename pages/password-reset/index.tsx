@@ -67,8 +67,8 @@ const PassWordReset = () => {
                 <p className="p-1">
                   Te hemos enviado un correo a{' '}
                   <strong>goyeselcoca@gmail.com</strong> con las instrucciones
-                  para cambiar tu contraseña. Si n logras encontrarlo, revisa en
-                  la bandeja de spam.
+                  para cambiar tu contraseña. Si no logras encontrarlo, revisa
+                  en la bandeja de spam.
                 </p>
               </div>
             ) : (

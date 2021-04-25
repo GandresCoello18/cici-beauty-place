@@ -86,12 +86,12 @@ const Compra = () => {
       >
         <ModalBody>
           <strong className="border-bottom p-2">
-            <FcOk size={30} /> Su compra se realizo con exito
+            <FcOk size={30} /> Su compra se realizo con éxito
           </strong>
           <p className="p-3">
-            Revisa la seccion de <strong>mis pedidos</strong> en su perfil, para
-            completar pagos pendientes u obtener su guia de rastreo. Para saber
-            màs como son nuestros envios puedes{' '}
+            Revisa la sección de <strong>mis pedidos</strong> en su perfil, para
+            completar pagos pendientes u obtener su guiá de rastreo. Para saber
+            más como son nuestros envíos, puedes{' '}
             <Link href="/guia-de-compra/rastreo">
               <a href="/guia-de-compra/rastreo">ver aqui..!</a>
             </Link>

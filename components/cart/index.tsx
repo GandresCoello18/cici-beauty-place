@@ -62,7 +62,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
   return (
     <>
       <div className="card border-0">
-        <h5 className="card-header bg-cici">Tus articulos ({Cart.length})</h5>
+        <h5 className="card-header bg-cici">Tus artículos ({Cart.length})</h5>
         <div className="card-body">
           <div className="row justify-content-between">
             <div className="col-12 col-lg-8">
@@ -120,8 +120,8 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                       onClick={() => setModal(true)}
                     >
                       {selectCoupon && coupon.length > 1
-                        ? 'Cambiar Cupon'
-                        : 'Aplicar Cupon'}
+                        ? 'Cambiar Cupón'
+                        : 'Aplicar Cupón'}
                     </Button>
                   ) : (
                     ''
@@ -135,7 +135,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
         </div>
       </div>
 
-      <Modal title="Elige algun cupon" visible={modal} setVisible={setModal}>
+      <Modal title="Elige algún cupón" visible={modal} setVisible={setModal}>
         <div className="row justify-content-center">
           {coupon.map((cupon) => (
             <div className="col-12 col-md-10" key={cupon.id_user_coupons}>

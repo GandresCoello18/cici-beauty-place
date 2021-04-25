@@ -27,13 +27,13 @@ const Index = () => {
     <>
       <NextSeo
         title="Cici beauty place"
-        description="Encuentra todo sobre cosmeticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda fisica."
+        description="Encuentra todo sobre cosméticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda física."
         canonical="https://cici.beauty/"
         openGraph={{
           url: 'https://cici.beauty/',
           title: 'Cici beauty place',
           description:
-            'Encuentra todo sobre cosmeticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda fisica.',
+            'Encuentra todo sobre cosméticos, belleza y cuidados para tu piel, ademas de impartir talleres en nuestra tienda física.',
           images: [
             {
               url:
@@ -107,11 +107,11 @@ const Index = () => {
               style={{ position: 'relative', top: 200 }}
             >
               <div className="col-12 col-lg-6 col-lg-5 text-center text-banner-2 text-white">
-                <h3>Envios al todo el pais</h3>
+                <h3>Envíos al todo el país</h3>
                 <p className="p-1">
-                  Hacemos los envios de tus compras a todo el pais con los
-                  servicios de entrega mas conocidos del pais, llegaran a la
-                  puerta de tu hogar o trabajo entre 2 y 4 dias laborables.
+                  Hacemos los envíos de tus compras a todo el país con los
+                  servicios de entrega mas conocidos del país, llegaran a la
+                  puerta de tu hogar o trabajo entre 2 y 4 días laborables.
                 </p>
               </div>
               <div className="col-12 col-lg-5 text-center">
@@ -144,7 +144,7 @@ const Index = () => {
                     <Link href="/login">
                       <a href="/login"> otras app</a>
                     </Link>
-                    , podras ver tus pedidos, los productos comprados, favoritos
+                    , podrás ver tus pedidos, los productos comprados, favoritos
                     y mas.
                   </p>
                 </div>
@@ -156,7 +156,7 @@ const Index = () => {
                   <BiSupport size={50} />
                   <h3 className="heading">Soporte al cliente</h3>
                   <p>
-                    Si tienes dudas, preguntas o necesitas mas informacion,
+                    Si tienes dudas, preguntas o necesitas mas información,
                     puedes escribirnos en nuestras cuentas oficiales o dejar un
                     mensaje
                     <Link href="/contacto">

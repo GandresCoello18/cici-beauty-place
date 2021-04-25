@@ -9,13 +9,13 @@ const Producto = () => {
     <>
       <NextSeo
         title="Nuestros productos - Cici beauty place"
-        description="Te mostramos el listado de todo nuestros productos, encuentra todo sobre cosmeticos y belleza."
+        description="Te mostramos el listado de todo nuestros productos, encuentra todo sobre cosméticos y belleza."
         canonical="https://cici.beauty/productos"
         openGraph={{
           url: 'https://cici.beauty/productos',
           title: 'Nuestros productos - Cici beauty place',
           description:
-            'Te mostramos el listado de todo nuestros productos, encuentra todo sobre cosmeticos, belleza y cuidados para tu piel',
+            'Te mostramos el listado de todo nuestros productos, encuentra todo sobre cosméticos, belleza y cuidados para tu piel',
           images: [
             {
               url:

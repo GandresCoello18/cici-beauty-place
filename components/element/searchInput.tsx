@@ -43,7 +43,7 @@ const SearchInput = () => {
       Router.push(`/buscar/${SearchValue}`)
     } else {
       toast.error(
-        'Escribe lo que estas buscando, ya sea un producto o categoria'
+        'Escribe lo que estas buscando, ya sea un producto o categoría'
       )
     }
   }

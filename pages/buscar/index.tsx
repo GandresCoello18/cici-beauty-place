@@ -9,12 +9,12 @@ const Search = () => {
     <>
       <NextSeo
         title="Buscar productos | Cici beauty place"
-        description="Estas buscando algun producto en especifico."
+        description="Estas buscando algún producto en especifico."
         canonical="https://cici.beauty/buscar"
         openGraph={{
           url: 'https://cici.beauty/buscar',
           title: 'Buscar productos | Cici beauty place',
-          description: '¿Estas buscando algun producto en especifico?',
+          description: '¿Estas buscando algún producto en especifico?',
           images: [
             {
               url:
@@ -34,7 +34,7 @@ const Search = () => {
             <div className="col-12 p-2 text-center">
               <h3 className="p-1">¿Que estas buscando?</h3>
               <p className="text-secondary">
-                Escribe palabras claves como: marcas, productos, categorias.
+                Escribe palabras claves como: marcas, productos, categorías.
               </p>
 
               <div className="row justify-content-center align-items-center mt-2">

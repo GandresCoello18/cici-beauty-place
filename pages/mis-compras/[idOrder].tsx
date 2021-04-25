@@ -78,7 +78,7 @@ const DetailsCompra = () => {
     <>
       <NextSeo
         title="Detalle de Compras | Cici beauty place"
-        description="Los detalles de mi compra."
+        description="Aquí puedes ver los detalles de tus compras, también puedes calificar si recomiendas este producto o escribir tu opinión."
       />
 
       <Layout>

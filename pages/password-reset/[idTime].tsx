@@ -88,7 +88,7 @@ const PassWordResetConfirm = () => {
     <>
       <NextSeo
         title="Confirmar Cambio de clave | Cici beauty place"
-        description="Escribe tu nueva contraseña 2 veces para realizar el cambio."
+        description="Escribe tu nueva contraseña 2 veces para validar y realizar el cambio."
       />
 
       <Layout>
@@ -104,7 +104,7 @@ const PassWordResetConfirm = () => {
                   </h5>
                   <p className="p-1">
                     El enlace es inválido, probablemente porque ya fue usado o
-                    asegurate de hacer click en el anlace enviado a tu direccion
+                    asegurate de hacer click en el enlace enviado a tu dirección
                     de correo.
                   </p>
                 </>
@@ -118,7 +118,7 @@ const PassWordResetConfirm = () => {
                     <p className="p-1">
                       Este mensaje solo sera valido por{' '}
                       <strong>{Message.life_minutes} minutos</strong> desde el
-                      momento en que se envio el mensaje. Intente solicitar otra
+                      momento en que se envió el mensaje. Intente solicitar otra
                       vez el cambio de contraseña.
                     </p>
                   </>

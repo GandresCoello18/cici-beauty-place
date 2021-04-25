@@ -115,7 +115,7 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
             </Col>
             <Col sm="12" md="6">
               <span style={Styles.color} className="p-1 ml-2">
-                Origin:{' '}
+                Origen:{' '}
               </span>
               <span>CN (origien)</span>
             </Col>

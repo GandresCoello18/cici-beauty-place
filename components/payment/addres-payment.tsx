@@ -29,7 +29,7 @@ const AdressPayment = () => {
         </>
       ) : (
         <>
-          <h4 className="text-center p-2">Nueva Direccion:</h4>
+          <h4 className="text-center p-2">Nueva Dirección:</h4>
           <FormAddres isSession={!!token} />
         </>
       )}
@@ -42,8 +42,8 @@ const AdressPayment = () => {
         >
           <GrLocation />{' '}
           {myAddresses
-            ? 'Especificar una nueva direccion'
-            : 'Seleccionar una direccion guardada'}
+            ? 'Especificar una nueva dirección'
+            : 'Seleccionar una dirección guardada'}
         </div>
       ) : (
         ''

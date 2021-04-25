@@ -88,12 +88,12 @@ const ContainerCupones = ({ user }: Props) => {
               <>
                 <p>
                   <strong>{user.userName}</strong>, te acaba de invitar para que
-                  le regales <strong className="text-cici">1 Cupon</strong> este
-                  sera valido a partir de tu proxima compra mayor a $20.
+                  le regales <strong className="text-cici">1 Cupón</strong> este
+                  sera valido a partir de tu próxima compra mayor a $20.
                 </p>
 
                 <p>
-                  Tu tambien puedes invitar a alguien y{' '}
+                  Tu también puedes invitar a alguien y{' '}
                   <Link href="/configuracion/invitar">recibir cupos</Link>.
                 </p>
               </>
@@ -102,7 +102,7 @@ const ContainerCupones = ({ user }: Props) => {
                 <strong>{user.userName}</strong>, te acaba de invitar para que
                 te unas a{' '}
                 <strong className="text-cici">Cici Beauty Place</strong> crea
-                una cuenta y recibes un cupòn totalmente gratis.
+                una cuenta y recibes un cupón totalmente gratis.
               </p>
             )}
           </div>

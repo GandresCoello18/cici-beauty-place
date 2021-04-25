@@ -74,7 +74,7 @@ const NavBarLanding = () => {
           <Link href="/login">
             <a className="mr-3">
               <Button outline color="secondary" size="sm">
-                Iniciar Sesiòn
+                Iniciar Sesión
               </Button>
             </a>
           </Link>

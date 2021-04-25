@@ -60,7 +60,7 @@ const SignIn = () => {
 
       if (!ValidateEmail.validate(email)) {
         setFeedback({
-          content: 'Asegurate de escribir un correo electronico valido.',
+          content: 'Asegurate de escribir un correo electrónico valido.',
           type: 'danger',
         })
         return
@@ -80,7 +80,7 @@ const SignIn = () => {
           reset()
 
           setFeedback({
-            content: 'Cuenta creada con exito, ya puedes iniciar sesiòn',
+            content: 'Cuenta creada con éxito, ya puedes iniciar sesión',
             type: 'success',
           })
         } else {
@@ -91,7 +91,7 @@ const SignIn = () => {
         }
       } else {
         setFeedback({
-          content: 'Las claves no son identicas, revise e intentelo de nuevo.',
+          content: 'Las claves no son idénticas, revise e inténtelo de nuevo.',
           type: 'danger',
         })
       }
@@ -117,7 +117,7 @@ const SignIn = () => {
                     href="/login"
                     className="p-3 float-right font-weight-bold font-arvo text-cici"
                   >
-                    Iniciar Sesiòn
+                    Iniciar Sesión
                   </a>
                 </Link>
               </div>
@@ -133,7 +133,7 @@ const SignIn = () => {
 
             <Form onSubmit={handleSubmit(send)}>
               <FormGroup>
-                <Label for="exampleEmail">User name:</Label>
+                <Label for="exampleEmail">Nombre de usuario:</Label>
                 <Controller
                   as={
                     <Input
@@ -155,7 +155,7 @@ const SignIn = () => {
                 </FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleEmail">Email:</Label>
+                <Label for="exampleEmail">Correo electrónico:</Label>
                 <Controller
                   as={
                     <Input
@@ -179,7 +179,7 @@ const SignIn = () => {
                 </FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleEmail">Password:</Label>
+                <Label for="exampleEmail">Contraseña:</Label>
                 <Controller
                   as={
                     <Input
@@ -199,18 +199,18 @@ const SignIn = () => {
                   rules={{ required: true }}
                 />
                 <FormFeedback invalid={errors.password && true}>
-                  {errors.password && 'Escribe la clave secreta'}
+                  {errors.password && 'Escribe la contraseña secreta'}
                 </FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleEmail">Confirmar Password:</Label>
+                <Label for="exampleEmail">Confirmar Contraseña:</Label>
                 <Controller
                   as={
                     <Input
                       invalid={errors.confirPassword && true}
                       type="password"
                       name="confirPassword"
-                      placeholder="Vuelva ha escribir la clave secreta"
+                      placeholder="Vuelva ha escribir la contraseña"
                       style={{
                         borderColor: 'transparent',
                         borderBottomColor: '#cdcdcd',
@@ -223,8 +223,7 @@ const SignIn = () => {
                   rules={{ required: true }}
                 />
                 <FormFeedback invalid={errors.confirPassword && true}>
-                  {errors.confirPassword &&
-                    'Vuelve ah escribir la clave secreta'}
+                  {errors.confirPassword && 'Vuelve ah escribir la contraseña'}
                 </FormFeedback>
               </FormGroup>
               <Button
@@ -250,7 +249,7 @@ const SignIn = () => {
                   href="/login"
                   className="p-1 font-weight-bold font-arvo text-cici"
                 >
-                  Inicia sesiòn aqui..!
+                  Inicia sesión aquí..!!
                 </a>
               </Link>
             )}

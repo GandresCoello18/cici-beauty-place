@@ -20,13 +20,13 @@ const SearchKey = () => {
     <>
       <NextSeo
         title={`Buscar: ${Key} | Cici beauty place`}
-        description="Estas buscando algun producto en especifico o lista de categorias."
+        description="Estas buscando algún producto en especifico o lista de categorías."
         canonical="https://cici.beauty/buscar"
         openGraph={{
           url: 'https://cici.beauty/buscar',
           title: 'Buscar productos | Cici beauty place',
           description:
-            '¿Estas buscando algun producto en especifico o lista de categorias?',
+            '¿Estas buscando algún producto en especifico o lista de categorías?',
           images: [
             {
               url:

@@ -51,13 +51,13 @@ const SendInvitation = () => {
     <>
       <NextSeo
         title="Invitar a alguien | Cici beauty place"
-        description="Invita a tus amigos y familiares y por cada compra mayor a 20 recibiras promociones y descuentos para ti."
+        description="Invita a tus amigos y familiares y por cada compra mayor a 20 recibirás promociones y descuentos para ti."
         canonical="https://cici.beauty/invitacion"
         openGraph={{
           url: 'https://cici.beauty/invitacion',
           title: 'Invita a un amigo y recibe cupones gratis',
           description:
-            'Al invitar a un amigo a cici beauty place, el obtendra un cupon gratis por registrarse.',
+            'Al invitar a un amigo a cici beauty place, el obtendrá un cupón gratis por registrarse.',
           images: [
             {
               url:
@@ -81,7 +81,7 @@ const SendInvitation = () => {
               <h4>Seguro conoces a alguien que le gusta nuestros productos</h4>
               <p>
                 Comparte tu link de referidos y cada compra mayor de $20
-                recibiras cupones que puedes elegir.
+                recibirás cupones que puedes elegir.
               </p>
             </div>
             <div className="col-12 col-md-10 p-3 mb-5">
@@ -113,7 +113,7 @@ const SendInvitation = () => {
                 <h3>Invita a un amigo</h3>
               </div>
               <br />
-              <p>Envia tu enlace de referidos por correo.</p>
+              <p>Enviá tu enlace de referidos por correo.</p>
               <Form onSubmit={handleSubmit(send)}>
                 <div className="row">
                   <div className="col-12 col-md-6">
@@ -169,7 +169,7 @@ const SendInvitation = () => {
                     'Cargando...'
                   ) : (
                     <>
-                      <FiSend /> Enviar invitacion
+                      <FiSend /> Enviar invitación
                     </>
                   )}
                 </button>

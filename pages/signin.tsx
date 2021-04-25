@@ -9,13 +9,13 @@ const SignInPage = () => {
     <>
       <NextSeo
         title="Registrate - cici beauty place"
-        description="Registrate con tus datos basicos o una cuenta de Google y disfruta de nuestros productos y servicios."
+        description="Registrate con tus datos básicos o una cuenta de Google y disfruta de nuestros productos y servicios."
         canonical="https://cici.beauty/signin"
         openGraph={{
           url: 'https://cici.beauty/signin',
           title: 'Registrate en cici beauty place',
           description:
-            'Registrate con tus datos basicos o una cuenta de Google y disfruta de nuestros productos y servicios.',
+            'Registrate con tus datos básicos o una cuenta de Google y disfruta de nuestros productos y servicios.',
           images: [
             {
               url:

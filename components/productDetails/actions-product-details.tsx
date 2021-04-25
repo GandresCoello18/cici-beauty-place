@@ -58,7 +58,7 @@ const ActionsProductDetails = ({
   const validate_quantity = (ProductQuantity: number): boolean => {
     if (ProductQuantity > available) {
       toast.error(
-        `Productos disponibles insuficientes: maximo de ${available} productos`
+        `Productos disponibles insuficientes: máximo de ${available} productos`
       )
       return false
     }

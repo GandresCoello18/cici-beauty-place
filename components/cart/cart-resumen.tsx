@@ -52,7 +52,7 @@ const CartResumne = ({
             <Skeleton width="100%" height={20} />
           ) : (
             <>
-              <span>Envio</span>
+              <span>Envió</span>
               <span className={`float-right ${text && 'text-success'}`}>
                 {text || `$${envio}`}
               </span>

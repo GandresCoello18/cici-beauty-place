@@ -22,7 +22,7 @@ const Footer = () => {
       console.log('se guardo')
       reset()
     } else {
-      toast.warn('Introduce un email valido.')
+      toast.warn('Introduce un correo valido.')
     }
   }
 
@@ -46,7 +46,7 @@ const Footer = () => {
               </div>
               <ul>
                 <li>
-                  Direccion: Calle 10 de agosto entre Martín Icaza y Rocafuerte
+                  Dirección: Calle 10 de agosto entre Martín Icaza y Rocafuerte
                   (frente al hotel Capitol) Babahoyo, Ecuador
                 </li>
                 <li>Telelfono: +593 980 378 869</li>
@@ -90,7 +90,7 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href="/guia-de-compra">
-                    <a href="/guia-de-compra">Crerar cuenta</a>
+                    <a href="/guia-de-compra">Crear cuenta</a>
                   </Link>
                 </li>
                 <li>
@@ -100,12 +100,12 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link href="/guia-de-compra/envios">
-                    <a href="/guia-de-compra/envios">Envio</a>
+                    <a href="/guia-de-compra/envios">Envió</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/guia-de-compra/rastreo">
-                    <a href="/guia-de-compra/rastreo">Guia para rastreo</a>
+                    <a href="/guia-de-compra/rastreo">Guía para rastreo</a>
                   </Link>
                 </li>
               </ul>
@@ -136,7 +136,7 @@ const Footer = () => {
           <div className="col-lg-4">
             <div className="newslatter-item">
               <h5>Mantente informado</h5>
-              <p>Registra tu email para no perderte las proximas ofertas.</p>
+              <p>Registra tu correo para no perderte las próximas ofertas.</p>
               <form
                 className="subscribe-form"
                 onSubmit={handleSubmit(sendSuscribe)}
@@ -150,7 +150,7 @@ const Footer = () => {
                 {errors.email && (
                   <p className="text-danger">Este campo es requerido</p>
                 )}
-                <button type="submit">Suscribete</button>
+                <button type="submit">Subscribe</button>
               </form>
             </div>
           </div>

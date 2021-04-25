@@ -8,7 +8,7 @@ const PaymentGuide = () => {
   return (
     <>
       <NextSeo
-        title="Metodos de pagos | Guia de compras | Cici beauty place"
+        title="Métodos de pagos | Guía de compras | Cici beauty place"
         description="Como o con que puedo pagar en la tienda de cici beauty place."
         canonical="https://cici.beauty/guia-de-compra/pago"
         openGraph={{
@@ -16,7 +16,7 @@ const PaymentGuide = () => {
           title:
             '¿Como o con que puedo pagar en la tienda de cici beauty place?',
           description:
-            'Usamos servicios como Paypal para realizar tus pagos o tambien mediante codigo QR para transferencias bancarios.',
+            'Usamos servicios como Paypal para realizar tus pagos o también mediante código QR para transferencias bancarios.',
           images: [
             {
               url:
@@ -35,7 +35,7 @@ const PaymentGuide = () => {
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 bg-white p-3">
               <h6 className="p-1">
-                ¿Que metodos de pagos aceptan en{' '}
+                ¿Que métodos de pagos aceptan en{' '}
                 <b className="text-cici">Cici beauty place</b>?
               </h6>
               <p className="p-1">
@@ -55,8 +55,8 @@ const PaymentGuide = () => {
                 >
                   Deuna
                 </a>{' '}
-                o tambien puedes hacer un deposito o trasferencia bancaria y
-                luego envia tu recibo al nuestra linea telefonica o whatsapp
+                o también puedes hacer un deposito o trasferencia bancaria y
+                luego enviá tu recibo al nuestra linea telefónica o whatsapp
               </p>
             </div>
             <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">

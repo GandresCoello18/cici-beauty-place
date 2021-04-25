@@ -135,7 +135,7 @@ const Compras = () => {
                     </div>
                     <div className="col-6 col-md-2">
                       <div className="border text-center">
-                        <div className="border-bottom">Guia</div>
+                        <div className="border-bottom">Guía</div>
                         {item.guide ? (
                           <a
                             href={`https://www.servientrega.com.ec/rastreo/guia/${item.guide}`}
@@ -152,7 +152,7 @@ const Compras = () => {
                     <div className="col-12 col-md-3">
                       <div className="border text-center mt-3 mt-md-0">
                         <div className="border-bottom">
-                          Ultima actualizacion
+                          Ultima actualización
                         </div>
                         <Badge color="info">{item.update_at}</Badge>
                       </div>
@@ -188,7 +188,7 @@ const Compras = () => {
             {Shipping.length === 0 && !loading && (
               <div className="col-12">
                 <Alert color="info">
-                  No tienes compras o envios por el momento.
+                  No tienes compras o envíos por el momento.
                 </Alert>
               </div>
             )}

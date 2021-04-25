@@ -9,13 +9,13 @@ const Index = () => {
     <>
       <NextSeo
         title="Cici beauty place"
-        description="Encuentra todo sobre cosmeticos, belleza y cuidados para la piel."
+        description="Encuentra todo sobre cosméticos, belleza y cuidados para la piel."
         canonical="https://cici.beauty/home"
         openGraph={{
           url: 'https://cici.beauty/home',
           title: 'Cici beauty place',
           description:
-            'Encuentra todo sobre cosmeticos, belleza y cuidados para la piel',
+            'Encuentra todo sobre cosméticos, belleza y cuidados para la piel',
           images: [
             {
               url:
