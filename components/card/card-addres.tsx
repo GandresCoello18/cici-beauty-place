@@ -76,10 +76,10 @@ const CardAddres = ({ address }: Props) => {
               <strong>Creado: </strong> <u>{address.created_at}</u>
             </li>
             <li>
-              <strong>Telefono: </strong> <u>{address.phone}</u>
+              <strong>Teléfono: </strong> <u>{address.phone}</u>
             </li>
             <li>
-              <strong>Codigo postal: </strong>{' '}
+              <strong>Código postal: </strong>{' '}
               <u>{address.postalCode || 'No especificado'}</u>
             </li>
           </ul>

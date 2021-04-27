@@ -32,8 +32,10 @@ import { BASE_API, DEFAULT_AVATAR } from '../api'
 import { StatusColorCoupons } from '../helpers/statusColor'
 import ModalElement from '../components/element/modal'
 import SpinnerLoader from '../components/element/spinner-cici'
+import { UseNotSesion } from '../hooks/useNotSesion'
 
 const MisCupones = () => {
+  UseNotSesion()
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [cupones, setCupones] = useState<Coupons[]>([])
@@ -58,7 +60,7 @@ const MisCupones = () => {
         setLoading(false)
       }
 
-      fetchMyCoupons()
+      token && fetchMyCoupons()
     } catch (error) {
       setLoading(false)
       toast.error(error.message)
@@ -127,7 +129,7 @@ const MisCupones = () => {
                 setSelectUserCoupon(cupon.id_user_coupons)
               }}
             >
-              Elegir cupòn {loadingUpdate && <SpinnerLoader />}
+              Elegir cupón {loadingUpdate && <SpinnerLoader />}
             </Button>
           ) : (
             <Badge color="danger">No Especificado</Badge>
@@ -172,13 +174,13 @@ const MisCupones = () => {
     <>
       <NextSeo
         title="Mis Cupones | Cici beauty place"
-        description="Revisa tus cupones, en uso, caducados y pendienntes, usalos en tu proxima compra."
+        description="Revisa tus cupones, en uso, caducados y pendientes, usalos en tu próxima compra."
         canonical="https://cici.beauty/mis-cupones"
         openGraph={{
           url: 'https://cici.beauty/mis-cupones',
           title: 'Mis cupones',
           description:
-            'Revisa tus cupones, en uso, caducados y pendienntes, usalos en tu proxima compra.',
+            'Revisa tus cupones, en uso, caducados y pendientes, usalos en tu próxima compra.',
           images: [
             {
               url:

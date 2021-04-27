@@ -85,7 +85,7 @@ const Home = () => {
                     className="cursor-pointer"
                     style={{ color: '#999' }}
                   >
-                    Ver Màs
+                    Ver Más
                   </a>
                 </Link>
               </div>
@@ -106,7 +106,7 @@ const Home = () => {
           <div className="col-12 p-2">
             <FaPercentage color="pink" /> &nbsp; <strong>Ofertas</strong>
             <Link href="/productos/ofertas">
-              <a className="float-right">Ver màs</a>
+              <a className="float-right">Ver más</a>
             </Link>
           </div>
           <div className="col-12 font-arvo">
@@ -157,7 +157,7 @@ const Home = () => {
           <div className="col-12 p-2">
             <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
             <Link href="/productos/mejor-valorados">
-              <a className="float-right">Ver màs</a>
+              <a className="float-right">Ver más</a>
             </Link>
           </div>
           <div className="col-12 font-arvo">

@@ -28,6 +28,7 @@ import { SourceAvatar } from '../../helpers/sourceAvatar'
 import { BASE_API, DEFAULT_AVATAR } from '../../api'
 import ModalElement from '../../components/element/modal'
 import { UploadImage } from '../../components/element/uploadImage'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 interface FromMiData {
   username: string
@@ -35,6 +36,7 @@ interface FromMiData {
 }
 
 const MyData = () => {
+  UseNotSesion()
   const [newAddress, setNewAddress] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [Modal, setModal] = useState<boolean>(false)
@@ -77,7 +79,7 @@ const MyData = () => {
           onClick={() => setModal(true)}
           type="button"
         >
-          Cambiar fotografia
+          Cambiar fotografiá
         </button>
       </div>
     )
@@ -110,7 +112,7 @@ const MyData = () => {
               </div>
               <div className="col-12 col-md-6">
                 <FormGroup>
-                  <Label for="email">Direccion de correo</Label>
+                  <Label for="email">Dirección de correo</Label>
                   <input
                     type="email"
                     name="email"
@@ -130,7 +132,7 @@ const MyData = () => {
             <div className="row">
               <div className="col-12 col-md-6 mb-4">
                 <FormGroup>
-                  <Label for="username">Te unistes el</Label>
+                  <Label for="username">Te uniste el</Label>
                   <Input disabled defaultValue={`${User.created_at}`} />
                 </FormGroup>
               </div>
@@ -158,7 +160,7 @@ const MyData = () => {
   const renderFromAddress = () => {
     return (
       <div className="col-12 col-md-8">
-        <h3 className="p-2 text-center">Nueva Direccion</h3>
+        <h3 className="p-2 text-center">Nueva Dirección</h3>
         <FormAddres isSession setNewAddress={setNewAddress} />
       </div>
     )
@@ -166,6 +168,11 @@ const MyData = () => {
 
   const UploadAvatar = async () => {
     setLoading(true)
+
+    if (images.length) {
+      toast.info('Selecciona una foto de perfil')
+      setLoading(false)
+    }
 
     const data = new FormData()
     data.append('avatar', images[0].file || '')
@@ -228,7 +235,7 @@ const MyData = () => {
                 className="float-right"
                 onClick={() => setNewAddress(!newAddress)}
               >
-                {newAddress ? 'Ver mis direcciones' : 'Agregar otra direccion'}
+                {newAddress ? 'Ver mis direcciones' : 'Agregar otra dirección'}
               </Button>
             </div>
           </div>
@@ -238,7 +245,7 @@ const MyData = () => {
       <ModalElement
         visible={Modal}
         setVisible={setModal}
-        title="Cambiar fotografia"
+        title="Cambiar fotografiá"
       >
         {loading ? (
           <SpinnerLoader />
@@ -251,7 +258,7 @@ const MyData = () => {
                 onClick={UploadAvatar}
                 className="form-control mt-2 bg-cici text-dark"
               >
-                Subir fotografia
+                Subir fotografiá
               </Button>
             ) : (
               ''

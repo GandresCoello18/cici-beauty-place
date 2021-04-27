@@ -47,7 +47,7 @@ const Producto = () => {
     <>
       <NextSeo
         title="Productos de oferta - Cici beauty place"
-        description="Encuentra todo en oferta de cosmeticos y belleza."
+        description="Encuentra todo en oferta de cosméticos y belleza."
       />
 
       <Layout>

@@ -199,7 +199,7 @@ const NavBarElement = () => {
                     onClick={() => setModal(true)}
                     style={styles.colorLink}
                   >
-                    <GrConfigure /> Configuracion
+                    <GrConfigure /> Configuración
                   </DropdownItem>
                   <DropdownItem style={styles.colorClose} onClick={closeSesion}>
                     <AiFillCloseCircle /> Salir

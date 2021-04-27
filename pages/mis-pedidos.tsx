@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -24,8 +25,10 @@ import { getMyOrden } from '../api/orden'
 import { OrdenProduct } from '../interfaces/orden'
 import { BASE_API } from '../api'
 import ModalElement from '../components/element/modal'
+import { UseNotSesion } from '../hooks/useNotSesion'
 
 const MisPedidos = () => {
+  UseNotSesion()
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [modal, setMOdal] = useState<boolean>(false)
@@ -46,7 +49,7 @@ const MisPedidos = () => {
         setLoading(false)
       }
 
-      fetchOrden()
+      token && fetchOrden()
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -102,7 +105,7 @@ const MisPedidos = () => {
                     <DropdownItem
                       onClick={() => setSelectOption('Pendiente de envio')}
                     >
-                      Pendiente de envio
+                      Pendiente de envió
                     </DropdownItem>
                     <DropdownItem
                       onClick={() => setSelectOption('Pendiente de entrega')}
@@ -124,7 +127,7 @@ const MisPedidos = () => {
           </div>
           <div className="row bg-white border-bottom p-3 text-center">
             <div className="col-5 border-right font-weight-bold text-cici">
-              Informacion
+              Información
             </div>
             <div className="col-4 border-right font-weight-bold text-cici">
               Rastreo / ID
@@ -175,7 +178,7 @@ const MisPedidos = () => {
                 </Badge>
               </div>
               <div className="col-5 col-md-3 p-2 p-md-0">
-                <Badge className="p-1">Metodo de pago</Badge>
+                <Badge className="p-1">Método de pago</Badge>
                 <br />
                 <Badge
                   color={orden.paymentMethod === 'Paypal' ? 'info' : 'warning'}
@@ -196,9 +199,10 @@ const MisPedidos = () => {
           setVisible={setMOdal}
         >
           <p className="text-left">
-            <b>Tener encuenta:</b> luego de hacer la transaccion se necesita que
-            alguien del equipo de <b className="text-cici">Cici Beauty place</b>{' '}
-            confirme el pago, luego escribanos a nuestra linea de{' '}
+            <b>Tener en cuenta:</b> luego de hacer la transacción se necesita
+            que que alguien del equipo de{' '}
+            <b className="text-cici">Cici Beauty place</b> confirme el pago,
+            luego escribanos a nuestra linea de{' '}
             <a
               href="https://wa.me/5212224887710"
               rel="noopener noreferrer"
@@ -206,7 +210,7 @@ const MisPedidos = () => {
             >
               Whatsapp
             </a>{' '}
-            con el recibo y el id de su orden. .
+            con el recibo y el id de su orden.
           </p>
 
           <div className="row">
@@ -225,7 +229,7 @@ const MisPedidos = () => {
             </div>
             <div className="col-12 mt-2 p-2">
               <UncontrolledCollapse toggler="#content-paypal">
-                <strong className="p-2">Escanea el siguiente codigo QR</strong>
+                <strong className="p-2">Escanea el siguiente código QR</strong>
 
                 <h5>¿Qué es Deuna!?</h5>
                 <p>
@@ -257,7 +261,7 @@ const MisPedidos = () => {
                 </ul>
                 <br />
                 <p>
-                  Para mas informacion de <b>DeUna</b> visite su sitio oficial{' '}
+                  Para mas información de <b>DeUna</b> visite su sitio oficial{' '}
                   <a
                     href="https://deuna.app/"
                     target="_blank"
@@ -301,7 +305,7 @@ const MisPedidos = () => {
                     )
                   }}
                 >
-                  Para depositos o trasferencias <BiShareAlt />
+                  Para depósitos o trasferencias <BiShareAlt />
                 </p>
                 <Input
                   type="text"

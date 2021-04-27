@@ -22,7 +22,7 @@ const CategoriNav = () => {
         <div className="col-1">
           <AiOutlineUnorderedList size={20} />
         </div>
-        <div className="col-1">Categorìas</div>
+        <div className="col-1">Categorías</div>
       </div>
 
       <div className="row font-arvo mt-5 border-bottom item-categori">

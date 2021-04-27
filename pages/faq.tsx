@@ -8,13 +8,13 @@ const Faq = () => {
     <>
       <NextSeo
         title="Preguntas frecuentes | Cici beauty place"
-        description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes."
+        description="Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razón quieres mas detalles escríbenos en contacto o en nuestras redes."
         canonical="https://cici.beauty/faq"
         openGraph={{
           url: 'https://cici.beauty/faq',
           title: 'Preguntas frecuentes | Cici beauty place',
           description:
-            'Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razon quieres mas detalles escribenos en contacto o en nuestras redes.',
+            'Encuentra alguna pregunta o duda que tengas sobre nosotros, si por alguna razón quieres mas detalles escríbenos en contacto o en nuestras redes.',
           images: [
             {
               url:

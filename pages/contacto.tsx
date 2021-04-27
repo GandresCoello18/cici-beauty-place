@@ -70,13 +70,13 @@ const Index = () => {
     <>
       <NextSeo
         title="Contacto | Cici beauty place"
-        description="Contacte con nosotros por nuestra tienda fisica o nuestas redes si tieneal algun problema o duda."
+        description="Contacte con nosotros por nuestra tienda física o nuestras redes si tienes algún problema o duda."
         canonical="https://cici.beauty/contacto"
         openGraph={{
           url: `https://cici.beauty/contacto`,
           title: 'Contacto',
           description:
-            'Contacte con nosotros por nuestra tienda fisica o nuestas redes si tieneal algun problema o duda',
+            'Contacte con nosotros por nuestra tienda física o nuestras redes si tienes algún problema o duda',
           images: [
             {
               url:

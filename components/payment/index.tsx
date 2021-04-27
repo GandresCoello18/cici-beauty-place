@@ -43,7 +43,7 @@ const Payment = ({ setItemStep, idCoupon }: Props) => {
   useEffect(() => {
     if (!token) {
       window.location.href = '/login'
-      toast.info('Necesitas iniciar sesion para procesar el pago')
+      toast.info('Necesitas iniciar sesión para procesar el pago')
     }
 
     try {
@@ -85,7 +85,7 @@ const Payment = ({ setItemStep, idCoupon }: Props) => {
       await NewOrden({ token, orden })
       setLoading(false)
 
-      toast.success('Su orden fue registrada con exito')
+      toast.success('Su orden fue registrada con éxito')
       dispatch(setCart([]))
 
       setItemStep({
@@ -112,7 +112,7 @@ const Payment = ({ setItemStep, idCoupon }: Props) => {
           ) : (
             <div className="row">
               <div className="col-12">
-                <strong>Paga con los siguientes metodos.</strong>
+                <strong>Paga con los siguientes métodos.</strong>
               </div>
               <div
                 className="col-12 border-bottom cursor-pointer"

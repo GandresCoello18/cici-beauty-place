@@ -81,7 +81,7 @@ const ChangePassword = () => {
       <h5 className="text-center p-1 mb-3">Cambiar clave de mi cuenta</h5>
       <Form onSubmit={handleSubmit(send)}>
         <FormGroup>
-          <Label for="currentKey">Clave secreta actual</Label>
+          <Label for="currentKey">Contraseña secreta actual</Label>
           <Controller
             as={
               <Input
@@ -89,7 +89,7 @@ const ChangePassword = () => {
                 type="password"
                 name="currentKey"
                 id="currentKey"
-                placeholder="*******"
+                placeholder="clave actual"
               />
             }
             type="password"
@@ -98,12 +98,12 @@ const ChangePassword = () => {
             rules={{ required: true }}
           />
           <FormFeedback invalid={errors.currentKey && true}>
-            {errors.currentKey && 'Escribe tu clave secreta actual'}
+            {errors.currentKey && 'Escribe tu contraseña secreta actual'}
           </FormFeedback>
         </FormGroup>
 
         <FormGroup>
-          <Label for="newKey">Nueva clave secreta</Label>
+          <Label for="newKey">Nueva contraseña secreta</Label>
           <Controller
             as={
               <Input

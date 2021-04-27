@@ -47,7 +47,7 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
 
       setModal(false)
       setLoading(false)
-      toast.success('Tu calificacion fue registrada con exito.')
+      toast.success('Tu calificación fue registrada con éxito.')
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -169,7 +169,7 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
 
               <br />
 
-              <p>¿Que puntaje le darias al producto?</p>
+              <p>¿Que puntaje le darías al producto?</p>
 
               <StarRatingComponent
                 name="rate1"

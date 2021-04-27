@@ -40,7 +40,7 @@ const Index = () => {
         title={`${
           userInvite && userInvite.userName
         } te invita | Cici beauty place`}
-        description="Encuentra todo sobre cosmeticos y belleza."
+        description="Encuentra todo sobre cosméticos y belleza."
       />
 
       <Layout>

@@ -84,7 +84,7 @@ const ProductId = () => {
         title={`${product?.title || ''} - Cici beauty place`}
         description={`${
           product?.description ||
-          'Encuentra todo sobre cosmeticos, belleza y cuidados de la piel'
+          'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
         }`}
         canonical="https://cici.beauty/productos"
         openGraph={{
@@ -92,7 +92,7 @@ const ProductId = () => {
           title: `${product?.title}`,
           description: `${
             product?.description ||
-            'Encuentra todo sobre cosmeticos, belleza y cuidados de la piel'
+            'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
           }`,
           images: [
             {
@@ -134,7 +134,7 @@ const ProductId = () => {
           {
             position: 1,
             name: 'Inicio',
-            item: 'https://cici.beauty/home',
+            item: 'https://cici.beauty',
           },
           {
             position: 2,

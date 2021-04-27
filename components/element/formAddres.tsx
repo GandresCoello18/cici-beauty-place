@@ -97,7 +97,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label>Telefono</Label>
+            <Label>Teléfono</Label>
             <Controller
               as={
                 <Input
@@ -112,7 +112,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
               rules={{ required: true }}
             />
             <FormFeedback invalid={errors.phone && true}>
-              {errors.phone && 'Escribe el numero de telefono'}
+              {errors.phone && 'Escribe el numero de teléfono'}
             </FormFeedback>
           </FormGroup>
         </Col>
@@ -141,7 +141,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         </Col>
         <Col md={4}>
           <FormGroup>
-            <Label>Codigo Postal</Label>
+            <Label>Código Postal</Label>
             <Controller
               as={
                 <Input
@@ -158,13 +158,13 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         </Col>
       </Row>
       <FormGroup>
-        <Label>Direccion</Label>
+        <Label>Dirección</Label>
         <Controller
           as={
             <Input
               invalid={errors.address && true}
               type="textarea"
-              placeholder="Especifique su direccion y utilize referencias de como llegar."
+              placeholder="Especifique su dirección y utiliza referencias de como llegar."
             />
           }
           name="address"
@@ -172,7 +172,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
           rules={{ required: true }}
         />
         <FormFeedback invalid={errors.address && true}>
-          {errors.address && 'Escribe la direccion con referencias.'}
+          {errors.address && 'Escribe la dirección con referencias.'}
         </FormFeedback>
       </FormGroup>
       <Button
@@ -181,7 +181,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         style={{ backgroundColor: '#efccd3', color: '#000' }}
         block
       >
-        {isSession ? 'Registrar direccion' : 'Utilizar esta direccion'}
+        {isSession ? 'Registrar dirección' : 'Utilizar esta dirección'}
         {loading && <SpinnerLoader />}
       </Button>
     </Form>

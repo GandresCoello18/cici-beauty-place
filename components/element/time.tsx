@@ -24,7 +24,7 @@ const Time = ({ expiryTimestamp, SetIsRunning }: Props) => {
 
   return (
     <div className="time">
-      <span className="dice">Dias: {days}</span>
+      <span className="dice">Días: {days}</span>
       <span className="split">:</span>
       <span className="dice">Horas: {hours}</span>
       <span className="split">:</span>

@@ -8,14 +8,14 @@ const ShippingGuide = () => {
   return (
     <>
       <NextSeo
-        title="Metodos de envio | Guia de compras | Cici beauty place"
-        description="Como son los metodo de envio para mis pedidos."
+        title="Métodos de envió | Guia de compras | Cici beauty place"
+        description="Como son los método de envió para mis pedidos."
         canonical="https://cici.beauty/guia-de-compra/envios"
         openGraph={{
           url: 'https://cici.beauty/guia-de-compra/envios',
           title: '¿Como enviamos tus pedidos a su lugar de destino?',
           description:
-            'Para enviar tus productos usamos los servicos de ServiEntrega u otras empresas.',
+            'Para enviar tus productos usamos los servicios de ServiEntrega u otras empresas.',
           images: [
             {
               url:
@@ -34,11 +34,11 @@ const ShippingGuide = () => {
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 bg-white p-3">
               <h6 className="p-1">
-                ¿Que metodos de envio admiten en{' '}
+                ¿Que métodos de envió admiten en{' '}
                 <b className="text-cici">Cici beauty place</b>?
               </h6>
               <p className="p-1">
-                Hacemos envios a todo el Ecuador con los servicios de{' '}
+                Hacemos envíos a todo el Ecuador con los servicios de{' '}
                 <a
                   href="http://servientrega.com.ec/"
                   rel="noopener noreferrer"
@@ -46,14 +46,14 @@ const ShippingGuide = () => {
                 >
                   Servi entrega
                 </a>{' '}
-                y dependiendo del destino tardara de 2 a 4 dias. Tenga en cuenta
-                que la logistica y metodologia de entrega no esta de nuestra
-                parte si no del mismo servicio de <b>Servi entrega</b>.
+                y dependiendo del destino tardara de 2 a 4 días. Tenga en cuenta
+                que la logística y metodología de entrega no esta de nuestra
+                parte si no del mismo servicio de <b>ServiEntrega</b>.
               </p>
               <p>
-                Se envian todo los productos de las ordenes antes de las{' '}
-                <b>15:00 PM</b>, toda orden despues de esa hora sera enviado al
-                dia siguiente.
+                Se envían todo los productos de las ordenes antes de las{' '}
+                <b>15:00 PM</b>, toda orden después de esa hora sera enviado al
+                día siguiente.
               </p>
             </div>
             <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">

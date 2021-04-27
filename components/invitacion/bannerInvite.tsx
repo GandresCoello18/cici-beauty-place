@@ -7,8 +7,8 @@ const BannerInvitacion = () => {
         <div className="col-12 text-center">
           <span>
             Crea tu cuenta hoy y recibe{' '}
-            <strong style={{ color: '#232f3e' }}>1 cupon gratis</strong> para tu
-            proxima compra.
+            <strong style={{ color: '#232f3e' }}>1 cupón gratis</strong> para tu
+            próxima compra.
           </span>
         </div>
       </div>

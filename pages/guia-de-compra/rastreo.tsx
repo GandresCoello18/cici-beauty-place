@@ -9,14 +9,14 @@ const TrackingGuide = () => {
   return (
     <>
       <NextSeo
-        title="Rastreo | Guia de compras | Cici beauty place"
+        title="Rastreo | Guía de compras | Cici beauty place"
         description="Como puedo rastrear mis pedidos."
         canonical="https://cici.beauty/guia-de-compra/rastreo"
         openGraph={{
           url: 'https://cici.beauty/guia-de-compra/rastreo',
           title: '¿Como puedo rastrear mis pedidos de cici beauty place?',
           description:
-            'Cuando realizemos tu envio te notificamos por correo electronico para que puedas ver el numero de guia y el seguimiento de tu paquete.',
+            'Cuando realizamos tu envió te notificamos por correo electrónico para que puedas ver el numero de guiá y el seguimiento de tu paquete.',
           images: [
             {
               url:
@@ -37,19 +37,19 @@ const TrackingGuide = () => {
               <h6 className="p-1">¿Como puedo localizar mis paquete?</h6>
               <p className="p-1">
                 Cuando terminamos de entregar los paquetes al servicio de{' '}
-                <b>Servi entrega</b> nos proporcionaran una guia con los datos
-                del envio, (Quien envia y quien recibe) en dicha guia se
-                encuentra el numero unico de rastreo que podras consultar en el
-                siguiente panel{' '}
+                <b>Servi entrega</b> nos proporcionaran una guiá con los datos
+                del envió, (Quien enviá y quien recibe) en dicha guiá se
+                encuentra el numero único de rastreo que podrás consultar en el
+                siguiente{' '}
                 <a
                   href="https://www.servientrega.com.ec/rastreo/multiple"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  panel de rastreo
+                  panel de rastreo ServiEntrega
                 </a>{' '}
-                puedes usar hasta un maximo de 10 guias por consulta o tambien
-                puedes consultar automaticamente en la seccion de{' '}
+                puedes usar hasta un máximo de 10 guiás por consulta o también
+                puedes consultar automáticamente en la sección de{' '}
                 <Link href="/mis-pedidos">mis pedidos</Link>
               </p>
               <img

@@ -11,13 +11,13 @@ const About = () => {
     <>
       <NextSeo
         title="Sobre nosotros | Cici beauty place"
-        description="Descubre el equipo de trabajo que esta detras de cici beauty place."
+        description="Descubre el equipo de trabajo que esta detrás de cici beauty place."
         canonical="https://cici.beauty/about"
         openGraph={{
           url: 'https://cici.beauty/about',
           title: 'Sobre nosotros | Cici beauty place',
           description:
-            'Descubre el equipo de trabajo que esta detras de cici beauty place.',
+            'Descubre el equipo de trabajo que esta detrás de cici beauty place.',
           images: [
             {
               url:
@@ -45,7 +45,7 @@ const About = () => {
                 imgSource="img/me.jpg"
                 alt="Andres coello"
                 name="Andres Coello Goyes"
-                description="Desarrolador de software en ambiente web y mobil multiplataforma, amante de la lectura, astronomia, colores, naturaleza y musica. Autodidacta y en contante aprendizaje con nuevas tecnologias."
+                description="Desarrollador de software en ambiente web y mobil multiplataforma, amante de la lectura, astronomía, colores, naturaleza y música. Autodidacta y en contante aprendizaje con nuevas tecnologías."
                 cargo="Developer Full Stack"
               >
                 <div className="row justify-content-center">

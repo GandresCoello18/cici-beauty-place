@@ -60,7 +60,7 @@ const Login = () => {
 
     if (!ValidateEmail.validate(email)) {
       setFeedback({
-        content: 'Asegurate de escribir un correo electronico valido.',
+        content: 'Asegurate de escribir un correo electrónico valido.',
         type: 'danger',
       })
       setLoading(false)
@@ -194,12 +194,12 @@ const Login = () => {
               </figure>
             </div>
 
-            <h3 className="font-weight-bold text-center">Iniciar Sesiòn</h3>
+            <h3 className="font-weight-bold text-center">Iniciar Sesión</h3>
             <br />
 
             <Form onSubmit={handleSubmit(send)}>
               <FormGroup>
-                <Label for="exampleEmail">Email:</Label>
+                <Label for="exampleEmail">Correo electrónico:</Label>
                 <Controller
                   as={
                     <Input
@@ -226,7 +226,7 @@ const Login = () => {
                 </FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleEmail">Password:</Label>
+                <Label for="exampleEmail">Contraseña:</Label>
                 <Controller
                   as={
                     <Input
@@ -249,7 +249,7 @@ const Login = () => {
                   }}
                 />
                 <FormFeedback invalid={errors.password && true}>
-                  {errors.password && 'Escribe tu clave secreta'}
+                  {errors.password && 'Escribe tu contraseña secreta'}
                 </FormFeedback>
               </FormGroup>
               <Button
@@ -286,9 +286,7 @@ const Login = () => {
                 <div className="col-6">
                   <p className="text-right cursor-pointer text-dark">
                     <Link href="/password-reset">
-                      <a style={{ color: '#000' }}>
-                        ¿Olvidastes tu contraseña?
-                      </a>
+                      <a style={{ color: '#000' }}>¿Olvidaste tu contraseña?</a>
                     </Link>
                   </p>
                 </div>
@@ -297,7 +295,7 @@ const Login = () => {
             <br />
 
             <h5 className="text-center font-arvo" style={{ color: '#999' }}>
-              Acceso ràpido con
+              Acceso rápido con
             </h5>
             <div className="row justify-content-center text-center">
               <div className="col-2">

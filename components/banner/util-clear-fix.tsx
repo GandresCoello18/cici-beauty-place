@@ -37,7 +37,7 @@ const BannerClearFix = () => {
             Pagos seguros
           </h6>
           <p style={styles.colorText}>
-            Paga desde cualquier lugar del pais utilizando servicios como Paypal
+            Paga desde cualquier lugar del país utilizando servicios como Paypal
             o con tu banco de confianza
           </p>
         </div>
@@ -52,7 +52,7 @@ const BannerClearFix = () => {
             Confirma tu orden
           </h6>
           <p style={styles.colorText}>
-            Tus ordenes pueden ser cancelados hasta 15 dias despues de realizar
+            Tus ordenes pueden ser cancelados hasta 15 días después de realizar
             el pedido.
           </p>
         </div>
