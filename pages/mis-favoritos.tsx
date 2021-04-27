@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -17,8 +18,10 @@ import { Product } from '../interfaces/products'
 import { deleteMyFavorites, getFavorites } from '../api/favorite'
 import { TokenContext } from '../context/contextToken'
 import { calculatePrice } from '../helpers/calculatePrice'
+import { UseNotSesion } from '../hooks/useNotSesion'
 
 const Favorite = () => {
+  UseNotSesion()
   const { token } = useContext(TokenContext)
   const [loading, setLoading] = useState<boolean>(false)
   const [product, setProduct] = useState<Product[]>([])
@@ -32,7 +35,7 @@ const Favorite = () => {
         setLoading(false)
       }
 
-      fetchFavorites()
+      token && fetchFavorites()
     } catch (error) {
       toast.error(error.message)
       setLoading(false)

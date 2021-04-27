@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -24,8 +25,10 @@ import { getMyOrden } from '../api/orden'
 import { OrdenProduct } from '../interfaces/orden'
 import { BASE_API } from '../api'
 import ModalElement from '../components/element/modal'
+import { UseNotSesion } from '../hooks/useNotSesion'
 
 const MisPedidos = () => {
+  UseNotSesion()
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [modal, setMOdal] = useState<boolean>(false)
@@ -46,7 +49,7 @@ const MisPedidos = () => {
         setLoading(false)
       }
 
-      fetchOrden()
+      token && fetchOrden()
     } catch (error) {
       toast.error(error.message)
       setLoading(false)

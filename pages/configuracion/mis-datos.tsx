@@ -28,6 +28,7 @@ import { SourceAvatar } from '../../helpers/sourceAvatar'
 import { BASE_API, DEFAULT_AVATAR } from '../../api'
 import ModalElement from '../../components/element/modal'
 import { UploadImage } from '../../components/element/uploadImage'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 interface FromMiData {
   username: string
@@ -35,6 +36,7 @@ interface FromMiData {
 }
 
 const MyData = () => {
+  UseNotSesion()
   const [newAddress, setNewAddress] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [Modal, setModal] = useState<boolean>(false)

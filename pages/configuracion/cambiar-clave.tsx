@@ -3,8 +3,10 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import Layout from '../../components/layout'
 import ChangePassword from '../../components/element/changePassword'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 const CambiarClave = () => {
+  UseNotSesion()
   return (
     <>
       <NextSeo

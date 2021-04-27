@@ -18,6 +18,7 @@ import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 import { TokenContext } from '../../context/contextToken'
 import { SendInvite } from '../../api/invite'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 interface FromInvite {
   name: string
@@ -25,6 +26,7 @@ interface FromInvite {
 }
 
 const SendInvitation = () => {
+  UseNotSesion()
   const methods = useForm<FromInvite>()
   const { handleSubmit, control, reset, errors } = methods
   const { token } = useContext(TokenContext)

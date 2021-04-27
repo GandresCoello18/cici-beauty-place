@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -16,8 +17,10 @@ import { getDetailsOrden } from '../../api/orden'
 import { TokenContext } from '../../context/contextToken'
 import { DetailsOrdenAndShipping } from '../../interfaces/shipping'
 import { BASE_API } from '../../api'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 const DetailsCompra = () => {
+  UseNotSesion()
   const [loading, setLoading] = useState(false)
   const { token } = useContext(TokenContext)
   const [Details, setDetails] = useState<DetailsOrdenAndShipping>()
@@ -59,7 +62,7 @@ const DetailsCompra = () => {
     if (!Router.query.idOrder) {
       Router.push('/')
     } else {
-      FetchOrdenDetails()
+      token && FetchOrdenDetails()
     }
   }, [token])
 

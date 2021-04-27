@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -20,8 +21,10 @@ import { TokenContext } from '../../context/contextToken'
 import { getProductShipping } from '../../api/shipping'
 import { MisShipping } from '../../interfaces/shipping'
 import { BASE_API } from '../../api'
+import { UseNotSesion } from '../../hooks/useNotSesion'
 
 const Compras = () => {
+  UseNotSesion()
   const [dropdownOpen, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const { token } = useContext(TokenContext)
@@ -43,7 +46,7 @@ const Compras = () => {
       }
     }
 
-    FetchShipping()
+    token && FetchShipping()
   }, [token])
 
   const SkeletonShipping = () => {

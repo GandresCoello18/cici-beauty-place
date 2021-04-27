@@ -3,8 +3,11 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import SignIn from '../components/signIn'
 import Layout from '../components/layout'
+import { UseSesion } from '../hooks/useSesion'
 
 const SignInPage = () => {
+  UseSesion()
+
   return (
     <>
       <NextSeo

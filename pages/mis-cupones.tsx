@@ -32,8 +32,10 @@ import { BASE_API, DEFAULT_AVATAR } from '../api'
 import { StatusColorCoupons } from '../helpers/statusColor'
 import ModalElement from '../components/element/modal'
 import SpinnerLoader from '../components/element/spinner-cici'
+import { UseNotSesion } from '../hooks/useNotSesion'
 
 const MisCupones = () => {
+  UseNotSesion()
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [cupones, setCupones] = useState<Coupons[]>([])
@@ -58,7 +60,7 @@ const MisCupones = () => {
         setLoading(false)
       }
 
-      fetchMyCoupons()
+      token && fetchMyCoupons()
     } catch (error) {
       setLoading(false)
       toast.error(error.message)
