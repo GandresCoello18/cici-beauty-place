@@ -36,7 +36,7 @@ const CardProduct = ({ product, size }: Props) => {
     },
     image: {
       width: '100%',
-      height: 200,
+      // height: 200,
       padding: 2,
       backgroundColor: 'rgb(244, 237, 237)',
     },

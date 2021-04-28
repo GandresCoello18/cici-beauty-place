@@ -80,78 +80,82 @@ const ProductId = () => {
 
   return (
     <>
-      <NextSeo
-        title={`${product?.title || ''} - Cici beauty place`}
-        description={`${
-          product?.description ||
-          'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
-        }`}
-        canonical="https://cici.beauty/productos"
-        openGraph={{
-          url: `https://cici.beauty/productos/${product?.idProducts}`,
-          title: `${product?.title}`,
-          description: `${
-            product?.description ||
-            'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
-          }`,
-          images: [
-            {
-              url: `${BASE_API_IMAGES_CLOUDINNARY}/${product?.source}`,
-              width: 700,
-              height: 500,
-              alt: product?.title || '',
-            },
-          ],
-          site_name: 'Cici beauty place',
-        }}
-      />
+      {product && (
+        <>
+          <NextSeo
+            title={`${product.title || ''} - Cici beauty place`}
+            description={`${
+              product.description ||
+              'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
+            }`}
+            canonical="https://cici.beauty/productos"
+            openGraph={{
+              url: `https://cici.beauty/productos/${product.idProducts}`,
+              title: `${product.title}`,
+              description: `${
+                product.description ||
+                'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
+              }`,
+              images: [
+                {
+                  url: `${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`,
+                  width: 700,
+                  height: 500,
+                  alt: product.title || '',
+                },
+              ],
+              site_name: 'Cici beauty place',
+            }}
+          />
 
-      <ProductJsonLd
-        productName={`${product?.title}`}
-        images={[`${BASE_API_IMAGES_CLOUDINNARY}/${product?.source}`]}
-        description={`${product?.description}`}
-        brand={product?.brand}
-        reviews={ProductReviews}
-        aggregateRating={{
-          ratingValue: `${product?.stars}`,
-          reviewCount: `${product?.starsPeople}`,
-        }}
-        offers={[
-          {
-            price: `${product?.price}`,
-            priceCurrency: 'USD',
-            priceValidUntil: `${product?.offer_expires_date}`,
-            seller: {
-              name: 'Cici beauty place',
-            },
-          },
-        ]}
-        mpn="925872"
-      />
+          <ProductJsonLd
+            productName={`${product.title}`}
+            images={[`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`]}
+            description={`${product.description}`}
+            brand={product.brand}
+            reviews={ProductReviews}
+            aggregateRating={{
+              ratingValue: `${product.stars}`,
+              reviewCount: `${product.starsPeople}`,
+            }}
+            offers={[
+              {
+                price: `${product.price}`,
+                priceCurrency: 'USD',
+                priceValidUntil: `${product.offer_expires_date}`,
+                seller: {
+                  name: 'Cici beauty place',
+                },
+              },
+            ]}
+            mpn="925872"
+          />
 
-      <BreadcrumbJsonLd
-        itemListElements={[
-          {
-            position: 1,
-            name: 'Inicio',
-            item: 'https://cici.beauty',
-          },
-          {
-            position: 2,
-            name: 'Productos',
-            item: 'https://cici.beauty/productos',
-          },
-          {
-            position: 3,
-            name: `${product?.title}`,
-            item: `https://cici.beauty/productos/${product?.idProducts}`,
-          },
-        ]}
-      />
+          <BreadcrumbJsonLd
+            itemListElements={[
+              {
+                position: 1,
+                name: 'Inicio',
+                item: 'https://cici.beauty',
+              },
+              {
+                position: 2,
+                name: 'Productos',
+                item: 'https://cici.beauty/productos',
+              },
+              {
+                position: 3,
+                name: `${product.title}`,
+                item: `https://cici.beauty/productos/${product.idProducts}`,
+              },
+            ]}
+          />
 
-      <Layout>
-        {product && <ProductDetails product={product} loading={loading} />}
-      </Layout>
+          <Layout>
+            <ProductDetails product={product} loading={loading} />
+          </Layout>
+        </>
+      )}
     </>
   )
 }
