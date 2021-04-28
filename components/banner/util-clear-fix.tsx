@@ -19,6 +19,7 @@ const BannerClearFix = () => {
               width="100"
             />
             <br />
+            <br />
             Compra sin moverte
           </h6>
           <p style={styles.colorText}>
@@ -34,6 +35,7 @@ const BannerClearFix = () => {
               width="100"
             />
             <br />
+            <br />
             Pagos seguros
           </h6>
           <p style={styles.colorText}>
@@ -48,6 +50,7 @@ const BannerClearFix = () => {
               alt="shopping orden - cici"
               width="100"
             />
+            <br />
             <br />
             Confirma tu orden
           </h6>
