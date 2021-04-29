@@ -25,7 +25,7 @@ import { UpdateAvatarUser, UpdateUser } from '../../api/users'
 import SpinnerLoader from '../../components/element/spinner-cici'
 import CardImageOnly from '../../components/card/card-image-only'
 import { SourceAvatar } from '../../helpers/sourceAvatar'
-import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../../api'
 import ModalElement from '../../components/element/modal'
 import { UploadImage } from '../../components/element/uploadImage'
 import { UseNotSesion } from '../../hooks/useNotSesion'
@@ -70,7 +70,8 @@ const MyData = () => {
       <div className="col-12 col-md-4 p-5">
         <CardImageOnly
           sourceImage={
-            SourceAvatar(User.avatar) || `${BASE_API}/static/${DEFAULT_AVATAR}`
+            SourceAvatar(User.avatar) ||
+            `${BASE_API_IMAGES_CLOUDINNARY}/${DEFAULT_AVATAR}`
           }
           title={User.userName}
         />

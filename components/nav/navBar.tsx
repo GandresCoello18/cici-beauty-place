@@ -37,7 +37,7 @@ import Cookies from 'js-cookie'
 import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
 import CartIcon from '../cart/cart-icon'
-import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../../api'
 import { RootState } from '../../reducers'
 import { SourceAvatar } from '../../helpers/sourceAvatar'
 
@@ -148,7 +148,7 @@ const NavBarElement = () => {
                 <img
                   src={
                     SourceAvatar(User.avatar) ||
-                    `${BASE_API}/static/${DEFAULT_AVATAR}`
+                    `${BASE_API_IMAGES_CLOUDINNARY}/${DEFAULT_AVATAR}`
                   }
                   alt={User.userName}
                 />

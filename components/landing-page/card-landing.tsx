@@ -2,7 +2,7 @@
 import React from 'react'
 import { BsFillEyeFill } from 'react-icons/bs'
 import Link from 'next/link'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { Product } from '../../interfaces/products'
 
 interface Props {
@@ -17,7 +17,7 @@ const CardLanding = ({ product }: Props) => {
           <img
             width="90%"
             className="p-4"
-            src={`${BASE_API}/static/${product.source}`}
+            src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
             alt={product.title}
           />
           <div className="overlay" />

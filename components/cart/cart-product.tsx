@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Badge } from 'reactstrap'
 import { toast } from 'react-toast'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { deleteProductCart, newProductCart } from '../../api/cart'
 import { Cart } from '../../interfaces/products'
 import { RootState } from '../../reducers'
@@ -94,7 +94,7 @@ const CartProduct = ({ product }: Props) => {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              src={`${BASE_API}/static/${product.source}`}
+              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
               width="100%"
               className="p-2"
               alt={product.title}

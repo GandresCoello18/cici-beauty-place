@@ -22,7 +22,7 @@ import ListImage from './listImage'
 import MoreDetails from './moreDetails'
 import CaroselCard from '../carousel/CaroselCard'
 import { Colors, Product } from '../../interfaces/products'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { RootState } from '../../reducers'
 import ActionsProductDetails from './actions-product-details'
 import ProductPicker from './product-number-picker'
@@ -52,7 +52,7 @@ const ProductDetails = ({ product, loading }: Props) => {
   useEffect(() => {
     setUrlShare(window.location.href)
     setPreview({
-      src: `${BASE_API}/static/${product?.source}`,
+      src: `${BASE_API_IMAGES_CLOUDINNARY}/${product?.source}`,
       type: 'IMAGEN',
     })
 

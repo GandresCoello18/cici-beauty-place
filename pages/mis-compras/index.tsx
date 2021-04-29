@@ -20,7 +20,7 @@ import Layout from '../../components/layout'
 import { TokenContext } from '../../context/contextToken'
 import { getProductShipping } from '../../api/shipping'
 import { MisShipping } from '../../interfaces/shipping'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { UseNotSesion } from '../../hooks/useNotSesion'
 
 const Compras = () => {
@@ -124,7 +124,7 @@ const Compras = () => {
                   <div className="row g-0 justify-content-between">
                     <div className="col-12 col-md-2">
                       <img
-                        src={`${BASE_API}/static/${item.sourcesProduct}`}
+                        src={`${BASE_API_IMAGES_CLOUDINNARY}/${item.sourcesProduct}`}
                         width="100"
                         height="100"
                         alt={item.titleProduct}

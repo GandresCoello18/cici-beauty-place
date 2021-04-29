@@ -21,7 +21,7 @@ import { setCart } from '../../reducers/cart'
 import SpinnerLoader from '../element/spinner-cici'
 import ActionFavoritePrduct from './action-favorite-product'
 import { TokenContext } from '../../context/contextToken'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
@@ -206,7 +206,7 @@ const ActionsProductDetails = ({
             <div className="col-12 col-md-3">
               <img
                 width="100%"
-                src={`${BASE_API}/static/${product.source}`}
+                src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
                 alt={product.title}
               />
             </div>

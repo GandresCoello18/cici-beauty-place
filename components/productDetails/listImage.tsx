@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { Dispatch, SetStateAction } from 'react'
 import Carousel from 'react-multi-carousel'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { SourcesProduct } from '../../interfaces/products'
 import CardImageOnly from '../card/card-image-only'
 
@@ -57,8 +57,8 @@ const ListImage = ({ sources, setPreview }: Props) => {
                 setPreview({
                   src:
                     item.idSourceProduct === 'generado'
-                      ? `${BASE_API}/static/${item.source}`
-                      : `${BASE_API}/static/more-source/${item.source}`,
+                      ? `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`
+                      : `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`,
                   type: 'IMAGEN',
                 })
               }}
@@ -67,8 +67,8 @@ const ListImage = ({ sources, setPreview }: Props) => {
                 title=""
                 sourceImage={
                   item.idSourceProduct === 'generado'
-                    ? `${BASE_API}/static/${item.source}`
-                    : `${BASE_API}/static/more-source/${item.source}`
+                    ? `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`
+                    : `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`
                 }
               />
             </div>
@@ -77,17 +77,17 @@ const ListImage = ({ sources, setPreview }: Props) => {
               width="100%"
               onMouseEnter={() => {
                 setPreview({
-                  src: `${BASE_API}/static/more-source/${item.source}`,
+                  src: `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`,
                   type: 'VIDEO',
                 })
               }}
             >
               <source
-                src={`${BASE_API}/static/more-source/${item.source}`}
+                src={`${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`}
                 type="video/mp4"
               />
               <source
-                src={`${BASE_API}/static/more-source/${item.source}`}
+                src={`${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`}
                 type="video/ogg"
               />
             </video>

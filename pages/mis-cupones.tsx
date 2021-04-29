@@ -28,11 +28,12 @@ import {
   getCoupons,
 } from '../api/coupons'
 import { Coupons, MyCouponsUser } from '../interfaces/coupons'
-import { BASE_API, DEFAULT_AVATAR } from '../api'
+import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../api'
 import { StatusColorCoupons } from '../helpers/statusColor'
 import ModalElement from '../components/element/modal'
 import SpinnerLoader from '../components/element/spinner-cici'
 import { UseNotSesion } from '../hooks/useNotSesion'
+import { SourceAvatar } from '../helpers/sourceAvatar'
 
 const MisCupones = () => {
   UseNotSesion()
@@ -159,7 +160,10 @@ const MisCupones = () => {
               <img
                 width="50"
                 height="50"
-                src={cupon.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+                src={
+                  SourceAvatar(cupon.avatar) ||
+                  `${BASE_API_IMAGES_CLOUDINNARY}/${DEFAULT_AVATAR}`
+                }
                 alt={cupon.userName}
               />
               <span className="p-1 ml-3">{cupon.userName} (Invitado)</span>
