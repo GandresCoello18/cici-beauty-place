@@ -3,7 +3,7 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import StarRatingComponent from 'react-star-rating-component'
 import { Media } from 'reactstrap'
-import { BASE_API, DEFAULT_AVATAR } from '../../api'
+import { SourceAvatar } from '../../helpers/sourceAvatar'
 import { ProductReview } from '../../interfaces/products'
 
 interface Props {
@@ -22,7 +22,7 @@ const Comentario = ({ review, loading }: Props) => {
             object
             style={{ width: 50, height: 50, padding: 5, borderRadius: 10 }}
             data-srce="holder.js/64x64"
-            src={review.avatar || `${BASE_API}/static/${DEFAULT_AVATAR}`}
+            src={SourceAvatar(review.avatar)}
             alt={review.userName}
           />
         )}

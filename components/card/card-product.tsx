@@ -12,7 +12,7 @@ import Link from 'next/link'
 import StarRatingComponent from 'react-star-rating-component'
 import { MdPeople } from 'react-icons/md'
 import { Product } from '../../interfaces/products'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
 
 interface Props {
@@ -49,7 +49,7 @@ const CardProduct = ({ product, size }: Props) => {
           <Card className="border-round">
             <CardImg
               top
-              src={`${BASE_API}/static/${product.source}`}
+              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
               alt={product.title}
               style={Styles.image}
               className="p-3"
@@ -99,22 +99,26 @@ const CardProduct = ({ product, size }: Props) => {
               >
                 <div className="row">
                   <div className="col-12 mb-3">
-                    {product.sold && `${product.sold} Vendidos`}
+                    {product.sold ? `${product.sold} Vendidos` : ''}
                   </div>
-                  <div className="col-12">
-                    <StarRatingComponent
-                      name="rate1"
-                      starCount={5}
-                      value={product.stars || 0}
-                    />
-                    <span
-                      className="position-absolute top-0 ml-3"
-                      style={{ color: 'rgb(255, 180, 0)' }}
-                    >
-                      {product.starsPeople}{' '}
-                      <MdPeople color="rgb(255, 180, 0)" />
-                    </span>
-                  </div>
+                  {product.stars ? (
+                    <div className="col-12">
+                      <StarRatingComponent
+                        name="rate1"
+                        starCount={5}
+                        value={product.stars || 0}
+                      />
+                      <span
+                        className="position-absolute top-0 ml-3"
+                        style={{ color: 'rgb(255, 180, 0)' }}
+                      >
+                        {product.starsPeople}{' '}
+                        <MdPeople color="rgb(255, 180, 0)" />
+                      </span>
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </CardSubtitle>
             </CardBody>

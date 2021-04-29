@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable unicorn/consistent-function-scoping */
@@ -6,7 +8,10 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { Dispatch, SetStateAction } from 'react'
 import Carousel from 'react-multi-carousel'
-import { BASE_API } from '../../api'
+import {
+  BASE_API_IMAGES_CLOUDINNARY,
+  BASE_API_IMAGES_CLOUDINNARY_SCALE,
+} from '../../api'
 import { SourcesProduct } from '../../interfaces/products'
 import CardImageOnly from '../card/card-image-only'
 
@@ -52,13 +57,13 @@ const ListImage = ({ sources, setPreview }: Props) => {
           {item.kind === 'IMAGEN' ? (
             <div
               className={`${index + 1 === sources.length && 'border-cici'}`}
-              onMouseEnter={(event: any) => {
+              onClick={(event: any) => {
                 borderSelect(event)
                 setPreview({
                   src:
                     item.idSourceProduct === 'generado'
-                      ? `${BASE_API}/static/${item.source}`
-                      : `${BASE_API}/static/more-source/${item.source}`,
+                      ? `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`
+                      : `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`,
                   type: 'IMAGEN',
                 })
               }}
@@ -67,27 +72,27 @@ const ListImage = ({ sources, setPreview }: Props) => {
                 title=""
                 sourceImage={
                   item.idSourceProduct === 'generado'
-                    ? `${BASE_API}/static/${item.source}`
-                    : `${BASE_API}/static/more-source/${item.source}`
+                    ? `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`
+                    : `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`
                 }
               />
             </div>
           ) : (
             <video
               width="100%"
-              onMouseEnter={() => {
+              onClick={() => {
                 setPreview({
-                  src: `${BASE_API}/static/more-source/${item.source}`,
+                  src: `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`,
                   type: 'VIDEO',
                 })
               }}
             >
               <source
-                src={`${BASE_API}/static/more-source/${item.source}`}
+                src={`${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`}
                 type="video/mp4"
               />
               <source
-                src={`${BASE_API}/static/more-source/${item.source}`}
+                src={`${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`}
                 type="video/ogg"
               />
             </video>

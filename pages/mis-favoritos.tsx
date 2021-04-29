@@ -12,7 +12,7 @@ import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
 import Layout from '../components/layout'
-import { BASE_API } from '../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../api'
 import ActionFavoritePrduct from '../components/productDetails/action-favorite-product'
 import { Product } from '../interfaces/products'
 import { deleteMyFavorites, getFavorites } from '../api/favorite'
@@ -63,7 +63,7 @@ const Favorite = () => {
             <div className="row g-0">
               <div className="col-md-3">
                 <img
-                  src={`${BASE_API}/static/${product.source}`}
+                  src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
                   height="250"
                   className="p-2"
                   alt={product.title}

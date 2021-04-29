@@ -16,7 +16,7 @@ import QualifyOrder from '../../components/payment/qualifyOrder'
 import { getDetailsOrden } from '../../api/orden'
 import { TokenContext } from '../../context/contextToken'
 import { DetailsOrdenAndShipping } from '../../interfaces/shipping'
-import { BASE_API } from '../../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { UseNotSesion } from '../../hooks/useNotSesion'
 
 const DetailsCompra = () => {
@@ -171,7 +171,7 @@ const DetailsCompra = () => {
                             <Skeleton width={100} height={100} />
                           ) : (
                             <img
-                              src={`${BASE_API}/static/${product.source}`}
+                              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
                               width="100"
                               height="100"
                               alt={product.title}

@@ -23,7 +23,7 @@ import { TokenContext } from '../context/contextToken'
 import Layout from '../components/layout'
 import { getMyOrden } from '../api/orden'
 import { OrdenProduct } from '../interfaces/orden'
-import { BASE_API } from '../api'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../api'
 import ModalElement from '../components/element/modal'
 import { UseNotSesion } from '../hooks/useNotSesion'
 
@@ -143,7 +143,7 @@ const MisPedidos = () => {
                 <img
                   width="100"
                   height="100"
-                  src={`${BASE_API}/static/${orden.product[0].source}`}
+                  src={`${BASE_API_IMAGES_CLOUDINNARY}/${orden.product[0].source}`}
                   alt={orden.product[0].title}
                   className="p-1"
                 />
