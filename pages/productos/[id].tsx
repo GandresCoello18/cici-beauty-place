@@ -7,7 +7,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
@@ -22,27 +22,32 @@ import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 const ProductId = () => {
   const [product, setProduct] = useState<Product>()
   const [loading, setLoading] = useState<boolean>(false)
+  const Router = useRouter()
+  const { id } = Router.query
   const [ProductReviews, setReviews] = useState<SeoProductReview[]>([])
 
   useEffect(() => {
     setLoading(true)
 
-    if (!Router.query.id) {
+    if (!id) {
       Router.push('/')
     }
 
     try {
       const fetchProduct = async () => {
-        const productId = Router.query.id as string
-        const { product } = await (await GetProduct({ idProduct: productId }))
-          .data
+        const { product } = await (
+          await GetProduct({ idProduct: id as string })
+        ).data
         setProduct(product)
+
+        if (!product) {
+          Router.push('/productos')
+        }
       }
 
       const fetchReviews = async () => {
-        const productId = Router.query.id as string
         const { reviews } = await (
-          await GetProductReviews({ idProduct: productId })
+          await GetProductReviews({ idProduct: id as string })
         ).data
 
         const resultReview: ProductReview[] = reviews
@@ -76,7 +81,7 @@ const ProductId = () => {
       toast.error(error.message)
       setLoading(false)
     }
-  }, [])
+  }, [Router, id])
 
   return (
     <>
