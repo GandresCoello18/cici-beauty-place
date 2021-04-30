@@ -118,10 +118,10 @@ const MisCupones = () => {
         className="row bg-white border-bottom p-1 p-md-3 text-center"
         key={cupon.id_user_coupons}
       >
-        <div className="col-4 border-right">
+        <div className="col border-right">
           {cupon.type ? (
             <Badge className="bg-cici text-dark">{cupon.type}</Badge>
-          ) : cupon.status === 'Pendiente' ? (
+          ) : cupon.status === 'No valido aun' ? (
             <Button
               color="info"
               size="sm"
@@ -133,10 +133,10 @@ const MisCupones = () => {
               Elegir cupón {loadingUpdate && <SpinnerLoader />}
             </Button>
           ) : (
-            <Badge color="danger">No Especificado</Badge>
+            <Badge color="danger">Ninguno</Badge>
           )}
         </div>
-        <div className="col-5 border-right">
+        <div className="col border-right">
           <span
             className={
               cupon.expiration_date === 'No Expira' ? 'text-danger' : ''
@@ -145,7 +145,7 @@ const MisCupones = () => {
             {cupon.expiration_date}
           </span>
         </div>
-        <div className="col-3">
+        <div className="col">
           <Badge className={StatusColorCoupons(cupon.status)}>
             {cupon.status}
           </Badge>
@@ -235,13 +235,13 @@ const MisCupones = () => {
             </div>
           </div>
           <div className="row bg-white border-bottom p-3 text-center">
-            <div className="col-4 border-right font-weight-bold text-cici">
+            <div className="col border-right font-weight-bold text-cici">
               Tipo
             </div>
-            <div className="col-5 border-right font-weight-bold text-cici">
+            <div className="col border-right font-weight-bold text-cici">
               Expira
             </div>
-            <div className="col-3 font-weight-bold text-cici">Estado</div>
+            <div className="col font-weight-bold text-cici">Estado</div>
           </div>
           {loading ? renderSkeleton() : renderMisCupones()}
           {!loading && misCupones.length === 0 && (

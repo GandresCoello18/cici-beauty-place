@@ -29,16 +29,30 @@ const CardAddres = ({ address }: Props) => {
     setLoading(true)
 
     try {
-      await SelectedMyAddress({ token, title })
-      const findAddress = AddressesReducer.find((item) => item.title === title)
+      const distintoAddress = AddressesReducer.filter(
+        (item) => item.title !== title
+      )
+      const SelectAddres = distintoAddress.some((item) => item.selected)
 
-      if (findAddress) {
-        findAddress.selected = !address.selected
-        AddressesReducer.splice(0, AddressesReducer.length, findAddress)
-        dispatch(setAddress(AddressesReducer))
+      if (SelectAddres) {
+        toast.warn(
+          'Ya tienes dirección en uso, deja de usar y escoge otra dirección'
+        )
+        setLoading(false)
+      } else {
+        await SelectedMyAddress({ token, title })
+
+        const findAddress = AddressesReducer.find(
+          (item) => item.title === title
+        )
+        if (findAddress) {
+          findAddress.selected = !address.selected
+          /* AddressesReducer.splice(0, AddressesReducer.length, findAddress)
+        dispatch(setAddress(AddressesReducer)) */
+        }
+
+        setLoading(false)
       }
-
-      setLoading(false)
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -67,7 +81,7 @@ const CardAddres = ({ address }: Props) => {
     <div className={`${address.selected ? 'border-cici' : 'set-border-cici'}`}>
       <Card body className={`${address.selected && 'select-addres'}`}>
         <CardTitle tag="h5" className="font-weight-bold">
-          {address.title}
+          {address.selected ? <GoVerified /> : ''} {address.title}
         </CardTitle>
         <CardText>{address.address}</CardText>
         <CardSubtitle className="mt-1 mb-3">
@@ -94,7 +108,7 @@ const CardAddres = ({ address }: Props) => {
             >
               {address.selected ? (
                 <>
-                  <GoVerified /> En uso
+                  <GoVerified /> Dejar uso
                 </>
               ) : (
                 <>
