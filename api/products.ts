@@ -40,6 +40,14 @@ export const GetProduct = async (options: { idProduct: string }) => {
   return response
 }
 
+export const GetSearchProducts = async (options: { key: string }) => {
+  const response = await api({
+    method: 'GET',
+    url: `/products/search/${options.key}`,
+  })
+  return response
+}
+
 export const NewProductReviews = async (options: {
   token: string | undefined
   data: FormCalifica

@@ -55,6 +55,11 @@ const SearchInput = () => {
         placeholder="Buscar..."
         style={{ borderColor: '#f1d7dd', borderWidth: 2 }}
         onChange={(event) => setSearchValue(event.target.value)}
+        onKeyPress={(event) => {
+          if (event.key === 'Enter') {
+            SearchKey()
+          }
+        }}
       />
       <InputGroupAddon
         addonType="append"

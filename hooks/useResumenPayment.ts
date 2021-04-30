@@ -50,7 +50,7 @@ export const ResumenPaymen = () => {
 
   sub = trunc(sub, 2)
 
-  let envio = sub > 40 ? 0 : 4
+  let envio = sub > 40 ? 0 : 2
 
   if (!sub) {
     envio = 0

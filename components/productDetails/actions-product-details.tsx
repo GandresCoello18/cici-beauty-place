@@ -223,7 +223,7 @@ const ActionsProductDetails = ({
           </div>
 
           <div className="row justify-content-end">
-            <div className="col-6 col-md-2 mr-5">
+            <div className="col-6 col-md-2 mr-md-5">
               <Link href="/productos">
                 <Button color="link" className="text-cici">
                   Seguir comprando
