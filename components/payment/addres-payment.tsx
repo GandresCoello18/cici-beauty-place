@@ -29,7 +29,7 @@ const AdressPayment = () => {
         </>
       ) : (
         <>
-          <h4 className="text-center p-2">Nueva Dirección:</h4>
+          <h4 className="text-center p-2 mb-2">Nueva Dirección:</h4>
           <FormAddres isSession={!!token} />
         </>
       )}

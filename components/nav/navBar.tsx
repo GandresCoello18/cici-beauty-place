@@ -4,51 +4,24 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unneeded-ternary */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { FiSend } from 'react-icons/fi'
-import Switch from 'react-switch'
 import {
-  Badge,
   Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   Nav,
   NavItem,
   NavLink,
   Navbar,
   NavbarBrand,
-  NavbarText,
   NavbarToggler,
-  UncontrolledDropdown,
 } from 'reactstrap'
-import { AiFillCloseCircle } from 'react-icons/ai'
-import { IoIosNotifications } from 'react-icons/io'
-import { BiPurchaseTagAlt } from 'react-icons/bi'
-import { GrConfigure } from 'react-icons/gr'
-import { CgFileDocument } from 'react-icons/cg'
-import { HiOutlineClipboardList } from 'react-icons/hi'
-import { MdFavorite } from 'react-icons/md'
-import { RiCouponLine, RiLockPasswordLine } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
-import Cookies from 'js-cookie'
-import ModalElement from '../element/modal'
 import SearchInput from '../element/searchInput'
-import CartIcon from '../cart/cart-icon'
-import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../../api'
-import { RootState } from '../../reducers'
-import { SourceAvatar } from '../../helpers/sourceAvatar'
+import { MenuUser } from './menuUser'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [modal, setModal] = useState<boolean>(false)
-  const [istheme, setIsTheme] = useState<boolean>(false)
-  const [isPermiso, setIsPermiso] = useState<string>('')
-  const { theme, setTheme } = useTheme()
-
-  const { User } = useSelector((state: RootState) => state.UserReducer)
+  const { theme } = useTheme()
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -63,28 +36,6 @@ const NavBarElement = () => {
     spaceMenu: {
       marginBottom: 10,
     },
-  }
-
-  useEffect(() => {
-    setIsPermiso(Notification.permission)
-  }, [])
-
-  const ColorPermisoNotificacon = (permiso: string) => {
-    switch (permiso) {
-      case 'denied':
-        return 'danger'
-      case 'granted':
-        return 'success'
-      case 'default':
-        return 'info'
-      default:
-        return 'link'
-    }
-  }
-
-  const closeSesion = () => {
-    Cookies.remove('access-token')
-    window.location.href = '/home'
   }
 
   return (
@@ -109,7 +60,7 @@ const NavBarElement = () => {
           </Link>
         </NavbarBrand>
         <span className="d-block d-md-none">
-          <CartIcon />
+          <MenuUser />
         </span>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -137,142 +88,13 @@ const NavBarElement = () => {
             </NavItem>
           </Nav>
 
-          <div className="row mt-3 mt-md-0">
-            <div className="col-2 col-md-3">
-              <figure
-                className="avatar ml-2"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title={User.userName}
-              >
-                <img
-                  src={
-                    SourceAvatar(User.avatar) ||
-                    `${BASE_API_IMAGES_CLOUDINNARY}/${DEFAULT_AVATAR}`
-                  }
-                  alt={User.userName}
-                />
-              </figure>
-            </div>
-            <div className="col-9">
-              <UncontrolledDropdown setActiveFromChild style={styles.colorLink}>
-                <DropdownToggle caret size="sm">
-                  {User.userName}
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem style={styles.spaceMenu}>
-                    <Link href="/mis-compras">
-                      <a style={styles.colorLink}>
-                        <BiPurchaseTagAlt /> Mis Compras
-                      </a>
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem style={styles.spaceMenu}>
-                    <Link href="/mis-favoritos">
-                      <a style={styles.colorLink}>
-                        <MdFavorite /> Mis Favoritos
-                      </a>
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem style={styles.colorLink}>
-                    <Link href="/mis-pedidos">
-                      <a style={styles.colorLink}>
-                        <HiOutlineClipboardList /> Mis Pedidos
-                      </a>
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem style={styles.colorLink}>
-                    <Link href="/mis-cupones">
-                      <a style={styles.colorLink}>
-                        <RiCouponLine /> Mis Cupones
-                      </a>
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem style={styles.colorLink}>
-                    <Link href="/configuracion/invitar">
-                      <a style={{ textDecoration: 'none', color: '#999' }}>
-                        <FiSend /> Invitar amigos
-                      </a>
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem
-                    onClick={() => setModal(true)}
-                    style={styles.colorLink}
-                  >
-                    <GrConfigure /> Configuración
-                  </DropdownItem>
-                  <DropdownItem style={styles.colorClose} onClick={closeSesion}>
-                    <AiFillCloseCircle /> Salir
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </div>
+          <div className="d-none d-md-block">
+            <MenuUser />
           </div>
-
-          <NavbarText className="d-none d-md-block">
-            <CartIcon />
-          </NavbarText>
 
           <SearchInput />
         </Collapse>
       </Navbar>
-
-      <ModalElement title="Configuracion" visible={modal} setVisible={setModal}>
-        <ul className="list-group">
-          <li className="list-group-item" style={styles.colorLink}>
-            Tema: {theme === 'dark' ? 'Oscuro' : 'Claro'} &nbsp; &nbsp;
-            <Switch
-              onChange={(checked: boolean) => {
-                setIsTheme(checked)
-                theme === 'dark' ? setTheme('light') : setTheme('dark')
-              }}
-              checked={istheme}
-            />
-          </li>
-          {User.provider === 'cici' && (
-            <li
-              className="list-group-item cursor-pointer"
-              style={styles.colorLink}
-            >
-              <Link href="/configuracion/cambiar-clave">
-                <a style={{ textDecoration: 'none', color: '#999' }}>
-                  <RiLockPasswordLine /> Cambio de contraseña
-                </a>
-              </Link>
-            </li>
-          )}
-          <li
-            className="list-group-item cursor-pointer"
-            style={styles.colorLink}
-          >
-            <div
-              onClick={() =>
-                Notification.requestPermission().then((result) =>
-                  setIsPermiso(result)
-                )
-              }
-              aria-hidden="true"
-            >
-              <IoIosNotifications /> Recibir notificaciones{' '}
-              <Badge color={ColorPermisoNotificacon(isPermiso)}>
-                {isPermiso === 'denied' && 'Denegado'}
-                {isPermiso === 'granted' && 'Permitido'}
-                {isPermiso === 'default' && 'Sin respuesta'}
-              </Badge>
-            </div>
-          </li>
-          <li
-            className="list-group-item cursor-pointer"
-            style={styles.colorLink}
-          >
-            <Link href="/configuracion/mis-datos">
-              <a style={{ textDecoration: 'none', color: '#999' }}>
-                <CgFileDocument /> Mis Datos
-              </a>
-            </Link>
-          </li>
-        </ul>
-      </ModalElement>
     </>
   )
 }
