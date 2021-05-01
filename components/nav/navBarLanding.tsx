@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import {
-  Button,
   Collapse,
   Nav,
   NavItem,
@@ -14,6 +13,7 @@ import {
 } from 'reactstrap'
 import CartIcon from '../cart/cart-icon'
 import SearchInput from '../element/searchInput'
+import { BtnIniciarSesion } from './btn-Iniciar-sesion'
 
 const NavBarLanding = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -42,6 +42,7 @@ const NavBarLanding = () => {
         </Link>
       </NavbarBrand>
       <span className="d-block d-md-none">
+        <BtnIniciarSesion />
         <CartIcon />
       </span>
       <NavbarToggler onClick={toggle} />
@@ -70,17 +71,8 @@ const NavBarLanding = () => {
           </NavItem>
         </Nav>
 
-        <NavbarText>
-          <Link href="/login">
-            <a className="mr-3">
-              <Button outline color="secondary" size="sm">
-                Iniciar Sesión
-              </Button>
-            </a>
-          </Link>
-        </NavbarText>
-
         <NavbarText className="d-none d-md-block">
+          <BtnIniciarSesion />
           <CartIcon />
         </NavbarText>
 

@@ -18,11 +18,13 @@ import {
 import Cookies from 'js-cookie'
 import { FcGoogle } from 'react-icons/fc'
 import { Controller, useForm } from 'react-hook-form'
-import { AiFillFacebook } from 'react-icons/ai'
+// import { AiFillFacebook } from 'react-icons/ai'
 import ValidateEmail from 'email-validator'
 import { useDispatch } from 'react-redux'
 import Redirect from '../../lib/redirect'
-import { loginWithFacebook, loginWithGoogle } from '../../firebase/firebase'
+import {
+  /* loginWithFacebook, */ loginWithGoogle,
+} from '../../firebase/firebase'
 import SpinnerLoader from '../element/spinner-cici'
 import { LoginUser } from '../../api/users'
 import { setUser } from '../../reducers/user'
@@ -147,7 +149,7 @@ const Login = () => {
     }
   }
 
-  const loginFacebook = () => {
+  /* const loginFacebook = () => {
     setLoading(true)
 
     try {
@@ -168,7 +170,7 @@ const Login = () => {
         type: 'danger',
       })
     }
-  }
+  } */
 
   return (
     <div className="container-sign-in font-arvo">
@@ -298,14 +300,14 @@ const Login = () => {
               Acceso rápido con
             </h5>
             <div className="row justify-content-center text-center">
-              <div className="col-2">
+              {/* <div className="col-2">
                 <AiFillFacebook
                   size={40}
                   color="#3b5998"
                   className="cursor-pointer"
                   onClick={loginFacebook}
                 />
-              </div>
+              </div> */}
               <div className="col-2">
                 <FcGoogle
                   size={40}
