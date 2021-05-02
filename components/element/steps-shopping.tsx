@@ -7,6 +7,7 @@ import { Step, Stepper } from 'react-form-stepper'
 import { FaShoppingCart } from 'react-icons/fa'
 import { MdLocalShipping, MdMonetizationOn } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toast'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
 import CartContainer from '../cart'
@@ -30,6 +31,7 @@ interface Props {
 const StepsShopping = ({ setFinishShopping }: Props) => {
   const dispatch = useDispatch()
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
+  const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
   const [idCoupon, setIdCoupon] = useState<string>('')
   const [itemStep, setItemStep] = useState<StepperItem>({
     item: 0,
@@ -57,8 +59,14 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
           break
         }
       case 2:
-        setFinishShopping(true)
-        dispatch(setCart([]))
+        if (Addresses.length === 0) {
+          toast.warn(
+            'No tienes direcciones registradas, por favor agrega donde quieres recibir tus productos'
+          )
+        } else {
+          setFinishShopping(true)
+          dispatch(setCart([]))
+        }
         break
       default:
         break

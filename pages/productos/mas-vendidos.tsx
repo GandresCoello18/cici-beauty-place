@@ -45,8 +45,8 @@ const MasVendidos = () => {
   }, [])
 
   const SkeletonMasVendidos = () => {
-    return [0, 1, 2, 3, 4].map(() => (
-      <>
+    return [0, 1, 2, 3, 4].map((arr) => (
+      <div className="row" key={arr}>
         <div className="col-12 mb-4">
           <Skeleton width={300} height={40} />
         </div>
@@ -58,13 +58,13 @@ const MasVendidos = () => {
             <Skeleton width={200} height={300} />
           </div>
         ))}
-      </>
+      </div>
     ))
   }
 
   const renderCardMasVendidos = () => {
     return [0, 1, 2, 3].map((item) => (
-      <>
+      <div className="row bg-white border-round p-2 mb-3" key={item}>
         <div className="col-12 mb-2">
           <h5 className="p-2 font-weight-bold">Categoria #${item}</h5>
         </div>
@@ -76,7 +76,7 @@ const MasVendidos = () => {
             <CardProduct product={product} size="small" />
           </div>
         ))}
-      </>
+      </div>
     ))
   }
 
@@ -107,9 +107,9 @@ const MasVendidos = () => {
       <Layout>
         <section className="container">
           <div className="row justify-content-around p-3 mt-3">
-            <div className="col-12 col-md-9 col-lg-10">
+            <div className="col-12 col-md-9">
+              {loading ? SkeletonMasVendidos() : renderCardMasVendidos()}
               <div className="row justify-content-center">
-                {loading ? SkeletonMasVendidos() : renderCardMasVendidos()}
                 {!loading && products.length === 0 && (
                   <div className="col-12">
                     <Alert color="info">No hay datos para mostrar</Alert>
