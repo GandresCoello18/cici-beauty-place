@@ -38,7 +38,7 @@ const Compra = () => {
                     <Link href="/mis-pedidos">
                       <a href="/mis-pedidos" style={Styles.text}>
                         <div className="p-3 border-cici border-round box-shadow-cici">
-                          <FcKindle size={20} /> Mis Pedidos (2)
+                          <FcKindle size={20} /> Mis Pedidos
                         </div>
                       </a>
                     </Link>
@@ -47,7 +47,7 @@ const Compra = () => {
                     <Link href="/mis-compras">
                       <a href="/mis-compras" style={Styles.text}>
                         <div className="p-3 border-cici border-round box-shadow-cici">
-                          <FcPaid size={20} /> Mis compras (20)
+                          <FcPaid size={20} /> Mis compras
                         </div>
                       </a>
                     </Link>
@@ -56,7 +56,7 @@ const Compra = () => {
                     <Link href="/mis-favoritos">
                       <a href="/mis-favoritos" style={Styles.text}>
                         <div className="p-3 border-cici border-round box-shadow-cici">
-                          <FcLike size={20} /> Mis favoritos (5)
+                          <FcLike size={20} /> Mis favoritos
                         </div>
                       </a>
                     </Link>
@@ -65,7 +65,7 @@ const Compra = () => {
                     <Link href="/mis-favoritos">
                       <a href="/mis-favoritos" style={Styles.text}>
                         <div className="p-3 border-cici border-round box-shadow-cici">
-                          <FcBookmark size={20} /> Mis Cupones (1)
+                          <FcBookmark size={20} /> Mis Cupones
                         </div>
                       </a>
                     </Link>
