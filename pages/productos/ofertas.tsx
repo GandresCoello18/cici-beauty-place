@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { AiFillStar } from 'react-icons/ai'
@@ -46,15 +47,36 @@ const Producto = () => {
   return (
     <>
       <NextSeo
-        title="Productos de oferta - Cici beauty place"
-        description="Encuentra todo en oferta de cosméticos y belleza."
+        title="Productos de oferta y promociones - Cici beauty place"
+        description="Encuentra todo en oferta de cosméticos y belleza tambien no te pierdas las promociones que lanzamos toda las semanas."
+        canonical="https://cici.beauty/productos/mas-vendidos"
+        openGraph={{
+          url: 'https://cici.beauty/productos/mas-vendidos',
+          title: 'Productos de oferta y promociones - Cici beauty place',
+          description:
+            'Encuentra todo en oferta de cosméticos y belleza tambien no te pierdas las promociones que lanzamos toda las semanas.',
+          images: [
+            {
+              url:
+                'https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg',
+              width: 700,
+              height: 500,
+              alt: 'logo de cici',
+            },
+          ],
+          site_name: 'Cici beauty place',
+        }}
       />
 
       <Layout>
         <section className="container">
-          <div className="row justify-content-around p-3 mt-3">
-            <div className="col-12 col-md-9 col-lg-10">
+          <div className="row justify-content-around p-3 mt-md-3">
+            <div className="col-12 col-md-9 bg-white border-round">
               <div className="row justify-content-center">
+                <div className="col-12">
+                  <h2 className="text-center p-2">Ofertas y Promos</h2>
+                </div>
+
                 {loading
                   ? [0, 1, 2, 3].map((item) => (
                       <div
