@@ -85,3 +85,8 @@ export interface SeoProductReview {
     ratingValue: string
   }
 }
+
+export interface BestSellersProduct {
+  categoria: string
+  products: Product[]
+}

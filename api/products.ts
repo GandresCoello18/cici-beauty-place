@@ -22,6 +22,14 @@ export const GetProductsOffers = async (options: { limit?: number }) => {
   return response
 }
 
+export const GetProductsBestSellers = async () => {
+  const response = await api({
+    method: 'GET',
+    url: '/products/best-sellers-by-category',
+  })
+  return response
+}
+
 export const GetProductsBestRated = async (options: { limit?: number }) => {
   const response = await api({
     method: 'GET',

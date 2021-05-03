@@ -14,6 +14,16 @@ const getSitemap = () => `
     <priority>1.00</priority>
   </url>
   <url>
+    <loc>https://cici.beauty/productos/mas-vendidos</loc>
+    <lastmod>2021-05-04T12:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://cici.beauty/productos/ofertas</loc>
+    <lastmod>2021-05-04T12:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
     <loc>https://cici.beauty/guia-de-compra/pago/</loc>
     <lastmod>2021-05-01T12:00+00:00</lastmod>
     <priority>1.00</priority>

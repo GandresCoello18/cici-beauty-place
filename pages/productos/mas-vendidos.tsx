@@ -9,15 +9,17 @@ import Skeleton from 'react-loading-skeleton'
 import { useSelector } from 'react-redux'
 import Layout from '../../components/layout'
 import CaroselCard from '../../components/carousel/CaroselCard'
-import { GetProductsOffers } from '../../api/products'
-import { Product } from '../../interfaces/products'
+import { GetProductsBestSellers } from '../../api/products'
+import { BestSellersProduct } from '../../interfaces/products'
 import CategoriNav from '../../components/nav/categori'
 import CardProduct from '../../components/card/card-product'
 import { RootState } from '../../reducers'
 
 const MasVendidos = () => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [products, setProducts] = useState<Product[]>([])
+  const [BestSellersByCategory, setBestSellers] = useState<
+    BestSellersProduct[]
+  >([])
 
   const ProductsReducer = useSelector(
     (state: RootState) => state.ProductReducer
@@ -30,10 +32,8 @@ const MasVendidos = () => {
 
     try {
       const fetchProductOffer = async () => {
-        const dataProducts = await (
-          await GetProductsOffers({ limit: undefined })
-        ).data.products
-        setProducts(dataProducts)
+        const { BestSellers } = await (await GetProductsBestSellers()).data
+        setBestSellers(BestSellers)
         setLoading(false)
       }
 
@@ -63,12 +63,12 @@ const MasVendidos = () => {
   }
 
   const renderCardMasVendidos = () => {
-    return [0, 1, 2, 3].map((item) => (
-      <div className="row bg-white border-round p-2 mb-3" key={item}>
+    return BestSellersByCategory.map((item) => (
+      <div className="row bg-white border-round p-2 mb-3" key={item.categoria}>
         <div className="col-12 mb-2">
-          <h5 className="p-2 font-weight-bold">Categoria #${item}</h5>
+          <h5 className="p-2 font-weight-bold">{item.categoria}</h5>
         </div>
-        {products.map((product) => (
+        {item.products.map((product) => (
           <div
             className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mb-3 font-arvo"
             key={product.idProducts}
@@ -110,7 +110,7 @@ const MasVendidos = () => {
             <div className="col-12 col-md-9">
               {loading ? SkeletonMasVendidos() : renderCardMasVendidos()}
               <div className="row justify-content-center">
-                {!loading && products.length === 0 && (
+                {!loading && BestSellersByCategory.length === 0 && (
                   <div className="col-12">
                     <Alert color="info">No hay datos para mostrar</Alert>
                   </div>
