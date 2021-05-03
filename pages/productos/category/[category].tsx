@@ -59,7 +59,7 @@ const CategoryProducts = () => {
 
       <Layout>
         <section className="container font-arvo">
-          <div className="row justify-content-around p-3 mt-3">
+          <div className="row justify-content-around p-3 mt-3 bg-white border-round">
             <div className="ciol-12 p-3">
               <h3>
                 Categoria: <strong>{category}</strong>{' '}
