@@ -1,12 +1,14 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { AiFillStar, AiOutlineHistory } from 'react-icons/ai'
+import { AiFillStar } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { BsFillLightningFill } from 'react-icons/bs'
 import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
+import { toast } from 'react-toast'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
@@ -15,10 +17,16 @@ import CategoriNav from '../nav/categori'
 import Time from '../element/time'
 import { RootState } from '../../reducers'
 import { Product } from '../../interfaces/products'
-import CardImageOnly from '../card/card-image-only'
+import { SeccionHistory } from './seccion-history'
+import { TokenContext } from '../../context/contextToken'
+import { GetMyHistorty } from '../../api/productHistory'
+import SpinnerLoader from '../element/spinner-cici'
 
 const Home = () => {
+  const { token } = useContext(TokenContext)
   const [IsRunning, SetIsRunning] = useState<boolean>(true)
+  const [Loading, setLoading] = useState<boolean>(false)
+  const [HistoryProducts, setProducts] = useState<Product[]>([])
   const ProductsReducer = useSelector(
     (state: RootState) => state.ProductReducer
   )
@@ -26,6 +34,26 @@ const Home = () => {
   const { Products } = ProductsReducer
   const { ProductsOffers } = ProductsReducer
   const { ProductsBestRated } = ProductsReducer
+
+  useEffect(() => {
+    const FetchHistory = async () => {
+      setLoading(true)
+
+      try {
+        const { history } = (await GetMyHistorty({ token, limit: 8 })).data
+        setProducts(history)
+
+        setLoading(false)
+      } catch (error) {
+        toast.error(error.message)
+        setLoading(false)
+      }
+    }
+
+    if (token) {
+      FetchHistory()
+    }
+  }, [token])
 
   return (
     <>
@@ -35,61 +63,8 @@ const Home = () => {
             <CarouselAdvertising />
           </div>
           <div className="col-12 col-md-4 col-lg-5 mb-3 mb-md-0">
-            <div className="row bg-white border-round font-arvo">
-              <div
-                className="col-12 p-2"
-                style={{
-                  backgroundColor: '#f1d7dd',
-                  width: '100%',
-                  fontWeight: 'bold',
-                  padding: 5,
-                  borderTopLeftRadius: 12,
-                  borderTopRightRadius: 12,
-                }}
-              >
-                <h6 className="text-center font-weight-bold">
-                  <AiOutlineHistory size={20} /> &nbsp; Historial reciente
-                </h6>
-              </div>
-              <div className="col-6 col-md-12 col-lg-6 p-2">
-                <CardImageOnly
-                  title="1"
-                  sourceImage="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                />
-              </div>
-
-              <div className="col-6 col-lg-4 d-md-none p-2">
-                <CardImageOnly
-                  title="2"
-                  sourceImage="https://ae01.alicdn.com/kf/He81f9ea4b1984219aea384a9678e214eB/O-TWO-O-Makeup-Base-Face-Primer-Gel-Invisible-Pore-Light-Oil-Free-Makeup-Finish-No.jpg_220x220xz.jpg_.webp"
-                />
-              </div>
-
-              <div className="col-6 d-md-none d-lg-block col-lg-6 p-2">
-                <CardImageOnly
-                  title="3"
-                  sourceImage="https://ae01.alicdn.com/kf/H7283a45abbad4f37be30a95ddccfab561/60ml-Makeup-Setting-Spray-Face-Primer-Foundation-Base-Fixer-Hydrate-Long-Lasting-Lasting-Make-Up-Fix.jpg_220x220xz.jpg_.webp"
-                />
-              </div>
-
-              <div className="col-6 d-md-none col-lg-6 p-2">
-                <CardImageOnly
-                  title="4"
-                  sourceImage="https://ae01.alicdn.com/kf/H5e3eec11237d45098fb7128507dba2a98/FLD-Professional-Makeup-Brush-Diamond-Face-Fan-Powder-Brush-High-Quality-Makeup-Tool-Blush-Kit.jpg_220x220xz.jpg_.webp"
-                />
-              </div>
-              <div className="col-12 p-2 text-center">
-                <Link href="/mi-historial">
-                  <a
-                    href="/mi-historial"
-                    className="cursor-pointer"
-                    style={{ color: '#999' }}
-                  >
-                    Ver Más
-                  </a>
-                </Link>
-              </div>
-            </div>
+            {Loading && <SpinnerLoader />}
+            {!Loading && <SeccionHistory history={HistoryProducts} />}
           </div>
           <div className="col-12 col-md-3 col-lg-2 mb-3 mb-md-0 bg-white border-round p-2">
             <CategoriNav />

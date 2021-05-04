@@ -7,6 +7,7 @@ import Autocomplete from 'autocompleter'
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap'
 import Router from 'next/router'
 import { toast } from 'react-toast'
+import SpinnerLoader from './spinner-cici'
 
 interface SearchAutoComplete {
   label: string
@@ -15,9 +16,15 @@ interface SearchAutoComplete {
 
 const SearchInput = () => {
   const [SearchValue, setSearchValue] = useState<string>('')
+  const [Loading, setLoading] = useState<boolean>(false)
   const [countries] = useState<SearchAutoComplete[]>([
-    { label: 'United Kingdom', value: 'UK' },
-    { label: 'United States', value: 'US' },
+    { label: 'Cejas y pestañas', value: 'Cejas y pestañas' },
+    { label: 'Cuidados de la piel', value: 'Cuidados de la piel' },
+    { label: 'Labiales mate', value: 'Labiales mate' },
+    { label: 'Brochas y sombras', value: 'Brochas y sombras' },
+    { label: 'Accesorios para celular', value: 'Accesorios para celular' },
+    { label: 'Hidratantes', value: 'Hidratantes' },
+    { label: 'Vitaminas', value: 'Vitaminas' },
   ])
 
   useEffect(() => {
@@ -34,11 +41,14 @@ const SearchInput = () => {
       },
       onSelect(item) {
         inputSearch.value = item.label
+        setSearchValue(item.label)
       },
     })
   }, [countries])
 
   const SearchKey = () => {
+    setLoading(true)
+
     if (SearchValue) {
       Router.push(`/buscar/${SearchValue}`)
     } else {
@@ -46,6 +56,8 @@ const SearchInput = () => {
         'Escribe lo que estas buscando, ya sea un producto o categoría'
       )
     }
+
+    setLoading(false)
   }
 
   return (
@@ -67,7 +79,7 @@ const SearchInput = () => {
         onClick={SearchKey}
       >
         <InputGroupText style={{ backgroundColor: '#f1d7dd' }}>
-          <AiOutlineSearch />
+          {Loading ? <SpinnerLoader /> : <AiOutlineSearch />}
         </InputGroupText>
       </InputGroupAddon>
     </InputGroup>

@@ -5,7 +5,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toast'
@@ -18,8 +18,11 @@ import {
   SeoProductReview,
 } from '../../interfaces/products'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
+import { NewHistory } from '../../api/productHistory'
+import { TokenContext } from '../../context/contextToken'
 
 const ProductId = () => {
+  const { token } = useContext(TokenContext)
   const [product, setProduct] = useState<Product>()
   const [loading, setLoading] = useState<boolean>(false)
   const Router = useRouter()
@@ -35,13 +38,16 @@ const ProductId = () => {
 
     try {
       const fetchProduct = async () => {
-        const { product } = await (
-          await GetProduct({ idProduct: id as string })
-        ).data
+        const idProduct = id as string
+        const { product } = await (await GetProduct({ idProduct })).data
         setProduct(product)
 
         if (!product) {
           Router.push('/productos')
+        }
+
+        if (token) {
+          await NewHistory({ token, idProduct })
         }
       }
 
@@ -81,7 +87,7 @@ const ProductId = () => {
       toast.error(error.message)
       setLoading(false)
     }
-  }, [Router, id])
+  }, [Router, id, token])
 
   return (
     <>
