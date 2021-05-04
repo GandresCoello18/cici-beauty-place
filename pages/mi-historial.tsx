@@ -1,10 +1,69 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/camelcase */
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { Card, CardColumns, CardImg } from 'reactstrap'
+import { Alert, Card, CardColumns, CardImg } from 'reactstrap'
+import { toast } from 'react-toast'
+import Skeleton from 'react-loading-skeleton'
 import Layout from '../components/layout'
+import { TokenContext } from '../context/contextToken'
+import { UseNotSesion } from '../hooks/useNotSesion'
+import { ClearMyHistorty, GetMyHistorty } from '../api/productHistory'
+import { Product } from '../interfaces/products'
+import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../api'
 
 const History = () => {
+  UseNotSesion()
+  const { token } = useContext(TokenContext)
+  const [Loading, setLoading] = useState<boolean>(false)
+  const [HistoryProducts, setProducts] = useState<Product[]>([])
+
+  const FetchHistory = async () => {
+    setLoading(true)
+
+    try {
+      const { history } = (await GetMyHistorty({ token, limit: 8 })).data
+      setProducts(history)
+
+      setLoading(false)
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (token) {
+      FetchHistory()
+    }
+  }, [token])
+
+  const renderSkeleton = () => {
+    return [0, 1, 2, 3, 4, 5].map((item) => (
+      <div className="bg-white p-3" key={item}>
+        <Skeleton height={80} width={150} />
+      </div>
+    ))
+  }
+
+  const deleteHistory = async () => {
+    setLoading(true)
+
+    try {
+      await ClearMyHistorty({ token })
+
+      toast.success('Se limpio el historial')
+      setLoading(false)
+
+      FetchHistory()
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  }
+
   return (
     <>
       <NextSeo
@@ -35,54 +94,48 @@ const History = () => {
             <div className="col-12 border-bottom p-3">
               <h3>
                 Tu Historial{' '}
-                <span className="btn btn-sm btn-danger float-right">
+                <span
+                  className="btn btn-sm btn-danger float-right"
+                  onClick={deleteHistory}
+                >
                   Limpiar
                 </span>
               </h3>
             </div>
             <div className="col-12 p-3">
               <CardColumns>
-                <Card>
-                  <CardImg
-                    top
-                    width="100%"
-                    src="https://ae01.alicdn.com/kf/H54f3b265518e41b0a993d1a915488810d/FLD5-15Pcs-Makeup-Brushes-Tool-Set-Cosmetic-Powder-Eye-Shadow-Foundation-Blush-Blending-Beauty-Make-Up.jpg_220x220xz.jpg_.webp"
-                    alt="Card image cap"
-                  />
-                </Card>
-                <Card>
-                  <CardImg
-                    top
-                    width="100%"
-                    src="https://m.media-amazon.com/images/I/814O9M0BNOL._AC_UL320_.jpg"
-                    alt="Card image cap"
-                  />
-                </Card>
-                <Card>
-                  <CardImg
-                    top
-                    width="100%"
-                    src="https://m.media-amazon.com/images/I/81hqX-c2g8L._AC_UL320_.jpg"
-                    alt="Card image cap"
-                  />
-                </Card>
-                <Card>
-                  <CardImg
-                    top
-                    width="100%"
-                    src="https://m.media-amazon.com/images/I/61RbJxfEOWL._AC_UL320_.jpg"
-                    alt="Card image cap"
-                  />
-                </Card>
-                <Card>
-                  <CardImg
-                    top
-                    width="100%"
-                    src="https://m.media-amazon.com/images/I/61TDas7Bq-L._AC_UL320_.jpg"
-                    alt="Card image cap"
-                  />
-                </Card>
+                {!Loading &&
+                  HistoryProducts.map((product) => (
+                    <Card key={product.idProducts}>
+                      <CardImg
+                        top
+                        width="100%"
+                        src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
+                        alt={product.title}
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title={product.title}
+                      />
+                    </Card>
+                  ))}
+
+                {Loading && renderSkeleton()}
               </CardColumns>
+
+              {!Loading && HistoryProducts.length === 0 && (
+                <>
+                  <img
+                    className="img-fluid p-3"
+                    src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/util/undraw_product_tour_foyt_1_w2arx4.svg`}
+                    style={{ width: '100%' }}
+                    alt="empty history"
+                  />
+
+                  <Alert color="info">
+                    No tienes historial por el momento.
+                  </Alert>
+                </>
+              )}
             </div>
           </div>
         </section>

@@ -9,7 +9,12 @@ interface Props {
 const CardImageOnly = ({ sourceImage, title }: Props) => {
   return (
     <Card className="border-round">
-      <CardImg top src={sourceImage} alt={title} />
+      <CardImg
+        top
+        src={sourceImage}
+        alt={title}
+        style={{ width: 90, height: 90 }}
+      />
     </Card>
   )
 }
