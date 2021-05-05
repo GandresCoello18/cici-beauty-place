@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import {
+  Badge,
   Card,
   CardBody,
   CardImg,
@@ -36,9 +37,12 @@ const CardProduct = ({ product, size }: Props) => {
     },
     image: {
       width: '100%',
-      // height: 200,
       padding: 2,
       backgroundColor: 'rgb(244, 237, 237)',
+    },
+    encima: {
+      zIndex: 9,
+      fontSize: 14,
     },
   }
 
@@ -46,6 +50,17 @@ const CardProduct = ({ product, size }: Props) => {
     <>
       <Link href={`/productos/${product.idProducts}`}>
         <a style={{ textDecoration: 'none', color: '#4b4a4a' }}>
+          {product.isNew ? (
+            <Badge
+              color="info"
+              className="position-absolute top-right p-1"
+              style={Styles.encima}
+            >
+              Nuevo
+            </Badge>
+          ) : (
+            ''
+          )}
           <Card className="border-round">
             <CardImg
               top
