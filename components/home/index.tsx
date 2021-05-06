@@ -130,8 +130,8 @@ const Home = () => {
 
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
-            <AiFillStar color="pink" /> &nbsp; <strong>Mejor valorados</strong>
-            <Link href="/productos/mejor-valorados">
+            <AiFillStar color="pink" /> &nbsp; <strong>Mas vendidos</strong>
+            <Link href="/productos/mas-vendidos">
               <a className="float-right">Ver más</a>
             </Link>
           </div>

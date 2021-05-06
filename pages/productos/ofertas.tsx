@@ -113,7 +113,7 @@ const Producto = () => {
             <div className="col-12 p-2">
               <AiFillStar color="pink" /> &nbsp;{' '}
               <strong>Mejor valorados</strong>
-              <Link href="/productos/mejor-valorados">
+              <Link href="/productos/mas-vendidos">
                 <span className="float-right">Ver màs</span>
               </Link>
             </div>

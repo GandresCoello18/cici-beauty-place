@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import { AiOutlineHistory } from 'react-icons/ai'
+import { Card, CardImg } from 'reactstrap'
 import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../../api'
 import { Product } from '../../interfaces/products'
-import CardImageOnly from '../card/card-image-only'
 
 interface Props {
   history: Product[]
@@ -31,12 +31,17 @@ export const SeccionHistory = ({ history }: Props) => {
         <div className="col-auto p-2" key={product.idProducts}>
           <Link href={`/productos/${product.idProducts}`}>
             <a href={`/productos/${product.idProducts}`}>
-              <CardImageOnly
-                title={product.title}
-                sourceImage={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-              />
+              <Card className="border-round">
+                <CardImg
+                  top
+                  src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
+                  alt={product.title}
+                  style={{ width: 90, height: 90 }}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title={product.title}
+                />
+              </Card>
             </a>
           </Link>
         </div>

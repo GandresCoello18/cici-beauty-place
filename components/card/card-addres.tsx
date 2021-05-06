@@ -93,6 +93,9 @@ const CardAddres = ({ address }: Props) => {
               <strong>Teléfono: </strong> <u>{address.phone}</u>
             </li>
             <li>
+              <strong>Ciudad: </strong> <u>{address.city}</u>
+            </li>
+            <li>
               <strong>Código postal: </strong>{' '}
               <u>{address.postalCode || 'No especificado'}</u>
             </li>

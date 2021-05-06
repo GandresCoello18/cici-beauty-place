@@ -7,6 +7,7 @@ export interface Product {
   description: string
   available: number
   sold: number
+  isNew?: number
   stars: number
   brand: string
   size: string
