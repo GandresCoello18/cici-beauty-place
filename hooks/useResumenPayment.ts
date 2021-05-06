@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -37,23 +38,51 @@ export const ResumenPaymen = () => {
     []
   )
 
-  let sub: number = Cart.reduce((product, sumProduct) => {
-    if (sumProduct.discount) {
-      return (
-        (product +
-          CalculateTotalForProduct(sumProduct.price, sumProduct.discount)) *
-        sumProduct.quantity
-      )
-    }
-    return (product + sumProduct.price) * sumProduct.quantity
-  }, 0)
+  const CalculateEnvioForProduct = useCallback((precio: number) => {
+    const porcent: number = (precio * 4) / 100
+    return porcent
+  }, [])
 
+  const CalcularSubTotal = useCallback(() => {
+    return Cart.reduce((product, sumProduct) => {
+      if (sumProduct.discount) {
+        return (
+          (product +
+            CalculateTotalForProduct(sumProduct.price, sumProduct.discount)) *
+          sumProduct.quantity
+        )
+      }
+      return product + sumProduct.price * sumProduct.quantity
+    }, 0)
+  }, [])
+
+  const CalcularEnvio = useCallback((subTotal: number) => {
+    let newEnvio = subTotal > 40 ? 0 : 5
+
+    if (Cart.length > 1) {
+      return Cart.reduce((_product, sumProduct) => {
+        return (newEnvio -= CalculateEnvioForProduct(
+          sumProduct.price * sumProduct.quantity
+        ))
+      }, 0)
+    }
+
+    return newEnvio
+  }, [])
+
+  let sub = CalcularSubTotal()
   sub = trunc(sub, 2)
 
-  let envio = sub > 40 ? 0 : 2
+  let envio = Number(CalcularEnvio(sub).toFixed(2))
+  let text = ''
 
   if (!sub) {
     envio = 0
+  }
+
+  if ((sub && envio <= 0) || sub >= 40) {
+    envio = 0
+    text = 'Gratis'
   }
 
   const data: ResumenCart = {
@@ -61,7 +90,7 @@ export const ResumenPaymen = () => {
     envio,
     discount: 0,
     total: CalculateCartTotal(sub, envio, 0),
-    text: '',
+    text,
   }
 
   if (Coupon) {

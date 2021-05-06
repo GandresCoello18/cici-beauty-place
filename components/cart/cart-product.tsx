@@ -38,7 +38,7 @@ const CartProduct = ({ product }: Props) => {
 
     if (ProductCartReducer) {
       ProductCartReducer.quantity = quantity
-      cartReducer.splice(0, cartReducer.length, ProductCartReducer)
+      // cartReducer.splice(0, cartReducer.length, ProductCartReducer)
 
       dispatch(setCart(cartReducer))
     }
