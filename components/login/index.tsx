@@ -82,7 +82,10 @@ const Login = () => {
       })
 
       dispatch(setUser(response.data.me.user))
-      Cookies.set('access-token', response.data.me.token)
+      const tresHoras = new Date(new Date().getTime() + 180 * 60 * 1000)
+      Cookies.set('access-token', response.data.me.token, {
+        expires: tresHoras,
+      })
 
       if (!remember && Cookies.get('email-cici')) {
         Cookies.remove('email-cici')
@@ -128,7 +131,12 @@ const Login = () => {
             },
           })
           dispatch(setUser(response.data.me.user))
-          Cookies.set('access-token', response.data.me.token)
+
+          const tresHoras = new Date(new Date().getTime() + 180 * 60 * 1000)
+          Cookies.set('access-token', response.data.me.token, {
+            expires: tresHoras,
+          })
+
           reset()
           Redirect('/home')
         })
