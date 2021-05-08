@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-shadow */
-import React from 'react'
+import React, { useState } from 'react'
+import { BiTrendingDown } from 'react-icons/bi'
 import Skeleton from 'react-loading-skeleton'
+import { Popover, PopoverBody, PopoverHeader } from 'reactstrap'
 
 interface Props {
   loading?: boolean
@@ -21,6 +23,8 @@ const CartResumne = ({
   text,
   total,
 }: Props) => {
+  const [popoverOpen, setPopoverOpen] = useState<boolean>(false)
+
   return (
     <>
       <div className="p-3">
@@ -52,7 +56,9 @@ const CartResumne = ({
             <Skeleton width="100%" height={20} />
           ) : (
             <>
-              <span>Envió</span>
+              <span id="shippingCart" className="cursor-pointer">
+                Envió <BiTrendingDown color="green" size={20} />{' '}
+              </span>
               <span className={`float-right ${text && 'text-success'}`}>
                 {text || `$${envio}`}
               </span>
@@ -70,6 +76,20 @@ const CartResumne = ({
           )}
         </div>
       </div>
+
+      <Popover
+        placement="bottom"
+        isOpen={popoverOpen}
+        target="shippingCart"
+        toggle={() => setPopoverOpen(!popoverOpen)}
+      >
+        <PopoverHeader>Precio de envio</PopoverHeader>
+        <PopoverBody>
+          Mientas mas productos agreges a tu carrito tendras rebajas en el
+          precio de envio, si tu compra es mayoro igual a $40, el envio sera
+          totalmente gratis.
+        </PopoverBody>
+      </Popover>
     </>
   )
 }

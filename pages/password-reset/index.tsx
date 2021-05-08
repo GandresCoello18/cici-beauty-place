@@ -16,11 +16,19 @@ interface FromPasswordReset {
   email: string
 }
 
+interface SendEmail {
+  send: boolean
+  email: string
+}
+
 const PassWordReset = () => {
   const methods = useForm<FromPasswordReset>()
   const { token } = useContext(TokenContext)
   const { handleSubmit, control, reset, errors } = methods
-  const [sendEmail, setSendEmail] = useState<boolean>(false)
+  const [sendEmail, setSendEmail] = useState<SendEmail>({
+    send: false,
+    email: '',
+  })
   const [Loading, setLoading] = useState<boolean>(false)
 
   const send = async (data: FromPasswordReset) => {
@@ -39,7 +47,10 @@ const PassWordReset = () => {
       })
 
       toast.success('Revise su bandeja de correo electronico')
-      setSendEmail(true)
+      setSendEmail({
+        send: true,
+        email: data.email,
+      })
 
       reset()
       setLoading(false)
@@ -58,7 +69,7 @@ const PassWordReset = () => {
       <Layout>
         <section className="container mt-md-4 mb-md-4 font-arvo">
           <div className="row justify-content-center">
-            {sendEmail ? (
+            {sendEmail.send ? (
               <div className="col-12 col-md-5 bg-white p-5 text-center">
                 <MdEmail size={50} color="#f097ac" />
                 <h5 className="font-weight-bold">
@@ -66,9 +77,9 @@ const PassWordReset = () => {
                 </h5>
                 <p className="p-1">
                   Te hemos enviado un correo a{' '}
-                  <strong>goyeselcoca@gmail.com</strong> con las instrucciones
-                  para cambiar tu contraseña. Si no logras encontrarlo, revisa
-                  en la bandeja de spam.
+                  <strong>{sendEmail.email}</strong> con las instrucciones para
+                  cambiar tu contraseña. Si no logras encontrarlo, revisa en la
+                  bandeja de spam.
                 </p>
               </div>
             ) : (
