@@ -166,7 +166,7 @@ const DetailsCompra = () => {
                   <div className="card mb-3 border-0" style={{ width: '100%' }}>
                     {Details?.products.map((product) => (
                       <div className="row g-0" key={product.idProducts}>
-                        <div className="col-3 col-md-1">
+                        <div className="col-3 col-md-1 mb-3">
                           {loading ? (
                             <Skeleton width={100} height={100} />
                           ) : (
