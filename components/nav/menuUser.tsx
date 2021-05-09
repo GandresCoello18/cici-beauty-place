@@ -110,6 +110,13 @@ export const MenuUser = () => {
                 <Link href="/configuracion/mis-datos">Ver mi Perfil</Link>
                 <hr />
               </div>
+              <DropdownItem style={styles.colorLink}>
+                <Link href="/mis-pedidos">
+                  <a style={styles.colorLink}>
+                    <HiOutlineClipboardList /> Mis Pedidos
+                  </a>
+                </Link>
+              </DropdownItem>
               <DropdownItem style={styles.spaceMenu}>
                 <Link href="/mis-compras">
                   <a style={styles.colorLink}>
@@ -121,13 +128,6 @@ export const MenuUser = () => {
                 <Link href="/mis-favoritos">
                   <a style={styles.colorLink}>
                     <MdFavorite /> Mis Favoritos
-                  </a>
-                </Link>
-              </DropdownItem>
-              <DropdownItem style={styles.colorLink}>
-                <Link href="/mis-pedidos">
-                  <a style={styles.colorLink}>
-                    <HiOutlineClipboardList /> Mis Pedidos
                   </a>
                 </Link>
               </DropdownItem>

@@ -138,7 +138,7 @@ const Login = () => {
           })
 
           reset()
-          Redirect('/home')
+          window.location.href = '/home'
         })
         .catch((error) => {
           setFeedback({
