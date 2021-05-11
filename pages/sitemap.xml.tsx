@@ -39,7 +39,7 @@ const getSitemap = () => `
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://cici.beauty/signin</loc>
+    <loc>https://cici.beauty/registro</loc>
     <lastmod>2021-05-01T12:00+00:00</lastmod>
     <priority>1.00</priority>
   </url>

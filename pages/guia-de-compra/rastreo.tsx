@@ -3,7 +3,6 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import Layout from '../../components/layout'
-import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const TrackingGuide = () => {
   return (
@@ -57,9 +56,6 @@ const TrackingGuide = () => {
                 src="https://www.servientrega.com.ec/images/logo.png"
                 alt="icon - servi entrega"
               />
-            </div>
-            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
-              <FeedbackInformation />
             </div>
           </div>
         </section>

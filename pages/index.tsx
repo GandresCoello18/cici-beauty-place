@@ -137,8 +137,8 @@ const Index = () => {
                   <h3 className="heading">Administra tu cuenta</h3>
                   <p>
                     Crea una cuenta completando el{' '}
-                    <Link href="/signin">
-                      <a href="/signin">formulario</a>
+                    <Link href="/registro">
+                      <a href="/registro">formulario</a>
                     </Link>{' '}
                     de registro o con la ayuda de{' '}
                     <Link href="/login">

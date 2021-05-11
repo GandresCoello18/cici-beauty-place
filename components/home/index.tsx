@@ -99,7 +99,6 @@ const Home = () => {
                 SetIsRunning={SetIsRunning}
               />
             </div>
-            <div className="col-12 font-arvo">{/* <CaroselCard /> */}</div>
           </div>
         ) : (
           ''

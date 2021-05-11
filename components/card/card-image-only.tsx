@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, CardImg } from 'reactstrap'
+import { Card } from 'reactstrap'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   sourceImage: string
@@ -9,7 +10,7 @@ interface Props {
 const CardImageOnly = ({ sourceImage, title }: Props) => {
   return (
     <Card className="border-round">
-      <CardImg top src={sourceImage} alt={title} />
+      <LazyLoadImage alt={title} src={sourceImage} effect="blur" width="100%" />
     </Card>
   )
 }

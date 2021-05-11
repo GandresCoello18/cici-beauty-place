@@ -4,7 +4,6 @@ import {
   Badge,
   Card,
   CardBody,
-  CardImg,
   CardSubtitle,
   CardText,
   CardTitle,
@@ -12,6 +11,7 @@ import {
 import Link from 'next/link'
 import StarRatingComponent from 'react-star-rating-component'
 import { MdPeople } from 'react-icons/md'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Product } from '../../interfaces/products'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
@@ -62,12 +62,12 @@ const CardProduct = ({ product, size }: Props) => {
             ''
           )}
           <Card className="border-round">
-            <CardImg
-              top
-              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
+            <LazyLoadImage
               alt={product.title}
+              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
               style={Styles.image}
               className="p-3"
+              effect="blur"
             />
             {product.available < 4 && (
               <div

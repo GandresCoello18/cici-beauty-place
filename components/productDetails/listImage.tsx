@@ -62,8 +62,8 @@ const ListImage = ({ sources, setPreview }: Props) => {
                 setPreview({
                   src:
                     item.idSourceProduct === 'generado'
-                      ? `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`
-                      : `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${item.source}`,
+                      ? `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`
+                      : `${BASE_API_IMAGES_CLOUDINNARY}/${item.source}`,
                   type: 'IMAGEN',
                 })
               }}
