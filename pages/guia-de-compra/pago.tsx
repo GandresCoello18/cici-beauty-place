@@ -2,7 +2,6 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import Layout from '../../components/layout'
-import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const PaymentGuide = () => {
   return (
@@ -58,9 +57,6 @@ const PaymentGuide = () => {
                 o también puedes hacer un deposito o trasferencia bancaria y
                 luego enviá tu recibo al nuestra linea telefónica o whatsapp
               </p>
-            </div>
-            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
-              <FeedbackInformation />
             </div>
           </div>
         </section>

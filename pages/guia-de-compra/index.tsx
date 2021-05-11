@@ -3,7 +3,6 @@ import React from 'react'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import Layout from '../../components/layout'
-import FeedbackInformation from '../../components/element/feedbackInformation'
 
 const CreateAccount = () => {
   return (
@@ -68,9 +67,6 @@ const CreateAccount = () => {
                 </Link>
                 )
               </p>
-            </div>
-            <div className="col-12 col-md-8 border-bottom border-top bg-white p-2">
-              <FeedbackInformation />
             </div>
           </div>
         </section>
