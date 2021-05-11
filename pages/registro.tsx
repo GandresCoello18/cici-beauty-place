@@ -5,7 +5,7 @@ import SignIn from '../components/signIn'
 import Layout from '../components/layout'
 import { UseSesion } from '../hooks/useSesion'
 
-const SignInPage = () => {
+const SignUpPage = () => {
   UseSesion()
 
   return (
@@ -13,9 +13,9 @@ const SignInPage = () => {
       <NextSeo
         title="Registrate - cici beauty place"
         description="Registrate con tus datos básicos o una cuenta de Google y disfruta de nuestros productos y servicios."
-        canonical="https://cici.beauty/signin"
+        canonical="https://cici.beauty/registro"
         openGraph={{
-          url: 'https://cici.beauty/signin',
+          url: 'https://cici.beauty/registro',
           title: 'Registrate en cici beauty place',
           description:
             'Registrate con tus datos básicos o una cuenta de Google y disfruta de nuestros productos y servicios.',
@@ -38,4 +38,4 @@ const SignInPage = () => {
   )
 }
 
-export default SignInPage
+export default SignUpPage

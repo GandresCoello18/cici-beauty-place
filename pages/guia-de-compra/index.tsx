@@ -42,8 +42,8 @@ const CreateAccount = () => {
                 Crearte una cuenta puede traer muchos beneficios para ti y nos
                 permite saber con mas claridad quien eres para así recomendarte
                 productos a tu gusto. Puedes completar el formulario de{' '}
-                <Link href="/signin">
-                  <a className="text-cici" href="/signIn">
+                <Link href="/registro">
+                  <a className="text-cici" href="/registro">
                     registro
                   </a>
                 </Link>
@@ -60,8 +60,8 @@ const CreateAccount = () => {
                 </Link>
                 &nbsp; llena el formulario con tu email y clave secreta (esta
                 parte es valida si completaste el formulario de{' '}
-                <Link href="/signin">
-                  <a className="text-cici" href="/signin">
+                <Link href="/registro">
+                  <a className="text-cici" href="/registro">
                     registro
                   </a>
                 </Link>

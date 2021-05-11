@@ -132,7 +132,7 @@ const PassWordReset = () => {
                   style={{ backgroundColor: '#f6f6f6' }}
                 >
                   <p>¿Aún no tienes cuenta en Cici?</p>
-                  <Link href="/signin">
+                  <Link href="/registro">
                     <a className="p-1 text-cici">Registrate</a>
                   </Link>
                 </div>

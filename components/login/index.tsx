@@ -187,9 +187,9 @@ const Login = () => {
           <div className="col-12 col-md-6 col-lg-4 border-round p-2 bg-white">
             <div className="row justify-content-end">
               <div className="col-4">
-                <Link href="/signin">
+                <Link href="/registro">
                   <a
-                    href="/signin"
+                    href="/registro"
                     className="p-3 float-right font-weight-bold cursor-pointer"
                     style={{ color: '#fac5d0' }}
                   >
