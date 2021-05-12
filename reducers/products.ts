@@ -5,7 +5,7 @@ const SET_PRODUCTS = 'SET_PRODUCTS'
 const SET_PRODUCTS_OFFERS = 'SET_PRODUCTS_OFFERS'
 const SET_PRODUCTS_BEST_RATED = 'SET_PRODUCTS_BEST_RATED'
 
-export const setProducts = (products: Product[]) => ({
+export const SetProducts = (products: Product[]) => ({
   type: SET_PRODUCTS as typeof SET_PRODUCTS,
   payload: products,
 })
@@ -21,7 +21,7 @@ export const setProductsBestRated = (products: Product[]) => ({
 })
 
 export type ProductAction = ReturnType<
-  typeof setProducts | typeof setProductsOffers | typeof setProductsBestRated
+  typeof SetProducts | typeof setProductsOffers | typeof setProductsBestRated
 >
 
 interface initialStateINT {

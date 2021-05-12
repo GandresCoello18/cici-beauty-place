@@ -2,13 +2,14 @@
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiFillStar } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { BsFillLightningFill } from 'react-icons/bs'
 import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
+import { Button } from 'reactstrap'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
@@ -21,9 +22,12 @@ import { SeccionHistory } from './seccion-history'
 import { TokenContext } from '../../context/contextToken'
 import { GetMyHistorty } from '../../api/productHistory'
 import SpinnerLoader from '../element/spinner-cici'
+import { GetProducts } from '../../api/products'
+import { SetProducts } from '../../reducers/products'
 
 const Home = () => {
   const { token } = useContext(TokenContext)
+  const dispatch = useDispatch()
   const [IsRunning, SetIsRunning] = useState<boolean>(true)
   const [Loading, setLoading] = useState<boolean>(false)
   const [HistoryProducts, setProducts] = useState<Product[]>([])
@@ -54,6 +58,37 @@ const Home = () => {
       FetchHistory()
     }
   }, [token])
+
+  const MoreProducts = async () => {
+    setLoading(true)
+    try {
+      const lastIdProduct = Products[Products.length - 1].idProducts
+      const { products } = await (await GetProducts({ lastIdProduct })).data
+
+      setLoading(false)
+
+      if (!products.length) {
+        toast.info('No hay mas productos para mostrar')
+        return
+      }
+
+      dispatch(SetProducts([...Products, ...products]))
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  }
+
+  const SkeletonCardProduct = () => {
+    return [0, 1, 2, 3, 4, 5, 6].map((item) => (
+      <div
+        className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
+        key={item}
+      >
+        <Skeleton width={240} height={300} />
+      </div>
+    ))
+  }
 
   return (
     <>
@@ -117,14 +152,21 @@ const Home = () => {
                   <CardProduct product={product} size="normal" />
                 </div>
               ))
-            : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item) => (
-                <div
-                  className="col-xs-12 col-sm-6 col-md-4 col-xl-3 mb-3 font-arvo"
-                  key={item}
-                >
-                  <Skeleton width={240} height={300} />
-                </div>
-              ))}
+            : ''}
+
+          {Loading && SkeletonCardProduct()}
+        </div>
+
+        <div className="row justify-content-center">
+          {!Loading && Products.length ? (
+            <div className="col-12 col-md-5 p-2">
+              <Button outline color="info" block onClick={MoreProducts}>
+                Más productos
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
 
         <div className="row mt-3 mb-3 bg-white p-3">
