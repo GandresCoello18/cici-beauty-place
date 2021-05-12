@@ -8,7 +8,7 @@ import {
   GetProductsOffers,
 } from '../api/products'
 import {
-  setProducts,
+  SetProducts,
   setProductsBestRated,
   setProductsOffers,
 } from '../reducers/products'
@@ -27,9 +27,9 @@ export const configureStore = (initialState: RootState) => {
     process.env.NODE_ENV === 'development' ? devToolsEnhancer({}) : undefined
   )
 
-  GetProducts()
+  GetProducts({})
     .then((response) => {
-      store.dispatch(setProducts(response.data.products))
+      store.dispatch(SetProducts(response.data.products))
     })
     .catch((error) => console.log(error.message))
 

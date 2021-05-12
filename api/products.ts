@@ -1,13 +1,12 @@
 import { api } from '.'
 import { FormCalifica } from '../components/payment/qualifyOrder'
-import { ParamsFilter } from '../interfaces/products'
 
-export const GetProducts = async (filter?: { params: ParamsFilter }) => {
+export const GetProducts = async (options: { lastIdProduct?: string }) => {
   const response = await api({
     method: 'GET',
-    url: !filter
+    url: !options.lastIdProduct
       ? '/products'
-      : `/products?priceMin=${filter.params.min}&priceMax=${filter.params.max}&isPromo=${filter.params.isPromo}&order=${filter.params.order}&orderPrice=${filter.params.orderPrice}&orderStar=${filter.params.orderStar}`,
+      : `/products?lastIdProduct=${options.lastIdProduct}`,
   })
   return response
 }

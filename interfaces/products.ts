@@ -55,13 +55,13 @@ export interface ResumenCart {
 }
 
 export interface ParamsFilter {
-  min?: number
-  max?: number
+  min: number
+  max: number
   isPromo?: boolean
   starNumber?: boolean
-  order?: 'Asc' | 'Desc' | undefined
-  orderPrice?: boolean
-  orderStar?: boolean
+  order: 'Asc' | 'Desc' | undefined
+  orderPrice: boolean
+  orderStar: boolean
 }
 
 export interface ProductReview {
