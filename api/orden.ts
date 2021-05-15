@@ -25,11 +25,12 @@ export const NewOrden = async (options: {
 export const getMyOrden = async (options: {
   token: string | undefined
   status: string
+  page: number
 }) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
     method: 'GET',
-    url: `/orden/status/${options.status}`,
+    url: `/orden/status/${options.status}?page=${options.page}`,
   })
   return response
 }

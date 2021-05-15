@@ -14,10 +14,17 @@ export interface OrdenProduct {
   status: string
   paymentMethod: string
   paymentId: string
+  discount: number
+  shipping: number
+  totalAmount: number
   product: productOrden[]
 }
 
 export interface productOrden {
   source: string
   title: string
+  colour?: string
+  idProducts: string
+  price: number
+  quantity: number
 }

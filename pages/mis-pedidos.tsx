@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -24,11 +25,15 @@ import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../api'
 import ModalElement from '../components/element/modal'
 import { UseNotSesion } from '../hooks/useNotSesion'
 import { InfoPaymentBank } from '../components/payment/info-payment-bank'
+import PaginationElement from '../components/element/pagination'
+import CartResumne from '../components/cart/cart-resumen'
 
 const MisPedidos = () => {
   UseNotSesion()
   const { token } = useContext(TokenContext)
   const [dropdownOpen, setOpen] = useState<boolean>(false)
+  const [Pages, setPages] = useState<number>(0)
+  const [SelectPage, setSelectPage] = useState<number>(0)
   const [modal, setMOdal] = useState<boolean>(false)
   const [MoreProductModal, setMoreProductModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -36,24 +41,30 @@ const MisPedidos = () => {
   const [MyOrdes, setMyOrdes] = useState<OrdenProduct[]>([])
   const toggle = () => setOpen(!dropdownOpen)
 
-  useEffect(() => {
+  const fetchOrden = async (page: number) => {
     setLoading(true)
 
     try {
-      const fetchOrden = async () => {
-        const { ordenes } = await (
-          await getMyOrden({ token, status: selectOptioon })
-        ).data
-        setMyOrdes(ordenes)
-        setLoading(false)
-      }
+      const { ordenes, pages } = await (
+        await getMyOrden({ token, status: selectOptioon, page })
+      ).data
 
-      token && fetchOrden()
+      setPages(pages || 0)
+      setMyOrdes(ordenes)
+      setLoading(false)
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    token && fetchOrden(1)
   }, [selectOptioon, token])
+
+  useEffect(() => {
+    token && SelectPage && fetchOrden(SelectPage)
+  }, [token, SelectPage])
 
   return (
     <>
@@ -82,8 +93,8 @@ const MisPedidos = () => {
       <Layout>
         <section className="container font-arvo mt-md-3 mb-md-3 p-md-5 bg-white">
           <div className="row justify-content-center">
-            <div className="col-12 border-bottom p-3">
-              <h3 className="p-1">
+            <div className="col-12 p-3">
+              <h4 className="p-1">
                 Tus Pedidos{' '}
                 <ButtonDropdown
                   direction="left"
@@ -91,7 +102,7 @@ const MisPedidos = () => {
                   toggle={toggle}
                   className="float-right"
                 >
-                  <Button id="caret" size="sm">
+                  <Button id="caret" size="sm" onClick={toggle}>
                     {selectOptioon}
                   </Button>
                   <DropdownToggle split className="bg-cici" />
@@ -113,7 +124,7 @@ const MisPedidos = () => {
                     </DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
-              </h3>
+              </h4>
               {selectOptioon === 'Pendiente de pago' && (
                 <span
                   className="text-secondary cursor-pointer float-right"
@@ -124,7 +135,7 @@ const MisPedidos = () => {
               )}
             </div>
           </div>
-          <div className="row bg-white border-bottom p-3 text-center">
+          <div className="row bg-white border-bottom p-3 text-center mt-4">
             <div className="col-5 border-right font-weight-bold text-cici">
               Información
             </div>
@@ -136,12 +147,17 @@ const MisPedidos = () => {
           {MyOrdes.map((orden) => (
             <div
               className="row bg-white border-bottom p-1 p-md-3 mb-5 text-center cursor-pointer"
-              onClick={() =>
-                orden.product.length > 1 && setMoreProductModal(true)
-              }
+              onClick={() => orden.product.length && setMoreProductModal(true)}
               key={orden.idOrder}
             >
               <div className="col-12 bg-cici mb-2 text-left p-3 border-round">
+                <Badge
+                  className="position-absolute"
+                  style={{ right: 10 }}
+                  color="info"
+                >
+                  Más Detalles
+                </Badge>
                 <img
                   width="100"
                   height="100"
@@ -192,25 +208,64 @@ const MisPedidos = () => {
               </div>
 
               <ModalElement
-                title="Productos"
+                title={`Productos de la orden: ${6545641}`}
                 visible={MoreProductModal}
                 setVisible={setMoreProductModal}
               >
                 <div className="row justify-content-center">
+                  <div className="col-12">
+                    <CartResumne
+                      discount={orden.discount}
+                      envio={orden.shipping}
+                      text={orden.shipping === 0 ? 'Gratis' : ''}
+                      total={orden.totalAmount}
+                    />
+                  </div>
                   {orden.product.map((product) => (
-                    <div className="col-12 mb-3" key={product.title}>
+                    <div className="col-12 mb-4" key={product.title}>
                       <img
                         src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
                         alt={product.title}
                       />
                       <br />
                       <span>{product.title}</span>
+                      <br />
+                      <span>
+                        Cantidad: <strong>x{product.quantity}</strong>
+                      </span>
+                      <br />
+                      <span>
+                        Precio: <strong>${product.price}</strong> (Actual)
+                      </span>
+                      {product.colour ? (
+                        <span>
+                          Color:{' '}
+                          <span style={{ backgroundColor: product.colour }}>
+                            -
+                          </span>
+                        </span>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   ))}
                 </div>
               </ModalElement>
             </div>
           ))}
+
+          <div className="row justify-content-center mt-3">
+            <br />
+
+            <div className="col-12">
+              <PaginationElement
+                pages={Pages}
+                setSelectPage={setSelectPage}
+                SelectPage={SelectPage}
+              />
+            </div>
+          </div>
+
           {!loading && MyOrdes.length === 0 && (
             <Alert color="info mt-1">No hay ordenes para mostrar.</Alert>
           )}
