@@ -8,7 +8,7 @@ import { Popover, PopoverBody, PopoverHeader } from 'reactstrap'
 
 interface Props {
   loading?: boolean
-  subTotal: number
+  subTotal?: number
   discount: number
   envio: number
   text: string
@@ -31,16 +31,20 @@ const CartResumne = ({
         <div className="p-1 border-bottom">
           <h3>Resumen</h3>
         </div>
-        <div className="p-1 border-bottom">
-          {loading ? (
-            <Skeleton width="100%" height={20} />
-          ) : (
-            <>
-              <span>Sub total</span>
-              <span className="float-right">${subTotal}</span>
-            </>
-          )}
-        </div>
+        {subTotal ? (
+          <div className="p-1 border-bottom">
+            {loading ? (
+              <Skeleton width="100%" height={20} />
+            ) : (
+              <>
+                <span>Sub total</span>
+                <span className="float-right">${subTotal}</span>
+              </>
+            )}
+          </div>
+        ) : (
+          ''
+        )}
         <div className="p-1 border-bottom">
           {loading ? (
             <Skeleton width="100%" height={20} />

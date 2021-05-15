@@ -1,34 +1,59 @@
-import React from 'react'
+/* eslint-disable no-plusplus */
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 
-const PaginationElement = () => {
+interface Props {
+  pages: number
+  setSelectPage: Dispatch<SetStateAction<number>>
+  SelectPage: number
+}
+
+const PaginationElement = ({ pages, setSelectPage, SelectPage }: Props) => {
+  const [Count, setCount] = useState<number[]>([])
   const Styles = {
     textColor: {
       color: '#000',
     },
   }
+
+  useEffect(() => {
+    const count = []
+    for (let i = 1; i <= pages; i++) {
+      count.push(i)
+    }
+
+    setCount(count)
+  }, [pages])
+
+  const Previous = () => {
+    if (Count.length !== 0 && Count.length > 1) {
+      setSelectPage(SelectPage - 1)
+    }
+  }
+
+  const Next = () => {
+    if (Count.length !== 0 && Count.length > 1 && SelectPage < Count.length) {
+      setSelectPage(SelectPage + 1)
+    }
+  }
+
   return (
     <Pagination aria-label="Page navigation example">
-      <PaginationItem>
-        <PaginationLink previous style={Styles.textColor} />
+      <PaginationItem disabled={!Count.length}>
+        <PaginationLink previous style={Styles.textColor} onClick={Previous} />
       </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink style={Styles.textColor}>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink style={Styles.textColor}>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink style={Styles.textColor}>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink style={Styles.textColor}>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink style={Styles.textColor}>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink next style={Styles.textColor} />
+      {Count.map((item) => (
+        <PaginationItem active={SelectPage === item} key={item}>
+          <PaginationLink
+            style={Styles.textColor}
+            onClick={() => setSelectPage(item)}
+          >
+            {item}
+          </PaginationLink>
+        </PaginationItem>
+      ))}
+      <PaginationItem disabled={!Count.length}>
+        <PaginationLink next style={Styles.textColor} onClick={Next} />
       </PaginationItem>
     </Pagination>
   )
