@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable prettier/prettier */
 /* eslint-disable unicorn/no-nested-ternary */
@@ -28,12 +29,13 @@ import {
   getCoupons,
 } from '../api/coupons'
 import { Coupons, MyCouponsUser } from '../interfaces/coupons'
-import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../api'
+import { BASE_API_IMAGES_CLOUDINNARY_SCALE, DEFAULT_AVATAR } from '../api'
 import { StatusColorCoupons } from '../helpers/statusColor'
 import ModalElement from '../components/element/modal'
 import SpinnerLoader from '../components/element/spinner-cici'
 import { UseNotSesion } from '../hooks/useNotSesion'
 import { SourceAvatar } from '../helpers/sourceAvatar'
+import PaginationElement from '../components/element/pagination'
 
 const MisCupones = () => {
   UseNotSesion()
@@ -41,6 +43,8 @@ const MisCupones = () => {
   const [dropdownOpen, setOpen] = useState<boolean>(false)
   const [cupones, setCupones] = useState<Coupons[]>([])
   const [modal, setModal] = useState<boolean>(false)
+  const [Pages, setPages] = useState<number>(0)
+  const [SelectPage, setSelectPage] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
   const [loadingCupon, setLoadingCupon] = useState<boolean>(false)
@@ -50,23 +54,30 @@ const MisCupones = () => {
   const [selectType, setSelectType] = useState<string>('')
   const toggle = () => setOpen(!dropdownOpen)
 
-  useEffect(() => {
+  const fetchMyCoupons = async (page: number) => {
     setLoading(true)
-    try {
-      const fetchMyCoupons = async () => {
-        const { myCoupons } = await (
-          await GetAssignUserCoupons({ token, status: selectOptioon })
-        ).data
-        setMisCupones(myCoupons)
-        setLoading(false)
-      }
 
-      token && fetchMyCoupons()
+    try {
+      const { myCoupons, pages } = await (
+        await GetAssignUserCoupons({ token, status: selectOptioon, page })
+      ).data
+
+      setPages(pages || 0)
+      setMisCupones(myCoupons)
+      setLoading(false)
     } catch (error) {
       setLoading(false)
       toast.error(error.message)
     }
+  }
+
+  useEffect(() => {
+    token && selectOptioon && fetchMyCoupons(1)
   }, [token, selectOptioon])
+
+  useEffect(() => {
+    token && SelectPage && fetchMyCoupons(SelectPage)
+  }, [token, SelectPage])
 
   useEffect(() => {
     setLoadingCupon(true)
@@ -114,63 +125,61 @@ const MisCupones = () => {
 
   const renderMisCupones = () => {
     return misCupones.map((cupon) => (
-      <div
-        className="row bg-white border-bottom p-1 p-md-3 text-center"
-        key={cupon.id_user_coupons}
-      >
-        <div className="col border-right">
-          {cupon.type ? (
-            <Badge className="bg-cici text-dark">{cupon.type}</Badge>
-          ) : cupon.status === 'No valido aun' ? (
-            <Button
-              color="info"
-              size="sm"
-              onClick={() => {
-                setModal(true)
-                setSelectUserCoupon(cupon.id_user_coupons)
-              }}
-            >
-              Elegir cupón {loadingUpdate && <SpinnerLoader />}
-            </Button>
-          ) : (
-            <Badge color="danger">Ninguno</Badge>
+      <>
+        <div
+          className="row bg-white border-bottom p-1 p-md-3 text-center"
+          key={cupon.id_user_coupons}
+        >
+          <div className="col border-right">
+            {cupon.type ? (
+              <Badge className="bg-cici text-dark">{cupon.type}</Badge>
+            ) : cupon.status === 'No valido aun' ? (
+              <Button
+                color="info"
+                size="sm"
+                onClick={() => {
+                  setModal(true)
+                  setSelectUserCoupon(cupon.id_user_coupons)
+                }}
+              >
+                Elegir cupón {loadingUpdate && <SpinnerLoader />}
+              </Button>
+            ) : (
+              <Badge color="danger">Ninguno</Badge>
+            )}
+          </div>
+          <div className="col border-right">
+            <span className="text-danger">{cupon.expiration_date}</span>
+          </div>
+          <div className="col">
+            <Badge className={StatusColorCoupons(cupon.status)}>
+              {cupon.status}
+            </Badge>
+          </div>
+        </div>
+        <div className="row">
+          {cupon.avatar && (
+            <>
+              <div className="col-12 col-md-6 p-2 bg-light">
+                <span className="font-weight-bold">Invitado el:</span>{' '}
+                {cupon.created_at}
+              </div>
+              <div className="col-12 col-md-6 p-2 bg-light">
+                <img
+                  width="50"
+                  height="50"
+                  src={
+                    SourceAvatar(cupon.avatar) ||
+                    `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${DEFAULT_AVATAR}`
+                  }
+                  alt={cupon.userName}
+                />
+                <span className="p-1 ml-3">{cupon.userName} (Te Invito)</span>
+              </div>
+            </>
           )}
         </div>
-        <div className="col border-right">
-          <span
-            className={
-              cupon.expiration_date === 'No Expira' ? 'text-danger' : ''
-            }
-          >
-            {cupon.expiration_date}
-          </span>
-        </div>
-        <div className="col">
-          <Badge className={StatusColorCoupons(cupon.status)}>
-            {cupon.status}
-          </Badge>
-        </div>
-        {cupon.avatar && (
-          <>
-            <div className="col-12 col-md-6 mt-2 p-2 bg-light">
-              <span className="font-weight-bold">Invitado el:</span>{' '}
-              {cupon.created_at}
-            </div>
-            <div className="col-12 col-md-6 mt-2 p-2 bg-light">
-              <img
-                width="50"
-                height="50"
-                src={
-                  SourceAvatar(cupon.avatar) ||
-                  `${BASE_API_IMAGES_CLOUDINNARY}/${DEFAULT_AVATAR}`
-                }
-                alt={cupon.userName}
-              />
-              <span className="p-1 ml-3">{cupon.userName} (Invitado)</span>
-            </div>
-          </>
-        )}
-      </div>
+      </>
     ))
   }
 
@@ -210,7 +219,7 @@ const MisCupones = () => {
                   toggle={toggle}
                   className="float-right"
                 >
-                  <Button id="caret" size="sm">
+                  <Button id="caret" size="sm" onClick={toggle}>
                     {selectOptioon}
                   </Button>
                   <DropdownToggle split className="bg-cici" />
@@ -234,7 +243,7 @@ const MisCupones = () => {
               </h3>
             </div>
           </div>
-          <div className="row bg-white border-bottom p-3 text-center">
+          <div className="row bg-white p-3 text-center">
             <div className="col border-right font-weight-bold text-cici">
               Tipo
             </div>
@@ -254,6 +263,18 @@ const MisCupones = () => {
               </div>
             </div>
           )}
+
+          <div className="row justify-content-center mt-3">
+            <br />
+
+            <div className="col-12">
+              <PaginationElement
+                pages={Pages}
+                setSelectPage={setSelectPage}
+                SelectPage={SelectPage}
+              />
+            </div>
+          </div>
         </section>
       </Layout>
 

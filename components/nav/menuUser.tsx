@@ -104,9 +104,10 @@ export const MenuUser = () => {
               size="sm"
               style={styles.buttonMenu}
             />
-            <DropdownMenu>
+            <DropdownMenu className="border-cici">
               <div className="p-2">
-                <h6>Hola, {User.userName}</h6>
+                <strong>{User.userName}</strong>
+                <br />
                 <Link href="/configuracion/mis-datos">Ver mi Perfil</Link>
                 <hr />
               </div>
@@ -151,7 +152,11 @@ export const MenuUser = () => {
               >
                 <GrConfigure /> Configuración
               </DropdownItem>
-              <DropdownItem style={styles.colorClose} onClick={closeSesion}>
+              <DropdownItem
+                style={styles.colorClose}
+                className="bg-danger"
+                onClick={closeSesion}
+              >
                 <AiFillCloseCircle /> Salir
               </DropdownItem>
             </DropdownMenu>

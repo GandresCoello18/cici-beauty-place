@@ -101,7 +101,7 @@ const ContainerCupones = ({ user }: Props) => {
               <p>
                 <strong>{user.userName}</strong>, te acaba de invitar para que
                 te unas a{' '}
-                <strong className="text-cici">Cici Beauty Place</strong> crea
+                <strong className="text-cici">Cici Beauty Place</strong>, crea
                 una cuenta y recibes un cupón totalmente gratis.
               </p>
             )}

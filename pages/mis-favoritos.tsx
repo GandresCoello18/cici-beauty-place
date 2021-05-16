@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -19,28 +20,39 @@ import { deleteMyFavorites, getFavorites } from '../api/favorite'
 import { TokenContext } from '../context/contextToken'
 import { calculatePrice } from '../helpers/calculatePrice'
 import { UseNotSesion } from '../hooks/useNotSesion'
+import PaginationElement from '../components/element/pagination'
 
 const Favorite = () => {
   UseNotSesion()
   const { token } = useContext(TokenContext)
+  const [Pages, setPages] = useState<number>(0)
+  const [SelectPage, setSelectPage] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [product, setProduct] = useState<Product[]>([])
 
-  useEffect(() => {
+  const fetchFavorites = async (page: number) => {
     setLoading(true)
-    try {
-      const fetchFavorites = async () => {
-        const { favorites } = await (await getFavorites({ token })).data
-        setProduct(favorites)
-        setLoading(false)
-      }
 
-      token && fetchFavorites()
+    try {
+      const { favorites, pages } = await (await getFavorites({ token, page }))
+        .data
+
+      setPages(pages || 0)
+      setProduct(favorites)
+      setLoading(false)
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    token && fetchFavorites(1)
   }, [token])
+
+  useEffect(() => {
+    token && SelectPage && fetchFavorites(SelectPage)
+  }, [token, SelectPage])
 
   const deleteAllFavorites = async () => {
     setLoading(true)
@@ -172,6 +184,18 @@ const Favorite = () => {
                 </Alert>
               </div>
             )}
+          </div>
+
+          <div className="row justify-content-center mt-3">
+            <br />
+
+            <div className="col-12">
+              <PaginationElement
+                pages={Pages}
+                setSelectPage={setSelectPage}
+                SelectPage={SelectPage}
+              />
+            </div>
           </div>
         </section>
       </Layout>

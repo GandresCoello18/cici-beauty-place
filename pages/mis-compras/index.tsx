@@ -22,12 +22,15 @@ import { getProductShipping } from '../../api/shipping'
 import { MisShipping } from '../../interfaces/shipping'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { UseNotSesion } from '../../hooks/useNotSesion'
+import PaginationElement from '../../components/element/pagination'
 
 const Compras = () => {
   UseNotSesion()
   const [dropdownOpen, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const { token } = useContext(TokenContext)
+  const [Pages, setPages] = useState<number>(0)
+  const [SelectPage, setSelectPage] = useState<number>(0)
   const [Shipping, setShipping] = useState<MisShipping[]>([])
   const toggle = () => setOpen(!dropdownOpen)
 
@@ -36,9 +39,11 @@ const Compras = () => {
       setLoading(true)
 
       try {
-        const { shipping } = await (await getProductShipping({ token })).data
+        const { shipping, pages } = await (await getProductShipping({ token }))
+          .data
         setShipping(shipping)
 
+        setPages(pages || 0)
         setLoading(false)
       } catch (error) {
         toast.error(error.message)
@@ -104,7 +109,7 @@ const Compras = () => {
                   toggle={toggle}
                   className="float-right"
                 >
-                  <Button id="caret" size="sm">
+                  <Button id="caret" size="sm" onClick={toggle}>
                     Todas
                   </Button>
                   <DropdownToggle split className="bg-cici" />
@@ -195,6 +200,18 @@ const Compras = () => {
                 </Alert>
               </div>
             )}
+          </div>
+
+          <div className="row justify-content-center mt-3">
+            <br />
+
+            <div className="col-12">
+              <PaginationElement
+                pages={Pages}
+                setSelectPage={setSelectPage}
+                SelectPage={SelectPage}
+              />
+            </div>
           </div>
         </section>
       </Layout>

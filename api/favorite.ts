@@ -50,11 +50,14 @@ export const getLikeProduct = async (options: {
   return response
 }
 
-export const getFavorites = async (options: { token: string | undefined }) => {
+export const getFavorites = async (options: {
+  token: string | undefined
+  page: number
+}) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
     method: 'GET',
-    url: `/favorite`,
+    url: `/favorite?page=${options.page}`,
   })
   return response
 }
