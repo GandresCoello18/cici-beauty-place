@@ -48,11 +48,12 @@ export const UpdateAssignUserCoupons = async (options: {
 export const GetAssignUserCoupons = async (options: {
   token: string | undefined
   status: string
+  page: number
 }) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
     method: 'GET',
-    url: `/coupons/assign/user/${options.status}`,
+    url: `/coupons/assign/user/${options.status}?page=${options.page}`,
   })
   return response
 }
