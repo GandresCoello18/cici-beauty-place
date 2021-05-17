@@ -42,7 +42,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
     try {
       const fetchCoupon = async () => {
         const { myCoupons } = await (
-          await GetAssignUserCoupons({ token, status: 'Valido' })
+          await GetAssignUserCoupons({ token, status: 'Valido', page: 1 })
         ).data
 
         const NoDuplicate = myCoupons.filter(
