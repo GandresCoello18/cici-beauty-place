@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -174,7 +175,20 @@ const Favorite = () => {
                 </div>
               ))
             ) : (
-              <div className="col-12">{renderFavorites()}</div>
+              <div className="col-12">
+                {product.length ? (
+                  renderFavorites()
+                ) : (
+                  <div className="text-center">
+                    <img
+                      src="/img/mis-favoritos.svg"
+                      alt="no hay productos favoritos"
+                      width="70%"
+                      className="p-3 mb-2"
+                    />
+                  </div>
+                )}
+              </div>
             )}
 
             {product.length === 0 && !loading && (
