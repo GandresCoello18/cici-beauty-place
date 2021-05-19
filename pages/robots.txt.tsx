@@ -5,6 +5,8 @@ const getRobots = () => `
 User-agent: *
 Disallow: /compra/
 Disallow: /login/
+
+Sitemap: https://cici.beauty/sitemap.xml
 `
 
 interface Params {

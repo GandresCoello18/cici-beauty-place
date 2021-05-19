@@ -34,7 +34,7 @@ const About = () => {
       <Layout>
         <section className="container mt-5 mb-5 p-2 font-arvo">
           <div className="row">
-            <div className="col-12 col-md-8 text-center">
+            <div className="col-12 text-center">
               <h3 className="font-weight-bold">Sobre Nosotros</h3>
               <p>Descubre al equipo de trabajo de cici beauty place</p>
             </div>
@@ -44,8 +44,8 @@ const About = () => {
               <CardProfile
                 imgSource="img/me.jpg"
                 alt="Andres coello"
-                name="Andres Coello Goyes"
-                description="Desarrollador de software en ambiente web y mobil multiplataforma, amante de la lectura, astronomía, colores, naturaleza y música. Autodidacta y en contante aprendizaje con nuevas tecnologías."
+                name="Andrés Coello Goyes"
+                description="Desarrollador de software en ambiente web y movil multiplataforma, amante de la lectura, astronomía, colores, naturaleza y música. Autodidacta y en contante aprendizaje con nuevas tecnologías."
                 cargo="Developer Full Stack"
               >
                 <div className="row justify-content-center">
