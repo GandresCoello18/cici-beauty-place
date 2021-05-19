@@ -160,13 +160,15 @@ const Footer = () => {
         <div className="container">
           <div className="row justify-content-end">
             <div className="col-12 col-md-5">
-              <div className="copyright-text" />
-              <div className="payment-pic">
-                <img
-                  src="https://preview.colorlib.com/theme/fashi/img/payment-method.png"
-                  alt="paymet method"
-                />
-              </div>
+              <Link href="/privacidad">
+                <a href="/privacidad" className="text-white">
+                  Politicas de privacidad
+                </a>
+              </Link>
+
+              <a href="mailto:team@cici.beauty" className="text-white ml-4">
+                ¿Necesitas ayuda?
+              </a>
             </div>
           </div>
         </div>

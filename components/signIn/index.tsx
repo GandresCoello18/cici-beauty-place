@@ -253,6 +253,15 @@ const SignIn = () => {
                 </a>
               </Link>
             )}
+
+            <div className="text-center mt-2 p-2">
+              Al crear una cuenta estás aceptando la{' '}
+              <Link href="/privacidad">
+                <a href="/privacidad" className="text-cici">
+                  Política de Privacidad
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
