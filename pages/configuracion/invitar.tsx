@@ -53,7 +53,7 @@ const SendInvitation = () => {
     <>
       <NextSeo
         title="Invitar a alguien | Cici beauty place"
-        description="Invita a tus amigos y familiares y por cada compra mayor a 20 recibirás promociones y descuentos para ti."
+        description="Invita a tus amigos y familiares y por cada compra mayor o igual a 40 recibirás promociones y descuentos para ti."
         canonical="https://cici.beauty/invitacion"
         openGraph={{
           url: 'https://cici.beauty/invitacion',
@@ -82,7 +82,7 @@ const SendInvitation = () => {
               </Alert>
               <h4>Seguro conoces a alguien que le gusta nuestros productos</h4>
               <p>
-                Comparte tu link de referidos y cada compra mayor de $20
+                Comparte tu link de referidos y cada compra mayor o igual a $40
                 recibirás cupones que puedes elegir.
               </p>
             </div>

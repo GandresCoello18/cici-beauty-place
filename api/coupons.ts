@@ -28,6 +28,21 @@ export const AssignUserCoupons = async (options: {
   return response
 }
 
+export const CreateRewardUserCoupons = async (options: {
+  token: string | undefined
+  idUser: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'POST',
+    url: '/coupons/assign/reward',
+    data: {
+      idUser: options.idUser,
+    },
+  })
+  return response
+}
+
 export const UpdateAssignUserCoupons = async (options: {
   token: string | undefined
   id_user_coupons: string
@@ -54,6 +69,17 @@ export const GetAssignUserCoupons = async (options: {
   const response = await api({
     method: 'GET',
     url: `/coupons/assign/user/${options.status}?page=${options.page}`,
+  })
+  return response
+}
+
+export const GetRewardUserCoupons = async (options: {
+  token: string | undefined
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'GET',
+    url: `/coupons/assign/reward`,
   })
   return response
 }
