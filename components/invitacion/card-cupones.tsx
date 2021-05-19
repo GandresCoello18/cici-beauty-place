@@ -89,7 +89,7 @@ const ContainerCupones = ({ user }: Props) => {
                 <p>
                   <strong>{user.userName}</strong>, te acaba de invitar para que
                   le regales <strong className="text-cici">1 Cupón</strong> este
-                  sera valido a partir de tu próxima compra mayor a $20.
+                  sera valido a partir de tu próxima compra mayor o igual a $40.
                 </p>
 
                 <p>

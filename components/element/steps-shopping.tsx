@@ -1,18 +1,33 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable no-fallthrough */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable react/button-has-type */
 import { NextSeo } from 'next-seo'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { Step, Stepper } from 'react-form-stepper'
 import { FaShoppingCart } from 'react-icons/fa'
 import { MdLocalShipping, MdMonetizationOn } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import { GetRewardUserCoupons } from '../../api/coupons'
+import { TokenContext } from '../../context/contextToken'
+import { Users } from '../../interfaces/users'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
 import CartContainer from '../cart'
+import { UsersRewar } from '../invitacion/userRewar'
 import Payment from '../payment'
 import AdressPayment from '../payment/addres-payment'
+import ModalElement from './modal'
 
 interface StepItem {
   complete: boolean
@@ -30,9 +45,13 @@ interface Props {
 
 const StepsShopping = ({ setFinishShopping }: Props) => {
   const dispatch = useDispatch()
+  const { token } = useContext(TokenContext)
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
   const { Addresses } = useSelector((state: RootState) => state.AddressReducer)
   const [idCoupon, setIdCoupon] = useState<string>('')
+  const [Modal, setModal] = useState<boolean>(false)
+  const [IsPaid, setIsPaid] = useState<boolean>(false)
+  const [RewarUser, setRewarUser] = useState<Users[]>([])
   const [itemStep, setItemStep] = useState<StepperItem>({
     item: 0,
     carrito: {
@@ -72,6 +91,26 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
         break
     }
   }
+
+  useEffect(() => {
+    const FetchCouponPending = async () => {
+      try {
+        const { CouponsRewarAssing } = await (
+          await GetRewardUserCoupons({ token })
+        ).data
+
+        setRewarUser(CouponsRewarAssing)
+
+        if (CouponsRewarAssing.length) {
+          setModal(true)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      }
+    }
+
+    token && IsPaid && FetchCouponPending()
+  }, [token, IsPaid])
 
   return (
     <>
@@ -143,10 +182,29 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
 
       <div className="mt-3">
         {itemStep.item === 0 && <CartContainer setIdCoupon={setIdCoupon} />}
+
         {itemStep.item === 1 && (
-          <Payment setItemStep={setItemStep} idCoupon={idCoupon} />
+          <Payment
+            setItemStep={setItemStep}
+            idCoupon={idCoupon}
+            setIsPaid={setIsPaid}
+          />
         )}
+
         {itemStep.item === 2 && <AdressPayment />}
+
+        <ModalElement
+          title="Asignar cupón"
+          visible={Modal}
+          setVisible={setModal}
+        >
+          <p>
+            Por cada compra mayor o igual <strong>$40</strong> recibira un cupón
+            a la persona que te invito.
+          </p>
+
+          <UsersRewar RewarUser={RewarUser} setModal={setModal} />
+        </ModalElement>
 
         <br />
 

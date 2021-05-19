@@ -200,7 +200,7 @@ const Faq = () => {
                 <li>Expirados</li>
               </ul>
               <p>
-                Todo los cupones tiene un limite de 30 días antes que expiren.
+                Todo los cupones tiene un limite de 3 meses antes que expiren.
               </p>
             </div>
           </div>

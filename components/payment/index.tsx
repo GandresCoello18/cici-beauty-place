@@ -29,10 +29,11 @@ import { StepperItem } from '../element/steps-shopping'
 
 interface Props {
   setItemStep: Dispatch<SetStateAction<StepperItem>>
+  setIsPaid: Dispatch<SetStateAction<boolean>>
   idCoupon: string
 }
 
-const Payment = ({ setItemStep, idCoupon }: Props) => {
+const Payment = ({ setItemStep, setIsPaid, idCoupon }: Props) => {
   const resumen = ResumenPaymen()
 
   const dispatch = useDispatch()
@@ -84,6 +85,8 @@ const Payment = ({ setItemStep, idCoupon }: Props) => {
 
       await NewOrden({ token, orden })
       setLoading(false)
+
+      setIsPaid(paymentMethod === 'Paypal' && orden.totalAmount >= 40)
 
       toast.success('Su orden fue registrada con éxito')
       dispatch(setCart([]))
