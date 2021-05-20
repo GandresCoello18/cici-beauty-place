@@ -8,6 +8,7 @@ import { FcBookmark, FcKindle, FcLike, FcOk, FcPaid } from 'react-icons/fc'
 import { BiHappyBeaming } from 'react-icons/bi'
 import Layout from '../components/layout'
 import StepsShopping from '../components/element/steps-shopping'
+import { ChatWidget } from '../components/element/chatWidget'
 
 const Compra = () => {
   const [finishShopping, setFinishShopping] = useState<boolean>(false)
@@ -110,6 +111,8 @@ const Compra = () => {
           />
         </ModalBody>
       </Modal>
+
+      <ChatWidget IsCart />
     </>
   )
 }

@@ -52,7 +52,9 @@ const Index = () => {
           <section className="container font-arvo">
             <div className="row justify-content-between mt-3 mt-lg-5">
               <div className="col-12 col-lg-5">
-                <h1 className="text-start">Cici Beauty Place</h1>
+                <h1 className="text-start" style={{ fontSize: 36 }}>
+                  Cici Beauty Place
+                </h1>
                 <br />
                 <p className="mt-2">
                   Encuentra varios tipos de maquillaje, accesorios para
