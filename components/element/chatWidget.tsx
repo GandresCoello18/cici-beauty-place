@@ -1,16 +1,27 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Widget, addResponseMessage } from 'react-chat-widget'
+import { useSelector } from 'react-redux'
+import socketIOClient from 'socket.io-client'
+import { BASE_API } from '../../api'
+import { RootState } from '../../reducers'
 
 interface Props {
   IsCart?: boolean
 }
 
+const socket = socketIOClient(BASE_API)
+
 export const ChatWidget = ({ IsCart }: Props) => {
+  const { User } = useSelector((state: RootState) => state.UserReducer)
+
   const NewMessage = (newMessage: any) => {
-    console.log(`New message incoming! ${newMessage}`)
+    socket.emit('new-message', {
+      text: newMessage,
+      userName: User.userName,
+    })
   }
 
   useEffect(() => {
@@ -30,6 +41,22 @@ export const ChatWidget = ({ IsCart }: Props) => {
       )
     }
   }, [IsCart])
+
+  const ListenMessate = useCallback(() => {
+    let LastSms1 = ''
+
+    socket.on('new-message', (data) => {
+      console.log(data)
+      if (LastSms1 !== data.text) {
+        addResponseMessage(data.text)
+        LastSms1 = data.text
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    ListenMessate()
+  }, [ListenMessate])
 
   return (
     <div className="App">

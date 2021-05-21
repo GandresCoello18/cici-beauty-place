@@ -63,7 +63,8 @@
     "react-toast": "^1.0.1",
     "reactstrap": "^8.8.0",
     "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.7"
+    "redux-devtools-extension": "^2.13.7",
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
     "@storybook/react": "5.3.18",
