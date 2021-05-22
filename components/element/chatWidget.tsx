@@ -2,11 +2,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import React, { useCallback, useEffect } from 'react'
-import { Widget, addResponseMessage } from 'react-chat-widget'
-import { useSelector } from 'react-redux'
+import {
+  Widget,
+  addLinkSnippet,
+  addResponseMessage,
+  addUserMessage,
+  setQuickButtons,
+} from 'react-chat-widget'
 import socketIOClient from 'socket.io-client'
 import { BASE_API } from '../../api'
-import { RootState } from '../../reducers'
 
 interface Props {
   IsCart?: boolean
@@ -15,17 +19,55 @@ interface Props {
 const socket = socketIOClient(BASE_API)
 
 export const ChatWidget = ({ IsCart }: Props) => {
-  const { User } = useSelector((state: RootState) => state.UserReducer)
-
   const NewMessage = (newMessage: any) => {
     socket.emit('new-message', {
       text: newMessage,
-      userName: User.userName,
+    })
+  }
+
+  const Rapid = (option: any) => {
+    addUserMessage(option)
+
+    if (option === '¿Como invito a alguien?') {
+      addLinkSnippet({
+        title: 'Invita a un amigo',
+        link: 'https://cici.beauty/configuracion/invitar',
+        target: '_blank',
+      })
+
+      return
+    }
+
+    socket.emit('new-message', {
+      text: option,
     })
   }
 
   useEffect(() => {
     const isNew = localStorage.getItem('IsNew')
+
+    setQuickButtons([
+      {
+        label: 'Metodos de pago',
+        value: '¿Con que metodos puedo pagar?',
+      },
+      {
+        label: 'Envios',
+        value: '¿Como llega mi orden a su lugar de destino?',
+      },
+      {
+        label: 'Contacto',
+        value: '¿Quiero hablar con algun encargado de la tienda?',
+      },
+      {
+        label: 'Quiero un cupón',
+        value: '¿Como obtengo cupones para mis compras?',
+      },
+      {
+        label: 'Inivitar a alguien',
+        value: '¿Como invito a alguien?',
+      },
+    ])
 
     if (!isNew) {
       addResponseMessage(
@@ -67,6 +109,7 @@ export const ChatWidget = ({ IsCart }: Props) => {
         subtitle="Servicio al cliente"
         autofocus
         showTimeStamp
+        handleQuickButtonClicked={Rapid}
       />
     </div>
   )
