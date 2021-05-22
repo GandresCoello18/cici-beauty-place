@@ -33,6 +33,18 @@ body {
   z-index: 9999 !important;
 }
 
+.rcw-launcher {
+  background-color: #f097ac;
+}
+
+.rcw-conversation-container .rcw-header {
+  background-color: #f097ac;
+}
+
+.rcw-conversation-container .rcw-close-button {
+  background-color: #f097ac;
+}
+
 .border-round {
   border-radius: 12px;
 }

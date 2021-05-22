@@ -24,6 +24,7 @@ import { GetMyHistorty } from '../../api/productHistory'
 import SpinnerLoader from '../element/spinner-cici'
 import { GetProducts } from '../../api/products'
 import { SetProducts } from '../../reducers/products'
+import ChatWidget from '../element/chatWidget'
 
 const Home = () => {
   const { token } = useContext(TokenContext)
@@ -181,6 +182,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <ChatWidget />
     </>
   )
 }
