@@ -1,16 +1,37 @@
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import React, { useCallback, useEffect } from 'react'
-import {
-  Widget,
+import dynamic from 'next/dynamic'
+/* import {
   addLinkSnippet,
   addResponseMessage,
   addUserMessage,
   setQuickButtons,
-} from 'react-chat-widget'
+} from 'react-chat-widget' */
 import socketIOClient from 'socket.io-client'
 import { BASE_API } from '../../api'
+
+const WidgetD: any = dynamic(
+  () => import('react-chat-widget').then((mod) => mod.Widget) as any,
+  {
+    ssr: false,
+  }
+)
+
+const addLinkSnippet = (obj: any) =>
+  import('react-chat-widget').then((mod) => mod.addLinkSnippet(obj))
+
+const addResponseMessage = (text: string) =>
+  import('react-chat-widget').then((mod) => mod.addResponseMessage(text))
+
+const addUserMessage = (text: string) =>
+  import('react-chat-widget').then((mod) => mod.addUserMessage(text))
+
+const setQuickButtons = (buttons: any) =>
+  import('react-chat-widget').then((mod) => mod.setQuickButtons(buttons))
 
 interface Props {
   IsCart?: boolean
@@ -18,7 +39,7 @@ interface Props {
 
 const socket = socketIOClient(BASE_API)
 
-export const ChatWidget = ({ IsCart }: Props) => {
+const ChatWidget = ({ IsCart }: Props) => {
   const NewMessage = (newMessage: any) => {
     socket.emit('new-message', {
       text: newMessage,
@@ -102,7 +123,7 @@ export const ChatWidget = ({ IsCart }: Props) => {
 
   return (
     <div className="App">
-      <Widget
+      <WidgetD
         handleNewUserMessage={NewMessage}
         profileAvatar="https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg"
         title="Cici Beauty Place"
@@ -114,3 +135,5 @@ export const ChatWidget = ({ IsCart }: Props) => {
     </div>
   )
 }
+
+export default ChatWidget
