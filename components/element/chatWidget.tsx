@@ -109,7 +109,6 @@ const ChatWidget = ({ IsCart }: Props) => {
     let LastSms1 = ''
 
     socket.on('new-message', (data) => {
-      console.log(data)
       if (LastSms1 !== data.text) {
         addResponseMessage(data.text)
         LastSms1 = data.text
@@ -122,7 +121,7 @@ const ChatWidget = ({ IsCart }: Props) => {
   }, [ListenMessate])
 
   return (
-    <div className="App">
+    <div className="d-none d-md-block">
       <WidgetD
         handleNewUserMessage={NewMessage}
         profileAvatar="https://res.cloudinary.com/cici/image/upload/v1617738023/util/logo-cici_trmlbe.jpg"
