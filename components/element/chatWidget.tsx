@@ -5,12 +5,6 @@
 /* eslint-disable no-console */
 import React, { useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-/* import {
-  addLinkSnippet,
-  addResponseMessage,
-  addUserMessage,
-  setQuickButtons,
-} from 'react-chat-widget' */
 import socketIOClient from 'socket.io-client'
 import { BASE_API } from '../../api'
 
@@ -51,7 +45,7 @@ const ChatWidget = ({ IsCart }: Props) => {
 
     if (option === '¿Como invito a alguien?') {
       addLinkSnippet({
-        title: 'Invita a un amigo',
+        title: 'Invita a un amigo copiando tu enlace de referido',
         link: 'https://cici.beauty/configuracion/invitar',
         target: '_blank',
       })

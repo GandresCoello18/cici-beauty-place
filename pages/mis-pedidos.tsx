@@ -208,7 +208,7 @@ const MisPedidos = () => {
               </div>
 
               <ModalElement
-                title={`Productos de la orden: ${6545641}`}
+                title={`Productos de la orden: ${orden.numberOfOrder}`}
                 visible={MoreProductModal}
                 setVisible={setMoreProductModal}
               >

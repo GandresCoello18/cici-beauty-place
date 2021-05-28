@@ -17,6 +17,7 @@ export interface OrdenProduct {
   discount: number
   shipping: number
   totalAmount: number
+  numberOfOrder: number
   product: productOrden[]
 }
 
