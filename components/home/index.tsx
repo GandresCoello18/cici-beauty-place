@@ -25,6 +25,7 @@ import SpinnerLoader from '../element/spinner-cici'
 import { GetProducts } from '../../api/products'
 import { SetProducts } from '../../reducers/products'
 import ChatWidget from '../element/chatWidget'
+import { CardCollageProduct } from '../card/card-collage'
 
 const Home = () => {
   const { token } = useContext(TokenContext)
@@ -168,6 +169,20 @@ const Home = () => {
           ) : (
             ''
           )}
+        </div>
+
+        <div className="row justify-content-center">
+          <div className="col-12 p-3">
+            <strong>Nuestros Combos</strong>
+          </div>
+          {[0, 1, 2].map((item) => (
+            <div
+              className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
+              key={item}
+            >
+              <CardCollageProduct />
+            </div>
+          ))}
         </div>
 
         <div className="row mt-3 mb-3 bg-white p-3">
