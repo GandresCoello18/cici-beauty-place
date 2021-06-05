@@ -36,10 +36,12 @@ const Home = () => {
   const ProductsReducer = useSelector(
     (state: RootState) => state.ProductReducer
   )
+  const ComboReducer = useSelector((state: RootState) => state.ComboReducer)
 
   const { Products } = ProductsReducer
   const { ProductsOffers } = ProductsReducer
   const { ProductsBestRated } = ProductsReducer
+  const { Combo } = ComboReducer
 
   useEffect(() => {
     const FetchHistory = async () => {
@@ -175,12 +177,12 @@ const Home = () => {
           <div className="col-12 p-3">
             <strong>Nuestros Combos</strong>
           </div>
-          {[0, 1, 2].map((item) => (
+          {Combo.map((item) => (
             <div
               className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
-              key={item}
+              key={item.idCombo}
             >
-              <CardCollageProduct />
+              <CardCollageProduct combo={item} />
             </div>
           ))}
         </div>

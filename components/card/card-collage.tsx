@@ -11,8 +11,13 @@ import {
 import { ReactPhotoCollage } from 'react-photo-collage'
 import Link from 'next/link'
 import { calculatePrice } from '../../helpers/calculatePrice'
+import { ProductsCombo } from '../../interfaces/combo'
 
-export const CardCollageProduct = () => {
+interface Props {
+  combo: ProductsCombo
+}
+
+export const CardCollageProduct = ({ combo }: Props) => {
   const Styles: any = {
     titleNormal: {
       fontSize: 18,
@@ -35,34 +40,13 @@ export const CardCollageProduct = () => {
     width: '100%',
     height: ['250px', '170px'],
     layout: [1, 2],
-    photos: [
-      {
-        source:
-          'http://res.cloudinary.com/cici/image/upload/v1616791874/products/c5f3c5dc-98c7-40fe-b35f-3ed949818c46',
-      },
-      {
-        source:
-          'http://res.cloudinary.com/cici/image/upload/v1616791874/products/58eadd77-247d-45b1-8a09-fe2d3173d45d',
-      },
-      {
-        source:
-          'http://res.cloudinary.com/cici/image/upload/v1616791874/products/8af0972c-5038-4259-8caf-9ee5ef51d68a',
-      },
-      {
-        source:
-          'http://res.cloudinary.com/cici/image/upload/v1616791874/products/ff78e16e-f59b-49e7-b608-4dad229c38cb',
-      },
-      {
-        source:
-          'http://res.cloudinary.com/cici/image/upload/v1616791874/products/f41ab18b-a109-4239-896e-2b951f329631',
-      },
-    ],
+    photos: combo.photos,
     showNumOfRemainingPhotos: true,
   }
 
   return (
     <>
-      {true ? (
+      {combo.isNew ? (
         <Badge
           color="info"
           className="position-absolute top-right p-1"
@@ -77,20 +61,20 @@ export const CardCollageProduct = () => {
         <ReactPhotoCollage {...setting} />
         <CardBody>
           <CardTitle tag="h5" style={Styles.titleNormal}>
-            fediofcjei9dfuief
+            {combo.name}
           </CardTitle>
           <CardText>
             <strong className="mr-4">
               US $
               {calculatePrice({
-                discount: 5,
-                price: 25,
+                discount: combo.discount,
+                price: combo.price,
               })}
             </strong>
-            {5 ? (
+            {combo.discount ? (
               <>
-                <span className="tachado">US ${25}</span> &nbsp;{' '}
-                <span className="tag-discount">-${5}%</span>
+                <span className="tachado">US ${combo.price}</span> &nbsp;{' '}
+                <span className="tag-discount">-${combo.discount}%</span>
               </>
             ) : (
               ''
@@ -102,12 +86,17 @@ export const CardCollageProduct = () => {
             style={Styles.categoryNormal}
           >
             <div className="row">
-              <div className="col-12 mb-3">{true ? `${14} Vendidos` : ''}</div>
+              <div className="col-12 mb-3">
+                {combo.sold ? `${14} Vendidos` : ''}
+              </div>
             </div>
           </CardSubtitle>
         </CardBody>
-        <Link href="/productos/">
-          <a style={{ textDecoration: 'none' }} className="btn btn-block">
+        <Link href={`/productos/${combo.idCombo}`}>
+          <a
+            style={{ textDecoration: 'none', border: '2px solid #f097ac' }}
+            className="btn btn-block border-cici"
+          >
             <span className="text-cici">Más detalles</span>
           </a>
         </Link>
