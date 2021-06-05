@@ -94,7 +94,7 @@ const DetailsCompra = () => {
                     <Skeleton width="80%" height={40} />
                   ) : (
                     <>
-                      Compra: <strong>#3843</strong>
+                      Compra: <strong>#{Details?.numberOfOrder}</strong>
                     </>
                   )}
                   <br />

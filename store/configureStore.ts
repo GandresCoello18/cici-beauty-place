@@ -19,6 +19,8 @@ import { GetMeUser } from '../api/users'
 import { setUser } from '../reducers/user'
 import { GetMyAddress } from '../api/addresses'
 import { setAddress } from '../reducers/address'
+import { GetCombos } from '../api/combos'
+import { setCombo } from '../reducers/combo'
 
 export const configureStore = (initialState: RootState) => {
   const store = createStore(
@@ -42,6 +44,12 @@ export const configureStore = (initialState: RootState) => {
   GetProductsBestRated({ limit: 8 })
     .then((response) => {
       store.dispatch(setProductsBestRated(response.data.products))
+    })
+    .catch((error) => console.log(error.message))
+
+  GetCombos({ token: undefined })
+    .then((response) => {
+      store.dispatch(setCombo(response.data.combos))
     })
     .catch((error) => console.log(error.message))
 

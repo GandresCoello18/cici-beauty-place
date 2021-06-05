@@ -55,6 +55,7 @@
     "react-magnifier": "^3.0.4",
     "react-multi-carousel": "^2.6.1",
     "react-paypal-button": "^4.1.1",
+    "react-photo-collage": "^1.0.9",
     "react-redux": "^7.0.0",
     "react-share": "^4.3.1",
     "react-star-rating-component": "^1.4.1",
@@ -64,7 +65,8 @@
     "reactstrap": "^8.8.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
-    "socket.io-client": "^4.1.2"
+    "socket.io-client": "^4.1.2",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@storybook/react": "5.3.18",

@@ -14,6 +14,14 @@ const items = [
     src: 'img/carousel-3.jpg',
     altText: '@Cici Beauty Place',
   },
+  {
+    src: 'img/carousel-4.jpg',
+    altText: '@Cici Beauty Place',
+  },
+  {
+    src: 'img/carousel-5.jpg',
+    altText: '@Cici Beauty Place',
+  },
 ]
 
 const CarouselAdvertising = () => {
