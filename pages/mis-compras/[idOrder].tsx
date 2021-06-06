@@ -24,7 +24,6 @@ const DetailsCompra = () => {
   const [loading, setLoading] = useState(false)
   const { token } = useContext(TokenContext)
   const [Details, setDetails] = useState<DetailsOrdenAndShipping>()
-  const [SubTotal, setSubTotal] = useState<number>(0)
   const [OrderId, setOrderId] = useState<string>('')
 
   useEffect(() => {
@@ -39,14 +38,6 @@ const DetailsCompra = () => {
           await getDetailsOrden({ token, idOrden })
         ).data
         setDetails(DetailOrden)
-
-        let sub = DetailOrden.totalAmount - DetailOrden.shipping
-
-        if (DetailOrden.discount) {
-          sub = (sub * DetailOrden.discount) / 100
-        }
-
-        setSubTotal(sub)
 
         if (!DetailOrden) {
           Router.push('/mis-compras')
@@ -100,7 +91,7 @@ const DetailsCompra = () => {
                   <br />
                   <CartResumne
                     loading={loading}
-                    subTotal={SubTotal}
+                    subTotal={Details?.subTotal || 0}
                     envio={Details?.shipping || 0}
                     text={Details?.shipping === 0 ? 'Gratis' : ''}
                     total={Details?.totalAmount || 0}

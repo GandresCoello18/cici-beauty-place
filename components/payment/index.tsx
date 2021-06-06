@@ -76,6 +76,7 @@ const Payment = ({ setItemStep, setIsPaid, idCoupon }: Props) => {
     try {
       const orden: newOrden = {
         paymentMethod,
+        subTotal: resumen.subTotal,
         shipping: resumen.envio,
         discount: resumen.discount,
         totalAmount: resumen.total,

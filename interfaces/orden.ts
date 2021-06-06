@@ -3,6 +3,7 @@ export interface newOrden {
   paymentMethod?: string | null
   shipping: number
   discount: number
+  subTotal: number
   totalAmount: number
   id_user_coupons?: string
   paymentId: string
