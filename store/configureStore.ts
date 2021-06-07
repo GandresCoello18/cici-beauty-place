@@ -47,7 +47,7 @@ export const configureStore = (initialState: RootState) => {
     })
     .catch((error) => console.log(error.message))
 
-  GetCombos({ token: undefined })
+  GetCombos()
     .then((response) => {
       store.dispatch(setCombo(response.data.combos))
     })

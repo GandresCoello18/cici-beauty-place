@@ -25,6 +25,7 @@ export interface DetailsOrdenAndShipping {
   shipping: number
   discount: number
   totalAmount: number
+  subTotal: number
   products: Cart[]
   qualified: boolean
   numberOfOrder: number

@@ -20,13 +20,14 @@ import { ProductReview } from '../../interfaces/products'
 import { GetProductReviews } from '../../api/products'
 
 interface Props {
-  idProduct: string
-  brand: string
-  size: string
-  model: string
+  idProduct?: string
+  idCombo?: string
+  brand?: string
+  size?: string
+  model?: string
 }
 
-const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
+const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
   const Styles = {
     color: {
       color: '#999',
@@ -45,13 +46,16 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
     setLoading(true)
 
     try {
-      const fetchReviews = async () => {
-        const { reviews } = await (await GetProductReviews({ idProduct })).data
-        setReviews(reviews)
-        setLoading(false)
-      }
+      if (idProduct) {
+        const fetchReviews = async () => {
+          const { reviews } = await (await GetProductReviews({ idProduct }))
+            .data
+          setReviews(reviews)
+          setLoading(false)
+        }
 
-      idProduct && fetchReviews()
+        fetchReviews()
+      }
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -71,16 +75,20 @@ const MoreDetails = ({ idProduct, brand, size, model }: Props) => {
             <FaRegCommentDots /> &nbsp; Opiniones
           </NavLink>
         </NavItem>
-        <NavItem className="cursor-pointer">
-          <NavLink
-            className={classnames({ active: activeTab === '2' })}
-            onClick={() => {
-              toggle('2')
-            }}
-          >
-            <BiDetail /> &nbsp; Detalles
-          </NavLink>
-        </NavItem>
+        {!idCombo ? (
+          <NavItem className="cursor-pointer">
+            <NavLink
+              className={classnames({ active: activeTab === '2' })}
+              onClick={() => {
+                toggle('2')
+              }}
+            >
+              <BiDetail /> &nbsp; Detalles
+            </NavLink>
+          </NavItem>
+        ) : (
+          ''
+        )}
       </Nav>
       <br />
       <TabContent activeTab={activeTab}>

@@ -1,7 +1,11 @@
+import { Product } from './products'
+
 export interface Combo {
   idCombo: string
   name: string
   price: number
+  available: number
+  status: string
   discount: number
   active: boolean | number
   sold: number
@@ -11,4 +15,5 @@ export interface Combo {
 
 export interface ProductsCombo extends Combo {
   photos: { source: string }[]
+  products: Product[]
 }
