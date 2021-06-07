@@ -11,6 +11,7 @@
     "performance": "autocannon -c 100 http://localhost:3000",
     "deploy": "now --prod -t $NOW_TOKEN",
     "test": "jest --coverage",
+    "format": "prettier --write \"api/**/*.ts\" --write \"hooks/**/*.ts\" --write --write \"components/**/*.tsx\" --write \"pages/**/*.tsx\" --write \"interfaces/**/*.ts\" --write \"package.json\"",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
