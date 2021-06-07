@@ -14,7 +14,7 @@ import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
 import { ProductsCombo } from '../../interfaces/combo'
 import { RootState } from '../../reducers'
-import CaroselCard from '../carousel/CaroselCard'
+import CaroselCardCombo from '../carousel/CaroselCombo'
 import MigasPan from '../element/breadcrumbs'
 import Share from '../element/share'
 import MoreDetails from '../productDetails/moreDetails'
@@ -29,11 +29,8 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
   const [quantity, setQuantity] = useState<number>(1)
   const [urlShare, setUrlShare] = useState<string>('')
 
-  const ProductsReducer = useSelector(
-    (state: RootState) => state.ProductReducer
-  )
-
-  const { ProductsBestRated } = ProductsReducer
+  const ComboReducer = useSelector((state: RootState) => state.ComboReducer)
+  const { Combo } = ComboReducer
 
   useEffect(() => {
     setUrlShare(window.location.href)
@@ -264,17 +261,17 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
 
       <div className="row bg-white">
         <div className="col-12 p-2 font-arvo">
-          {true && <MoreDetails idCombo={combo.idCombo} />}
+          {combo.idCombo && <MoreDetails idCombo={combo.idCombo} />}
         </div>
       </div>
 
       <div className="row mt-3 mb-3 bg-white p-3">
         <div className="col-12 p-2">
           <AiTwotoneHeart color="pink" /> &nbsp;{' '}
-          <strong>Productos recomendados</strong>
+          <strong>Combos recomendados</strong>
         </div>
         <div className="col-12 font-arvo">
-          <CaroselCard products={ProductsBestRated} />
+          <CaroselCardCombo combos={Combo} />
         </div>
       </div>
     </section>
