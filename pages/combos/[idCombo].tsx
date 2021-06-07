@@ -56,18 +56,13 @@ const ComboDetails = () => {
     <>
       <NextSeo
         title={`${combo?.name || ''} - Cici beauty place`}
-        description={`${
-          combo?.description ||
-          'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
-        }`}
+        description="Nuestros combos contiene una serie de productos mas vendidos o valorados, para que tu selección sea mas eficaz."
         canonical="https://cici.beauty/productos"
         openGraph={{
           url: `https://cici.beauty/productos/${combo?.idCombo}`,
           title: `${combo?.name}`,
-          description: `${
-            combo?.description ||
-            'Encuentra todo sobre cosméticos, belleza y cuidados de la piel'
-          }`,
+          description:
+            'Nuestros combos contiene una serie de productos mas vendidos o valorados, para que tu selección sea mas eficaz.',
           images: [
             {
               url:
