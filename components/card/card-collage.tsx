@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import {
@@ -92,7 +93,7 @@ export const CardCollageProduct = ({ combo }: Props) => {
             </div>
           </CardSubtitle>
         </CardBody>
-        <Link href={`/productos/${combo.idCombo}`}>
+        <Link href={`/combos/${combo.idCombo}`}>
           <a
             style={{ textDecoration: 'none', border: '2px solid #f097ac' }}
             className="btn btn-block border-cici"
