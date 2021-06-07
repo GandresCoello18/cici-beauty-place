@@ -1,9 +1,15 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
+/* eslint-disable unicorn/explicit-length-check */
+/* eslint-disable unicorn/no-nested-ternary */
+/* eslint-disable no-nested-ternary */
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiTwotoneHeart } from 'react-icons/ai'
+import { FaMoneyCheckAlt } from 'react-icons/fa'
 import Skeleton from 'react-loading-skeleton'
 import { ReactPhotoCollage } from 'react-photo-collage'
 import { useSelector } from 'react-redux'
+import { Button } from 'reactstrap'
 import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
 import { ProductsCombo } from '../../interfaces/combo'
@@ -69,7 +75,7 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
           </div>
         </div>
         <div className="col-12 col-md-7">
-          <div className="p-3 border-bottom">
+          <div className="border-bottom">
             {loading ? (
               <Skeleton height={16} />
             ) : (
@@ -78,20 +84,21 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
                   <span role="img">💟</span> {combo.name}{' '}
                   <span role="img">💕</span>
                 </h3>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Dignissimos eaque mollitia nemo repellendus eius distinctio
-                  atque fuga a ullam qui, blanditiis recusandae quo voluptas
-                  quae cupiditate officiis eum quam iusto!
-                </p>
+                {combo.products.map((product, index) => (
+                  <p key={product.idProducts}>
+                    <span className="font-weight-bold ml-2">{index + 1})</span>{' '}
+                    {product.description}
+                  </p>
+                ))}
               </>
             )}
             <div className="row">
-              <div
-                className="col-5 col-lg-3 text-right"
-                style={{ color: '#999' }}
-              >
-                {loading ? <Skeleton height={16} /> : <>{10} vendidos</>}
+              <div className="col-10 col-lg-3" style={{ color: '#999' }}>
+                {loading ? (
+                  <Skeleton height={16} />
+                ) : (
+                  <>{combo.sold} vendidos</>
+                )}
               </div>
             </div>
           </div>
@@ -142,11 +149,21 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
             <ProductPicker
               loading={loading}
               quantity={quantity}
-              available={15}
+              available={combo.available}
               setQuantity={setQuantity}
+              status={combo.status}
             />
           </div>
-          <div className="p-3">acciones</div>
+          <div className="p-2">
+            <Button block color="danger" onClick={() => console.log('press')}>
+              <FaMoneyCheckAlt
+                size={20}
+                className="position-relative mr-2"
+                style={{ top: 4 }}
+              />
+              <span className="mb-1">Comprar</span>
+            </Button>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -163,14 +180,14 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
             ) : (
               <div className="row">
                 <div className="col-12 p-3 text-center mt-3">
-                  <h3>
+                  <h5>
                     Productos de <strong>{combo.name}</strong>
-                  </h3>
+                  </h5>
                 </div>
 
                 {combo.products.map((product) => (
                   <div
-                    className="col-12 border-bottom"
+                    className="col-12 mb-3 mb-md-0 border-bottom"
                     key={product.idProducts}
                   >
                     <Link href={`/productos/${product.idProducts}`}>
@@ -182,7 +199,10 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
                       >
                         <div className="card" style={{ width: '100%' }}>
                           <div className="row g-0">
-                            <div className="col-md-3">
+                            <div
+                              className="col-md-3"
+                              style={{ backgroundColor: '#f4e9ec' }}
+                            >
                               <img
                                 src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
                                 height="150"
@@ -217,6 +237,10 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
                                       ) : (
                                         ''
                                       )}
+
+                                      <span className="float-right">
+                                        {product.available} Disponibles
+                                      </span>
                                     </div>
                                   </div>
                                 </div>

@@ -4,7 +4,8 @@ export interface Combo {
   idCombo: string
   name: string
   price: number
-  description: string
+  available: number
+  status: string
   discount: number
   active: boolean | number
   sold: number

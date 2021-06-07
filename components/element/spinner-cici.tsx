@@ -1,6 +1,10 @@
 import React from 'react'
 
-const SpinnerLoader = () => {
+interface Props {
+  text?: string
+}
+
+const SpinnerLoader = ({ text }: Props) => {
   return (
     <div
       className="p-2"
@@ -11,6 +15,8 @@ const SpinnerLoader = () => {
       }}
     >
       <div className="spiner-cici" />
+      <br />
+      {text && <span>{text}</span>}
     </div>
   )
 }

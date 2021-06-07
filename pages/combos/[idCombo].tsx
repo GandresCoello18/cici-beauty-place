@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable unicorn/no-for-loop */
 /* eslint-disable no-plusplus */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -7,11 +9,11 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import { toast } from 'react-toast'
+import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 import { ProductsCombo } from '../../interfaces/combo'
 import { DetailsCombo } from '../../components/combo/detailsCombo'
-import { toast } from 'react-toast'
-import { useRouter } from 'next/router'
 import { GetCombo } from '../../api/combos'
 import SpinnerLoader from '../../components/element/spinner-cici'
 
@@ -48,7 +50,7 @@ const ComboDetails = () => {
     }
 
     id && FetchCombo()
-  }, [idCombo])
+  }, [Router, idCombo])
 
   return (
     <>
@@ -104,8 +106,7 @@ const ComboDetails = () => {
           <DetailsCombo combo={combo} loading={loading} />
         ) : (
           <div className="p-5 bg-white">
-            <SpinnerLoader />
-            <span className="text-center">Cargando...</span>
+            <SpinnerLoader text="Cargando..." />
           </div>
         )}
       </Layout>

@@ -9,6 +9,7 @@ interface Props {
   quantity: number
   available: number
   setQuantity: Dispatch<SetStateAction<number>>
+  status?: string
 }
 
 const ProductPicker = ({
@@ -16,6 +17,7 @@ const ProductPicker = ({
   quantity,
   available,
   setQuantity,
+  status,
 }: Props) => {
   return (
     <>
@@ -57,7 +59,10 @@ const ProductPicker = ({
         {loading ? (
           <Skeleton height={15} />
         ) : (
-          <>&nbsp; &nbsp;{available} disponibles</>
+          <>
+            &nbsp; &nbsp;{available} disponibles &nbsp;{' '}
+            {status && <span className="text-cici">({status})</span>}
+          </>
         )}
       </span>
     </>
