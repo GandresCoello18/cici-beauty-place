@@ -10,19 +10,17 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
-import { Alert, Button, Card, CardBody, CardText } from 'reactstrap'
+import { Alert } from 'reactstrap'
 import { GetAssignUserCoupons } from '../../api/coupons'
 import { Coupons, MyCouponsUser } from '../../interfaces/coupons'
 import { RootState } from '../../reducers'
-import { SetCoupon } from '../../reducers/coupon'
 import CartProduct from './cart-product'
 import CartResumne from './cart-resumen'
-import Modal from '../element/modal'
 import { TokenContext } from '../../context/contextToken'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
-import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
+import { SelectApplyCoupon } from '../coupons/SelectApplyCoupon'
 
 interface Props {
   setIdCoupon: Dispatch<SetStateAction<string>>
@@ -31,11 +29,8 @@ interface Props {
 const CartContainer = ({ setIdCoupon }: Props) => {
   const { Cart } = useSelector((state: RootState) => state.CartReducer)
   const resumen = ResumenPaymen()
-
-  const dispatch = useDispatch()
   const { token } = useContext(TokenContext)
   const [coupon, setCoupon] = useState<MyCouponsUser[]>([])
-  const [modal, setModal] = useState<boolean>(false)
   const [selectCoupon, setSelectCoupon] = useState<string>('')
 
   useEffect(() => {
@@ -53,7 +48,6 @@ const CartContainer = ({ setIdCoupon }: Props) => {
       }
 
       Cart.length && token && fetchCoupon()
-      // setResument(ResumenPaymen())
     } catch (error) {
       toast.error(error.message)
     }
@@ -95,38 +89,12 @@ const CartContainer = ({ setIdCoupon }: Props) => {
                 discount={resumen.discount}
               />
               {Cart.length && coupon.length ? (
-                <div className="text-center">
-                  {selectCoupon && (
-                    <span className="p-2">
-                      Aplicado: <strong>{selectCoupon}</strong>
-                      <br />
-                      <span
-                        className="text-danger cursor-pointer"
-                        onClick={() => {
-                          setIdCoupon('')
-                          setSelectCoupon('')
-                          dispatch(SetCoupon(undefined))
-                        }}
-                      >
-                        Eliminar
-                      </span>
-                    </span>
-                  )}
-
-                  {!selectCoupon && coupon.length === 1 ? (
-                    <Button
-                      color="danger"
-                      className="p-1"
-                      onClick={() => setModal(true)}
-                    >
-                      {selectCoupon && coupon.length > 1
-                        ? 'Cambiar Cupón'
-                        : 'Aplicar Cupón'}
-                    </Button>
-                  ) : (
-                    ''
-                  )}
-                </div>
+                <SelectApplyCoupon
+                  coupon={coupon}
+                  setIdCoupon={setIdCoupon}
+                  selectCoupon={selectCoupon}
+                  setSelectCoupon={setSelectCoupon}
+                />
               ) : (
                 ''
               )}
@@ -134,46 +102,6 @@ const CartContainer = ({ setIdCoupon }: Props) => {
           </div>
         </div>
       </div>
-
-      <Modal title="Elige algún cupón" visible={modal} setVisible={setModal}>
-        <div className="row justify-content-center">
-          {coupon.map((cupon) => (
-            <div className="col-12 col-md-10" key={cupon.id_user_coupons}>
-              <Card style={{ borderRadius: 12 }}>
-                <CardBody>
-                  <div className="text-center ">
-                    <img
-                      src={`${BASE_API_IMAGES_CLOUDINNARY}/${cupon.source}`}
-                      alt={cupon.type}
-                      width={150}
-                      height={150}
-                    />
-                    <h6 className="text-cici font-weight-bold mt-2">
-                      {cupon.type}
-                    </h6>
-                  </div>
-                  <CardText style={{ fontSize: 14 }}>
-                    {cupon.descripcion}
-                  </CardText>
-                  <Button
-                    outline
-                    block
-                    className="bg-cici text-dark"
-                    onClick={() => {
-                      setIdCoupon(cupon.id_user_coupons)
-                      setSelectCoupon(cupon.type)
-                      setModal(false)
-                      dispatch(SetCoupon(cupon))
-                    }}
-                  >
-                    Elegir
-                  </Button>
-                </CardBody>
-              </Card>
-            </div>
-          ))}
-        </div>
-      </Modal>
     </>
   )
 }
