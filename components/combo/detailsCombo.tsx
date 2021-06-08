@@ -291,8 +291,18 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
         </div>
       </div>
 
-      <ModalElement visible={modal} setVisible={setModal} title="">
-        {resumen && <PaymentCombo resumen={resumen} idCoupon={idCoupon} />}
+      <ModalElement
+        visible={modal}
+        setVisible={setModal}
+        title="Completa tu compra"
+      >
+        {resumen && (
+          <PaymentCombo
+            resumen={resumen}
+            idCoupon={idCoupon}
+            idCombo={combo.idCombo}
+          />
+        )}
       </ModalElement>
     </section>
   )

@@ -7,6 +7,7 @@ export interface newOrden {
   totalAmount: number
   id_user_coupons?: string
   paymentId: string
+  idCombo?: string
 }
 
 export interface OrdenProduct {

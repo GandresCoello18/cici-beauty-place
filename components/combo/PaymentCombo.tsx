@@ -16,9 +16,10 @@ import { AccionPayment } from '../payment/accion-payment'
 interface Props {
   resumen: ResumenCart
   idCoupon: string
+  idCombo: string
 }
 
-export const PaymentCombo = ({ resumen, idCoupon }: Props) => {
+export const PaymentCombo = ({ resumen, idCoupon, idCombo }: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [PaymentIdPaypal, setPaymentIdPaypal] = useState<string>('')
   const { token } = useContext(TokenContext)
@@ -35,6 +36,7 @@ export const PaymentCombo = ({ resumen, idCoupon }: Props) => {
         totalAmount: resumen.total,
         paymentId,
         id_user_coupons: idCoupon,
+        idCombo,
       }
 
       await NewOrden({ token, orden })
