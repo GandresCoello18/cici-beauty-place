@@ -177,16 +177,14 @@ const Home = () => {
           <div className="col-12 p-3">
             <strong>Nuestros Combos</strong>
           </div>
-          {Combo.reverse()
-            .splice(0, 3)
-            .map((item) => (
-              <div
-                className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
-                key={item.idCombo}
-              >
-                <CardCollageProduct combo={item} />
-              </div>
-            ))}
+          {Combo.reverse().map((item) => (
+            <div
+              className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
+              key={item.idCombo}
+            >
+              <CardCollageProduct combo={item} />
+            </div>
+          ))}
         </div>
 
         <div className="row mt-3 mb-3 bg-white p-3">

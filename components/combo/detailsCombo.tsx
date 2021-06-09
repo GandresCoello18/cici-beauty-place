@@ -1,24 +1,34 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable jsx-a11y/accessible-emoji */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable no-nested-ternary */
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AiTwotoneHeart } from 'react-icons/ai'
 import { FaMoneyCheckAlt } from 'react-icons/fa'
 import Skeleton from 'react-loading-skeleton'
 import { ReactPhotoCollage } from 'react-photo-collage'
 import { useSelector } from 'react-redux'
 import { Button } from 'reactstrap'
-import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../../api'
+import { GetAssignUserCoupons } from '../../api/coupons'
+import { TokenContext } from '../../context/contextToken'
 import { calculatePrice } from '../../helpers/calculatePrice'
 import { ProductsCombo } from '../../interfaces/combo'
+import { Coupons, MyCouponsUser } from '../../interfaces/coupons'
+import { ResumenCart } from '../../interfaces/products'
 import { RootState } from '../../reducers'
 import CaroselCardCombo from '../carousel/CaroselCombo'
+import CartResumne from '../cart/cart-resumen'
+import { SelectApplyCoupon } from '../coupons/SelectApplyCoupon'
 import MigasPan from '../element/breadcrumbs'
+import ModalElement from '../element/modal'
 import Share from '../element/share'
+import AdressPayment from '../payment/addres-payment'
 import MoreDetails from '../productDetails/moreDetails'
-import ProductPicker from '../productDetails/product-number-picker'
+import { ListProductCombo } from './ListProduct'
+import { PaymentCombo } from './PaymentCombo'
 
 interface Props {
   combo: ProductsCombo
@@ -26,15 +36,75 @@ interface Props {
 }
 
 export const DetailsCombo = ({ combo, loading }: Props) => {
-  const [quantity, setQuantity] = useState<number>(1)
+  const { token } = useContext(TokenContext)
+  const [modal, setModal] = useState<boolean>(false)
+  const [isOrden, setIsOrden] = useState<boolean>(false)
   const [urlShare, setUrlShare] = useState<string>('')
+  const [coupon, setCoupon] = useState<MyCouponsUser[]>([])
+  const [selectCoupon, setSelectCoupon] = useState<string>('')
+  const [idCoupon, setIdCoupon] = useState<string>('')
+  const [resumen, setResumen] = useState<ResumenCart>()
 
   const ComboReducer = useSelector((state: RootState) => state.ComboReducer)
   const { Combo } = ComboReducer
 
   useEffect(() => {
     setUrlShare(window.location.href)
-  }, [])
+
+    const fetchCoupon = async () => {
+      const { myCoupons } = await (
+        await GetAssignUserCoupons({ token, status: 'Valido', page: 1 })
+      ).data
+
+      const NoDuplicate = myCoupons.filter(
+        (cupon: Coupons, index: number) => myCoupons.indexOf(cupon) === index
+      )
+
+      setCoupon(NoDuplicate)
+    }
+
+    token && fetchCoupon()
+  }, [token])
+
+  useEffect(() => {
+    const subTotal = calculatePrice({
+      discount: combo.discount,
+      price: combo.price,
+    })
+
+    let envio = 5
+    let text = ''
+    let total = 0
+    let discount = 0
+
+    if ((subTotal && envio <= 0) || subTotal >= 40) {
+      envio = 0
+      text = 'Gratis'
+    }
+
+    if (subTotal) {
+      total = subTotal + envio
+    }
+
+    if (selectCoupon === '15% Descuento') {
+      discount = 15
+      const porcent: number = (total * discount) / 100
+      total = Number((total - porcent).toFixed(2))
+    }
+
+    if (selectCoupon === 'Envio gratis') {
+      envio = 0
+      text = 'Gratis'
+    }
+
+    setResumen({
+      subTotal,
+      envio,
+      text,
+      discount,
+      total,
+    })
+  }, [combo, selectCoupon])
 
   const setting = {
     width: '100%',
@@ -142,17 +212,8 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
           <div className="p-3 border-bottom">
             {loading ? <Skeleton height={20} /> : <Share ShareUrl={urlShare} />}
           </div>
-          <div className="p-1 mt-1 mb-1">
-            <ProductPicker
-              loading={loading}
-              quantity={quantity}
-              available={combo.available}
-              setQuantity={setQuantity}
-              status={combo.status}
-            />
-          </div>
           <div className="p-2">
-            <Button block color="danger" onClick={() => console.log('press')}>
+            <Button block color="danger" onClick={() => setModal(true)}>
               <FaMoneyCheckAlt
                 size={20}
                 className="position-relative mr-2"
@@ -160,7 +221,27 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
               />
               <span className="mb-1">Comprar</span>
             </Button>
+
+            {coupon.length ? (
+              <SelectApplyCoupon
+                coupon={coupon}
+                setIdCoupon={setIdCoupon}
+                selectCoupon={selectCoupon}
+                setSelectCoupon={setSelectCoupon}
+              />
+            ) : (
+              ''
+            )}
           </div>
+        </div>
+        <div className="col-12">
+          <CartResumne
+            subTotal={resumen?.subTotal || 0}
+            envio={resumen?.envio || 0}
+            text={resumen?.text || ''}
+            total={resumen?.total || 0}
+            discount={resumen?.discount || 0}
+          />
         </div>
       </div>
       <div className="row">
@@ -175,81 +256,7 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
                 ))}
               </div>
             ) : (
-              <div className="row">
-                <div className="col-12 p-3 text-center mt-3">
-                  <h5>
-                    Productos de <strong>{combo.name}</strong>
-                  </h5>
-                </div>
-
-                {combo.products.map((product) => (
-                  <div
-                    className="col-12 mb-3 mb-md-0 border-bottom"
-                    key={product.idProducts}
-                  >
-                    <Link href={`/productos/${product.idProducts}`}>
-                      <a
-                        href={`/productos/${product.idProducts}`}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        style={{ textDecoration: 'none', color: '#4b4a4a' }}
-                      >
-                        <div className="card" style={{ width: '100%' }}>
-                          <div className="row g-0">
-                            <div
-                              className="col-md-3"
-                              style={{ backgroundColor: '#f4e9ec' }}
-                            >
-                              <img
-                                src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
-                                height="150"
-                                width="100%"
-                                className="p-2"
-                                alt={product.title}
-                              />
-                            </div>
-                            <div className="col-md-9">
-                              <div className="card-body">
-                                <h4 className="card-title">{product.title}</h4>
-                                <p className="p-1">{product.description}</p>
-                                <div className="row justify-content-between">
-                                  <div className="col-12">
-                                    <div className="p-1">
-                                      <strong style={{ fontSize: 20 }}>
-                                        US $
-                                        {calculatePrice({
-                                          discount: product.discount,
-                                          price: product.price,
-                                        })}
-                                      </strong>
-                                      {product.discount ? (
-                                        <>
-                                          <span className="ml-2 tachado">
-                                            US ${product.price}
-                                          </span>
-                                          <span className="tag-discount ml-2">
-                                            -{product.discount}%
-                                          </span>
-                                        </>
-                                      ) : (
-                                        ''
-                                      )}
-
-                                      <span className="float-right">
-                                        {product.available} Disponibles
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+              <ListProductCombo combo={combo} />
             )
           ) : (
             ''
@@ -274,6 +281,32 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
           <CaroselCardCombo combos={Combo} />
         </div>
       </div>
+
+      <ModalElement
+        visible={modal}
+        setVisible={setModal}
+        title="Completa tu compra"
+      >
+        {resumen && !isOrden ? (
+          <PaymentCombo
+            resumen={resumen}
+            setIsOrden={setIsOrden}
+            idCoupon={idCoupon}
+            idCombo={combo.idCombo}
+          />
+        ) : (
+          <>
+            <AdressPayment isModal />
+            <br />
+            <Button
+              block
+              onClick={() => (window.location.href = `/mis-pedidos`)}
+            >
+              Terminar Compra
+            </Button>
+          </>
+        )}
+      </ModalElement>
     </section>
   )
 }

@@ -11,12 +11,7 @@ export const NewOrden = async (options: {
     method: 'POST',
     url: '/orden',
     data: {
-      paymentMethod: options.orden.paymentMethod,
-      shipping: options.orden.shipping,
-      discount: options.orden.discount,
-      totalAmount: options.orden.totalAmount,
-      id_user_coupons: options.orden.id_user_coupons,
-      paymentId: options.orden.paymentId,
+      ...options.orden,
     },
   })
   return response

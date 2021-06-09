@@ -3,11 +3,11 @@ import { Carousel, CarouselIndicators, CarouselItem } from 'reactstrap'
 
 const items = [
   {
-    src: 'img/carousel-1.jpg',
+    src: 'img/carousel-7.jpg',
     altText: '@Cici Beauty Place',
   },
   {
-    src: 'img/carousel-2.jpg',
+    src: 'img/carousel-6.jpg',
     altText: '@Cici Beauty Place',
   },
   {

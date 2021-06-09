@@ -191,7 +191,7 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
           />
         )}
 
-        {itemStep.item === 2 && <AdressPayment />}
+        {itemStep.item === 2 && <AdressPayment isModal={false} />}
 
         <ModalElement
           title="Asignar cupón"

@@ -90,7 +90,7 @@ const CartResumne = ({
         <PopoverHeader>Precio de envio</PopoverHeader>
         <PopoverBody>
           Mientas mas productos agreges a tu carrito tendras rebajas en el
-          precio de envio, si tu compra es mayoro igual a $40, el envio sera
+          precio de envio, si tu compra es mayor o igual a $40, el envio sera
           totalmente gratis.
         </PopoverBody>
       </Popover>
