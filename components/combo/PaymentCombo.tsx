@@ -3,7 +3,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/camelcase */
 import { nanoid } from 'nanoid'
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { OnCaptureData } from 'react-paypal-button'
 import { toast } from 'react-toast'
 import { NewOrden } from '../../api/orden'
@@ -15,11 +21,17 @@ import { AccionPayment } from '../payment/accion-payment'
 
 interface Props {
   resumen: ResumenCart
+  setIsOrden: Dispatch<SetStateAction<boolean>>
   idCoupon: string
   idCombo: string
 }
 
-export const PaymentCombo = ({ resumen, idCoupon, idCombo }: Props) => {
+export const PaymentCombo = ({
+  resumen,
+  setIsOrden,
+  idCoupon,
+  idCombo,
+}: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [PaymentIdPaypal, setPaymentIdPaypal] = useState<string>('')
   const { token } = useContext(TokenContext)
@@ -41,6 +53,8 @@ export const PaymentCombo = ({ resumen, idCoupon, idCombo }: Props) => {
 
       await NewOrden({ token, orden })
       setLoading(false)
+
+      setIsOrden(true)
 
       toast.success('Su orden fue registrada con éxito')
     } catch (error) {

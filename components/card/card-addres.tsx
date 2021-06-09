@@ -122,7 +122,7 @@ const CardAddres = ({ address }: Props) => {
           </div>
           <div className="col-4">
             <Button color="warning" size="sm" disabled={loading}>
-              <AiFillEdit /> Editar
+              <AiFillEdit />
             </Button>
           </div>
           <div className="col-4">
@@ -132,7 +132,7 @@ const CardAddres = ({ address }: Props) => {
               onClick={() => deleteAddress(address.title)}
               disabled={loading}
             >
-              <AiFillDelete /> Eliminar
+              <AiFillDelete />
             </Button>
           </div>
           <div className="col-12">{loading && <SpinnerLoader />}</div>

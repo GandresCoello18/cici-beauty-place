@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable jsx-a11y/accessible-emoji */
@@ -24,8 +25,8 @@ import { SelectApplyCoupon } from '../coupons/SelectApplyCoupon'
 import MigasPan from '../element/breadcrumbs'
 import ModalElement from '../element/modal'
 import Share from '../element/share'
+import AdressPayment from '../payment/addres-payment'
 import MoreDetails from '../productDetails/moreDetails'
-import ProductPicker from '../productDetails/product-number-picker'
 import { ListProductCombo } from './ListProduct'
 import { PaymentCombo } from './PaymentCombo'
 
@@ -37,7 +38,7 @@ interface Props {
 export const DetailsCombo = ({ combo, loading }: Props) => {
   const { token } = useContext(TokenContext)
   const [modal, setModal] = useState<boolean>(false)
-  const [quantity, setQuantity] = useState<number>(1)
+  const [isOrden, setIsOrden] = useState<boolean>(false)
   const [urlShare, setUrlShare] = useState<string>('')
   const [coupon, setCoupon] = useState<MyCouponsUser[]>([])
   const [selectCoupon, setSelectCoupon] = useState<string>('')
@@ -66,11 +67,10 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
   }, [token])
 
   useEffect(() => {
-    const subTotal =
-      calculatePrice({
-        discount: combo.discount,
-        price: combo.price,
-      }) * quantity
+    const subTotal = calculatePrice({
+      discount: combo.discount,
+      price: combo.price,
+    })
 
     let envio = 5
     let text = ''
@@ -104,7 +104,7 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
       discount,
       total,
     })
-  }, [combo, quantity, selectCoupon])
+  }, [combo, selectCoupon])
 
   const setting = {
     width: '100%',
@@ -212,15 +212,6 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
           <div className="p-3 border-bottom">
             {loading ? <Skeleton height={20} /> : <Share ShareUrl={urlShare} />}
           </div>
-          <div className="p-1 mt-1 mb-1">
-            <ProductPicker
-              loading={loading}
-              quantity={quantity}
-              available={combo.available}
-              setQuantity={setQuantity}
-              status={combo.status}
-            />
-          </div>
           <div className="p-2">
             <Button block color="danger" onClick={() => setModal(true)}>
               <FaMoneyCheckAlt
@@ -296,12 +287,24 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
         setVisible={setModal}
         title="Completa tu compra"
       >
-        {resumen && (
+        {resumen && !isOrden ? (
           <PaymentCombo
             resumen={resumen}
+            setIsOrden={setIsOrden}
             idCoupon={idCoupon}
             idCombo={combo.idCombo}
           />
+        ) : (
+          <>
+            <AdressPayment isModal />
+            <br />
+            <Button
+              block
+              onClick={() => (window.location.href = `/mis-pedidos`)}
+            >
+              Terminar Compra
+            </Button>
+          </>
         )}
       </ModalElement>
     </section>

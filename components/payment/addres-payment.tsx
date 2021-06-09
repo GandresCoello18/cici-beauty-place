@@ -6,7 +6,11 @@ import FormAddres from '../element/formAddres'
 import { TokenContext } from '../../context/contextToken'
 import { RootState } from '../../reducers'
 
-const AdressPayment = () => {
+interface Props {
+  isModal: boolean
+}
+
+const AdressPayment = ({ isModal }: Props) => {
   const { token } = useContext(TokenContext)
   const [myAddresses, setMyAddres] = useState<boolean>(!!token)
 
@@ -19,7 +23,10 @@ const AdressPayment = () => {
           <h4 className="text-center p-2">Mis Direcciones:</h4>
           <div className="row justify-content-center">
             {Addresses.map((address) => (
-              <div className="col-12 col-md-6 mb-2" key={address.idAddresses}>
+              <div
+                className={`col-12 ${!isModal ? 'col-md-6' : ''} mb-2`}
+                key={address.idAddresses}
+              >
                 <div className="cursor-pointer">
                   <CardAddres address={address} />
                 </div>
