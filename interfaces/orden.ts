@@ -15,6 +15,7 @@ export interface OrdenProduct {
   created_at: string | Date
   status: string
   paymentMethod: string
+  subTotal: number
   paymentId: string
   discount: number
   shipping: number

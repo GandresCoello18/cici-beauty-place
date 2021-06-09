@@ -159,12 +159,16 @@ const Favorite = () => {
             <div className="col-12 col-md-8 border-bottom p-3">
               <h3 className="p-1">
                 Tus favoritos{' '}
-                <span
-                  className="btn btn-sm btn-danger float-right"
-                  onClick={deleteAllFavorites}
-                >
-                  Limpiar
-                </span>
+                {product.length ? (
+                  <span
+                    className="btn btn-sm btn-danger float-right"
+                    onClick={deleteAllFavorites}
+                  >
+                    Limpiar
+                  </span>
+                ) : (
+                  ''
+                )}
               </h3>
             </div>
 

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -17,6 +18,7 @@ import {
 } from 'reactstrap'
 import { toast } from 'react-toast'
 import copy from 'copy-to-clipboard'
+import Skeleton from 'react-loading-skeleton'
 import { TokenContext } from '../context/contextToken'
 import Layout from '../components/layout'
 import { getMyOrden } from '../api/orden'
@@ -39,6 +41,7 @@ const MisPedidos = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [selectOptioon, setSelectOption] = useState<string>('Pendiente de pago')
   const [MyOrdes, setMyOrdes] = useState<OrdenProduct[]>([])
+  const [IdOrden, setIdOrden] = useState<string>('')
   const toggle = () => setOpen(!dropdownOpen)
 
   const fetchOrden = async (page: number) => {
@@ -65,6 +68,14 @@ const MisPedidos = () => {
   useEffect(() => {
     token && SelectPage && fetchOrden(SelectPage)
   }, [token, SelectPage])
+
+  const SkeletonPedidos = () => {
+    return [1, 2, 3, 4, 5].map((item) => (
+      <div className="col-12 mb-3" key={item}>
+        <Skeleton height={100} />
+      </div>
+    ))
+  }
 
   return (
     <>
@@ -144,115 +155,127 @@ const MisPedidos = () => {
             </div>
             <div className="col-3 font-weight-bold text-cici">Pagos</div>
           </div>
-          {MyOrdes.map((orden) => (
-            <div
-              className="row bg-white border-bottom p-1 p-md-3 mb-5 text-center cursor-pointer"
-              onClick={() => orden.product.length && setMoreProductModal(true)}
-              key={orden.idOrder}
-            >
-              <div className="col-12 bg-cici mb-2 text-left p-3 border-round">
-                <Badge
-                  className="position-absolute"
-                  style={{ right: 10 }}
-                  color="info"
-                >
-                  Más Detalles
-                </Badge>
-                <img
-                  width="100"
-                  height="100"
-                  src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${orden.product[0].source}`}
-                  alt={orden.product[0].title}
-                  className="p-1"
-                />
-                <span className="ml-3">
-                  {orden.product[0].title}
-                  {orden.product.length > 1 ? (
-                    <strong className="ml-1">
-                      + {orden.product.length - 1} productos
-                    </strong>
-                  ) : (
-                    ''
-                  )}
-                </span>
-              </div>
-              <div className="col-12 col-md-5 border-right border-bottom p-2 p-md-0">
-                <Badge className="p-1">Orden creada el</Badge>
-                <br />
-                {orden.created_at}
-              </div>
-              <div className="col-7 col-md-4 border-right p-2 p-md-0">
-                <Badge className="p-1">Id de pago</Badge>
-                <br />
-                <Badge
-                  onClick={() => {
-                    toast.success('Se copio la el ID en el porta papeles')
-                    copy(orden.paymentId)
-                  }}
-                  color="success"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  title="Copiar id de pago"
-                >
-                  {orden.paymentId}
-                </Badge>
-              </div>
-              <div className="col-5 col-md-3 p-2 p-md-0">
-                <Badge className="p-1">Método de pago</Badge>
-                <br />
-                <Badge
-                  color={orden.paymentMethod === 'Paypal' ? 'info' : 'warning'}
-                >
-                  {orden.paymentMethod}
-                </Badge>
-              </div>
 
-              <ModalElement
-                title={`Productos de la orden: ${orden.numberOfOrder}`}
-                visible={MoreProductModal}
-                setVisible={setMoreProductModal}
+          {loading && <div className="row">{SkeletonPedidos()}</div>}
+
+          {!loading &&
+            MyOrdes.map((orden) => (
+              <div
+                className="row bg-white border-bottom p-1 p-md-3 mb-5 text-center cursor-pointer"
+                onClick={() => {
+                  if (orden.product.length) {
+                    setMoreProductModal(true)
+                    setIdOrden(orden.idOrder)
+                  }
+                }}
+                key={orden.idOrder}
               >
-                <div className="row justify-content-center">
-                  <div className="col-12">
-                    <CartResumne
-                      discount={orden.discount}
-                      envio={orden.shipping}
-                      text={orden.shipping === 0 ? 'Gratis' : ''}
-                      total={orden.totalAmount}
-                    />
-                  </div>
-                  {orden.product.map((product) => (
-                    <div className="col-12 mb-4" key={product.title}>
-                      <img
-                        src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
-                        alt={product.title}
-                      />
-                      <br />
-                      <span>{product.title}</span>
-                      <br />
-                      <span>
-                        Cantidad: <strong>x{product.quantity}</strong>
-                      </span>
-                      <br />
-                      <span>
-                        Precio: <strong>${product.price}</strong> (Actual)
-                      </span>
-                      {product.colour ? (
-                        <span>
-                          Color:{' '}
-                          <span style={{ backgroundColor: product.colour }}>
-                            -
-                          </span>
-                        </span>
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  ))}
+                <div className="col-12 bg-cici mb-2 text-left p-3 border-round">
+                  <Badge
+                    className="position-absolute"
+                    style={{ right: 10 }}
+                    color="info"
+                  >
+                    Más Detalles
+                  </Badge>
+                  <img
+                    width="100"
+                    height="100"
+                    src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${orden.product[0].source}`}
+                    alt={orden.product[0].title}
+                    className="p-1"
+                  />
+                  <span className="ml-3">
+                    {orden.product[0].title}
+                    {orden.product.length > 1 ? (
+                      <strong className="ml-1">
+                        + {orden.product.length - 1} productos
+                      </strong>
+                    ) : (
+                      ''
+                    )}
+                  </span>
                 </div>
-              </ModalElement>
-            </div>
-          ))}
+                <div className="col-12 col-md-5 border-right border-bottom p-2 p-md-0">
+                  <Badge className="p-1">Orden creada el</Badge>
+                  <br />
+                  {orden.created_at}
+                </div>
+                <div className="col-7 col-md-4 border-right p-2 p-md-0">
+                  <Badge className="p-1">Id de pago</Badge>
+                  <br />
+                  <Badge
+                    onClick={() => {
+                      toast.success('Se copio la el ID en el porta papeles')
+                      copy(orden.paymentId)
+                    }}
+                    color="success"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    title="Copiar id de pago"
+                  >
+                    {orden.paymentId}
+                  </Badge>
+                </div>
+                <div className="col-5 col-md-3 p-2 p-md-0">
+                  <Badge className="p-1">Método de pago</Badge>
+                  <br />
+                  <Badge
+                    color={
+                      orden.paymentMethod === 'Paypal' ? 'info' : 'warning'
+                    }
+                  >
+                    {orden.paymentMethod}
+                  </Badge>
+                </div>
+
+                <ModalElement
+                  title={`Productos de la orden: #${orden.numberOfOrder}`}
+                  visible={MoreProductModal && IdOrden === orden.idOrder}
+                  setVisible={setMoreProductModal}
+                >
+                  <div className="row justify-content-center">
+                    <div className="col-12">
+                      <CartResumne
+                        subTotal={orden.subTotal}
+                        discount={orden.discount}
+                        envio={orden.shipping}
+                        text={orden.shipping === 0 ? 'Gratis' : ''}
+                        total={orden.totalAmount}
+                      />
+                    </div>
+                    {orden.product.map((product) => (
+                      <div className="col-12 mb-4" key={product.title}>
+                        <img
+                          src={`${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${product.source}`}
+                          alt={product.title}
+                        />
+                        <br />
+                        <span>{product.title}</span>
+                        <br />
+                        <span>
+                          Cantidad: <strong>x{product.quantity || 1}</strong>
+                        </span>
+                        <br />
+                        <span>
+                          Precio: <strong>${product.price}</strong> (Actual)
+                        </span>
+                        {product.colour ? (
+                          <span>
+                            Color:{' '}
+                            <span style={{ backgroundColor: product.colour }}>
+                              -
+                            </span>
+                          </span>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </ModalElement>
+              </div>
+            ))}
 
           <div className="row justify-content-center mt-3">
             <br />
