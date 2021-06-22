@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiFillStar } from 'react-icons/ai'
@@ -26,6 +28,8 @@ import { GetProducts } from '../../api/products'
 import { SetProducts } from '../../reducers/products'
 import ChatWidget from '../element/chatWidget'
 import { CardCollageProduct } from '../card/card-collage'
+import { getTimeOffert } from '../../api/time-offert'
+import { OfferTimeProducts } from '../../interfaces/timeOffer'
 
 const Home = () => {
   const { token } = useContext(TokenContext)
@@ -33,6 +37,8 @@ const Home = () => {
   const [IsRunning, SetIsRunning] = useState<boolean>(true)
   const [Loading, setLoading] = useState<boolean>(false)
   const [HistoryProducts, setProducts] = useState<Product[]>([])
+  const [TimeOffer, setTimerOffer] = useState<OfferTimeProducts>()
+
   const ProductsReducer = useSelector(
     (state: RootState) => state.ProductReducer
   )
@@ -61,6 +67,26 @@ const Home = () => {
     if (token) {
       FetchHistory()
     }
+
+    const timeOffert = async () => {
+      try {
+        const { times } = await (
+          await getTimeOffert({
+            token,
+            idTimeOffer: '2fe96033-2595-476e-b776-12ee3fda023f',
+          })
+        ).data
+        setTimerOffer(times)
+
+        const finishOffert = new Date(times?.finish_at || '').getTime()
+
+        SetIsRunning(finishOffert > new Date().getTime())
+      } catch (error) {
+        toast.error(error.message)
+      }
+    }
+
+    timeOffert()
   }, [token])
 
   const MoreProducts = async () => {
@@ -118,25 +144,26 @@ const Home = () => {
 
         <div className="row mt-3 mb-3 bg-white p-3">
           <div className="col-12 p-2">
-            <FaPercentage color="pink" /> &nbsp; <strong>Ofertas</strong>
-            <Link href="/productos/ofertas">
+            <AiFillStar color="pink" /> &nbsp; <strong>Mas vendidos</strong>
+            <Link href="/productos/mas-vendidos">
               <a className="float-right">Ver más</a>
             </Link>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard products={ProductsOffers} />
+            <CaroselCard products={ProductsBestRated} />
           </div>
         </div>
 
-        {IsRunning ? (
+        {IsRunning && TimeOffer?.finish_at ? (
           <div className="row mt-3 mb-3 bg-white p-3">
             <div className="col-12 p-2">
               <BsFillLightningFill color="pink" /> &nbsp;{' '}
               <strong>Flash Ofertas</strong> &nbsp; &nbsp;
               <Time
-                expiryTimestamp={1618694164986}
+                expiryTimestamp={new Date(TimeOffer?.finish_at || '').getTime()}
                 SetIsRunning={SetIsRunning}
               />
+              <CaroselCard products={TimeOffer?.productos || []} />
             </div>
           </div>
         ) : (
@@ -187,17 +214,21 @@ const Home = () => {
           ))}
         </div>
 
-        <div className="row mt-3 mb-3 bg-white p-3">
-          <div className="col-12 p-2">
-            <AiFillStar color="pink" /> &nbsp; <strong>Mas vendidos</strong>
-            <Link href="/productos/mas-vendidos">
-              <a className="float-right">Ver más</a>
-            </Link>
+        {ProductsOffers.length ? (
+          <div className="row mt-3 mb-3 bg-white p-3">
+            <div className="col-12 p-2">
+              <FaPercentage color="pink" /> &nbsp; <strong>Ofertas</strong>
+              <Link href="/productos/ofertas">
+                <a className="float-right">Ver más</a>
+              </Link>
+            </div>
+            <div className="col-12 font-arvo">
+              <CaroselCard products={ProductsOffers} />
+            </div>
           </div>
-          <div className="col-12 font-arvo">
-            <CaroselCard products={ProductsBestRated} />
-          </div>
-        </div>
+        ) : (
+          ''
+        )}
       </section>
 
       <ChatWidget />

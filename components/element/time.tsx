@@ -13,7 +13,7 @@ const Time = ({ expiryTimestamp, SetIsRunning }: Props) => {
   const { seconds, minutes, hours, days, start, pause } = useTimer({
     expiryTimestamp,
     onExpire: () => {
-      SetIsRunning(false)
+      SetIsRunning(true)
       pause()
     },
   })
