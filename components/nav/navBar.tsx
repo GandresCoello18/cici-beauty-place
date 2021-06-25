@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unneeded-ternary */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import {
@@ -21,6 +22,7 @@ import { MenuUser } from './menuUser'
 
 const NavBarElement = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [width, setWidth] = useState<number>(window.innerWidth)
   const { theme } = useTheme()
 
   const toggle = () => setIsOpen(!isOpen)
@@ -37,6 +39,10 @@ const NavBarElement = () => {
       marginBottom: 10,
     },
   }
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setWidth(window.innerWidth))
+  }, [])
 
   return (
     <>
@@ -88,9 +94,7 @@ const NavBarElement = () => {
             </NavItem>
           </Nav>
 
-          <div className="d-none d-md-block">
-            <MenuUser />
-          </div>
+          {width > 768 && <MenuUser />}
 
           <SearchInput />
         </Collapse>
