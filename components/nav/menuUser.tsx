@@ -104,7 +104,7 @@ export const MenuUser = () => {
               size="sm"
               style={styles.buttonMenu}
             />
-            <DropdownMenu className="border-cici">
+            <DropdownMenu>
               <div className="p-2">
                 <strong>{User.userName}</strong>
                 <br />
