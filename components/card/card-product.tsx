@@ -15,6 +15,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Product } from '../../interfaces/products'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
+import { ListColors } from '../element/colors'
 
 interface Props {
   product: Product
@@ -133,6 +134,12 @@ const CardProduct = ({ product, size }: Props) => {
                     </div>
                   ) : (
                     ''
+                  )}
+
+                  {product.colors && (
+                    <div className="p-1">
+                      <ListColors colors={JSON.parse(product.colors)} />
+                    </div>
                   )}
                 </div>
               </CardSubtitle>
