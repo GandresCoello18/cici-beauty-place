@@ -27,6 +27,7 @@ import { RootState } from '../../reducers'
 import ActionsProductDetails from './actions-product-details'
 import ProductPicker from './product-number-picker'
 import { calculatePrice } from '../../helpers/calculatePrice'
+import { ListColors } from '../element/colors'
 
 interface Props {
   product: Product
@@ -163,27 +164,11 @@ const ProductDetails = ({ product, loading }: Props) => {
                 <div className="row">
                   <div className="col-12">
                     <span>Colores:</span>
-                    <div className="flex space">
-                      {colors.map(
-                        (color) =>
-                          !color.disabled && (
-                            <button
-                              disabled={color.disabled}
-                              onClick={() => setColour(color.hex)}
-                              key={color.hex}
-                              className="cursor-pointer border-round p-2 ml-2"
-                              style={{
-                                background: color.hex,
-                                border: `3px solid ${
-                                  colour === color.hex ? 'red' : color.hex
-                                }`,
-                                width: 18,
-                                height: 18,
-                              }}
-                            />
-                          )
-                      )}
-                    </div>
+                    <ListColors
+                      colors={colors}
+                      colour={colour}
+                      setColour={setColour}
+                    />
                   </div>
                 </div>
               </div>
