@@ -57,13 +57,6 @@ const NavBarLanding = () => {
           </NavItem>
           <NavItem>
             <NavLink>
-              <Link href="/productos/ofertas">
-                <a style={styles.colorLink}>Ofertas</a>
-              </Link>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink>
               <Link href="/productos/mas-vendidos">
                 <a style={styles.colorLink}>Mas vendidos</a>
               </Link>

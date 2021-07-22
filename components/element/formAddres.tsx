@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import {
   Button,
   Col,
@@ -19,6 +21,8 @@ import { Addresses, CreateAddresses } from '../../interfaces/address'
 import SpinnerLoader from './spinner-cici'
 import { RootState } from '../../reducers'
 import { setAddress } from '../../reducers/address'
+import { GetProvinces } from '../../api/provinces'
+import { Provinces } from '../../interfaces/provinces'
 
 interface Props {
   isSession: boolean
@@ -30,13 +34,15 @@ interface FormAddres {
   city: string
   codePostal: number
   address: string
+  province: string
 }
 
 const FormAddres = ({ isSession, setNewAddress }: Props) => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(false)
+  const [dataProvinces, setDataProvinces] = useState<Provinces[]>([])
   const methods = useForm<FormAddres>()
-  const { handleSubmit, control, reset, errors } = methods
+  const { handleSubmit, control, reset, errors, setError } = methods
 
   const { User } = useSelector((state: RootState) => state.UserReducer)
 
@@ -45,8 +51,19 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
   )
 
   const send = async (data: FormAddres) => {
+    const { title, phone, city, codePostal, address, province } = data
+    console.log(province)
+    if (phone.toString().length > 10) {
+      setError('phone', { type: 'maxLength' })
+      return
+    }
+
+    if (!province) {
+      setError('province', { type: 'required' })
+      return
+    }
+
     setLoading(true)
-    const { title, phone, city, codePostal, address } = data
 
     try {
       const CreateAddress: CreateAddresses = {
@@ -56,6 +73,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         address,
         postalCode: codePostal,
         idUser: User.idUser || undefined,
+        province,
       }
 
       const response = await newAdrees({ address: CreateAddress })
@@ -70,6 +88,19 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
       toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const { provinces } = await (await GetProvinces()).data
+        setDataProvinces(provinces)
+      } catch (error) {
+        toast.error(error.message)
+      }
+    }
+
+    fetchProvinces()
+  }, [])
 
   return (
     <Form onSubmit={handleSubmit(send)}>
@@ -95,7 +126,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
             </FormFeedback>
           </FormGroup>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
           <FormGroup>
             <Label>Teléfono</Label>
             <Controller
@@ -109,15 +140,47 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
               }
               name="phone"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: true, maxLength: 10, min: 5 }}
             />
             <FormFeedback invalid={errors.phone && true}>
-              {errors.phone && 'Escribe el numero de teléfono'}
+              {errors.phone?.type === 'maxLength' && 'Maximo de 10 digitos'}
+              {errors.phone?.type === 'required' &&
+                'Escribe el numero de teléfono'}
             </FormFeedback>
           </FormGroup>
         </Col>
       </Row>
-      <Row form>
+      <Row form className="mt-3">
+        <Col md={4}>
+          <FormGroup>
+            <Label>Provincia</Label>
+            <Controller
+              as={
+                <Input
+                  disabled={!dataProvinces.length}
+                  invalid={errors.province && true}
+                  type="select"
+                  name="province"
+                >
+                  {dataProvinces.map((province) => (
+                    <option
+                      key={province.codeProvince}
+                      value={province.codeProvince}
+                    >
+                      {province.nombre}
+                    </option>
+                  ))}
+                </Input>
+              }
+              name="province"
+              control={control}
+              rules={{ required: true }}
+            />
+            <FormFeedback invalid={errors.province && true}>
+              {errors.province && 'Selecciona la provincia'}
+            </FormFeedback>
+          </FormGroup>
+        </Col>
         <Col md={4}>
           <FormGroup>
             <Label>Ciudad</Label>
@@ -157,7 +220,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
           </FormGroup>
         </Col>
       </Row>
-      <FormGroup>
+      <FormGroup className="mt-3">
         <Label>Dirección</Label>
         <Controller
           as={

@@ -86,13 +86,16 @@ const CardAddres = ({ address }: Props) => {
         <CardText>{address.address}</CardText>
         <CardSubtitle className="mt-1 mb-3">
           <ul>
-            <li>
+            <li className="mb-1">
               <strong>Creado: </strong> <u>{address.created_at}</u>
             </li>
-            <li>
+            <li className="mb-1">
               <strong>Teléfono: </strong> <u>{address.phone}</u>
             </li>
-            <li>
+            <li className="mb-1">
+              <strong>Provincia: </strong> <u>{address.province}</u>
+            </li>
+            <li className="mb-1">
               <strong>Ciudad: </strong> <u>{address.city}</u>
             </li>
             <li>
@@ -121,13 +124,19 @@ const CardAddres = ({ address }: Props) => {
             </Button>
           </div>
           <div className="col-4">
-            <Button color="warning" size="sm" disabled={loading}>
+            <Button
+              title="editar dirección"
+              color="warning"
+              size="sm"
+              disabled={loading}
+            >
               <AiFillEdit />
             </Button>
           </div>
           <div className="col-4">
             <Button
               color="danger"
+              title="borrar dirección"
               size="sm"
               onClick={() => deleteAddress(address.title)}
               disabled={loading}

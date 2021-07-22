@@ -124,3 +124,20 @@ export const UpdatePasswordEmail = async (options: {
   })
   return response
 }
+
+export const UpdateValidEmail = async (options: {
+  token?: string
+  validate: boolean
+  idTimeMessage: string
+}) => {
+  api.defaults.headers['access-token'] = options.token
+  const response = await api({
+    method: 'PUT',
+    url: '/users/validatedEmail',
+    data: {
+      validate: options.validate,
+      idTimeMessage: options.idTimeMessage,
+    },
+  })
+  return response
+}

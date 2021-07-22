@@ -93,14 +93,16 @@ export const CardCollageProduct = ({ combo }: Props) => {
             </div>
           </CardSubtitle>
         </CardBody>
-        <Link href={`/combos/${combo.idCombo}`}>
-          <a
-            style={{ textDecoration: 'none', border: '2px solid #f097ac' }}
-            className="btn btn-block border-cici"
-          >
-            <span className="text-cici">Más detalles</span>
-          </a>
-        </Link>
+        <div className="p-2">
+          <Link href={`/combos/${combo.idCombo}`}>
+            <a
+              style={{ textDecoration: 'none', border: '2px solid #f097ac' }}
+              className="btn btn-block border-cici"
+            >
+              <span className="text-cici">Más detalles</span>
+            </a>
+          </Link>
+        </div>
       </Card>
     </>
   )

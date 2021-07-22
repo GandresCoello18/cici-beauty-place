@@ -80,7 +80,7 @@ export const MenuUser = () => {
     <>
       <div className="d-flex">
         <div
-          className="d-flex mr-5 bg-cici border-round"
+          className="d-flex mr-3 bg-cici border-round"
           style={{ height: 40 }}
         >
           <figure
@@ -163,7 +163,9 @@ export const MenuUser = () => {
           </UncontrolledDropdown>
         </div>
 
-        <CartIcon />
+        <div className="ml-3">
+          <CartIcon />
+        </div>
       </div>
 
       <ModalElement title="Configuracion" visible={modal} setVisible={setModal}>
