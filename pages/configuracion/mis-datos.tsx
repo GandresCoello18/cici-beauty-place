@@ -91,7 +91,7 @@ const MyData = () => {
       <>
         {renderAvatarProfile()}
         <div className="col-12 col-md-8 p-3 mb-4">
-          <h3 className="text-center p-1 mb-3">Mis datos actuales</h3>
+          <h3 className="text-center p-1 mb-4">Mis datos actuales</h3>
           <Form onSubmit={handleSubmit(send)}>
             <div className="row">
               <div className="col-12 col-md-6">
@@ -161,7 +161,7 @@ const MyData = () => {
   const renderFromAddress = () => {
     return (
       <div className="col-12 col-md-8">
-        <h3 className="p-2 text-center">Nueva Dirección</h3>
+        <h3 className="p-2 text-center mb-4">Nueva Dirección</h3>
         <FormAddres isSession setNewAddress={setNewAddress} />
       </div>
     )

@@ -8,6 +8,7 @@ export interface Addresses {
   idUser: string | null
   created_at: Date | string
   selected: boolean
+  province: string
 }
 
 export interface CreateAddresses {
@@ -17,4 +18,5 @@ export interface CreateAddresses {
   postalCode: number
   address: string
   idUser: string | null | undefined
+  province: string
 }
