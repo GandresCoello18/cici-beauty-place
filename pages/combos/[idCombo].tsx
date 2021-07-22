@@ -59,7 +59,7 @@ const ComboDetails = () => {
         description="Nuestros combos contiene una serie de productos mas vendidos o valorados, para que tu selección sea mas eficaz."
         canonical="https://cici.beauty/productos"
         openGraph={{
-          url: `https://cici.beauty/productos/${combo?.idCombo}`,
+          url: `https://cici.beauty/combos/${combo?.idCombo}`,
           title: `${combo?.name}`,
           description:
             'Nuestros combos contiene una serie de productos mas vendidos o valorados, para que tu selección sea mas eficaz.',
@@ -85,13 +85,13 @@ const ComboDetails = () => {
           },
           {
             position: 2,
-            name: 'Productos',
-            item: 'https://cici.beauty/productos',
+            name: 'combos',
+            item: 'https://cici.beauty/combos',
           },
           {
             position: 3,
             name: `${combo?.name}`,
-            item: `https://cici.beauty/productos/${combo?.idCombo}`,
+            item: `https://cici.beauty/combos/${combo?.idCombo}`,
           },
         ]}
       />

@@ -147,10 +147,22 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
               <Skeleton height={16} />
             ) : (
               <>
-                <h3 className="text-center p-1 text-cici">
-                  <span role="img">💟</span> {combo.name}{' '}
-                  <span role="img">💕</span>
-                </h3>
+                <div className="row justify-content-center mb-4">
+                  <div className="col-auto d-flex align-items-center justify-content-center">
+                    <span role="img">💟</span>
+                  </div>
+                  <div className="col-auto">
+                    <h1
+                      className="text-center p-1 text-cici"
+                      style={{ fontSize: 30 }}
+                    >
+                      {combo.name}{' '}
+                    </h1>
+                  </div>
+                  <div className="col-auto d-flex align-items-center justify-content-center">
+                    <span role="img">💕</span>
+                  </div>
+                </div>
                 {combo.products.map((product, index) => (
                   <p key={product.idProducts}>
                     <span className="font-weight-bold ml-2">{index + 1})</span>{' '}
@@ -209,10 +221,10 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
               )}
             </div>
           </div>
-          <div className="p-3 border-bottom">
+          <div className="p-3">
             {loading ? <Skeleton height={20} /> : <Share ShareUrl={urlShare} />}
           </div>
-          <div className="p-2">
+          <div className="p-2 mt-1">
             <Button block color="danger" onClick={() => setModal(true)}>
               <FaMoneyCheckAlt
                 size={20}
@@ -234,7 +246,7 @@ export const DetailsCombo = ({ combo, loading }: Props) => {
             )}
           </div>
         </div>
-        <div className="col-12">
+        <div className="col-12 mt-4">
           <CartResumne
             subTotal={resumen?.subTotal || 0}
             envio={resumen?.envio || 0}

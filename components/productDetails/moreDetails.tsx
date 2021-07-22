@@ -18,6 +18,7 @@ import { toast } from 'react-toast'
 import Comentario from '../element/comentario'
 import { ProductReview } from '../../interfaces/products'
 import { GetProductReviews } from '../../api/products'
+import { GetReviewCombo } from '../../api/combos'
 
 interface Props {
   idProduct?: string
@@ -56,11 +57,21 @@ const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
 
         fetchReviews()
       }
+
+      if (idCombo) {
+        const fetchReviews = async () => {
+          const { reviews } = await (await GetReviewCombo({ idCombo })).data
+          setReviews(reviews)
+          setLoading(false)
+        }
+
+        fetchReviews()
+      }
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
     }
-  }, [idProduct])
+  }, [idProduct, idCombo])
 
   return (
     <div>
