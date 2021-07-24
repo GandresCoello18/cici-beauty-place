@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable unicorn/no-for-loop */
 /* eslint-disable no-plusplus */
 /* eslint-disable @typescript-eslint/camelcase */
@@ -11,7 +12,11 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toast'
 import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
-import { GetProduct, GetProductReviews } from '../../api/products'
+import {
+  GetProduct,
+  GetProductReviews,
+  GetProductsCategory,
+} from '../../api/products'
 import {
   Product,
   ProductReview,
@@ -24,6 +29,7 @@ import { TokenContext } from '../../context/contextToken'
 const ProductId = () => {
   const { token } = useContext(TokenContext)
   const [product, setProduct] = useState<Product>()
+  const [productByCategory, setProductByCategory] = useState<Product[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const Router = useRouter()
   const { id } = Router.query
@@ -41,6 +47,16 @@ const ProductId = () => {
         const idProduct = id as string
         const { product } = await (await GetProduct({ idProduct })).data
         setProduct(product)
+
+        if (product?.categorys.length) {
+          const category = product?.categorys[0].titleCategory
+
+          const productsCatedory = await (
+            await GetProductsCategory({ category, limit: 5 })
+          ).data.products
+
+          setProductByCategory(productsCatedory || [])
+        }
 
         if (!product) {
           Router.push('/productos')
@@ -163,7 +179,11 @@ const ProductId = () => {
           />
 
           <Layout>
-            <ProductDetails product={product} loading={loading} />
+            <ProductDetails
+              product={product}
+              productByCategory={productByCategory}
+              loading={loading}
+            />
           </Layout>
         </>
       )}

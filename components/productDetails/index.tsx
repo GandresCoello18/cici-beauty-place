@@ -31,10 +31,11 @@ import { ListColors } from '../element/colors'
 
 interface Props {
   product: Product
+  productByCategory: Product[]
   loading: boolean
 }
 
-const ProductDetails = ({ product, loading }: Props) => {
+const ProductDetails = ({ product, productByCategory, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
   const [colour, setColour] = useState<string | undefined>(undefined)
@@ -263,7 +264,9 @@ const ProductDetails = ({ product, loading }: Props) => {
             <strong>Productos recomendados</strong>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard products={ProductsBestRated} />
+            <CaroselCard
+              products={[...productByCategory, ...ProductsBestRated]}
+            />
           </div>
         </div>
       </section>
