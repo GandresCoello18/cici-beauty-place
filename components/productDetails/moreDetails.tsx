@@ -83,7 +83,7 @@ const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
               toggle('1')
             }}
           >
-            <FaRegCommentDots /> &nbsp; Opiniones
+            <FaRegCommentDots /> &nbsp; Valoraciones
           </NavLink>
         </NavItem>
         {!idCombo ? (

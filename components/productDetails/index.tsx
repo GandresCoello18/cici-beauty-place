@@ -89,7 +89,11 @@ const ProductDetails = ({ product, productByCategory, loading }: Props) => {
 
                 {!loading &&
                   (preview.type === 'IMAGEN' ? (
-                    <Magnifier src={preview.src} width="100%" />
+                    <Magnifier
+                      src={preview.src}
+                      width="100%"
+                      mgShape="square"
+                    />
                   ) : (
                     <video width="100%" controls>
                       <source src={preview.src} type="video/mp4" />
