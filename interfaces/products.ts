@@ -13,6 +13,7 @@ export interface Product {
   size: string
   model: string
   related_sources: SourcesProduct[]
+  categorys?: ResProductCategory[]
   created_at: Date | string
   updated_at: Date | string
   discount: number
@@ -31,6 +32,7 @@ export interface SourcesProduct {
   source: string
   kind: 'IMAGEN' | 'VIDEO'
   idProduct: string
+  isDescription: number
 }
 
 export interface Cart {
@@ -90,4 +92,9 @@ export interface SeoProductReview {
 export interface BestSellersProduct {
   categoria: string
   products: Product[]
+}
+
+export interface ResProductCategory {
+  id_product_category: number
+  titleCategory: string
 }

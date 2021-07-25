@@ -31,10 +31,11 @@ import { ListColors } from '../element/colors'
 
 interface Props {
   product: Product
+  productByCategory: Product[]
   loading: boolean
 }
 
-const ProductDetails = ({ product, loading }: Props) => {
+const ProductDetails = ({ product, productByCategory, loading }: Props) => {
   const [urlShare, setUrlShare] = useState<string>('')
   const [quantity, setQuantity] = useState<number>(1)
   const [colour, setColour] = useState<string | undefined>(undefined)
@@ -88,7 +89,11 @@ const ProductDetails = ({ product, loading }: Props) => {
 
                 {!loading &&
                   (preview.type === 'IMAGEN' ? (
-                    <Magnifier src={preview.src} width="100%" />
+                    <Magnifier
+                      src={preview.src}
+                      width="100%"
+                      mgShape="square"
+                    />
                   ) : (
                     <video width="100%" controls>
                       <source src={preview.src} type="video/mp4" />
@@ -252,6 +257,7 @@ const ProductDetails = ({ product, loading }: Props) => {
                 brand={product?.brand}
                 size={product?.size}
                 model={product.model}
+                sourcesProduct={[...product?.related_sources].reverse()}
               />
             )}
           </div>
@@ -263,7 +269,9 @@ const ProductDetails = ({ product, loading }: Props) => {
             <strong>Productos recomendados</strong>
           </div>
           <div className="col-12 font-arvo">
-            <CaroselCard products={ProductsBestRated} />
+            <CaroselCard
+              products={[...productByCategory, ...ProductsBestRated]}
+            />
           </div>
         </div>
       </section>

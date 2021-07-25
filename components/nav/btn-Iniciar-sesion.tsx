@@ -8,7 +8,7 @@ export const BtnIniciarSesion = () => {
     <Link href="/login">
       <a className="mr-3">
         <Button outline color="secondary" size="sm">
-          Iniciar Sesión
+          Entrar
         </Button>
       </a>
     </Link>

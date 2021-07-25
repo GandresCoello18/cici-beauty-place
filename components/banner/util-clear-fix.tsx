@@ -55,8 +55,8 @@ const BannerClearFix = () => {
             Confirma tu orden
           </h6>
           <p style={styles.colorText}>
-            Tus ordenes pueden ser cancelados hasta 15 días después de realizar
-            el pedido.
+            Utiliza nuestros cupones al comprar y dale seguimiento a tus ordenes
+            24/7.
           </p>
         </div>
       </div>

@@ -16,9 +16,10 @@ import classnames from 'classnames'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
 import Comentario from '../element/comentario'
-import { ProductReview } from '../../interfaces/products'
+import { ProductReview, SourcesProduct } from '../../interfaces/products'
 import { GetProductReviews } from '../../api/products'
 import { GetReviewCombo } from '../../api/combos'
+import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 
 interface Props {
   idProduct?: string
@@ -26,9 +27,17 @@ interface Props {
   brand?: string
   size?: string
   model?: string
+  sourcesProduct?: SourcesProduct[]
 }
 
-const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
+const MoreDetails = ({
+  idProduct,
+  idCombo,
+  brand,
+  size,
+  model,
+  sourcesProduct,
+}: Props) => {
   const Styles = {
     color: {
       color: '#999',
@@ -42,6 +51,12 @@ const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
   const toggle = (tab: string) => {
     if (activeTab !== tab) setActiveTab(tab)
   }
+
+  useEffect(() => {
+    if (!idCombo) {
+      setActiveTab('2')
+    }
+  }, [idCombo])
 
   useEffect(() => {
     setLoading(true)
@@ -83,7 +98,7 @@ const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
               toggle('1')
             }}
           >
-            <FaRegCommentDots /> &nbsp; Opiniones
+            <FaRegCommentDots /> &nbsp; Valoraciones
           </NavLink>
         </NavItem>
         {!idCombo ? (
@@ -158,6 +173,21 @@ const MoreDetails = ({ idProduct, idCombo, brand, size, model }: Props) => {
                 <span>{model}</span>
               )}
             </Col>
+          </Row>
+          <Row className="justify-content-center mt-3 p-2">
+            {sourcesProduct &&
+              sourcesProduct.map((source) => (
+                <Col
+                  key={source.idProduct}
+                  className="col-12 col-md-10 col-lg-8 mb-3"
+                >
+                  <img
+                    src={`${BASE_API_IMAGES_CLOUDINNARY}/${source.source}`}
+                    width="100%"
+                    alt={source.kind}
+                  />
+                </Col>
+              ))}
           </Row>
         </TabPane>
       </TabContent>
