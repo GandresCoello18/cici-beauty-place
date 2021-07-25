@@ -32,6 +32,7 @@ export interface SourcesProduct {
   source: string
   kind: 'IMAGEN' | 'VIDEO'
   idProduct: string
+  isDescription: number
 }
 
 export interface Cart {
