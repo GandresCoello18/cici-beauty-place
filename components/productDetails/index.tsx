@@ -257,7 +257,7 @@ const ProductDetails = ({ product, productByCategory, loading }: Props) => {
                 brand={product?.brand}
                 size={product?.size}
                 model={product.model}
-                sourcesProduct={product?.related_sources.reverse()}
+                sourcesProduct={[...product?.related_sources].reverse()}
               />
             )}
           </div>
