@@ -113,7 +113,9 @@ const ProductDetails = ({ product, productByCategory, loading }: Props) => {
                     </div>
                   ) : (
                     <ListImage
-                      sources={product.related_sources}
+                      sources={product.related_sources.filter(
+                        (item) => item.isDescription === 0
+                      )}
                       setPreview={setPreview}
                     />
                   )

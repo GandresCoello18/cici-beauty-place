@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import CardLanding from '../components/landing-page/card-landing'
 import { RootState } from '../reducers'
+import { CardCollageProduct } from '../components/card/card-collage'
 
 const Index = () => {
   const [ref] = useInView({
@@ -21,7 +22,10 @@ const Index = () => {
     (state: RootState) => state.ProductReducer
   )
 
+  const ComboReducer = useSelector((state: RootState) => state.ComboReducer)
+
   const { ProductsBestRated } = ProductsReducer
+  const { Combo } = ComboReducer
 
   return (
     <>
@@ -128,10 +132,26 @@ const Index = () => {
         </div>
 
         <section
-          className="container-fluid bg-white font-arvo"
+          className="container-fluid font-arvo"
           style={{ position: 'relative', top: 600, marginBottom: 600 }}
         >
-          <div className="row justify-content-center no-gutters ftco-services">
+          <div className="row justify-content-center">
+            <div className="col-12 text-center p-3">
+              <h2>Nuestros Combos</h2>
+            </div>
+            {Combo.slice(0, 3)
+              .reverse()
+              .map((item) => (
+                <div
+                  className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
+                  key={item.idCombo}
+                >
+                  <CardCollageProduct combo={item} />
+                </div>
+              ))}
+          </div>
+
+          <div className="row bg-white justify-content-center no-gutters ftco-services">
             <div className="col-lg-3 text-center d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
               <div className="media block-6 services p-4 py-md-5">
                 <div className="media-body">
