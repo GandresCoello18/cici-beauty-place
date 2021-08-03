@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
@@ -6,6 +7,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useContext, useEffect, useState } from 'react'
+import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 import {
   Alert,
@@ -44,12 +46,12 @@ const MisPedidos = () => {
   const [IdOrden, setIdOrden] = useState<string>('')
   const toggle = () => setOpen(!dropdownOpen)
 
-  const fetchOrden = async (page: number) => {
+  const fetchOrden = async (page: number, statusQuery?: string) => {
     setLoading(true)
 
     try {
       const { ordenes, pages } = await (
-        await getMyOrden({ token, status: selectOptioon, page })
+        await getMyOrden({ token, status: statusQuery || selectOptioon, page })
       ).data
 
       setPages(pages || 0)
@@ -62,7 +64,22 @@ const MisPedidos = () => {
   }
 
   useEffect(() => {
-    token && fetchOrden(1)
+    const query = new URLSearchParams(location.search)
+    const getStatus = query.get('status') as string
+    const status = [
+      'Pendiente de pago',
+      'Pendiente de envio',
+      'Pendiente de entrega',
+    ]
+
+    if (status.includes(getStatus)) {
+      setSelectOption(getStatus)
+    } else {
+      setSelectOption('Pendiente de pago')
+      Router.push(`/mis-pedidos?status=Pendiente de pago`)
+    }
+
+    token && fetchOrden(1, getStatus)
   }, [selectOptioon, token])
 
   useEffect(() => {
@@ -75,6 +92,11 @@ const MisPedidos = () => {
         <Skeleton height={100} />
       </div>
     ))
+  }
+
+  const handleDropdo = (status: string) => {
+    setSelectOption(status)
+    Router.push(`/mis-pedidos?status=${status}`)
   }
 
   return (
@@ -119,17 +141,17 @@ const MisPedidos = () => {
                   <DropdownToggle split className="bg-cici" />
                   <DropdownMenu>
                     <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de pago')}
+                      onClick={() => handleDropdo('Pendiente de pago')}
                     >
                       Pendiente de pago
                     </DropdownItem>
                     <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de envio')}
+                      onClick={() => handleDropdo('Pendiente de envio')}
                     >
                       Pendiente de envió
                     </DropdownItem>
                     <DropdownItem
-                      onClick={() => setSelectOption('Pendiente de entrega')}
+                      onClick={() => handleDropdo('Pendiente de entrega')}
                     >
                       Pendiente de entrega
                     </DropdownItem>
