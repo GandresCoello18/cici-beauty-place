@@ -115,7 +115,6 @@ const Compras = () => {
                   <DropdownToggle split className="bg-cici" />
                   <DropdownMenu>
                     <DropdownItem>Todas</DropdownItem>
-                    <DropdownItem>Sin Calificar</DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </h3>

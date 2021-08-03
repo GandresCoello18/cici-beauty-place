@@ -204,14 +204,16 @@ const Home = () => {
           <div className="col-12 p-3">
             <strong>Nuestros Combos</strong>
           </div>
-          {Combo.reverse().map((item) => (
-            <div
-              className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
-              key={item.idCombo}
-            >
-              <CardCollageProduct combo={item} />
-            </div>
-          ))}
+          {Combo.slice(0, 3)
+            .reverse()
+            .map((item) => (
+              <div
+                className="col-xs-12 col-md-6 col-lg-4 mb-4 font-arvo"
+                key={item.idCombo}
+              >
+                <CardCollageProduct combo={item} />
+              </div>
+            ))}
         </div>
 
         {ProductsOffers.length ? (

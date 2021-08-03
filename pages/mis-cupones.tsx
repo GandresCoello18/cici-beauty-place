@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable prettier/prettier */
@@ -5,6 +6,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-expressions */
 import React, { useContext, useEffect, useState } from 'react'
+import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 import {
   Alert,
@@ -54,12 +56,16 @@ const MisCupones = () => {
   const [selectType, setSelectType] = useState<string>('')
   const toggle = () => setOpen(!dropdownOpen)
 
-  const fetchMyCoupons = async (page: number) => {
+  const fetchMyCoupons = async (page: number, statusQuery?: string) => {
     setLoading(true)
 
     try {
       const { myCoupons, pages } = await (
-        await GetAssignUserCoupons({ token, status: selectOptioon, page })
+        await GetAssignUserCoupons({
+          token,
+          status: statusQuery || selectOptioon,
+          page,
+        })
       ).data
 
       setPages(pages || 0)
@@ -72,7 +78,18 @@ const MisCupones = () => {
   }
 
   useEffect(() => {
-    token && selectOptioon && fetchMyCoupons(1)
+    const query = new URLSearchParams(location.search)
+    const getStatus = query.get('status') as string
+    const status = ['Valido', 'No valido aun', 'Usado', 'Expirado']
+
+    if (status.includes(getStatus)) {
+      setSelectOption(getStatus)
+    } else {
+      setSelectOption('Valido')
+      Router.push(`/mis-cupones?status=Valido`)
+    }
+
+    token && selectOptioon && fetchMyCoupons(1, getStatus)
   }, [token, selectOptioon])
 
   useEffect(() => {
@@ -183,6 +200,11 @@ const MisCupones = () => {
     ))
   }
 
+  const handleDropdo = (status: string) => {
+    setSelectOption(status)
+    Router.push(`/mis-cupones?status=${status}`)
+  }
+
   return (
     <>
       <NextSeo
@@ -224,18 +246,16 @@ const MisCupones = () => {
                   </Button>
                   <DropdownToggle split className="bg-cici" />
                   <DropdownMenu>
-                    <DropdownItem onClick={() => setSelectOption('Valido')}>
+                    <DropdownItem onClick={() => handleDropdo('Valido')}>
                       Validos
                     </DropdownItem>
-                    <DropdownItem
-                      onClick={() => setSelectOption('No valido aun')}
-                    >
+                    <DropdownItem onClick={() => handleDropdo('No valido aun')}>
                       No valido aun
                     </DropdownItem>
-                    <DropdownItem onClick={() => setSelectOption('Usado')}>
+                    <DropdownItem onClick={() => handleDropdo('Usado')}>
                       Usados
                     </DropdownItem>
-                    <DropdownItem onClick={() => setSelectOption('Expirado')}>
+                    <DropdownItem onClick={() => handleDropdo('Expirado')}>
                       Expirados
                     </DropdownItem>
                   </DropdownMenu>

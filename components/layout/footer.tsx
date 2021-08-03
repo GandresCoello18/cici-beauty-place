@@ -145,7 +145,7 @@ const Footer = () => {
                   type="email"
                   name="email"
                   ref={register({ required: true })}
-                  placeholder="Direccion de correo"
+                  placeholder="Dirección de correo"
                 />
                 {errors.email && (
                   <p className="text-danger">Este campo es requerido</p>
@@ -159,7 +159,7 @@ const Footer = () => {
       <div className="copyright-reserved p-4">
         <div className="container">
           <div className="row justify-content-end">
-            <div className="col-12 col-md-auto">
+            <div className="col-12 col-md-auto mb-3 mb-md-0">
               <Link href="/privacidad">
                 <a href="/privacidad" className="text-white">
                   Politicas de privacidad

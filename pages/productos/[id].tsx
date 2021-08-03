@@ -25,6 +25,7 @@ import {
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { NewHistory } from '../../api/productHistory'
 import { TokenContext } from '../../context/contextToken'
+import SpinnerLoader from '../../components/element/spinner-cici'
 
 const ProductId = () => {
   const { token } = useContext(TokenContext)
@@ -179,11 +180,17 @@ const ProductId = () => {
           />
 
           <Layout>
-            <ProductDetails
-              product={product}
-              productByCategory={productByCategory}
-              loading={loading}
-            />
+            {product ? (
+              <ProductDetails
+                product={product}
+                productByCategory={productByCategory}
+                loading={loading}
+              />
+            ) : (
+              <div className="p-5 bg-white">
+                <SpinnerLoader text="Cargando..." />
+              </div>
+            )}
           </Layout>
         </>
       )}

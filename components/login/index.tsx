@@ -157,29 +157,6 @@ const Login = () => {
     }
   }
 
-  /* const loginFacebook = () => {
-    setLoading(true)
-
-    try {
-      loginWithFacebook()
-        .then(async (user: any) => console.log(user))
-        .catch((error) => {
-          setFeedback({
-            content: error.message,
-            type: 'danger',
-          })
-        })
-
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      setFeedback({
-        content: error.message,
-        type: 'danger',
-      })
-    }
-  } */
-
   return (
     <div className="container-sign-in font-arvo">
       <div className="container-fluid">
@@ -193,7 +170,7 @@ const Login = () => {
                     className="p-3 float-right font-weight-bold cursor-pointer"
                     style={{ color: '#fac5d0' }}
                   >
-                    Registrarme
+                    Registrate
                   </a>
                 </Link>
               </div>
@@ -218,7 +195,7 @@ const Login = () => {
                       name="email"
                       disabled={loading}
                       defaultValue={Cookies.get('email-cici')}
-                      placeholder="Direccion de correo electronico"
+                      placeholder="Dirección de correo electronico"
                       style={{
                         borderColor: 'transparent',
                         borderBottomColor: '#cdcdcd',
