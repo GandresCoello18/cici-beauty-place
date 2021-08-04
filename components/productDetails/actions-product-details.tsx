@@ -13,6 +13,7 @@ import { Button, Modal, ModalBody } from 'reactstrap'
 import { toast } from 'react-toast'
 import { FcApproval } from 'react-icons/fc'
 import Link from 'next/link'
+import { AxiosError } from 'axios'
 import { newProductCart } from '../../api/cart'
 import { Cart, Product } from '../../interfaces/products'
 import redirect from '../../lib/redirect'
@@ -23,6 +24,7 @@ import ActionFavoritePrduct from './action-favorite-product'
 import { TokenContext } from '../../context/contextToken'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { calculatePrice } from '../../helpers/calculatePrice'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   loading: boolean
@@ -83,7 +85,7 @@ const ActionsProductDetails = ({
         })
         setLoadingAction(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     }
   }

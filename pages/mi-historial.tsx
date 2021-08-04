@@ -7,12 +7,14 @@ import { NextSeo } from 'next-seo'
 import { Alert, Card, CardColumns, CardImg } from 'reactstrap'
 import { toast } from 'react-toast'
 import Skeleton from 'react-loading-skeleton'
+import { AxiosError } from 'axios'
 import Layout from '../components/layout'
 import { TokenContext } from '../context/contextToken'
 import { UseNotSesion } from '../hooks/useNotSesion'
 import { ClearMyHistorty, GetMyHistorty } from '../api/productHistory'
 import { Product } from '../interfaces/products'
 import { BASE_API_IMAGES_CLOUDINNARY_SCALE } from '../api'
+import { HandleError } from '../helpers/handleError'
 
 const History = () => {
   UseNotSesion()
@@ -29,7 +31,7 @@ const History = () => {
 
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }
@@ -59,7 +61,7 @@ const History = () => {
 
       FetchHistory()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

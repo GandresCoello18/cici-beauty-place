@@ -6,6 +6,7 @@ import { Button, Card, CardBody, CardText } from 'reactstrap'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import Link from 'next/link'
+import { AxiosError } from 'axios'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { AssignUserCoupons, getCoupons } from '../../api/coupons'
 import { Coupons } from '../../interfaces/coupons'
@@ -15,6 +16,7 @@ import { TokenContext } from '../../context/contextToken'
 import redirect from '../../lib/redirect'
 import { RootState } from '../../reducers'
 import { SourceAvatar } from '../../helpers/sourceAvatar'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   user?: Users
@@ -37,7 +39,7 @@ const ContainerCupones = ({ user }: Props) => {
 
       fetchCoupns()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [])
 
@@ -65,7 +67,7 @@ const ContainerCupones = ({ user }: Props) => {
       setLoading(false)
       redirect('/mis-cupones')
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

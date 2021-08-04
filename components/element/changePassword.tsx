@@ -5,10 +5,12 @@ import { Alert, Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { Controller, useForm } from 'react-hook-form'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import { UpdatePasswordUser } from '../../api/users'
 import { TokenContext } from '../../context/contextToken'
 import redirect from '../../lib/redirect'
 import SpinnerLoader from './spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 interface FromPassword {
   currentKey: string
@@ -71,7 +73,7 @@ const ChangePassword = () => {
       reset()
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

@@ -11,11 +11,13 @@ import React, { useEffect, useState } from 'react'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { toast } from 'react-toast'
 import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { ProductsCombo } from '../../interfaces/combo'
 import { DetailsCombo } from '../../components/combo/detailsCombo'
 import { GetCombo } from '../../api/combos'
 import SpinnerLoader from '../../components/element/spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 const ComboDetails = () => {
   const [combo, setCombo] = useState<ProductsCombo>()
@@ -44,7 +46,7 @@ const ComboDetails = () => {
         setCombo(ThisCombo)
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }

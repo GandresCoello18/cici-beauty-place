@@ -8,10 +8,12 @@ import { Alert, Button, Form, FormFeedback, FormGroup, Input } from 'reactstrap'
 import { AiFillInstagram } from 'react-icons/ai'
 import { MdEmail } from 'react-icons/md'
 import { Controller, useForm } from 'react-hook-form'
+import { AxiosError } from 'axios'
 import Layout from '../components/layout'
 import { CreateContact } from '../api/contact'
 import { Contact } from '../interfaces/contact'
 import SpinnerLoader from '../components/element/spinner-cici'
+import { HandleError } from '../helpers/handleError'
 
 interface FormContact {
   message: string
@@ -59,7 +61,7 @@ const Index = () => {
     } catch (error) {
       setFeedback({
         type: 'danger',
-        content: error.message,
+        content: HandleError(error as AxiosError),
       })
     }
 

@@ -15,11 +15,13 @@ import { FaRegCommentDots } from 'react-icons/fa'
 import classnames from 'classnames'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Comentario from '../element/comentario'
 import { ProductReview, SourcesProduct } from '../../interfaces/products'
 import { GetProductReviews } from '../../api/products'
 import { GetReviewCombo } from '../../api/combos'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   idProduct?: string
@@ -83,7 +85,7 @@ const MoreDetails = ({
         fetchReviews()
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }, [idProduct, idCombo])

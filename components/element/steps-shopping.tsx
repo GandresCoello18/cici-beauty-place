@@ -5,6 +5,7 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable react/button-has-type */
+import { AxiosError } from 'axios'
 import { NextSeo } from 'next-seo'
 import React, {
   Dispatch,
@@ -20,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import { GetRewardUserCoupons } from '../../api/coupons'
 import { TokenContext } from '../../context/contextToken'
+import { HandleError } from '../../helpers/handleError'
 import { Users } from '../../interfaces/users'
 import { RootState } from '../../reducers'
 import { setCart } from '../../reducers/cart'
@@ -105,7 +107,7 @@ const StepsShopping = ({ setFinishShopping }: Props) => {
           setModal(true)
         }
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     }
 

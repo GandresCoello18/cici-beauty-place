@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Badge } from 'reactstrap'
 import { toast } from 'react-toast'
 import Link from 'next/link'
+import { AxiosError } from 'axios'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { deleteProductCart, newProductCart } from '../../api/cart'
 import { Cart } from '../../interfaces/products'
@@ -18,6 +19,7 @@ import { TokenContext } from '../../context/contextToken'
 import ProductPicker from '../productDetails/product-number-picker'
 import { calculatePrice } from '../../helpers/calculatePrice'
 import SpinnerLoader from '../element/spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   product: Cart
@@ -56,7 +58,7 @@ const CartProduct = ({ product }: Props) => {
     if (token) {
       deleteProductCart({ token, idProduct: product.idProducts })
         .then(() => RemoveProductReducer())
-        .catch((error) => toast.error(error.message))
+        .catch((error) => toast.error(HandleError(error as AxiosError)))
     } else {
       RemoveProductReducer()
     }
@@ -78,7 +80,7 @@ const CartProduct = ({ product }: Props) => {
           QuantityProductReducer()
           setLoading(false)
         } catch (error) {
-          toast.error(error.message)
+          toast.error(HandleError(error as AxiosError))
           setLoading(false)
         }
       }

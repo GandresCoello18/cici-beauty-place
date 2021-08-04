@@ -5,12 +5,14 @@ import { GoVerified } from 'react-icons/go'
 import { Button, Card, CardSubtitle, CardText, CardTitle } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import { DeleteMyAddress, SelectedMyAddress } from '../../api/addresses'
 import { Addresses } from '../../interfaces/address'
 import SpinnerLoader from '../element/spinner-cici'
 import { TokenContext } from '../../context/contextToken'
 import { setAddress } from '../../reducers/address'
 import { RootState } from '../../reducers'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   address: Addresses
@@ -54,7 +56,7 @@ const CardAddres = ({ address }: Props) => {
         setLoading(false)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }
@@ -72,7 +74,7 @@ const CardAddres = ({ address }: Props) => {
       dispatch(setAddress(updateReducer))
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

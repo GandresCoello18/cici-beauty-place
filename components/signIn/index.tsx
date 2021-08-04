@@ -18,10 +18,12 @@ import {
   Label,
 } from 'reactstrap'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Redirect from '../../lib/redirect'
 import { RegisterUser } from '../../api/users'
 import { UserRegister } from '../../interfaces/users'
 import SpinnerLoader from '../element/spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 interface FormSignIn {
   username: string
@@ -97,9 +99,9 @@ const SignIn = () => {
       }
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setFeedback({
-        content: error.message,
+        content: HandleError(error as AxiosError),
         type: 'danger',
       })
     }

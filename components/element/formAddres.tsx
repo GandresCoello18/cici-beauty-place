@@ -16,6 +16,7 @@ import {
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import { newAdrees } from '../../api/addresses'
 import { Addresses, CreateAddresses } from '../../interfaces/address'
 import SpinnerLoader from './spinner-cici'
@@ -23,6 +24,7 @@ import { RootState } from '../../reducers'
 import { setAddress } from '../../reducers/address'
 import { GetProvinces } from '../../api/provinces'
 import { Provinces } from '../../interfaces/provinces'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   isSession: boolean
@@ -85,7 +87,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
       setNewAddress && setNewAddress(false)
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 
@@ -95,7 +97,7 @@ const FormAddres = ({ isSession, setNewAddress }: Props) => {
         const { provinces } = await (await GetProvinces()).data
         setDataProvinces(provinces)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     }
 

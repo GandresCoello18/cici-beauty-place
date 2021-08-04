@@ -21,6 +21,7 @@ import {
 import { toast } from 'react-toast'
 import copy from 'copy-to-clipboard'
 import Skeleton from 'react-loading-skeleton'
+import { AxiosError } from 'axios'
 import { TokenContext } from '../context/contextToken'
 import Layout from '../components/layout'
 import { getMyOrden } from '../api/orden'
@@ -31,6 +32,7 @@ import { UseNotSesion } from '../hooks/useNotSesion'
 import { InfoPaymentBank } from '../components/payment/info-payment-bank'
 import PaginationElement from '../components/element/pagination'
 import CartResumne from '../components/cart/cart-resumen'
+import { HandleError } from '../helpers/handleError'
 
 const MisPedidos = () => {
   UseNotSesion()
@@ -58,7 +60,7 @@ const MisPedidos = () => {
       setMyOrdes(ordenes)
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

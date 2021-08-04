@@ -16,6 +16,7 @@ import {
 import Link from 'next/link'
 import { toast } from 'react-toast'
 import Skeleton from 'react-loading-skeleton'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { TokenContext } from '../../context/contextToken'
 import { getProductShipping } from '../../api/shipping'
@@ -23,6 +24,7 @@ import { MisShipping } from '../../interfaces/shipping'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { UseNotSesion } from '../../hooks/useNotSesion'
 import PaginationElement from '../../components/element/pagination'
+import { HandleError } from '../../helpers/handleError'
 
 const Compras = () => {
   UseNotSesion()
@@ -46,7 +48,7 @@ const Compras = () => {
         setPages(pages || 0)
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }

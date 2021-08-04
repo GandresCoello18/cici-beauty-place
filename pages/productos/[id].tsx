@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import ProductDetails from '../../components/productDetails'
 import {
@@ -26,6 +27,7 @@ import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { NewHistory } from '../../api/productHistory'
 import { TokenContext } from '../../context/contextToken'
 import SpinnerLoader from '../../components/element/spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 const ProductId = () => {
   const { token } = useContext(TokenContext)
@@ -101,7 +103,7 @@ const ProductId = () => {
       fetchProduct()
       fetchReviews()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }, [Router, id, token])

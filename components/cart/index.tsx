@@ -13,6 +13,7 @@ import React, {
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import { Alert } from 'reactstrap'
+import { AxiosError } from 'axios'
 import { GetAssignUserCoupons } from '../../api/coupons'
 import { Coupons, MyCouponsUser } from '../../interfaces/coupons'
 import { RootState } from '../../reducers'
@@ -21,6 +22,7 @@ import CartResumne from './cart-resumen'
 import { TokenContext } from '../../context/contextToken'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
 import { SelectApplyCoupon } from '../coupons/SelectApplyCoupon'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   setIdCoupon: Dispatch<SetStateAction<string>>
@@ -49,7 +51,7 @@ const CartContainer = ({ setIdCoupon }: Props) => {
 
       Cart.length && token && fetchCoupon()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [Cart, token])
 
