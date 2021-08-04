@@ -7,9 +7,11 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toast'
 import StarRatingComponent from 'react-star-rating-component'
+import { AxiosError } from 'axios'
 import ModalElement from '../element/modal'
 import { NewProductReviews } from '../../api/products'
 import { TokenContext } from '../../context/contextToken'
+import { HandleError } from '../../helpers/handleError'
 
 export interface FormCalifica {
   received: string
@@ -49,7 +51,7 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
       setLoading(false)
       toast.success('Tu calificación fue registrada con éxito.')
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

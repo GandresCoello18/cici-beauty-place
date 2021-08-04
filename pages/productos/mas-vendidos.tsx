@@ -7,6 +7,7 @@ import { Alert } from 'reactstrap'
 import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
 import { useSelector } from 'react-redux'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import CaroselCard from '../../components/carousel/CaroselCard'
 import { GetProductsBestSellers } from '../../api/products'
@@ -14,6 +15,7 @@ import { BestSellersProduct } from '../../interfaces/products'
 import CategoriNav from '../../components/nav/categori'
 import CardProduct from '../../components/card/card-product'
 import { RootState } from '../../reducers'
+import { HandleError } from '../../helpers/handleError'
 
 const MasVendidos = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -39,7 +41,7 @@ const MasVendidos = () => {
 
       fetchProductOffer()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }, [])

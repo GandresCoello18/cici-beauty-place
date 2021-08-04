@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Router from 'next/router'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import Invitacion from '../../components/invitacion'
 import { GetInviteUser } from '../../api/users'
 import { Users } from '../../interfaces/users'
 import redirect from '../../lib/redirect'
+import { HandleError } from '../../helpers/handleError'
 
 const Index = () => {
   const [userInvite, setUserInvite] = useState<Users>()
@@ -30,7 +32,7 @@ const Index = () => {
         fetchUserInvite(username)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [])
 

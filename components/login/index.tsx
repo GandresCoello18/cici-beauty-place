@@ -21,6 +21,7 @@ import { Controller, useForm } from 'react-hook-form'
 // import { AiFillFacebook } from 'react-icons/ai'
 import ValidateEmail from 'email-validator'
 import { useDispatch } from 'react-redux'
+import { AxiosError } from 'axios'
 import Redirect from '../../lib/redirect'
 import {
   /* loginWithFacebook, */ loginWithGoogle,
@@ -28,6 +29,7 @@ import {
 import SpinnerLoader from '../element/spinner-cici'
 import { LoginUser } from '../../api/users'
 import { setUser } from '../../reducers/user'
+import { HandleError } from '../../helpers/handleError'
 
 interface FormLogin {
   email: string
@@ -108,7 +110,7 @@ const Login = () => {
     } catch (error) {
       setLoading(false)
       setFeedback({
-        content: error.message,
+        content: HandleError(error as AxiosError),
         type: 'danger',
       })
     }
@@ -142,7 +144,7 @@ const Login = () => {
         })
         .catch((error) => {
           setFeedback({
-            content: error.message,
+            content: HandleError(error as AxiosError),
             type: 'danger',
           })
         })
@@ -151,7 +153,7 @@ const Login = () => {
     } catch (error) {
       setLoading(false)
       setFeedback({
-        content: error.message,
+        content: HandleError(error as AxiosError),
         type: 'danger',
       })
     }

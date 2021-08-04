@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { Alert, Button } from 'reactstrap'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import CategoriNav from '../nav/categori'
 import CaroselCard from '../carousel/CaroselCard'
 import { RootState } from '../../reducers'
@@ -17,6 +18,7 @@ import FilterProduct from './filter-product'
 import { ParamsFilter, Product } from '../../interfaces/products'
 import CardProduct from '../card/card-product'
 import { GetProducts } from '../../api/products'
+import { HandleError } from '../../helpers/handleError'
 
 const Productos = () => {
   const [Products, setProducts] = useState<Product[]>([])
@@ -54,7 +56,7 @@ const Productos = () => {
 
       setProducts([...Products, ...products])
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

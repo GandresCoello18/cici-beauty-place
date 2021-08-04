@@ -7,12 +7,14 @@ import React, { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { toast } from 'react-toast'
 import Link from 'next/link'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { getTimeMessage, resendTimeMessage } from '../../api/time-message'
 import { TimeMessage } from '../../interfaces/message'
 import SpinnerLoader from '../../components/element/spinner-cici'
 import { UseSesion } from '../../hooks/useSesion'
 import { UpdateValidEmail } from '../../api/users'
+import { HandleError } from '../../helpers/handleError'
 
 const EmailConfirm = () => {
   UseSesion()
@@ -37,7 +39,7 @@ const EmailConfirm = () => {
 
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }
@@ -58,7 +60,7 @@ const EmailConfirm = () => {
       setLoadingResend(false)
       toast.success('Se reenvio a su dirección de correo')
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

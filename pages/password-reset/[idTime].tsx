@@ -8,11 +8,13 @@ import { toast } from 'react-toast'
 import Link from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { getTimeMessage } from '../../api/time-message'
 import { TimeMessage } from '../../interfaces/message'
 import SpinnerLoader from '../../components/element/spinner-cici'
 import { UpdatePasswordEmail } from '../../api/users'
+import { HandleError } from '../../helpers/handleError'
 
 interface FromPasswordReset {
   newKey: string
@@ -36,7 +38,7 @@ const PassWordResetConfirm = () => {
 
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }
@@ -79,7 +81,7 @@ const PassWordResetConfirm = () => {
       reset()
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

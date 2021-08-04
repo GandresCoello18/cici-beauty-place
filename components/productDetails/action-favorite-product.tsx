@@ -6,6 +6,7 @@ import { MdFavorite, MdPeople } from 'react-icons/md'
 import { Button } from 'reactstrap'
 import Millify from 'millify'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import { TokenContext } from '../../context/contextToken'
 import {
   createLikeProduct,
@@ -14,6 +15,7 @@ import {
   getLikeProductCount,
 } from '../../api/favorite'
 import SpinnerLoader from '../element/spinner-cici'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   idProduct: string
@@ -42,7 +44,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
       token && fetchFav()
       fetchCountFav()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [idProduct, token])
 
@@ -54,7 +56,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
         setLoading(false)
         setIsLike(true)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     } else {
       window.open('/login', '_blank')
@@ -69,7 +71,7 @@ const ActionFavoritePrduct = ({ idProduct }: Props) => {
         setLoading(false)
         setIsLike(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     }
   }

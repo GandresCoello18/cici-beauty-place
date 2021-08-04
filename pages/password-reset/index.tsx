@@ -8,9 +8,11 @@ import * as EmailValidator from 'email-validator'
 import { Controller, useForm } from 'react-hook-form'
 import { Form, FormFeedback, FormGroup, Input, Label } from 'reactstrap'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { newTimeMessage } from '../../api/time-message'
 import { TokenContext } from '../../context/contextToken'
+import { HandleError } from '../../helpers/handleError'
 
 interface FromPasswordReset {
   email: string
@@ -55,7 +57,7 @@ const PassWordReset = () => {
       reset()
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

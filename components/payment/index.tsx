@@ -16,6 +16,7 @@ import { OnCaptureData } from 'react-paypal-button'
 import { toast } from 'react-toast'
 import { nanoid } from 'nanoid'
 import { useDispatch } from 'react-redux'
+import { AxiosError } from 'axios'
 import { ResumenPaymen } from '../../hooks/useResumenPayment'
 import CartResumne from '../cart/cart-resumen'
 import { TokenContext } from '../../context/contextToken'
@@ -25,6 +26,7 @@ import SpinnerLoader from '../element/spinner-cici'
 import { setCart } from '../../reducers/cart'
 import { StepperItem } from '../element/steps-shopping'
 import { AccionPayment } from './accion-payment'
+import { HandleError } from '../../helpers/handleError'
 
 interface Props {
   setItemStep: Dispatch<SetStateAction<StepperItem>>
@@ -53,7 +55,7 @@ const Payment = ({ setItemStep, setIsPaid, idCoupon }: Props) => {
 
       PaymentIdPaypal && ValidatePaymentPaypal()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [token, PaymentIdPaypal])
 
@@ -102,7 +104,7 @@ const Payment = ({ setItemStep, setIsPaid, idCoupon }: Props) => {
       })
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 

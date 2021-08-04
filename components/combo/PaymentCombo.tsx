@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/camelcase */
+import { AxiosError } from 'axios'
 import { nanoid } from 'nanoid'
 import React, {
   Dispatch,
@@ -14,6 +15,7 @@ import { OnCaptureData } from 'react-paypal-button'
 import { toast } from 'react-toast'
 import { NewOrden } from '../../api/orden'
 import { TokenContext } from '../../context/contextToken'
+import { HandleError } from '../../helpers/handleError'
 import { newOrden } from '../../interfaces/orden'
 import { ResumenCart } from '../../interfaces/products'
 import SpinnerLoader from '../element/spinner-cici'
@@ -59,7 +61,7 @@ export const PaymentCombo = ({
       toast.success('Su orden fue registrada con éxito')
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 
@@ -76,7 +78,7 @@ export const PaymentCombo = ({
 
       PaymentIdPaypal && ValidatePaymentPaypal()
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [token, PaymentIdPaypal])
 

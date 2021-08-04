@@ -13,6 +13,7 @@ import { Alert, Badge } from 'reactstrap'
 import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Layout from '../components/layout'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../api'
 import ActionFavoritePrduct from '../components/productDetails/action-favorite-product'
@@ -22,6 +23,7 @@ import { TokenContext } from '../context/contextToken'
 import { calculatePrice } from '../helpers/calculatePrice'
 import { UseNotSesion } from '../hooks/useNotSesion'
 import PaginationElement from '../components/element/pagination'
+import { HandleError } from '../helpers/handleError'
 
 const Favorite = () => {
   UseNotSesion()
@@ -42,7 +44,7 @@ const Favorite = () => {
       setProduct(favorites)
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }
@@ -64,7 +66,7 @@ const Favorite = () => {
       setProduct([])
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 

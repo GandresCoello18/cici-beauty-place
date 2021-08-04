@@ -6,10 +6,12 @@ import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toast'
 import Skeleton from 'react-loading-skeleton'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { GetSearchProducts } from '../../api/products'
 import { Product } from '../../interfaces/products'
 import CardProduct from '../../components/card/card-product'
+import { HandleError } from '../../helpers/handleError'
 
 const SearchKey = () => {
   const [Loading, setLoading] = useState<boolean>(false)
@@ -29,7 +31,7 @@ const SearchKey = () => {
 
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }

@@ -14,11 +14,13 @@ import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import copy from 'copy-to-clipboard'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 import { TokenContext } from '../../context/contextToken'
 import { SendInvite } from '../../api/invite'
 import { UseNotSesion } from '../../hooks/useNotSesion'
+import { HandleError } from '../../helpers/handleError'
 
 interface FromInvite {
   name: string
@@ -44,7 +46,7 @@ const SendInvitation = () => {
       reset()
       setLoading(false)
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

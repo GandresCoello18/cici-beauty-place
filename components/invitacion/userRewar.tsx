@@ -1,9 +1,11 @@
+import { AxiosError } from 'axios'
 import { SetStateAction } from 'next-server/node_modules/@types/react'
 import React, { Dispatch, useContext, useState } from 'react'
 import { toast } from 'react-toast'
 import { ListGroup, ListGroupItem } from 'reactstrap'
 import { CreateRewardUserCoupons } from '../../api/coupons'
 import { TokenContext } from '../../context/contextToken'
+import { HandleError } from '../../helpers/handleError'
 import { Users } from '../../interfaces/users'
 import SpinnerLoader from '../element/spinner-cici'
 
@@ -28,7 +30,7 @@ export const UsersRewar = ({ RewarUser, setModal }: Props) => {
       setModal(false)
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 

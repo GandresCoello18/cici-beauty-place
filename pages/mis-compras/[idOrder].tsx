@@ -10,6 +10,7 @@ import Router from 'next/router'
 import { Badge } from 'reactstrap'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import CartResumne from '../../components/cart/cart-resumen'
 import QualifyOrder from '../../components/payment/qualifyOrder'
@@ -18,6 +19,7 @@ import { TokenContext } from '../../context/contextToken'
 import { DetailsOrdenAndShipping } from '../../interfaces/shipping'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { UseNotSesion } from '../../hooks/useNotSesion'
+import { HandleError } from '../../helpers/handleError'
 
 const DetailsCompra = () => {
   UseNotSesion()
@@ -45,7 +47,7 @@ const DetailsCompra = () => {
 
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }

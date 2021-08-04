@@ -23,6 +23,7 @@ import {
 } from 'reactstrap'
 import { toast } from 'react-toast'
 import Skeleton from 'react-loading-skeleton'
+import { AxiosError } from 'axios'
 import { TokenContext } from '../context/contextToken'
 import Layout from '../components/layout'
 import {
@@ -38,6 +39,7 @@ import SpinnerLoader from '../components/element/spinner-cici'
 import { UseNotSesion } from '../hooks/useNotSesion'
 import { SourceAvatar } from '../helpers/sourceAvatar'
 import PaginationElement from '../components/element/pagination'
+import { HandleError } from '../helpers/handleError'
 
 const MisCupones = () => {
   UseNotSesion()
@@ -73,7 +75,7 @@ const MisCupones = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 
@@ -108,7 +110,7 @@ const MisCupones = () => {
       modal && fetchCupones()
     } catch (error) {
       setLoadingCupon(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [modal])
 
@@ -128,7 +130,7 @@ const MisCupones = () => {
       toast.success('Se agrego un cupon valido.')
     } catch (error) {
       setLoadingUpdate(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 

@@ -12,6 +12,7 @@ import Link from 'next/link'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
 import { Button } from 'reactstrap'
+import { AxiosError } from 'axios'
 import BannerClearFix from '../banner/util-clear-fix'
 import CardProduct from '../card/card-product'
 import CaroselCard from '../carousel/CaroselCard'
@@ -30,6 +31,7 @@ import ChatWidget from '../element/chatWidget'
 import { CardCollageProduct } from '../card/card-collage'
 import { getTimeOffert } from '../../api/time-offert'
 import { OfferTimeProducts } from '../../interfaces/timeOffer'
+import { HandleError } from '../../helpers/handleError'
 
 const Home = () => {
   const { token } = useContext(TokenContext)
@@ -59,7 +61,7 @@ const Home = () => {
 
         setLoading(false)
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
         setLoading(false)
       }
     }
@@ -82,7 +84,7 @@ const Home = () => {
 
         SetIsRunning(finishOffert > new Date().getTime())
       } catch (error) {
-        toast.error(error.message)
+        toast.error(HandleError(error as AxiosError))
       }
     }
 
@@ -104,7 +106,7 @@ const Home = () => {
 
       dispatch(SetProducts([...Products, ...products]))
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
       setLoading(false)
     }
   }

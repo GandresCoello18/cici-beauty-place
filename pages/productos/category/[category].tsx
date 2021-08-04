@@ -8,12 +8,14 @@ import { Alert } from 'reactstrap'
 import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 import { toast } from 'react-toast'
+import { AxiosError } from 'axios'
 import CaroselCard from '../../../components/carousel/CaroselCard'
 import { RootState } from '../../../reducers'
 import { Product } from '../../../interfaces/products'
 import CardProduct from '../../../components/card/card-product'
 import { GetProductsCategory } from '../../../api/products'
 import Layout from '../../../components/layout'
+import { HandleError } from '../../../helpers/handleError'
 
 const CategoryProducts = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -46,7 +48,7 @@ const CategoryProducts = () => {
         fetchProduct()
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }, [])
 

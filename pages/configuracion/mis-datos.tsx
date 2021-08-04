@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toast'
 import { ImageListType } from 'react-images-uploading'
+import { AxiosError } from 'axios'
 import Layout from '../../components/layout'
 import { RootState } from '../../reducers'
 import { TokenContext } from '../../context/contextToken'
@@ -29,6 +30,7 @@ import { BASE_API_IMAGES_CLOUDINNARY, DEFAULT_AVATAR } from '../../api'
 import ModalElement from '../../components/element/modal'
 import { UploadImage } from '../../components/element/uploadImage'
 import { UseNotSesion } from '../../hooks/useNotSesion'
+import { HandleError } from '../../helpers/handleError'
 
 interface FromMiData {
   username: string
@@ -57,7 +59,7 @@ const MyData = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
 
     reset()
@@ -188,7 +190,7 @@ const MyData = () => {
       setTimeout(() => window.location.reload(), 1000)
     } catch (error) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(HandleError(error as AxiosError))
     }
   }
 
