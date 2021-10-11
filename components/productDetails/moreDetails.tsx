@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react'
 import {
@@ -22,6 +23,7 @@ import { GetProductReviews } from '../../api/products'
 import { GetReviewCombo } from '../../api/combos'
 import { BASE_API_IMAGES_CLOUDINNARY } from '../../api'
 import { HandleError } from '../../helpers/handleError'
+import PaginationElement from '../element/pagination'
 
 interface Props {
   idProduct?: string
@@ -47,6 +49,8 @@ const MoreDetails = ({
   }
 
   const [activeTab, setActiveTab] = useState<string>('1')
+  const [Count, setCount] = useState<number>(0)
+  const [SelectPage, setSelectPage] = useState<number>(1)
   const [ProductReviews, setReviews] = useState<ProductReview[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -61,34 +65,43 @@ const MoreDetails = ({
   }, [idCombo])
 
   useEffect(() => {
-    setLoading(true)
+    const fetchReviews = async (page: number) => {
+      setLoading(true)
 
-    try {
-      if (idProduct) {
-        const fetchReviews = async () => {
-          const { reviews } = await (await GetProductReviews({ idProduct }))
-            .data
-          setReviews(reviews)
-          setLoading(false)
-        }
-
-        fetchReviews()
+      try {
+        const { reviews, pages } = await (
+          await GetProductReviews({ idProduct: idProduct || '', page })
+        ).data
+        setReviews(reviews)
+        setCount(pages || 1)
+        setLoading(false)
+      } catch (error) {
+        toast.error(HandleError(error as AxiosError))
+        setLoading(false)
       }
-
-      if (idCombo) {
-        const fetchReviews = async () => {
-          const { reviews } = await (await GetReviewCombo({ idCombo })).data
-          setReviews(reviews)
-          setLoading(false)
-        }
-
-        fetchReviews()
-      }
-    } catch (error) {
-      toast.error(HandleError(error as AxiosError))
-      setLoading(false)
     }
-  }, [idProduct, idCombo])
+
+    const fetchReviewsCombo = async (page: number) => {
+      setLoading(true)
+
+      try {
+        const { reviews, pages } = await (
+          await GetReviewCombo({ idCombo: idCombo || '', page })
+        ).data
+        setReviews(reviews)
+        setCount(pages || 1)
+        setLoading(false)
+      } catch (error) {
+        toast.error(HandleError(error as AxiosError))
+        setLoading(false)
+      }
+    }
+
+    idProduct && fetchReviews(SelectPage || 1)
+    idCombo && fetchReviewsCombo(SelectPage || 1)
+
+    SelectPage > 1 && setActiveTab('1')
+  }, [idProduct, idCombo, SelectPage])
 
   return (
     <div>
@@ -134,6 +147,15 @@ const MoreDetails = ({
                   Por el momento no existen comentarios de este producto
                 </Alert>
               )}
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col className="col-auto">
+              <PaginationElement
+                pages={Count}
+                setSelectPage={setSelectPage}
+                SelectPage={SelectPage}
+              />
             </Col>
           </Row>
         </TabPane>

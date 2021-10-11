@@ -48,7 +48,7 @@ const Comentario = ({ review, loading }: Props) => {
         )}
       </Media>
       <Media body>
-        <Media heading className="p-1">
+        <Media className="p-1">
           {loading ? <Skeleton width={180} height={25} /> : review.userName}
         </Media>
         {loading ? (

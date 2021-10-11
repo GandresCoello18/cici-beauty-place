@@ -16,10 +16,13 @@ export const GetCombo = async (options: { idCombo: string }) => {
   return response
 }
 
-export const GetReviewCombo = async (options: { idCombo: string }) => {
+export const GetReviewCombo = async (options: {
+  idCombo: string
+  page: number
+}) => {
   const response = await api({
     method: 'GET',
-    url: `/combo/review/${options.idCombo}`,
+    url: `/combo/review/${options.idCombo}?page=${options.page}`,
   })
   return response
 }

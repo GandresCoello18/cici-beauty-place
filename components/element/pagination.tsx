@@ -39,7 +39,7 @@ const PaginationElement = ({ pages, setSelectPage, SelectPage }: Props) => {
 
   return (
     <Pagination aria-label="Page navigation example">
-      <PaginationItem disabled={!Count.length}>
+      <PaginationItem disabled={!Count.length || Count.length === 1}>
         <PaginationLink previous style={Styles.textColor} onClick={Previous} />
       </PaginationItem>
       {Count.map((item) => (

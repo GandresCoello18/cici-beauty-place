@@ -67,10 +67,13 @@ export const NewProductReviews = async (options: {
   return response
 }
 
-export const GetProductReviews = async (options: { idProduct: string }) => {
+export const GetProductReviews = async (options: {
+  idProduct: string
+  page: number
+}) => {
   const response = await api({
     method: 'GET',
-    url: `/products/review/${options.idProduct}`,
+    url: `/products/review/${options.idProduct}?page=${options.page}`,
   })
   return response
 }
