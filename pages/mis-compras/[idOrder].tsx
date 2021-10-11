@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
@@ -11,6 +12,7 @@ import { Badge } from 'reactstrap'
 import Skeleton from 'react-loading-skeleton'
 import { toast } from 'react-toast'
 import { AxiosError } from 'axios'
+import Link from 'next/link'
 import Layout from '../../components/layout'
 import CartResumne from '../../components/cart/cart-resumen'
 import QualifyOrder from '../../components/payment/qualifyOrder'
@@ -160,25 +162,51 @@ const DetailsCompra = () => {
                     {Details?.products.map((product) => (
                       <div className="row g-0" key={product.idProducts}>
                         <div className="col-3 col-md-1 mb-3">
-                          {loading ? (
-                            <Skeleton width={100} height={100} />
-                          ) : (
-                            <img
-                              src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
-                              width="100"
-                              height="100"
-                              alt={product.title}
-                            />
-                          )}
+                          <Link href={`/productos/${product.idProducts}`}>
+                            <a target="_blank" rel="noopener noreferrer">
+                              {loading ? (
+                                <Skeleton width={100} height={100} />
+                              ) : (
+                                <img
+                                  src={`${BASE_API_IMAGES_CLOUDINNARY}/${product.source}`}
+                                  width="100"
+                                  height="100"
+                                  alt={product.title}
+                                />
+                              )}
+                            </a>
+                          </Link>
                         </div>
                         <div className="col-9">
-                          <div className="card-body">
-                            {loading ? (
-                              <Skeleton width="70%" height={25} />
-                            ) : (
-                              <h5 className="card-title">{product.title}</h5>
-                            )}
-                          </div>
+                          <Link href={`/productos/${product.idProducts}`}>
+                            <a target="_blank" rel="noopener noreferrer">
+                              <div className="card-body">
+                                {loading ? (
+                                  <>
+                                    <Skeleton width="70%" height={25} />
+                                    <Skeleton width="20%" height={15} />
+                                    <Skeleton width="50%" height={15} />
+                                  </>
+                                ) : (
+                                  <h6
+                                    className="card-title"
+                                    style={{ color: '#696969' }}
+                                  >
+                                    {product.title}
+                                  </h6>
+                                )}
+                                X{' '}
+                                <strong style={{ color: '#696969' }}>
+                                  {product.quantity}
+                                </strong>
+                                <br />
+                                Estado:{' '}
+                                <strong style={{ color: '#696969' }}>
+                                  {Details?.status}
+                                </strong>
+                              </div>
+                            </a>
+                          </Link>
                         </div>
                         <div className="col-12 col-md-2">
                           {loading ? (

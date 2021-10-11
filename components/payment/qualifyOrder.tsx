@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
@@ -8,9 +9,11 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toast'
 import StarRatingComponent from 'react-star-rating-component'
 import { AxiosError } from 'axios'
+import { ImageListType } from 'react-images-uploading'
 import ModalElement from '../element/modal'
 import { NewProductReviews } from '../../api/products'
 import { TokenContext } from '../../context/contextToken'
+import { UploadImage } from '../element/uploadImage'
 import { HandleError } from '../../helpers/handleError'
 
 export interface FormCalifica {
@@ -33,18 +36,28 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
   const [Modal, setModal] = useState<boolean>(false)
   const [Loading, setLoading] = useState<boolean>(false)
   const [startCount, setStartCount] = useState<number>(0)
+  const [images, setImages] = useState<ImageListType>([])
   const { handleSubmit, register, reset } = methods
 
   const send = async (data: FormCalifica) => {
     setLoading(true)
-    console.log(data)
 
-    data.stars = startCount
-    data.idProduct = idProduct
-    data.idOrden = idOrden
+    const values = new FormData()
+    values.append('idProduct', idProduct)
+    values.append('stars', startCount.toString())
+    values.append('idOrden', idOrden)
+    values.append('commentary', data.commentary)
+    values.append('received', data.received)
+    values.append('recommendation', data.recommendation)
+
+    if (images.length) {
+      values.append('source_resena', images[0].file || '')
+    }
+
+    console.log(images)
 
     try {
-      await NewProductReviews({ token, data })
+      await NewProductReviews({ token, data: values })
       reset()
 
       setModal(false)
@@ -55,6 +68,8 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
       setLoading(false)
     }
   }
+
+  const onChange = (imageList: ImageListType) => setImages(imageList as never[])
 
   return (
     <>
@@ -194,12 +209,20 @@ const QualifyOrder = ({ idProduct, idOrden }: Props) => {
                 />
               </FormGroup>
 
+              <br />
+              <p>¡Muestrales a los demás como llego tu pedido!</p>
+
+              <UploadImage images={images} maxNumber={1} onChange={onChange} />
+
+              <br />
+
               <Button
                 type="submit"
+                block
                 disabled={Loading}
                 className="bg-cici text-dark"
               >
-                {Loading ? 'Guardando...' : 'Guardar'}
+                {Loading ? 'Enviando...' : 'Enviar'}
               </Button>
             </Form>
           </div>

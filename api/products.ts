@@ -1,5 +1,4 @@
 import { api } from '.'
-import { FormCalifica } from '../components/payment/qualifyOrder'
 
 export const GetProducts = async (options: { lastIdProduct?: string }) => {
   const response = await api({
@@ -57,15 +56,13 @@ export const GetSearchProducts = async (options: { key: string }) => {
 
 export const NewProductReviews = async (options: {
   token: string | undefined
-  data: FormCalifica
+  data: FormData
 }) => {
   api.defaults.headers['access-token'] = options.token
   const response = await api({
     method: 'POST',
     url: '/products/review',
-    data: {
-      ...options.data,
-    },
+    data: options.data,
   })
   return response
 }

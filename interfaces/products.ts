@@ -73,6 +73,7 @@ export interface ProductReview {
   created_at: Date | string
   userName: string
   avatar: string
+  source: string | null
 }
 
 export interface SeoProductReview {

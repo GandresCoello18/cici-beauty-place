@@ -3,10 +3,8 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import socketIOClient from 'socket.io-client'
-import { BASE_API } from '../../api'
 
 const WidgetD: any = dynamic(
   () => import('react-chat-widget').then((mod) => mod.Widget) as any,
@@ -31,13 +29,9 @@ interface Props {
   IsCart?: boolean
 }
 
-const socket = socketIOClient(BASE_API)
-
 const ChatWidget = ({ IsCart }: Props) => {
-  const NewMessage = (newMessage: any) => {
-    socket.emit('new-message', {
-      text: newMessage,
-    })
+  const NewMessage = () => {
+    addResponseMessage('Selcciona una de las opciones de abajo.')
   }
 
   const Rapid = (option: any) => {
@@ -53,9 +47,41 @@ const ChatWidget = ({ IsCart }: Props) => {
       return
     }
 
-    socket.emit('new-message', {
-      text: option,
-    })
+    if (option === '¿Con que metodos puedo pagar?') {
+      addResponseMessage(
+        'Puedes pagar directamente con Paypal o mediante trasferencia bancaria, para esto se necesita la confirmacion del pago.'
+      )
+
+      return
+    }
+
+    if (option === '¿Como llega mi orden a su lugar de destino?') {
+      addResponseMessage(
+        'Usamos los servicios de servientrega para hacer llegar tu orden y te notificaremos cada movimiento de tu orden por correo.'
+      )
+
+      return
+    }
+
+    if (option === '¿Como obtengo cupones para mis compras?') {
+      addResponseMessage(
+        'Recibiras un cupón gratis cuando te registres por primera vez, tambien puedes invitar a un amigo y recibiras cupones por las ordenes de tu invitado.'
+      )
+
+      return
+    }
+
+    if (option === '¿Quiero hablar con algun encargado de la tienda?') {
+      addResponseMessage(
+        'Puedes escribirnos a nuestra linea de WhatsApp (0980 378 869) o en nuestro email (team@cici.beauty).'
+      )
+
+      return
+    }
+
+    addResponseMessage(
+      'Cualquier otra duda que tengas escribenos en nuestra lina de WhatsApp (0980 378 869).'
+    )
   }
 
   useEffect(() => {
@@ -98,21 +124,6 @@ const ChatWidget = ({ IsCart }: Props) => {
       )
     }
   }, [IsCart])
-
-  const ListenMessate = useCallback(() => {
-    let LastSms1 = ''
-
-    socket.on('new-message', (data) => {
-      if (LastSms1 !== data.text) {
-        addResponseMessage(data.text)
-        LastSms1 = data.text
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    ListenMessate()
-  }, [ListenMessate])
 
   return (
     <div className="d-none d-md-block">

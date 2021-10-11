@@ -64,12 +64,14 @@ export const UploadImage = ({ images, maxNumber, onChange }: Props) => {
                 />
                 <div className="image-item__btn-wrapper">
                   <Button
+                    outline
                     onClick={() => onImageUpdate(index)}
                     color="secondary"
                   >
                     Cambiar
                   </Button>
                   <Button
+                    outline
                     className="ml-2"
                     color="danger"
                     onClick={() => onImageRemove(index)}

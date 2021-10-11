@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable unicorn/prefer-add-event-listener */
 /* eslint-disable no-console */
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { ReactPhotoCollage } from 'react-photo-collage'
 import StarRatingComponent from 'react-star-rating-component'
 import { Media } from 'reactstrap'
+import { BASE_API_IMAGES_CLOUDINNARY_SCALE, DEFAULT_AVATAR } from '../../api'
 import { SourceAvatar } from '../../helpers/sourceAvatar'
 import { ProductReview } from '../../interfaces/products'
 
@@ -12,6 +16,18 @@ interface Props {
 }
 
 const Comentario = ({ review, loading }: Props) => {
+  const setting = {
+    width: '180px',
+    height: ['250px', '170px'],
+    layout: [1],
+    photos: [
+      {
+        source: `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${review.source}`,
+      },
+    ],
+    showNumOfRemainingPhotos: true,
+  }
+
   return (
     <Media>
       <Media left>
@@ -24,6 +40,10 @@ const Comentario = ({ review, loading }: Props) => {
             data-srce="holder.js/64x64"
             src={SourceAvatar(review.avatar)}
             alt={review.userName}
+            onError={(e: any) => {
+              e.target.onerror = null
+              e.target.src = `${BASE_API_IMAGES_CLOUDINNARY_SCALE}/${DEFAULT_AVATAR}`
+            }}
           />
         )}
       </Media>
@@ -49,6 +69,8 @@ const Comentario = ({ review, loading }: Props) => {
         ) : (
           <p className="p-1">
             {review.commentary}
+            <br />
+            {review.source ? <ReactPhotoCollage {...setting} /> : ''}
             <br />
             <span className="text-secondary">({review.created_at})</span>
           </p>
