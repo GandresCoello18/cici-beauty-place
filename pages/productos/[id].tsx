@@ -72,7 +72,7 @@ const ProductId = () => {
 
       const fetchReviews = async () => {
         const { reviews } = await (
-          await GetProductReviews({ idProduct: id as string })
+          await GetProductReviews({ idProduct: id as string, page: 1 })
         ).data
 
         const resultReview: ProductReview[] = reviews
